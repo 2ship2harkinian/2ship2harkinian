@@ -4,13 +4,13 @@
 #include <ship/resource/ResourceFactoryBinary.h>
 
 namespace SOH {
-class ResourceFactoryBinaryKeyFrameSkel : public Ship::ResourceFactoryBinary {
+class ResourceFactoryBinaryKeyFrameSkel final : public Ship::ResourceFactoryBinary {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::File> file,
                                                   std::shared_ptr<Ship::ResourceInitData> initData) override;
 };
 
-class ResourceFactoryBinaryKeyFrameAnim : public Ship::ResourceFactoryBinary {
+class ResourceFactoryBinaryKeyFrameAnim final : public Ship::ResourceFactoryBinary {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::File> file,
                                                   std::shared_ptr<Ship::ResourceInitData> initData) override;

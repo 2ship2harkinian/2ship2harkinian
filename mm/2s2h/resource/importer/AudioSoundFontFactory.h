@@ -6,13 +6,13 @@
 #include "resource/type/AudioSoundFont.h"
 
 namespace SOH {
-class ResourceFactoryBinaryAudioSoundFontV2 : public Ship::ResourceFactoryBinary {
+class ResourceFactoryBinaryAudioSoundFontV2 final : public Ship::ResourceFactoryBinary {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::File> file,
                                                   std::shared_ptr<Ship::ResourceInitData> initData) override;
 };
 
-class ResourceFactoryXMLSoundFontV0 : public Ship::ResourceFactoryXML {
+class ResourceFactoryXMLSoundFontV0 final : public Ship::ResourceFactoryXML {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::File> file,
                                                   std::shared_ptr<Ship::ResourceInitData> initData) override;
