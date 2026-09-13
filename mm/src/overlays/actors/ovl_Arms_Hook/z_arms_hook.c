@@ -79,6 +79,7 @@ void ArmsHook_Wait(ArmsHook* this, PlayState* play) {
         Actor_SetSpeeds(&this->actor, 20.0f);
         this->actor.parent = &GET_PLAYER(play)->actor;
         this->timer = 26;
+        GameInteractor_Should(VB_HOOKSHOT_SHOOT, true, this);
     }
 }
 
@@ -208,6 +209,9 @@ void ArmsHook_Shoot(ArmsHook* this, PlayState* play) {
                 } else {
                     velocity = 200.0f;
                 }
+
+                GameInteractor_Should(VB_HOOKSHOT_SET_SPEED, true, &velocity);
+
                 phi_f16 = bodyDistDiff - velocity;
                 if (bodyDistDiff <= velocity) {
                     phi_f16 = 0.0f;
