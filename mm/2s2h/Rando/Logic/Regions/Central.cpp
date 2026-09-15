@@ -104,7 +104,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_07, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_08, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_09, true),
-            CHECK(RC_CLOCK_TOWN_EAST_DEKU_FLOWER_NEAR_INN, CAN_BE_DEKU),
+            CHECK(RC_CLOCK_TOWN_EAST_NEAR_INN_DEKU_FLOWER, CAN_BE_DEKU),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 7),                ENTRANCE(EAST_CLOCK_TOWN, 0), true),
@@ -176,8 +176,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_BOMBERS_NOTEBOOK, RANDO_EVENTS[RE_BOMBER_CODE]),
             CHECK(RC_CLOCK_TOWN_POSTBOX, HAS_ITEM(ITEM_MASK_POSTMAN)),
             CHECK(RC_KEATON_QUIZ, HAS_ITEM(ITEM_MASK_KEATON)),
-            CHECK(RC_CLOCK_TOWN_NORTH_DEKU_FLOWER_OUTSIDE_FENCE, CAN_BE_DEKU),
-            CHECK(RC_CLOCK_TOWN_NORTH_DEKU_FLOWER_INISDE_FENCE, CAN_BE_DEKU),
+            CHECK(RC_CLOCK_TOWN_NORTH_OUTSIDE_FENCE_DEKU_FLOWER, CAN_BE_DEKU),
+            CHECK(RC_CLOCK_TOWN_NORTH_INSIDE_FENCE_DEKU_FLOWER, CAN_BE_DEKU),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 8),                ENTRANCE(NORTH_CLOCK_TOWN, 0), true),
@@ -227,7 +227,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_01, CAN_USE_PROJECTILE),
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_02, CAN_USE_PROJECTILE),
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_03, CAN_USE_PROJECTILE),
-            CHECK(RC_CLOCK_TOWN_SOUTH_MERCHANT_DEKU_FLOWER, (CAN_BE_DEKU && Flags_GetRandoInf(RANDO_INF_OBTAINED_MOONS_TEAR))),
+            CHECK(RC_CLOCK_TOWN_SOUTH_SCRUB_DEKU_FLOWER, (CAN_BE_DEKU && Flags_GetRandoInf(RANDO_INF_OBTAINED_MOONS_TEAR))),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(CLOCK_TOWER_INTERIOR, 1),         ENTRANCE(SOUTH_CLOCK_TOWN, 0), true),
@@ -450,6 +450,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_DEKU_PLAYGROUND_DAY_3_RUPEE_04, RANDO_EVENTS[RE_DEKU_PLAYGROUND_3]),
             CHECK(RC_DEKU_PLAYGROUND_DAY_3_RUPEE_05, RANDO_EVENTS[RE_DEKU_PLAYGROUND_3]),
             CHECK(RC_DEKU_PLAYGROUND_DAY_3_RUPEE_06, RANDO_EVENTS[RE_DEKU_PLAYGROUND_3]),
+            CHECK(RC_DEKU_PLAYGROUND_SCRUB_DEKU_FLOWER_1, CAN_BE_DEKU),
+            CHECK(RC_DEKU_PLAYGROUND_SCRUB_DEKU_FLOWER_2, CAN_BE_DEKU),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(NORTH_CLOCK_TOWN, 4),             ENTRANCE(DEKU_SCRUB_PLAYGROUND, 0), true),
