@@ -223,6 +223,36 @@ static RegisterShipInitFunc registerSavingEnhancements(
             }
             gSaveContext.shipSaveContext.lastTimeLog = GetUnixTimestamp();
             lastEntrance = entranceToSave = gSaveContext.save.shipSaveInfo.pauseSaveEntrance;
+
+            // Load correct scene layer for shared scenes with altered clear states
+            // See Play_Init for reference
+            s32 scene = gSaveContext.save.entrance >> 9;
+
+            if (CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_SNOWHEAD_TEMPLE) &&
+                (scene == ENTR_SCENE_SNOWHEAD || scene == ENTR_SCENE_PATH_TO_SNOWHEAD ||
+                 scene == ENTR_SCENE_PATH_TO_MOUNTAIN_VILLAGE || scene == ENTR_SCENE_GORON_SHRINE ||
+                 scene == ENTR_SCENE_GORON_RACETRACK)) {
+                gSaveContext.nextCutsceneIndex = 0xFFF0;
+            }
+
+            if (CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_WOODFALL_TEMPLE) && scene == ENTR_SCENE_WOODFALL) {
+                gSaveContext.nextCutsceneIndex = 0xFFF1;
+            }
+
+            if (CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_STONE_TOWER_TEMPLE) && scene == ENTR_SCENE_IKANA_CANYON) {
+                gSaveContext.nextCutsceneIndex = 0xFFF2;
+            }
+
+            if (CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_GREAT_BAY_TEMPLE) &&
+                (scene == ENTR_SCENE_GREAT_BAY_COAST || scene == ENTR_SCENE_ZORA_CAPE)) {
+                gSaveContext.nextCutsceneIndex = 0xFFF0;
+            }
+
+            if (GameInteractor_Should(VB_TERMINA_FIELD_BE_EMPTY,
+                                      INV_CONTENT(ITEM_OCARINA_OF_TIME) != ITEM_OCARINA_OF_TIME) &&
+                scene == ENTR_SCENE_TERMINA_FIELD && gSaveContext.save.entrance != ENTRANCE(TERMINA_FIELD, 10)) {
+                gSaveContext.nextCutsceneIndex = 0xFFF4;
+            }
         });
 
         // Owl statue prompt
