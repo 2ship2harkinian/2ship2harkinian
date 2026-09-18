@@ -114,6 +114,8 @@ void Rando::MiscBehavior::AfterEndOfCycleSave() {
                 gSaveContext.cycleSceneFlags[randoStaticCheck.sceneId].collectible &=
                     ~(1 << (randoStaticCheck.flag & 0x1F));
                 break;
+            default: // Only the cycle-scoped flag types get cleared here.
+                break;
         }
     }
 

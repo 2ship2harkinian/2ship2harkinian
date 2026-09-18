@@ -628,7 +628,7 @@ const std::vector<FlagTable> flagTables = {
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_BOMBERS_NOTEBOOK, "Notebook Item: Bombers Code" },
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_MAYOR_HP, "Notebook Item: Mayor Dotour Piece of Heart" },
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_ROSA_SISTERS_HP, "Notebook Item: Rosa Sisters Piece of Heart" },
-          { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_TOILET_HAND_HP, "Notebook Item: ???'s Piece of Heart" },
+          { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_TOILET_HAND_HP, "Notebook Item: ??\?'s Piece of Heart" },
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_GRANDMA_SHORT_STORY_HP, "Notebook Item: Carnival of Time Piece of Heart" },
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_GRANDMA_LONG_STORY_HP, "Notebook Item: Four Giants Piece of Heart" },
           { PERSISTENT, WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_RECEIVED_POSTMAN_HP, "Notebook Item: Postman Piece of Heart" },
