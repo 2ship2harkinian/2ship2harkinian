@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "src/overlays/actors/ovl_En_An/z_en_an.h"
@@ -36,7 +37,7 @@ static void SkipHandleCouplesMaskCs(EnTest3* kafei) {
     kafei->player.yaw = ROTATION.y;
 
     if (GameInteractor_Should(VB_GIVE_ITEM_FROM_DMCHAR05, true, ITEM_MASK_COUPLE)) {
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+        GameInteractor::Instance->Queue(GIActions::GiveItem({
             .showGetItemCutscene = true,
             .param = GID_MASK_COUPLE,
             .giveItem =
@@ -50,7 +51,7 @@ static void SkipHandleCouplesMaskCs(EnTest3* kafei) {
 
                     Item_Give(play, ITEM_MASK_COUPLE);
                 },
-        });
+        }));
     }
 
     anju->actor.textId = NOTEBOOK_EVENTS_TEXT_ID;

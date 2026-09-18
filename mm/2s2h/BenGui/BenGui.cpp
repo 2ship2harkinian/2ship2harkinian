@@ -29,6 +29,7 @@
 #include "Enhancements/Trackers/TimeSplits/TimesplitsSettings.h"
 #include "BenMenu.h"
 #include "BenMenuBar.h"
+#include "DeveloperTools/ActionDebugger.h"
 #include "DeveloperTools/HookDebugger.h"
 #include "DeveloperTools/SaveEditor.h"
 #include "DeveloperTools/ActorViewer.h"
@@ -47,6 +48,7 @@ std::shared_ptr<Ship::GuiWindow> mStatsWindow;
 std::shared_ptr<Ship::GuiWindow> mGfxDebuggerWindow;
 std::shared_ptr<Ship::GuiWindow> mInputEditorWindow;
 
+std::shared_ptr<ActionDebuggerWindow> mActionDebuggerWindow;
 std::shared_ptr<HookDebuggerWindow> mHookDebuggerWindow;
 std::shared_ptr<SaveEditorWindow> mSaveEditorWindow;
 std::shared_ptr<HudEditorWindow> mHudEditorWindow;
@@ -111,6 +113,10 @@ void SetupGuiElements() {
     if (mInputEditorWindow == nullptr) {
         SPDLOG_ERROR("Could not find input editor window");
     }
+
+    mActionDebuggerWindow =
+        std::make_shared<ActionDebuggerWindow>("gWindows.ActionDebugger", "Action Debugger", ImVec2(560, 680));
+    gui->AddGuiWindow(mActionDebuggerWindow);
 
     mHookDebuggerWindow =
         std::make_shared<HookDebuggerWindow>("gWindows.HookDebugger", "Hook Debugger", ImVec2(480, 600));
@@ -201,6 +207,7 @@ void Destroy() {
     mRandoCheckTrackerWindow = nullptr;
     mRandoCheckTrackerSettingsWindow = nullptr;
 
+    mActionDebuggerWindow = nullptr;
     mHookDebuggerWindow = nullptr;
     mSaveEditorWindow = nullptr;
     mHudEditorWindow = nullptr;

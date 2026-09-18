@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "overlays/actors/ovl_En_Rz/z_en_rz.h"
@@ -26,19 +27,19 @@ void RegisterSkipRosaSistersDance() {
                 // Queue the item check, as Actor_OfferGetItem won't work normally
                 // WEEKEVENTREG_RECEIVED_ROSA_SISTERS_HEART_PIECE is set once the player obtains this Heart Piece.
                 if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_ROSA_SISTERS_HEART_PIECE) && !IS_RANDO) {
-                    GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                        .showGetItemCutscene = true,
-                        .param = GID_HEART_PIECE,
-                        .giveItem = [](Actor* actor, PlayState* play) {
-                            if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                                CustomMessage::SetActiveCustomMessage("You received a Piece of Heart!",
-                                                                      { .textboxType = 2 });
-                            } else {
-                                CustomMessage::StartTextbox("You received a Piece of Heart!\x1C\x02\x10",
-                                                            { .textboxType = 2 });
-                            }
-                            Item_Give(gPlayState, ITEM_HEART_PIECE);
-                        } });
+                    GameInteractor::Instance->Queue(GIActions::GiveItem(
+                        { .showGetItemCutscene = true,
+                          .param = GID_HEART_PIECE,
+                          .giveItem = [](Actor* actor, PlayState* play) {
+                              if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                                  CustomMessage::SetActiveCustomMessage("You received a Piece of Heart!",
+                                                                        { .textboxType = 2 });
+                              } else {
+                                  CustomMessage::StartTextbox("You received a Piece of Heart!\x1C\x02\x10",
+                                                              { .textboxType = 2 });
+                              }
+                              Item_Give(gPlayState, ITEM_HEART_PIECE);
+                          } }));
                 }
                 Player* player = GET_PLAYER(gPlayState);
                 actor->parent = &player->actor;

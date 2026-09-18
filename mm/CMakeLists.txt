@@ -113,6 +113,11 @@ endif()
 
 list(FILTER ship__ EXCLUDE REGEX "2s2h/Extractor/*")
 
+option(SKIP_NETWORKING "Skip networking support (Sail remote control), avoiding the SDL2_net 2.2.0 dependency" OFF)
+if (SKIP_NETWORKING)
+    list(FILTER ship__ EXCLUDE REGEX "2s2h/Network/*")
+endif()
+
 if(NOT CMAKE_SYSTEM_NAME MATCHES "NintendoSwitch|CafeOS")
     file(GLOB_RECURSE ship__Extractor RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
         "2s2h/Extractor/*.c"
@@ -223,8 +228,8 @@ endif()
 find_package(SDL2)
 set(SDL2-INCLUDE ${SDL2_INCLUDE_DIRS})
 
-if (BUILD_CROWD_CONTROL)
-    find_package(SDL2_net)
+if (NOT SKIP_NETWORKING)
+    find_package(SDL2_net 2.2.0 REQUIRED)
     set(SDL2-NET-INCLUDE ${SDL_NET_INCLUDE_DIRS})
 endif()
 
@@ -253,9 +258,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
 		"$<$<CONFIG:Release>:"
 			"NDEBUG;"
 		">"
-           #"$<$<BOOL:${BUILD_CROWD_CONTROL}>:ENABLE_CROWD_CONTROL>"
 		"INCLUDE_GAME_PRINTF;"
-           #"ENABLE_CROWD_CONTROL;"
 		"F3DEX_GBI_2"
 		"UNICODE;"
 		"_UNICODE"
@@ -289,7 +292,6 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU|Clang|AppleClang")
 			"NDEBUG;"
 		">"
         "F3DEX_GBI_2;"
-		# "$<$<BOOL:${BUILD_CROWD_CONTROL}>:ENABLE_CROWD_CONTROL>"
 		"_CONSOLE;"
 		"_CRT_SECURE_NO_WARNINGS;"
 		"ENABLE_OPENGL;"
@@ -560,7 +562,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
 		"glu32;"
 		"SDL2::SDL2;"
 		"SDL2::SDL2main;"
-        #"$<$<BOOL:${BUILD_CROWD_CONTROL}>:SDL2_net::SDL2_net-static>"
+        "$<$<NOT:$<BOOL:${SKIP_NETWORKING}>>:SDL2_net::SDL2_net-static>"
 		"glfw;"
 		"winmm;"
 		"imm32;"
@@ -613,7 +615,7 @@ else()
         "Opus::opus"
         "Opusfile::Opusfile"
 		SDL2::SDL2
- #       "$<$<BOOL:${BUILD_CROWD_CONTROL}>:SDL2_net::SDL2_net>"
+        "$<$<NOT:$<BOOL:${SKIP_NETWORKING}>>:SDL2_net::SDL2_net>"
 		${CMAKE_DL_LIBS}
 		Threads::Threads
 	)

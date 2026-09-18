@@ -428,6 +428,10 @@ std::string GetActorCategoryName(u8 category) {
     return "Unknown";
 }
 
+bool IsStringEmpty(const std::string& str) {
+    return str.find_first_not_of(' ') == std::string::npos;
+}
+
 extern "C" {
 Vtx sCycleExtraItemVtx[8] = {
     // Left Item
