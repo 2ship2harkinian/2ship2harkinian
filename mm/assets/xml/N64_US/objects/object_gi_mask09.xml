@@ -11,9 +11,9 @@
 
         <!-- Garo's Mask Texture -->
         <Texture Name="gGiGarosMaskEyeTex" OutName="gi_garo_mask_eye" Format="i8" Width="16" Height="16" Offset="0xFA0" />
-        <Texture Name="gGiGarosMaskUpperSidePatternTex" OutName="gi_garo_mask_upper_side_pattern" Format="ci8" Width="16" Height="8" Offset="0x10A0" />
-        <Texture Name="gGiGarosMaskFrontPatternTex" OutName="gi_garo_mask_front_pattern" Format="ci8" Width="16" Height="32" Offset="0x1120" />
-        <Texture Name="gGiGarosMaskLowerSidePatternTex" OutName="gi_garo_mask_lower_side_pattern" Format="ci8" Width="32" Height="32" Offset="0x1320" />
-        <Texture Name="gGiGarosMaskTopPatternTex" OutName="gi_garo_mask_top_pattern" Format="ci8" Width="8" Height="8" Offset="0x1720" />
+        <Texture Name="gGiGarosMaskUpperSidePatternTex" OutName="gi_garo_mask_upper_side_pattern" Format="ci8" Width="16" Height="8" Offset="0x10A0" TlutOffset="0xDA0"/>
+        <Texture Name="gGiGarosMaskFrontPatternTex" OutName="gi_garo_mask_front_pattern" Format="ci8" Width="16" Height="32" Offset="0x1120" TlutOffset="0xDA0"/>
+        <Texture Name="gGiGarosMaskLowerSidePatternTex" OutName="gi_garo_mask_lower_side_pattern" Format="ci8" Width="32" Height="32" Offset="0x1320" TlutOffset="0xDA0"/>
+        <Texture Name="gGiGarosMaskTopPatternTex" OutName="gi_garo_mask_top_pattern" Format="ci8" Width="8" Height="8" Offset="0x1720" TlutOffset="0xDA0"/>
     </File>
 </Root>

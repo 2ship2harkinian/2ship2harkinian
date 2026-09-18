@@ -154,7 +154,7 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // CHECK_WEEKEVENTREG(WEEKEVENTREG_73_80) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
+    // CHECK_WEEKEVENTREG(WEEKEVENTREG_ENTERED_BOMBERS_CODE) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
     // ```
     // #### `args`
     // - `*EnBomBowlMan` (unused)
@@ -1437,7 +1437,8 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // WaterBox_GetSurface1(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) && ((sp44 - sp48) > 50.0f)
+    // BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) &&
+    // ((sp44 - sp48) > 50.0f)
     // ```
     // #### `args`
     // - None
@@ -2331,7 +2332,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*s32` (which boss remains to return, see `func_808B849C`)
+    // - `*s32` (which boss remains to return, see `DoorWarp1_GetRemains`)
     VB_SPAWN_BOSS_REMAINS,
 
     // #### `result`

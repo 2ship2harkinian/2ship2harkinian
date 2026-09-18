@@ -84,7 +84,7 @@
         <Limb Name="object_horse_link_child_Skinlimb_00A398" Type="Skin" EnumName="OBJECT_HORSE_LINK_CHILD_LIMB_2C" Offset="0xA398" />
         <Limb Name="object_horse_link_child_Skinlimb_00A3A8" Type="Skin" EnumName="OBJECT_HORSE_LINK_CHILD_LIMB_2D" Offset="0xA3A8" />
         <Limb Name="object_horse_link_child_Skinlimb_00A3B8" Type="Skin" EnumName="OBJECT_HORSE_LINK_CHILD_LIMB_2E" Offset="0xA3B8" />
-        <Skeleton Name="gEponaSkel" Type="Normal" LimbType="Standard" LimbNone="OBJECT_HORSE_LINK_CHILD_LIMB_NONE" LimbMax="OBJECT_HORSE_LINK_CHILD_LIMB_MAX" EnumName="ObjectHorseLinkChildLimb" Offset="0xA480" />
+        <Skeleton Name="gEponaSkel" Type="Normal" LimbType="Skin" LimbNone="OBJECT_HORSE_LINK_CHILD_LIMB_NONE" LimbMax="OBJECT_HORSE_LINK_CHILD_LIMB_MAX" EnumName="ObjectHorseLinkChildLimb" Offset="0xA480" />
 
         <Animation Name="object_horse_link_child_Anim_00A8DC" Offset="0xA8DC" /> <!-- Original name is "hlc_inanaki" -->
         <Animation Name="object_horse_link_child_Anim_00AD08" Offset="0xAD08" /> <!-- Original name is "hlc_inanaki_modori" -->

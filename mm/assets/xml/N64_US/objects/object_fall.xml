@@ -50,7 +50,7 @@
         <Texture Name="gMoonFaceTLUT" OutName="moon_face_tlut" Format="rgba16" Width="4" Height="4" Offset="0x8318" />
         <Texture Name="gMoonEyeTex" OutName="moon_eye" Format="rgba16" Width="32" Height="32" Offset="0x8338" />
         <Texture Name="gMoonTeethTex" OutName="moon_teeth" Format="rgba16" Width="64" Height="32" Offset="0x8B38" />
-        <Texture Name="gMoonFarSideTex" OutName="moon_far_side" Format="ci4" Width="64" Height="64" Offset="0x9B38" />
-        <Texture Name="gMoonFaceTex" OutName="moon_face" Format="ci4" Width="64" Height="64" Offset="0xA338" />
+        <Texture Name="gMoonFarSideTex" OutName="moon_far_side" Format="ci4" Width="64" Height="64" Offset="0x9B38" TlutOffset="0x82F8"/>
+        <Texture Name="gMoonFaceTex" OutName="moon_face" Format="ci4" Width="64" Height="64" Offset="0xA338" TlutOffset="0x8318"/>
     </File>
 </Root>

@@ -100,8 +100,8 @@ void EnSyatekiOkuta_Init(Actor* thisx, PlayState* play) {
     this->actor.floorHeight =
         BgCheck_EntityRaycastFloor5(&play->colCtx, &this->actor.floorPoly, &bgId, &this->actor, &this->actor.world.pos);
 
-    if (!WaterBox_GetSurface1_2(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &ySurface,
-                                &waterbox) ||
+    if (!BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &ySurface,
+                                       &waterbox) ||
         (ySurface <= this->actor.floorHeight)) {
         Actor_Kill(&this->actor);
     } else {
@@ -559,7 +559,7 @@ void EnSyatekiOkuta_Draw(Actor* thisx, PlayState* play) {
 
     Gfx_SetupDL25_Opa(play->state.gfxCtx);
     if (this->type == SG_OCTO_TYPE_RED) {
-        gSPSegment(POLY_OPA_DISP++, 0x08, D_801AEFA0);
+        gSPSegment(POLY_OPA_DISP++, 0x08, gActorSetupOpaDL);
     } else {
         gSPSegment(POLY_OPA_DISP++, 0x08, gShootingGalleryOctorokBlueMaterialDL);
     }

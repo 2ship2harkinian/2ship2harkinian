@@ -559,8 +559,8 @@ f32 BgCheck_RaycastFloorStaticList(CollisionContext* colCtx, u16 xpFlags, SSList
 
         if (((flags & 1) && (colPoly->normal.y < 0)) ||
             ((arg9 & 0x20) && ((colCtx->colHeader->surfaceTypeList[colPoly->type].data[0] >> 0x1E) & 1)) ||
-            COLPOLY_VIA_FLAG_TEST(colPoly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(colPoly->flags_vIB, 4) &&
+            COLPOLY_VTX_CHECK_FLAGS_ANY(colPoly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(colPoly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -710,8 +710,8 @@ s32 BgCheck_SphVsStaticWall(StaticLookup* lookup, CollisionContext* colCtx, u16 
         nz = COLPOLY_GET_NORMAL(curPoly->normal.z);
         normalXZ = sqrtf(SQ(nx) + SQ(nz));
         planeDist = Math3D_DistPlaneToPos(nx, ny, nz, curPoly->dist, &resultPos);
-        if (radius < fabsf(planeDist) || COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIB, 4) &&
+        if (radius < fabsf(planeDist) || COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -798,8 +798,8 @@ s32 BgCheck_SphVsStaticWall(StaticLookup* lookup, CollisionContext* colCtx, u16 
         nz = COLPOLY_GET_NORMAL(curPoly->normal.z);
         normalXZ = sqrtf(SQ(nx) + SQ(nz));
         planeDist = Math3D_DistPlaneToPos(nx, ny, nz, curPoly->dist, &resultPos);
-        if (radius < fabsf(planeDist) || COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIB, 4) &&
+        if (radius < fabsf(planeDist) || COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -905,8 +905,8 @@ s32 BgCheck_CheckStaticCeiling(StaticLookup* lookup, u16 xpFlags, CollisionConte
 
         curPolyId = curNode->polyId;
         curPoly = &polyList[curPolyId];
-        if (COLPOLY_VIA_FLAG_TEST(colCtx->colHeader->polyList[curPolyId].flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(colCtx->colHeader->polyList[curPolyId].flags_vIB, 4) &&
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(colCtx->colHeader->polyList[curPolyId].flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(colCtx->colHeader->polyList[curPolyId].flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -974,9 +974,9 @@ s32 BgCheck_CheckLineAgainstSSList(StaticLineTest* arg0) {
         checkedPoly = &arg0->colCtx->polyNodes.polyCheckTbl[polyId];
 
         if ((*checkedPoly == true) ||
-            ((arg0->xpFlags2 != 0) && !COLPOLY_VIA_FLAG_TEST(test.poly->flags_vIA, arg0->xpFlags2)) ||
-            COLPOLY_VIA_FLAG_TEST(test.poly->flags_vIA, arg0->xpFlags1) ||
-            (COLPOLY_VIA_FLAG_TEST(test.poly->flags_vIB, 4) &&
+            ((arg0->xpFlags2 != 0) && !COLPOLY_VTX_CHECK_FLAGS_ANY(test.poly->flags_vIA, arg0->xpFlags2)) ||
+            COLPOLY_VTX_CHECK_FLAGS_ANY(test.poly->flags_vIA, arg0->xpFlags1) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(test.poly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((arg0->actor != NULL) && (arg0->actor->category != ACTORCAT_PLAYER)) ||
               ((arg0->actor == NULL) && (arg0->xpFlags1 != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -1061,8 +1061,8 @@ s32 BgCheck_SphVsFirstStaticPolyList(SSNode* node, u16 xpFlags, CollisionContext
     while (true) {
         curPolyId = node->polyId;
         curPoly = &polyList[curPolyId];
-        if (COLPOLY_VIA_FLAG_TEST(colCtx->colHeader->polyList[curPolyId].flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(colCtx->colHeader->polyList[curPolyId].flags_vIB, 4) &&
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(colCtx->colHeader->polyList[curPolyId].flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(colCtx->colHeader->polyList[curPolyId].flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (node->next != SS_NULL) {
@@ -3001,8 +3001,8 @@ void DynaPoly_AddBgActorToLookup(PlayState* play, DynaCollisionContext* dyna, s3
             vIB = (COLPOLY_VTX_INDEX(newPoly->flags_vIB) + *vtxStartIndex);
             vIC = newPoly->vIC + *vtxStartIndex;
 
-            newPoly->flags_vIA = vIA | (newPoly->flags_vIA & 0xE000);
-            newPoly->flags_vIB = vIB | (newPoly->flags_vIB & 0xE000);
+            newPoly->flags_vIA = vIA | COLPOLY_VTX_FLAGS_MASKED(newPoly->flags_vIA);
+            newPoly->flags_vIB = vIB | COLPOLY_VTX_FLAGS_MASKED(newPoly->flags_vIB);
             newPoly->vIC = vIC;
             dVtxList = dyna->vtxList;
             vtxA.x = dVtxList[vIA].x;
@@ -3189,8 +3189,8 @@ f32 BgCheck_RaycastFloorDynaList(DynaRaycast* dynaRaycast, u32 listType) {
 
     while (true) {
         id = curNode->polyId;
-        if (COLPOLY_VIA_FLAG_TEST(polyList[id].flags_vIA, dynaRaycast->xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(polyList[id].flags_vIB, 4) &&
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(polyList[id].flags_vIA, dynaRaycast->xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(polyList[id].flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((dynaRaycast->actor != NULL) && (dynaRaycast->actor->category != ACTORCAT_PLAYER)) ||
               ((dynaRaycast->actor == NULL) && (dynaRaycast->xpFlags != COLPOLY_IGNORE_CAMERA)))) ||
             ((dynaRaycast->unk_24 & 0x20) &&
@@ -3396,9 +3396,10 @@ s32 BgCheck_SphVsDynaWallInBgActor(CollisionContext* colCtx, u16 xpFlags, DynaCo
         normalXZ = sqrtf(SQ(nx) + SQ(nz));
 
         planeDist = Math3D_DistPlaneToPos(nx, ny, nz, poly->dist, &resultPos);
-        if (radius < fabsf(planeDist) || COLPOLY_VIA_FLAG_TEST(poly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(poly->flags_vIB, 4) && (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
-                                                           ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
+        if (radius < fabsf(planeDist) || COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
+             (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
+              ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
                 break;
             } else {
@@ -3472,9 +3473,10 @@ s32 BgCheck_SphVsDynaWallInBgActor(CollisionContext* colCtx, u16 xpFlags, DynaCo
         normalXZ = sqrtf(SQ(nx) + SQ(nz));
 
         planeDist = Math3D_DistPlaneToPos(nx, ny, nz, poly->dist, &resultPos);
-        if (radius < fabsf(planeDist) || COLPOLY_VIA_FLAG_TEST(poly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(poly->flags_vIB, 4) && (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
-                                                           ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
+        if (radius < fabsf(planeDist) || COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
+             (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
+              ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
                 break;
             } else {
@@ -3632,9 +3634,10 @@ s32 BgCheck_CheckDynaCeilingList(CollisionContext* colCtx, u16 xpFlags, DynaColl
     while (true) {
         polyId = curNode->polyId;
         poly = &dyna->polyList[polyId];
-        if (COLPOLY_VIA_FLAG_TEST(poly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(poly->flags_vIB, 4) && (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
-                                                           ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
+             (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
+              ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
                 break;
             } else {
@@ -3740,8 +3743,8 @@ s32 BgCheck_CheckLineAgainstBgActorSSList(DynaLineTest* dynaLineTest) {
     while (true) {
         polyId = curNode->polyId;
         test.poly = &dynaLineTest->dyna->polyList[polyId];
-        if (COLPOLY_VIA_FLAG_TEST(test.poly->flags_vIA, dynaLineTest->xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(test.poly->flags_vIB, 4) &&
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(test.poly->flags_vIA, dynaLineTest->xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(test.poly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((dynaLineTest->actor != NULL) && (dynaLineTest->actor->category != ACTORCAT_PLAYER)) ||
               ((dynaLineTest->actor == NULL) && (dynaLineTest->xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -3880,8 +3883,8 @@ s32 BgCheck_SphVsFirstDynaPolyList(CollisionContext* colCtx, u16 xpFlags, Collis
     while (true) {
         curPolyId = curNode->polyId;
         curPoly = &dyna->polyList[curPolyId];
-        if (COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIA, xpFlags) ||
-            (COLPOLY_VIA_FLAG_TEST(curPoly->flags_vIB, 4) &&
+        if (COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIA, xpFlags) ||
+            (COLPOLY_VTX_CHECK_FLAGS_ANY(curPoly->flags_vIB, COLPOLY_VIB_FLAG_4) &&
              (((actor != NULL) && (actor->category != ACTORCAT_PLAYER)) ||
               ((actor == NULL) && (xpFlags != COLPOLY_IGNORE_CAMERA))))) {
             if (curNode->next == SS_NULL) {
@@ -4322,17 +4325,22 @@ s32 SurfaceType_IsFloorConveyor(CollisionContext* colCtx, CollisionPoly* poly, s
     if (poly == NULL) {
         return false;
     }
-    flags = poly->flags_vIB & 0x2000;
+    flags = COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIB, COLPOLY_IS_FLOOR_CONVEYOR);
     return !!flags;
 }
 
-s32 func_800C9DDC(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId) {
+/**
+ * Checks if poly is a dive spot for Deku Link
+ *
+ * Returns true if the floor is a dive spot, else false
+ */
+s32 SurfaceType_IsFloorDekuFlower(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId) {
     u32 flags;
 
     if (BgCheck_GetCollisionHeader(colCtx, bgId) == NULL) {
         return true;
     }
-    flags = poly->flags_vIB & 0x4000;
+    flags = COLPOLY_VTX_CHECK_FLAGS_ANY(poly->flags_vIB, COLPOLY_IS_FLOOR_DEKU_FLOWER);
     return !!flags;
 }
 
@@ -4359,35 +4367,43 @@ u32 SurfaceType_IsWallDamage(CollisionContext* colCtx, CollisionPoly* poly, s32 
 }
 
 /**
- * Internal. Get the water surface at point (`x`, `ySurface`, `z`). `ySurface` doubles as position y input
- * returns true if point is within the xz boundaries of an active water box, else false
- * `ySurface` returns the water box's surface, while `outWaterBox` returns a pointer to the WaterBox
+ * Get the water surface at point (`x`, `z`).
+ * returns true if point is within the xz boundaries of an active WaterBox, else false
+ * `outWaterSurface` returns the WaterBox's surface
+ * `outWaterBox` returns a pointer to the WaterBox
+ * `outBgId` returns the owner of the WaterBox
+ *
+ * The search performed assumes waterboxes cannot overlap, as water has effectively infinite depth
  */
-s32 WaterBox_GetSurfaceImpl(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface,
-                            WaterBox** outWaterBox, s32* bgId) {
+s32 BgCheck_GetWaterSurface(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface,
+                            WaterBox** outWaterBox, s32* outBgId) {
     CollisionHeader* colHeader;
     s32 room;
     s32 i;
     WaterBox* curWaterBox;
     BgActor* bgActor;
 
-    *bgId = BGCHECK_SCENE;
+    *outBgId = BGCHECK_SCENE;
     colHeader = colCtx->colHeader;
 
     if ((colHeader->numWaterBoxes != 0) && (colHeader->waterBoxes != NULL)) {
         for (curWaterBox = colHeader->waterBoxes; curWaterBox < colHeader->waterBoxes + colHeader->numWaterBoxes;
              curWaterBox++) {
-            room = 0x3F & (curWaterBox->properties >> 13);
-            if ((room == play->roomCtx.curRoom.num) || (room == 0x3F)) {
-                if (curWaterBox->properties & 0x80000) {
-                    continue;
-                }
-                if ((curWaterBox->minPos.x < x) && (x < curWaterBox->minPos.x + curWaterBox->xLength)) {
-                    if ((curWaterBox->minPos.z < z) && (z < curWaterBox->minPos.z + curWaterBox->zLength)) {
-                        *outWaterBox = curWaterBox;
-                        *ySurface = curWaterBox->minPos.y;
-                        return true;
-                    }
+            room = (s32)WATERBOX_ROOM(curWaterBox->properties);
+            if ((room != play->roomCtx.curRoom.num) && (room != WATERBOX_ROOM_ALL)) {
+                continue;
+            }
+            if (curWaterBox->properties & WATERBOX_IS_DISABLED) {
+                continue;
+            }
+            //! @bug: WaterBox bounds check issue. This range check excludes all points falling exactly on the border of
+            //! the WaterBox. Thus, when two waterboxes are flush against each other, a seam will exist between them
+            //! where no water is detected.
+            if ((curWaterBox->minPos.x < x) && (x < curWaterBox->minPos.x + curWaterBox->xLength)) {
+                if ((curWaterBox->minPos.z < z) && (z < curWaterBox->minPos.z + curWaterBox->zLength)) {
+                    *outWaterBox = curWaterBox;
+                    *outWaterSurface = curWaterBox->minPos.y;
+                    return true;
                 }
             }
         }
@@ -4404,14 +4420,15 @@ s32 WaterBox_GetSurfaceImpl(PlayState* play, CollisionContext* colCtx, f32 x, f3
                  curWaterBox <
                  colCtx->dyna.waterBoxList.boxes + bgActor->waterboxesStartIndex + bgActor->colHeader->numWaterBoxes;
                  curWaterBox++) {
-                if (curWaterBox->properties & 0x80000) {
+                if (curWaterBox->properties & WATERBOX_IS_DISABLED) {
                     continue;
                 }
+                //! @bug: WaterBox bounds check issue.
                 if ((curWaterBox->minPos.x < x) && (x < curWaterBox->minPos.x + curWaterBox->xLength)) {
                     if ((curWaterBox->minPos.z < z) && (z < curWaterBox->minPos.z + curWaterBox->zLength)) {
                         *outWaterBox = curWaterBox;
-                        *ySurface = curWaterBox->minPos.y;
-                        *bgId = i;
+                        *outWaterSurface = curWaterBox->minPos.y;
+                        *outBgId = i;
                         return true;
                     }
                 }
@@ -4421,34 +4438,49 @@ s32 WaterBox_GetSurfaceImpl(PlayState* play, CollisionContext* colCtx, f32 x, f3
     return false;
 }
 
-// boolean
-s32 WaterBox_GetSurface1(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface,
-                         WaterBox** outWaterBox) {
-    return WaterBox_GetSurface1_2(play, colCtx, x, z, ySurface, outWaterBox);
-}
-
-// boolean
-s32 WaterBox_GetSurface1_2(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface,
-                           WaterBox** outWaterBox) {
-    s32 bgId;
-    return WaterBox_GetSurfaceImpl(play, colCtx, x, z, ySurface, outWaterBox, &bgId);
+/**
+ * Get the water surface at point (`x`, `z`).
+ * returns true if point is within the xz boundaries of an active WaterBox, else false
+ * `outWaterSurface` returns the WaterBox's surface
+ * `outWaterBox` returns a pointer to the WaterBox
+ *
+ * The search performed assumes waterboxes cannot overlap, as water has effectively infinite depth
+ */
+s32 BgCheck_GetWaterSurfaceNoBgIdAlt(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface,
+                                     WaterBox** outWaterBox) {
+    return BgCheck_GetWaterSurfaceNoBgId(play, colCtx, x, z, outWaterSurface, outWaterBox);
 }
 
 /**
- * Gets the first active WaterBox at `pos` where WaterBox.properties & 0x80000 == 0
- * `surfaceCheckDist` is the absolute y distance from the water surface to check
- * returns the index of the waterbox found, or -1 if no waterbox is found
- * `outWaterBox` returns the pointer to the waterbox found, or NULL if none is found
+ * Get the water surface at point (`x`, `z`).
+ * returns true if point is within the xz boundaries of an active WaterBox, else false
+ * `outWaterSurface` returns the WaterBox's surface
+ * `outWaterBox` returns a pointer to the WaterBox
+ *
+ * The search performed assumes waterboxes cannot overlap, as water has effectively infinite depth
  */
-s32 WaterBox_GetSurface2(PlayState* play, CollisionContext* colCtx, Vec3f* pos, f32 surfaceCheckDist,
-                         WaterBox** outWaterBox, s32* bgId) {
+s32 BgCheck_GetWaterSurfaceNoBgId(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface,
+                                  WaterBox** outWaterBox) {
+    s32 bgId;
+    return BgCheck_GetWaterSurface(play, colCtx, x, z, outWaterSurface, outWaterBox, &bgId);
+}
+
+/**
+ * Gets the first active WaterBox at `pos`
+ * `surfaceCheckDist` is the absolute y distance from the water surface to check
+ * returns the index of the WaterBox found, or -1 if no WaterBox is found
+ * `outWaterBox` returns the pointer to the WaterBox found, or NULL if none is found
+ * `outBgId` returns the owner of the WaterBox
+ */
+s32 BgCheck_FindWaterBox(PlayState* play, CollisionContext* colCtx, Vec3f* pos, f32 surfaceCheckDist,
+                         WaterBox** outWaterBox, s32* outBgId) {
     CollisionHeader* colHeader;
     s32 room;
     s32 i;
     WaterBox* waterBox;
     BgActor* bgActor;
 
-    *bgId = BGCHECK_SCENE;
+    *outBgId = BGCHECK_SCENE;
     colHeader = colCtx->colHeader;
 
     //! @bug: check skips testing BgActor waterboxes
@@ -4460,14 +4492,15 @@ s32 WaterBox_GetSurface2(PlayState* play, CollisionContext* colCtx, Vec3f* pos, 
     for (i = 0; i < colHeader->numWaterBoxes; i++) {
         waterBox = &colHeader->waterBoxes[i];
 
-        room = WATERBOX_ROOM(waterBox->properties);
-        if ((room != play->roomCtx.curRoom.num) && (room != 0x3F)) {
+        room = WATERBOX_ROOM((s32)waterBox->properties);
+        if ((room != play->roomCtx.curRoom.num) && (room != WATERBOX_ROOM_ALL)) {
             continue;
         }
-        if ((waterBox->properties & 0x80000)) {
+        if (waterBox->properties & WATERBOX_IS_DISABLED) {
             continue;
         }
-        if (((waterBox->minPos.x < pos->x) && (pos->x < waterBox->minPos.x + waterBox->xLength))) {
+        //! @bug: WaterBox bounds check issue. See BgCheck_GetWaterSurface for more details.
+        if ((waterBox->minPos.x < pos->x) && (pos->x < waterBox->minPos.x + waterBox->xLength)) {
             if ((waterBox->minPos.z < pos->z) && (pos->z < waterBox->minPos.z + waterBox->zLength)) {
                 if ((pos->y - surfaceCheckDist < waterBox->minPos.y) &&
                     (waterBox->minPos.y < pos->y + surfaceCheckDist)) {
@@ -4489,14 +4522,15 @@ s32 WaterBox_GetSurface2(PlayState* play, CollisionContext* colCtx, Vec3f* pos, 
              waterBox <
              colCtx->dyna.waterBoxList.boxes + bgActor->waterboxesStartIndex + bgActor->colHeader->numWaterBoxes;
              waterBox++) {
-            if (waterBox->properties & 0x80000) {
+            if (waterBox->properties & WATERBOX_IS_DISABLED) {
                 continue;
             }
+            //! @bug: WaterBox bounds check issue. See BgCheck_GetWaterSurface for more details.
             if ((waterBox->minPos.x < pos->x) && (pos->x < waterBox->minPos.x + waterBox->xLength)) {
                 if ((waterBox->minPos.z < pos->z) && (pos->z < waterBox->minPos.z + waterBox->zLength)) {
                     if ((pos->y - surfaceCheckDist < waterBox->minPos.y) &&
                         (waterBox->minPos.y < pos->y + surfaceCheckDist)) {
-                        *bgId = i;
+                        *outBgId = i;
                         *outWaterBox = waterBox;
                         return i;
                     }
@@ -4509,7 +4543,7 @@ s32 WaterBox_GetSurface2(PlayState* play, CollisionContext* colCtx, Vec3f* pos, 
     return -1;
 }
 
-f32 func_800CA568(CollisionContext* colCtx, s32 waterBoxId, s32 bgId) {
+f32 WaterBox_GetSurface(CollisionContext* colCtx, s32 waterBoxId, s32 bgId) {
     CollisionHeader* colHeader;
 
     colHeader = BgCheck_GetCollisionHeader(colCtx, bgId);
@@ -4575,13 +4609,16 @@ u32 WaterBox_GetLightSettingIndex(CollisionContext* colCtx, WaterBox* waterBox) 
 }
 
 /**
- * Get the water surface at point (`x`, `ySurface`, `z`). `ySurface` doubles as position y input
- * same as WaterBox_GetSurfaceImpl, but tests if WaterBox properties & 0x80000 != 0
- * returns true if point is within the xz boundaries of an active water box, else false
- * `ySurface` returns the water box's surface, while `outWaterBox` returns a pointer to the WaterBox
+ * Unused. Gets the water surface? at point (`x`, `z`) for disabled? waterboxes only.
+ * returns true if point is within the xz boundaries of a disabled? WaterBox, else false
+ * `outWaterSurface` returns the WaterBox's surface
+ * `outWaterBox` returns a pointer to the WaterBox
+ * `outBgId` returns the WaterBox's owner
+ *
+ * The search performed assumes waterboxes cannot overlap.
  */
-s32 func_800CA6F0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox,
-                  s32* bgId) {
+s32 func_800CA6F0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox,
+                  s32* outBgId) {
     CollisionHeader* colHeader;
     s32 i;
     WaterBox* curWaterBox;
@@ -4589,26 +4626,28 @@ s32 func_800CA6F0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* 
     s32 room;
 
     *outWaterBox = NULL;
-    *bgId = BGCHECK_SCENE;
+    *outBgId = BGCHECK_SCENE;
     colHeader = colCtx->colHeader;
 
+    //! @bug: check skips testing BgActor waterboxes
     if ((colHeader->numWaterBoxes == 0) || (colHeader->waterBoxes == NULL)) {
         return false;
     }
     for (curWaterBox = colHeader->waterBoxes; curWaterBox < colHeader->waterBoxes + colHeader->numWaterBoxes;
          curWaterBox++) {
-        room = WATERBOX_ROOM(curWaterBox->properties);
+        room = WATERBOX_ROOM((s32)curWaterBox->properties);
 
-        if ((room != play->roomCtx.curRoom.num) && (room != 0x3F)) {
+        if ((room != play->roomCtx.curRoom.num) && (room != WATERBOX_ROOM_ALL)) {
             continue;
         }
-        if (!(curWaterBox->properties & 0x80000)) {
+        if (!(curWaterBox->properties & WATERBOX_IS_DISABLED)) {
             continue;
         }
+        //! @bug: WaterBox bounds check issue. See BgCheck_GetWaterSurface for more details.
         if ((curWaterBox->minPos.x < x) && (x < curWaterBox->minPos.x + curWaterBox->xLength)) {
             if ((curWaterBox->minPos.z < z) && (z < curWaterBox->minPos.z + curWaterBox->zLength)) {
                 *outWaterBox = curWaterBox;
-                *ySurface = curWaterBox->minPos.y;
+                *outWaterSurface = curWaterBox->minPos.y;
                 return true;
             }
         }
@@ -4623,14 +4662,15 @@ s32 func_800CA6F0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* 
              curWaterBox <
              colCtx->dyna.waterBoxList.boxes + bgActor->waterboxesStartIndex + bgActor->colHeader->numWaterBoxes;
              curWaterBox++) {
-            if (!(curWaterBox->properties & 0x80000)) {
+            if (!(curWaterBox->properties & WATERBOX_IS_DISABLED)) {
                 continue;
             }
+            //! @bug: WaterBox bounds check issue. See BgCheck_GetWaterSurface for more details.
             if ((curWaterBox->minPos.x < x) && (x < curWaterBox->minPos.x + curWaterBox->xLength)) {
                 if ((curWaterBox->minPos.z < z) && (z < curWaterBox->minPos.z + curWaterBox->zLength)) {
                     *outWaterBox = curWaterBox;
-                    *ySurface = curWaterBox->minPos.y;
-                    *bgId = i;
+                    *outWaterSurface = curWaterBox->minPos.y;
+                    *outBgId = i;
                     return true;
                 }
             }
@@ -4639,10 +4679,19 @@ s32 func_800CA6F0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* 
     return false;
 }
 
-s32 func_800CA9D0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox) {
+/**
+ * Unused. Gets the water surface? at point (`x`, `z`) for disabled? waterboxes only.
+ * returns true if point is within the xz boundaries of a disabled? WaterBox, else false
+ * `outWaterSurface` returns the WaterBox's surface
+ * `outWaterBox` returns a pointer to the WaterBox
+ *
+ * The search performed assumes waterboxes cannot overlap.
+ */
+s32 func_800CA9D0(PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface,
+                  WaterBox** outWaterBox) {
     s32 bgId;
 
-    return func_800CA6F0(play, colCtx, x, z, ySurface, outWaterBox, &bgId);
+    return func_800CA6F0(play, colCtx, x, z, outWaterSurface, outWaterBox, &bgId);
 }
 
 /**

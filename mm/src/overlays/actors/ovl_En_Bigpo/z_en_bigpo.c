@@ -1301,7 +1301,7 @@ void EnBigpo_DrawMainBigpo(Actor* thisx, PlayState* play) {
         // fully visible OR fully transparent
         dispHead = POLY_OPA_DISP;
         gSPDisplayList(dispHead, gSetupDLs[SETUPDL_25]);
-        gSPSegment(&dispHead[1], 0x0C, &D_801AEFA0); // empty display list for no transparency
+        gSPSegment(&dispHead[1], 0x0C, &gActorSetupOpaDL);
         gSPSegment(&dispHead[2], 0x08,
                    Gfx_EnvColor(play->state.gfxCtx, this->mainColor.r, this->mainColor.g, this->mainColor.b,
                                 this->mainColor.a));
@@ -1311,7 +1311,7 @@ void EnBigpo_DrawMainBigpo(Actor* thisx, PlayState* play) {
     } else {
         dispHead = POLY_XLU_DISP;
         gSPDisplayList(dispHead, gSetupDLs[SETUPDL_25]);
-        gSPSegment(&dispHead[1], 0x0C, &D_801AEF88); // transparency display list
+        gSPSegment(&dispHead[1], 0x0C, &gActorSetupXluDL);
         gSPSegment(&dispHead[2], 0x08,
                    Gfx_EnvColor(play->state.gfxCtx, this->mainColor.r, this->mainColor.g, this->mainColor.b,
                                 this->mainColor.a));

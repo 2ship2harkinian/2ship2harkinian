@@ -41,16 +41,16 @@
         <Texture Name="gAnju1MouthTLUT" OutName="mouth_tlut" Format="rgba16" Width="16" Height="16" Offset="0xDF20" />
 
         <!-- Skeleton's textures -->
-        <Texture Name="gAnju1SkinTex" OutName="anju_skin" Format="ci8" Width="8" Height="8" Offset="0xE120" />
-        <Texture Name="gAnju1HairTex" OutName="anju_hair" Format="ci8" Width="8" Height="16" Offset="0xE160" />
+        <Texture Name="gAnju1SkinTex" OutName="anju_skin" Format="ci8" Width="8" Height="8" Offset="0xE120" TlutOffset="0xDB20"/>
+        <Texture Name="gAnju1HairTex" OutName="anju_hair" Format="ci8" Width="8" Height="16" Offset="0xE160" TlutOffset="0xDB20"/>
         <Texture Name="gAnju1EyeOpenTex" OutName="anju_eye_open" Format="ci8" Width="32" Height="32" Offset="0xE1E0" TlutOffset="0xDD20" />
-        <Texture Name="gAnju1EarTex" OutName="anju_ear" Format="ci8" Width="16" Height="16" Offset="0xE5E0" />
+        <Texture Name="gAnju1EarTex" OutName="anju_ear" Format="ci8" Width="16" Height="16" Offset="0xE5E0" TlutOffset="0xDB20"/>
         <Texture Name="gAnju1MouthClosedTex" OutName="anju_mouth_closed" Format="ci8" Width="32" Height="16" Offset="0xE6E0" TlutOffset="0xDF20" />
-        <Texture Name="gAnju1ShirtButtonTex" OutName="anju_shirt_button" Format="ci8" Width="8" Height="8" Offset="0xE8E0" />
-        <Texture Name="gAnju1HandTex" OutName="anju_hand" Format="ci8" Width="16" Height="16" Offset="0xE920" />
-        <Texture Name="gAnju1SkirtTex" OutName="anju_skirt" Format="ci8" Width="32" Height="32" Offset="0xEA20" />
-        <Texture Name="gAnju1ShirtTex" OutName="anju_shirt" Format="ci8" Width="16" Height="16" Offset="0xEE20" />
-        <Texture Name="gAnju1SleeveTex" OutName="anju_sleeve" Format="ci8" Width="8" Height="16" Offset="0xEF20" />
+        <Texture Name="gAnju1ShirtButtonTex" OutName="anju_shirt_button" Format="ci8" Width="8" Height="8" Offset="0xE8E0" TlutOffset="0xDB20"/>
+        <Texture Name="gAnju1HandTex" OutName="anju_hand" Format="ci8" Width="16" Height="16" Offset="0xE920" TlutOffset="0xDB20"/>
+        <Texture Name="gAnju1SkirtTex" OutName="anju_skirt" Format="ci8" Width="32" Height="32" Offset="0xEA20" TlutOffset="0xDB20"/>
+        <Texture Name="gAnju1ShirtTex" OutName="anju_shirt" Format="ci8" Width="16" Height="16" Offset="0xEE20" TlutOffset="0xDB20"/>
+        <Texture Name="gAnju1SleeveTex" OutName="anju_sleeve" Format="ci8" Width="8" Height="16" Offset="0xEF20" TlutOffset="0xDB20"/>
         <Texture Name="gAnju1EyeHalfTex" OutName="anju_eye_half" Format="ci8" Width="32" Height="32" Offset="0xEFA0" TlutOffset="0xDD20" />
         <Texture Name="gAnju1EyeClosedTex" OutName="anju_eye_closed" Format="ci8" Width="32" Height="32" Offset="0xF3A0" TlutOffset="0xDD20" />
         <Texture Name="gAnju1MouthHappyTex" OutName="anju_mouth_happy" Format="ci8" Width="32" Height="16" Offset="0xF7A0" TlutOffset="0xDF20" />

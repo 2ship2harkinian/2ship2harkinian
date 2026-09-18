@@ -24,8 +24,8 @@
         <DList Name="gTurtleAsleepDL" Offset="0x4E70" /> <!-- When asleep, the turtle looks like a giant rock. Original name is "kam_sima_3_model" -->
 
         <Texture Name="gTurtleAsleepTLUT" OutName="turtle_asleep_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5248" />
-        <Texture Name="gTurtleAsleepGrassTex" OutName="turtle_asleep_grass" Format="ci8" Width="32" Height="32" Offset="0x5448" />
-        <Texture Name="gTurtleAsleepGrassDirtTex" OutName="turtle_asleep_grass_dirt" Format="ci8" Width="64" Height="32" Offset="0x5848" />
+        <Texture Name="gTurtleAsleepGrassTex" OutName="turtle_asleep_grass" Format="ci8" Width="32" Height="32" Offset="0x5448" TlutOffset="0x5248"/>
+        <Texture Name="gTurtleAsleepGrassDirtTex" OutName="turtle_asleep_grass_dirt" Format="ci8" Width="64" Height="32" Offset="0x5848" TlutOffset="0x5248"/>
 
         <TextureAnimation Name="gTurtleEmpty2TexAnim" Offset="0x6050" />
 
@@ -48,11 +48,11 @@
 
         <Texture Name="gTurtleSkinTLUT" OutName="turtle_skin_tlut" Format="rgba16" Width="16" Height="16" Offset="0xAAD8" />
         <Texture Name="gTurtleTLUT" OutName="turtle_tlut" Format="rgba16" Width="16" Height="16" Offset="0xACD8" />
-        <Texture Name="gTurtleNostrilTex" OutName="turtle_nostril" Format="ci8" Width="32" Height="32" Offset="0xAED8" />
-        <Texture Name="gTurtleInsideUpperMouthTex" OutName="turtle_inside_upper_mouth" Format="ci8" Width="16" Height="16" Offset="0xB2D8" />
-        <Texture Name="gTurtleInsideLowerMouthTex" OutName="turtle_inside_lower_mouth" Format="ci8" Width="16" Height="32" Offset="0xB3D8"/>
-        <Texture Name="gTurtleSpottedSkinTex" OutName="turtle_spotted_skin" Format="ci8" Width="64" Height="32" Offset="0xB5D8"/>
-        <Texture Name="gTurtleSkinTex" OutName="turtle_skin" Format="ci8" Width="16" Height="16" Offset="0xBDD8" />
+        <Texture Name="gTurtleNostrilTex" OutName="turtle_nostril" Format="ci8" Width="32" Height="32" Offset="0xAED8" TlutOffset="0xAAD8"/>
+        <Texture Name="gTurtleInsideUpperMouthTex" OutName="turtle_inside_upper_mouth" Format="ci8" Width="16" Height="16" Offset="0xB2D8" TlutOffset="0xACD8"/>
+        <Texture Name="gTurtleInsideLowerMouthTex" OutName="turtle_inside_lower_mouth" Format="ci8" Width="16" Height="32" Offset="0xB3D8" TlutOffset="0xACD8"/>
+        <Texture Name="gTurtleSpottedSkinTex" OutName="turtle_spotted_skin" Format="ci8" Width="64" Height="32" Offset="0xB5D8" TlutOffset="0xAAD8"/>
+        <Texture Name="gTurtleSkinTex" OutName="turtle_skin" Format="ci8" Width="16" Height="16" Offset="0xBDD8" TlutOffset="0xAAD8"/>
         <Texture Name="gTurtleEyeOpenStraightTex" OutName="turtle_eye_open_straight" Format="ci8" Width="32" Height="32" Offset="0xBED8" TlutOffset="0xAAD8"/>
         <Texture Name="gTurtleEyeHalfStraightTex" OutName="turtle_eye_half_straight" Format="ci8" Width="32" Height="32" Offset="0xC2D8" TlutOffset="0xAAD8"/>
         <Texture Name="gTurtleEyeClosedTex" OutName="turtle_eye_closed" Format="ci8" Width="32" Height="32" Offset="0xC6D8" TlutOffset="0xAAD8"/>
@@ -60,10 +60,10 @@
         <Texture Name="gTurtleEyeOpenRightTex" OutName="turtle_eye_half_right" Format="ci8" Width="32" Height="32" Offset="0xCED8" TlutOffset="0xAAD8"/>
         <Texture Name="gTurtleEyeOpenLeftTex" OutName="turtle_eye_half_left_2" Format="ci8" Width="32" Height="32" Offset="0xD2D8" TlutOffset="0xAAD8"/>
 
-        <Texture Name="gTurtleHeadTex" OutName="turtle_head" Format="ci8" Width="16" Height="16" Offset="0xD6D8"/>
-        <Texture Name="gTurtleShellGrassTex" OutName="turtle_shell_grass" Format="ci8" Width="32" Height="64" Offset="0xD7D8" />
-        <Texture Name="gTurtleShellScutesTex" OutName="turtle_shell_scutes" Format="ci8" Width="32" Height="32" Offset="0xDFD8"/>
-        <Texture Name="gTurtleShellBottomTex" OutName="turtle_shell_bottom" Format="ci8" Width="16" Height="32" Offset="0xE3D8"/>
+        <Texture Name="gTurtleHeadTex" OutName="turtle_head" Format="ci8" Width="16" Height="16" Offset="0xD6D8" TlutOffset="0xAAD8"/>
+        <Texture Name="gTurtleShellGrassTex" OutName="turtle_shell_grass" Format="ci8" Width="32" Height="64" Offset="0xD7D8" TlutOffset="0xACD8"/>
+        <Texture Name="gTurtleShellScutesTex" OutName="turtle_shell_scutes" Format="ci8" Width="32" Height="32" Offset="0xDFD8" TlutOffset="0xACD8"/>
+        <Texture Name="gTurtleShellBottomTex" OutName="turtle_shell_bottom" Format="ci8" Width="16" Height="32" Offset="0xE3D8" TlutOffset="0xAAD8"/>
 
         <Limb Name="gTurtleRootLimb" Type="Standard" EnumName="TURTLE_LIMB_ROOT" Offset="0xE5D8" />
         <Limb Name="gTurtleShellLimb" Type="Standard" EnumName="TURTLE_LIMB_SHELL" Offset="0xE5E4" />

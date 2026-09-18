@@ -3,27 +3,27 @@
 
 #include "align_asset_macro.h"
 
-#define dobject_fz_DL_001130 "__OTR__objects/object_fz/object_fz_DL_001130"
-static const ALIGN_ASSET(2) char object_fz_DL_001130[] = dobject_fz_DL_001130;
+#define dgFreezardBodyIntactDL "__OTR__objects/object_fz/gFreezardBodyIntactDL"
+static const ALIGN_ASSET(2) char gFreezardBodyIntactDL[] = dgFreezardBodyIntactDL;
 
-#define dobject_fz_DL_0021A0 "__OTR__objects/object_fz/object_fz_DL_0021A0"
-static const ALIGN_ASSET(2) char object_fz_DL_0021A0[] = dobject_fz_DL_0021A0;
+#define dgFreezardBodyHornBrokenDL "__OTR__objects/object_fz/gFreezardBodyHornBrokenDL"
+static const ALIGN_ASSET(2) char gFreezardBodyHornBrokenDL[] = dgFreezardBodyHornBrokenDL;
 
-#define dobject_fz_DL_002CA0 "__OTR__objects/object_fz/object_fz_DL_002CA0"
-static const ALIGN_ASSET(2) char object_fz_DL_002CA0[] = dobject_fz_DL_002CA0;
+#define dgFreezardBodyHeadBrokenDL "__OTR__objects/object_fz/gFreezardBodyHeadBrokenDL"
+static const ALIGN_ASSET(2) char gFreezardBodyHeadBrokenDL[] = dgFreezardBodyHeadBrokenDL;
 
-#define dobject_fz_Tex_002E70 "__OTR__objects/object_fz/object_fz_Tex_002E70"
-static const ALIGN_ASSET(2) char object_fz_Tex_002E70[] = dobject_fz_Tex_002E70;
+#define dgFreezardSteamTex "__OTR__objects/object_fz/gFreezardSteamTex"
+static const ALIGN_ASSET(2) char gFreezardSteamTex[] = dgFreezardSteamTex;
 
-#define dobject_fz_DL_0030A0 "__OTR__objects/object_fz/object_fz_DL_0030A0"
-static const ALIGN_ASSET(2) char object_fz_DL_0030A0[] = dobject_fz_DL_0030A0;
+#define dgFreezardSteamStartDL "__OTR__objects/object_fz/gFreezardSteamStartDL"
+static const ALIGN_ASSET(2) char gFreezardSteamStartDL[] = dgFreezardSteamStartDL;
 
-#define dobject_fz_DL_003158 "__OTR__objects/object_fz/object_fz_DL_003158"
-static const ALIGN_ASSET(2) char object_fz_DL_003158[] = dobject_fz_DL_003158;
+#define dgFreezardSteamDL "__OTR__objects/object_fz/gFreezardSteamDL"
+static const ALIGN_ASSET(2) char gFreezardSteamDL[] = dgFreezardSteamDL;
 
-#define dobject_fz_DL_003260 "__OTR__objects/object_fz/object_fz_DL_003260"
-static const ALIGN_ASSET(2) char object_fz_DL_003260[] = dobject_fz_DL_003260;
+#define dgFreezardIceSpikeDL "__OTR__objects/object_fz/gFreezardIceSpikeDL"
+static const ALIGN_ASSET(2) char gFreezardIceSpikeDL[] = dgFreezardIceSpikeDL;
 
-#define dobject_fz_DL_0033F0 "__OTR__objects/object_fz/object_fz_DL_0033F0"
-static const ALIGN_ASSET(2) char object_fz_DL_0033F0[] = dobject_fz_DL_0033F0;
+#define dgFreezardIceChunkDL "__OTR__objects/object_fz/gFreezardIceChunkDL"
+static const ALIGN_ASSET(2) char gFreezardIceChunkDL[] = dgFreezardIceChunkDL;
 #endif // OBJECTS_OBJECT_FZ_H

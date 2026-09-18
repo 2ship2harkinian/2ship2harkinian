@@ -19,18 +19,18 @@
         <DList Name="object_tsn_DL_005F88" Offset="0x5F88" />
         <DList Name="object_tsn_DL_006108" Offset="0x6108" />
         <Texture Name="object_tsn_TLUT_0061F8" OutName="tlut_0061F8" Format="rgba16" Width="16" Height="16" Offset="0x61F8" />
-        <Texture Name="object_tsn_Tex_0063F8" OutName="tex_0063F8" Format="ci8" Width="32" Height="64" Offset="0x63F8" />
-        <Texture Name="object_tsn_Tex_006BF8" OutName="tex_006BF8" Format="ci8" Width="8" Height="8" Offset="0x6BF8" />
-        <Texture Name="object_tsn_Tex_006C38" OutName="tex_006C38" Format="ci8" Width="8" Height="8" Offset="0x6C38" />
-        <Texture Name="object_tsn_Tex_006C78" OutName="tex_006C78" Format="ci8" Width="8" Height="8" Offset="0x6C78" />
-        <Texture Name="object_tsn_Tex_006CB8" OutName="tex_006CB8" Format="ci8" Width="32" Height="32" Offset="0x6CB8" />
+        <Texture Name="object_tsn_Tex_0063F8" OutName="tex_0063F8" Format="ci8" Width="32" Height="64" Offset="0x63F8" TlutOffset="0x61F8"/>
+        <Texture Name="object_tsn_Tex_006BF8" OutName="tex_006BF8" Format="ci8" Width="8" Height="8" Offset="0x6BF8" TlutOffset="0x61F8"/>
+        <Texture Name="object_tsn_Tex_006C38" OutName="tex_006C38" Format="ci8" Width="8" Height="8" Offset="0x6C38" TlutOffset="0x61F8"/>
+        <Texture Name="object_tsn_Tex_006C78" OutName="tex_006C78" Format="ci8" Width="8" Height="8" Offset="0x6C78" TlutOffset="0x61F8"/>
+        <Texture Name="object_tsn_Tex_006CB8" OutName="tex_006CB8" Format="ci8" Width="32" Height="32" Offset="0x6CB8" TlutOffset="0x61F8"/>
         <Texture Name="object_tsn_Tex_0070B8" OutName="tex_0070B8" Format="rgba16" Width="16" Height="16" Offset="0x70B8" />
-        <Texture Name="object_tsn_Tex_0072B8" OutName="tex_0072B8" Format="ci8" Width="16" Height="16" Offset="0x72B8" />
-        <Texture Name="object_tsn_Tex_0073B8" OutName="tex_0073B8" Format="ci8" Width="32" Height="32" Offset="0x73B8" />
+        <Texture Name="object_tsn_Tex_0072B8" OutName="tex_0072B8" Format="ci8" Width="16" Height="16" Offset="0x72B8" TlutOffset="0x61F8"/>
+        <Texture Name="object_tsn_Tex_0073B8" OutName="tex_0073B8" Format="ci8" Width="32" Height="32" Offset="0x73B8" TlutOffset="0x61F8"/>
         <Texture Name="object_tsn_Tex_0077B8" OutName="tex_0077B8" Format="rgba16" Width="16" Height="32" Offset="0x77B8" />
         <Texture Name="object_tsn_Tex_007BB8" OutName="tex_007BB8" Format="rgba16" Width="16" Height="16" Offset="0x7BB8" />
         <Texture Name="object_tsn_Tex_007DB8" OutName="tex_007DB8" Format="rgba16" Width="32" Height="32" Offset="0x7DB8" />
-        <Texture Name="object_tsn_Tex_0085B8" OutName="tex_0085B8" Format="ci8" Width="32" Height="32" Offset="0x85B8" />
+        <Texture Name="object_tsn_Tex_0085B8" OutName="tex_0085B8" Format="ci8" Width="32" Height="32" Offset="0x85B8" TlutOffset="0x61F8"/>
         <Limb Name="object_tsn_Standardlimb_0089B8" Type="Standard" EnumName="OBJECT_TSN_LIMB_01" Offset="0x89B8" />
         <Limb Name="object_tsn_Standardlimb_0089C4" Type="Standard" EnumName="OBJECT_TSN_LIMB_02" Offset="0x89C4" />
         <Limb Name="object_tsn_Standardlimb_0089D0" Type="Standard" EnumName="OBJECT_TSN_LIMB_03" Offset="0x89D0" />

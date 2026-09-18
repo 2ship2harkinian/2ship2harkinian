@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- 
         Gyorg, his title card, the small fishes he summons, the seaweed in his boss arena,
         and the bubbles in his intro cutscene. Also contains an unused copy of Majora's Wrath's
@@ -35,10 +38,10 @@
         <Texture Name="gGyorgMouthAndSpikeBacksideTLUT" OutName="gyorg_mouth_and_spike_backside_tlut" Format="rgba16" Width="4" Height="4" Offset="0x53D0" />
         <Texture Name="gGyorgBellyAndFinFleshTLUT" OutName="gyorg_belly_and_fin_flesh_tlut" Format="rgba16" Width="4" Height="4" Offset="0x53F0" />
         <Texture Name="gGyorgEyeTex" OutName="gyorg_eye" Format="rgba16" Width="32" Height="32" Offset="0x5410" />
-        <Texture Name="gGyorgFinsSpikesAndJawTex" OutName="gyorg_fins_spikes_and_jaw" Format="ci4" Width="64" Height="64" Offset="0x5C10" />
-        <Texture Name="gGyorgSidesTex" OutName="gyorg_sides" Format="ci4" Width="64" Height="64" Offset="0x6410" />
-        <Texture Name="gGyorgMouthAndSpikeBacksideTex" OutName="gyorg_mouth_and_spike_backside" Format="ci4" Width="64" Height="64" Offset="0x6C10" />
-        <Texture Name="gGyorgBellyAndFinFleshTex" OutName="gyorg_belly_and_fin_flesh" Format="ci4" Width="64" Height="64" Offset="0x7410" />
+        <Texture Name="gGyorgFinsSpikesAndJawTex" OutName="gyorg_fins_spikes_and_jaw" Format="ci4" Width="64" Height="64" Offset="0x5C10" TlutOffset="0x5390"/>
+        <Texture Name="gGyorgSidesTex" OutName="gyorg_sides" Format="ci4" Width="64" Height="64" Offset="0x6410" TlutOffset="0x53B0"/>
+        <Texture Name="gGyorgMouthAndSpikeBacksideTex" OutName="gyorg_mouth_and_spike_backside" Format="ci4" Width="64" Height="64" Offset="0x6C10" TlutOffset="0x53D0"/>
+        <Texture Name="gGyorgBellyAndFinFleshTex" OutName="gyorg_belly_and_fin_flesh" Format="ci4" Width="64" Height="64" Offset="0x7410" TlutOffset="0x53F0"/>
         <Texture Name="gGyorgHornsTeethAndClawsTex" OutName="gyorg_horns_teeth_claws" Format="rgba16" Width="16" Height="16" Offset="0x7C10" />
 
         <!-- Bubble DisplayLists (texture comes from gameplay_keep) -->
@@ -88,8 +91,8 @@
         <!-- Seaweed Textures -->
         <Texture Name="gGyorgSeaweedTopTLUT" OutName="gyorg_seaweed_top_tlut" Format="rgba16" Width="4" Height="4" Offset="0xAAC0" />
         <Texture Name="gGyorgSeaweedTLUT" OutName="gyord_seaweed_tlut" Format="rgba16" Width="4" Height="4" Offset="0xAAE0" />
-        <Texture Name="gGyorgSeaweedTopTex" OutName="gyorg_seaweed_top" Format="ci4" Width="64" Height="64" Offset="0xAB00" />
-        <Texture Name="gGyorgSeaweedTex" OutName="gyorg_seaweed" Format="ci4" Width="64" Height="64" Offset="0xB300" />
+        <Texture Name="gGyorgSeaweedTopTex" OutName="gyorg_seaweed_top" Format="ci4" Width="64" Height="64" Offset="0xAB00" TlutOffset="0xAAC0"/>
+        <Texture Name="gGyorgSeaweedTex" OutName="gyorg_seaweed" Format="ci4" Width="64" Height="64" Offset="0xB300" TlutOffset="0xAAE0"/>
 
         <!-- Unused Empty Texture Animation -->
         <TextureAnimation Name="gGyorgEmpty2TexAnim" Offset="0xBB00" />
@@ -104,7 +107,7 @@
 
         <!-- Unused Duplicate of Small Fish Textures -->
         <Texture Name="gUnusedGyorgSmallFishTLUT" OutName="unused_small_fish_tlut" Format="rgba16" Width="4" Height="4" Offset="0xC230" />
-        <Texture Name="gUnusedGyorgSmallFishTex" OutName="unused_small_fish" Format="ci4" Width="64" Height="64" Offset="0xC250" />
+        <Texture Name="gUnusedGyorgSmallFishTex" OutName="unused_small_fish" Format="ci4" Width="64" Height="64" Offset="0xC250" TlutOffset="0xC230"/>
 
         <!-- Small Fishes Limb DisplayLists -->
         <DList Name="gGyorgSmallFishHeadDL" Offset="0xCCC0" />
@@ -116,7 +119,7 @@
 
         <!-- Small Fishes Textures -->
         <Texture Name="gGyorgSmallFishTLUT" OutName="small_fish_tlut" Format="rgba16" Width="4" Height="4" Offset="0xD170" />
-        <Texture Name="gGyorgSmallFishTex" OutName="small_fish" Format="ci4" Width="64" Height="64" Offset="0xD190" />
+        <Texture Name="gGyorgSmallFishTex" OutName="small_fish" Format="ci4" Width="64" Height="64" Offset="0xD190" TlutOffset="0xD170"/>
 
         <!-- Small Fishes Limbs -->
         <Limb Name="gGyorgSmallFishRootLimb" Type="Standard" EnumName="GYORG_SMALL_FISH_LIMB_ROOT" Offset="0xD990" />

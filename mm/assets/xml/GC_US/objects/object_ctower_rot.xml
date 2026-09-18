@@ -11,27 +11,27 @@
         <!-- Textures -->
 
         <!-- CeilingCog -->
-        <Texture Name="gClockTowerCeilingCogWoodTex" OutName="clocktower_ceiling_cog_wood" Format="ci4" Width="64" Height="64" Offset="0x460" />
-        <Texture Name="gClockTowerCeilingCogWoodMetalTex" OutName="clocktower_ceiling_cog_wood_metal" Format="ci4" Width="64" Height="64" Offset="0xC60" />
+        <Texture Name="gClockTowerCeilingCogWoodTex" OutName="clocktower_ceiling_cog_wood" Format="ci4" Width="64" Height="64" Offset="0x460" TlutOffset="0x0"/>
+        <Texture Name="gClockTowerCeilingCogWoodMetalTex" OutName="clocktower_ceiling_cog_wood_metal" Format="ci4" Width="64" Height="64" Offset="0xC60" TlutOffset="0x20"/>
         
         <!-- Corridor -->
-        <Texture Name="gClockTowerCorridorStonePath1Tex" OutName="clocktower_corridor_stone_path_1" Format="ci8" Width="32" Height="32" Offset="0x1460" />
-        <Texture Name="gClockTowerCorridorStonePath2Tex" OutName="clocktower_corridor_stone_path_2" Format="ci8" Width="32" Height="32" Offset="0x1860" />
-        <Texture Name="gClockTowerCorridorStoneWallTex" OutName="clocktower_corridor_stone_wall" Format="ci8" Width="32" Height="64" Offset="0x1C60" />
-        <Texture Name="gClockTowerCorridorGrassyStoneWallTex" OutName="clocktower_corridor_grassy_stone_wall" Format="ci8" Width="32" Height="64" Offset="0x2460" />
-        <Texture Name="gClockTowerCorridorStonePillarTex" OutName="clocktower_corridor_stone_pillar" Format="ci8" Width="32" Height="64" Offset="0x2C60" />
-        <Texture Name="gClockTowerCorridorStoneCeilingTex" OutName="clocktower_corridor_stone_ceiling" Format="ci8" Width="32" Height="64" Offset="0x3460" />
-        <Texture Name="gClockTowerCorridorDirtPathTex" OutName="clocktower_corridor_dirt_path" Format="ci8" Width="32" Height="32" Offset="0x3C60" />
+        <Texture Name="gClockTowerCorridorStonePath1Tex" OutName="clocktower_corridor_stone_path_1" Format="ci8" Width="32" Height="32" Offset="0x1460" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorStonePath2Tex" OutName="clocktower_corridor_stone_path_2" Format="ci8" Width="32" Height="32" Offset="0x1860" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorStoneWallTex" OutName="clocktower_corridor_stone_wall" Format="ci8" Width="32" Height="64" Offset="0x1C60" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorGrassyStoneWallTex" OutName="clocktower_corridor_grassy_stone_wall" Format="ci8" Width="32" Height="64" Offset="0x2460" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorStonePillarTex" OutName="clocktower_corridor_stone_pillar" Format="ci8" Width="32" Height="64" Offset="0x2C60" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorStoneCeilingTex" OutName="clocktower_corridor_stone_ceiling" Format="ci8" Width="32" Height="64" Offset="0x3460" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorDirtPathTex" OutName="clocktower_corridor_dirt_path" Format="ci8" Width="32" Height="32" Offset="0x3C60" TlutOffset="0x40"/>
         <Texture Name="gClockTowerCooridorFoliageTex" OutName="clocktower_corridor_foliage" Format="rgba16" Width="32" Height="64" Offset="0x4060" />
-        <Texture Name="gClockTowerCorridorWoodPillarTex" OutName="clocktower_corridor_wood_pillar" Format="ci8" Width="16" Height="64" Offset="0x5060" />
-        <Texture Name="gClockTowerCorridorWoodWallTex" OutName="clocktower_corridor_wood_wall" Format="ci8" Width="64" Height="32" Offset="0x5460" />
-        <Texture Name="gClockTowerCorridorGrassyCeilingTex" OutName="clocktower_corridor_grassy_ceiling" Format="ci8" Width="8" Height="64" Offset="0x5C60" />
-        <Texture Name="gClockTowerCorridorDirtTex" OutName="clocktower_corridor_dirt" Format="ci8" Width="32" Height="32" Offset="0x5E60" />
+        <Texture Name="gClockTowerCorridorWoodPillarTex" OutName="clocktower_corridor_wood_pillar" Format="ci8" Width="16" Height="64" Offset="0x5060" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorWoodWallTex" OutName="clocktower_corridor_wood_wall" Format="ci8" Width="64" Height="32" Offset="0x5460" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorGrassyCeilingTex" OutName="clocktower_corridor_grassy_ceiling" Format="ci8" Width="8" Height="64" Offset="0x5C60" TlutOffset="0x40"/>
+        <Texture Name="gClockTowerCorridorDirtTex" OutName="clocktower_corridor_dirt" Format="ci8" Width="32" Height="32" Offset="0x5E60" TlutOffset="0x40"/>
         
         <!-- Organ -->
-        <Texture Name="gClockTowerOrganBackTex" OutName="clocktower_organ_back" Format="ci8" Width="16" Height="128" Offset="0x6260" />
+        <Texture Name="gClockTowerOrganBackTex" OutName="clocktower_organ_back" Format="ci8" Width="16" Height="128" Offset="0x6260" TlutOffset="0x240"/>
         <Texture Name="gClockTowerOrganSeatLegsTex" OutName="clocktower_organ_seat_legs" Format="ia16" Width="32" Height="32" Offset="0x6A60" />
-        <Texture Name="gClockTowerOrganSeatCushionTex" OutName="clocktower_organ_seat_cushion" Format="ci8" Width="16" Height="16" Offset="0x7260" />
+        <Texture Name="gClockTowerOrganSeatCushionTex" OutName="clocktower_organ_seat_cushion" Format="ci8" Width="16" Height="16" Offset="0x7260" TlutOffset="0x240"/>
         <Texture Name="gClockTowerOrganSeatBackTex" OutName="clocktower_organ_seat_back" Format="ia16" Width="32" Height="64" Offset="0x7360" />
         <Texture Name="gClockTowerOrganPedalTex" OutName="clocktower_organ_pedal" Format="ia16" Width="16" Height="16" Offset="0x8360" />
         <Texture Name="gClockTowerOrganWoodTex" OutName="clocktower_organ_wood" Format="i8" Width="32" Height="32" Offset="0x8560" />
@@ -47,7 +47,7 @@
         <Texture Name="gClockTowerCenterCogTex" OutName="clocktower_center_cog" Format="ia8" Width="64" Height="64" Offset="0xCD60" />
         
         <!-- StoneDoors -->
-        <Texture Name="gClockTowerStoneDoorTex" OutName="clocktower_stone_door" Format="ci4" Width="64" Height="64" Offset="0xDD60" />
+        <Texture Name="gClockTowerStoneDoorTex" OutName="clocktower_stone_door" Format="ci4" Width="64" Height="64" Offset="0xDD60" TlutOffset="0x440"/>
         
         <!-- Waterwheel -->
         <Texture Name="gClockTowerWaterWheelWoodTex" OutName="clocktower_water_wheel_wood" Format="rgba16" Width="32" Height="32" Offset="0xE560" />

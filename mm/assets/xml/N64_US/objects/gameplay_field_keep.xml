@@ -21,8 +21,8 @@
         <Limb Name="gameplay_field_keep_Standardlimb_002F78" Type="Standard" EnumName="BUTTERFLY_LIMB_07" Offset="0x2F78" />
         <Skeleton Name="gameplay_field_keep_Skel_002FA0" Type="Normal" LimbType="Standard" LimbNone="BUTTERFLY_LIMB_NONE" LimbMax="BUTTERFLY_LIMB_MAX" EnumName="ButterflyLimb" Offset="0x2FA0" />
         <Texture Name="gameplay_field_keep_TLUT_002FB0" OutName="tlut_002FB0" Format="rgba16" Width="4" Height="4" Offset="0x2FB0" />
-        <Texture Name="gameplay_field_keep_Tex_002FD0" OutName="tex_002FD0" Format="ci4" Width="32" Height="64" Offset="0x2FD0" />
-        <Texture Name="gameplay_field_keep_Tex_0033D0" OutName="tex_0033D0" Format="ci4" Width="32" Height="64" Offset="0x33D0" />
+        <Texture Name="gameplay_field_keep_Tex_002FD0" OutName="tex_002FD0" Format="ci4" Width="32" Height="64" Offset="0x2FD0" TlutOffset="0x2FB0"/>
+        <Texture Name="gameplay_field_keep_Tex_0033D0" OutName="tex_0033D0" Format="ci4" Width="32" Height="64" Offset="0x33D0" TlutOffset="0x2FB0"/>
         <DList Name="gameplay_field_keep_DL_003870" Offset="0x3870" /> <!-- Original name is "c_bombwallbefore_model" -->
         <DList Name="gameplay_field_keep_DL_003938" Offset="0x3938" /> <!-- Original name is "c_bombwallafter_model" -->
         <Collision Name="gameplay_field_keep_Colheader_003A60" Offset="0x3A60" /> <!-- Original name is "c_bombwallbefore_bgdatainfo" -->
@@ -33,7 +33,7 @@
         <Texture Name="gameplay_field_keep_Tex_004600" OutName="tex_004600" Format="rgba16" Width="16" Height="16" Offset="0x4600" />
         <Texture Name="gFieldWoodDoorTex" OutName="wood_door" Format="i4" Width="64" Height="128" Offset="0x4800" />
         <Texture Name="gFieldSilverBoulderTLUT" OutName="silver_boulder_tlut" Format="rgba16" Width="4" Height="4" Offset="0x5800" />
-        <Texture Name="gFieldSilverBoulderTex" OutName="silver_boulder" Format="ci4" Width="64" Height="64" Offset="0x5828" />
+        <Texture Name="gFieldSilverBoulderTex" OutName="silver_boulder" Format="ci4" Width="64" Height="64" Offset="0x5828" TlutOffset="0x5800"/>
         <DList Name="gFieldSilverBoulderDL" Offset="0x61E8" /> <!-- Original name is "obj_ginbure_model" -->
         <DList Name="gFieldSilverBoulderDebrisDL" Offset="0x6420" /> <!-- Original name is "obj_ginbure_h_model" -->
         <DList Name="gFieldSmallRockOpaDL" Offset="0x66B0" /> <!-- Original name is "obj_isi01_model" -->

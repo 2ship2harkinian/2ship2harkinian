@@ -6,17 +6,17 @@
         <Animation Name="object_mm_Anim_001F84" Offset="0x1F84" /> <!-- Original name is "mm_postcheck" -->
         <Animation Name="object_mm_Anim_002238" Offset="0x2238" /> <!-- Original name is "mm_run01" -->
         <Texture Name="object_mm_TLUT_002250" OutName="tlut_002250" Format="rgba16" Width="16" Height="16" Offset="0x2250" />
-        <Texture Name="object_mm_Tex_002450" OutName="tex_002450" Format="ci8" Width="8" Height="8" Offset="0x2450" />
-        <Texture Name="object_mm_Tex_002490" OutName="tex_002490" Format="ci8" Width="8" Height="8" Offset="0x2490" />
-        <Texture Name="object_mm_Tex_0024D0" OutName="tex_0024D0" Format="ci8" Width="8" Height="8" Offset="0x24D0" />
-        <Texture Name="object_mm_Tex_002510" OutName="tex_002510" Format="ci8" Width="8" Height="8" Offset="0x2510" />
-        <Texture Name="object_mm_Tex_002550" OutName="tex_002550" Format="ci8" Width="16" Height="16" Offset="0x2550" />
-        <Texture Name="object_mm_Tex_002650" OutName="tex_002650" Format="ci8" Width="16" Height="16" Offset="0x2650" />
-        <Texture Name="object_mm_Tex_002750" OutName="tex_002750" Format="ci8" Width="32" Height="16" Offset="0x2750" />
-        <Texture Name="object_mm_Tex_002950" OutName="tex_002950" Format="ci8" Width="32" Height="16" Offset="0x2950" />
-        <Texture Name="object_mm_Tex_002B50" OutName="tex_002B50" Format="ci8" Width="16" Height="16" Offset="0x2B50" />
-        <Texture Name="object_mm_Tex_002C50" OutName="tex_002C50" Format="ci8" Width="32" Height="16" Offset="0x2C50" />
-        <Texture Name="object_mm_Tex_002E50" OutName="tex_002E50" Format="ci8" Width="16" Height="16" Offset="0x2E50" />
+        <Texture Name="object_mm_Tex_002450" OutName="tex_002450" Format="ci8" Width="8" Height="8" Offset="0x2450" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002490" OutName="tex_002490" Format="ci8" Width="8" Height="8" Offset="0x2490" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_0024D0" OutName="tex_0024D0" Format="ci8" Width="8" Height="8" Offset="0x24D0" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002510" OutName="tex_002510" Format="ci8" Width="8" Height="8" Offset="0x2510" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002550" OutName="tex_002550" Format="ci8" Width="16" Height="16" Offset="0x2550" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002650" OutName="tex_002650" Format="ci8" Width="16" Height="16" Offset="0x2650" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002750" OutName="tex_002750" Format="ci8" Width="32" Height="16" Offset="0x2750" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002950" OutName="tex_002950" Format="ci8" Width="32" Height="16" Offset="0x2950" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002B50" OutName="tex_002B50" Format="ci8" Width="16" Height="16" Offset="0x2B50" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002C50" OutName="tex_002C50" Format="ci8" Width="32" Height="16" Offset="0x2C50" TlutOffset="0x2250"/>
+        <Texture Name="object_mm_Tex_002E50" OutName="tex_002E50" Format="ci8" Width="16" Height="16" Offset="0x2E50" TlutOffset="0x2250"/>
         <DList Name="object_mm_DL_005B30" Offset="0x5B30" />
         <DList Name="object_mm_DL_005E70" Offset="0x5E70" />
         <DList Name="object_mm_DL_006598" Offset="0x6598" />

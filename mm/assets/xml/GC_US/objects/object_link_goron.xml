@@ -9,18 +9,18 @@
         <Texture Name="gLinkGoronSkinTLUT" OutName="skin_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2200" />
 
         <Texture Name="object_link_goron_Tex_002400" OutName="tex_002400" Format="rgba16" Width="8" Height="32" Offset="0x2400" />
-        <Texture Name="object_link_goron_Tex_002600" OutName="tex_002600" Format="ci8" Width="16" Height="16" Offset="0x2600" />
+        <Texture Name="object_link_goron_Tex_002600" OutName="tex_002600" Format="ci8" Width="16" Height="16" Offset="0x2600" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_002700" OutName="tex_002700" Format="rgba16" Width="8" Height="8" Offset="0x2700" />
         <Texture Name="object_link_goron_Tex_002780" OutName="tex_002780" Format="rgba16" Width="8" Height="16" Offset="0x2780" />
         <Texture Name="object_link_goron_Tex_002880" OutName="tex_002880" Format="rgba16" Width="8" Height="8" Offset="0x2880" />
-        <Texture Name="object_link_goron_Tex_002900" OutName="tex_002900" Format="ci8" Width="8" Height="8" Offset="0x2900" />
+        <Texture Name="object_link_goron_Tex_002900" OutName="tex_002900" Format="ci8" Width="8" Height="8" Offset="0x2900" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_002940" OutName="tex_002940" Format="rgba16" Width="32" Height="16" Offset="0x2940" />
         <Texture Name="object_link_goron_Tex_002D40" OutName="tex_002D40" Format="rgba16" Width="16" Height="32" Offset="0x2D40" />
-        <Texture Name="object_link_goron_Tex_003140" OutName="tex_003140" Format="ci8" Width="32" Height="64" Offset="0x3140" />
-        <Texture Name="object_link_goron_Tex_003940" OutName="tex_003940" Format="ci8" Width="16" Height="16" Offset="0x3940" />
-        <Texture Name="object_link_goron_Tex_003A40" OutName="tex_003A40" Format="ci8" Width="32" Height="32" Offset="0x3A40" />
-        <Texture Name="object_link_goron_Tex_003E40" OutName="tex_003E40" Format="ci8" Width="32" Height="32" Offset="0x3E40" />
-        <Texture Name="object_link_goron_Tex_004240" OutName="tex_004240" Format="ci8" Width="8" Height="32" Offset="0x4240" />
+        <Texture Name="object_link_goron_Tex_003140" OutName="tex_003140" Format="ci8" Width="32" Height="64" Offset="0x3140" TlutOffset="0x2000"/>
+        <Texture Name="object_link_goron_Tex_003940" OutName="tex_003940" Format="ci8" Width="16" Height="16" Offset="0x3940" TlutOffset="0x2000"/>
+        <Texture Name="object_link_goron_Tex_003A40" OutName="tex_003A40" Format="ci8" Width="32" Height="32" Offset="0x3A40" TlutOffset="0x2000"/>
+        <Texture Name="object_link_goron_Tex_003E40" OutName="tex_003E40" Format="ci8" Width="32" Height="32" Offset="0x3E40" TlutOffset="0x2000"/>
+        <Texture Name="object_link_goron_Tex_004240" OutName="tex_004240" Format="ci8" Width="8" Height="32" Offset="0x4240" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_004340" OutName="tex_004340" Format="i8" Width="8" Height="8" Offset="0x4340" />
 
         <DList Name="gLinkGoronRightThighDL" Offset="0x8140" />
@@ -44,9 +44,9 @@
         <DList Name="gLinkGoronCurledDL" Offset="0xBDD8" />
         <DList Name="object_link_goron_DL_00C540" Offset="0xC540" /> <!-- Original name is "lg_spike_model" -->
 
-        <Texture Name="object_link_goron_Tex_00C6B8" OutName="tex_00C6B8" Format="ci8" Width="32" Height="64" Offset="0xC6B8" />
+        <Texture Name="object_link_goron_Tex_00C6B8" OutName="tex_00C6B8" Format="ci8" Width="32" Height="64" Offset="0xC6B8" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_00CEB8" OutName="tex_00CEB8" Format="rgba16" Width="8" Height="16" Offset="0xCEB8" />
-        <Texture Name="object_link_goron_Tex_00CFB8" OutName="tex_00CFB8" Format="ci8" Width="16" Height="16" Offset="0xCFB8" />
+        <Texture Name="object_link_goron_Tex_00CFB8" OutName="tex_00CFB8" Format="ci8" Width="16" Height="16" Offset="0xCFB8" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_00D0B8" OutName="tex_00D0B8" Format="rgba16" Width="16" Height="16" Offset="0xD0B8" />
         <Texture Name="object_link_goron_Tex_00D2B8" OutName="tex_00D2B8" Format="rgba16" Width="8" Height="16" Offset="0xD2B8" />
         <Texture Name="object_link_goron_Tex_00D3B8" OutName="tex_00D3B8" Format="rgba16" Width="8" Height="16" Offset="0xD3B8" />
@@ -62,12 +62,12 @@
         <DList Name="object_link_goron_DL_010368" Offset="0x10368" />
         <DList Name="object_link_goron_DL_010590" Offset="0x10590" />
         <Texture Name="object_link_goron_TLUT_0107B8" OutName="tlut_0107B8" Format="rgba16" Width="16" Height="16" Offset="0x107B8" />
-        <Texture Name="object_link_goron_Tex_0109B8" OutName="tex_0109B8" Format="ci8" Width="16" Height="16" Offset="0x109B8" />
-        <Texture Name="object_link_goron_Tex_010AB8" OutName="tex_010AB8" Format="ci8" Width="16" Height="8" Offset="0x10AB8" />
-        <Texture Name="object_link_goron_Tex_010B38" OutName="tex_010B38" Format="ci8" Width="16" Height="16" Offset="0x10B38" />
-        <Texture Name="object_link_goron_Tex_010C38" OutName="tex_010C38" Format="ci8" Width="32" Height="32" Offset="0x10C38" />
+        <Texture Name="object_link_goron_Tex_0109B8" OutName="tex_0109B8" Format="ci8" Width="16" Height="16" Offset="0x109B8" TlutOffset="0x107B8"/>
+        <Texture Name="object_link_goron_Tex_010AB8" OutName="tex_010AB8" Format="ci8" Width="16" Height="8" Offset="0x10AB8" TlutOffset="0x107B8"/>
+        <Texture Name="object_link_goron_Tex_010B38" OutName="tex_010B38" Format="ci8" Width="16" Height="16" Offset="0x10B38" TlutOffset="0x107B8"/>
+        <Texture Name="object_link_goron_Tex_010C38" OutName="tex_010C38" Format="ci8" Width="32" Height="32" Offset="0x10C38" TlutOffset="0x107B8"/>
         <DList Name="gLinkGoronLeftHandHoldBottleDL" Offset="0x11468" />
-        <Texture Name="object_link_goron_Tex_011628" OutName="tex_011628" Format="ci8" Width="16" Height="16" Offset="0x11628" />
+        <Texture Name="object_link_goron_Tex_011628" OutName="tex_011628" Format="ci8" Width="16" Height="16" Offset="0x11628" TlutOffset="0x2000"/>
         <Texture Name="object_link_goron_Tex_011728" OutName="tex_011728" Format="rgba16" Width="8" Height="32" Offset="0x11728" />
         <DList Name="gLinkGoronGoronPunchEffectDL" Offset="0x11AB8" />
         <Texture Name="object_link_goron_Tex_011C10" OutName="tex_011C10" Format="i4" Width="32" Height="32" Offset="0x11C10" />
@@ -113,6 +113,6 @@
         <Limb Name="gLinkGoronRightHandLimb" Type="LOD" EnumName="LINK_GORON_LIMB_RIGHT_HAND" Offset="0x17A00" />
         <Limb Name="gLinkGoronSheathLimb" Type="LOD" EnumName="LINK_GORON_LIMB_SHEATH" Offset="0x17A10" />
         <Limb Name="gLinkGoronTorsoLimb" Type="LOD" EnumName="LINK_GORON_LIMB_TORSO" Offset="0x17A20" />
-        <Skeleton Name="gLinkGoronSkel" Type="Flex" LimbType="Standard" LimbNone="LINK_GORON_LIMB_NONE" LimbMax="LINK_GORON_LIMB_MAX" EnumName="LinkGoronLimb" Offset="0x17A84" />
+        <Skeleton Name="gLinkGoronSkel" Type="Flex" LimbType="LOD" LimbNone="LINK_GORON_LIMB_NONE" LimbMax="LINK_GORON_LIMB_MAX" EnumName="LinkGoronLimb" Offset="0x17A84" />
     </File>
 </Root>

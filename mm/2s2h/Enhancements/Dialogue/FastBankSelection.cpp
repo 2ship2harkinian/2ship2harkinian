@@ -14,8 +14,8 @@ static const char zeroRupees[3] = { '0', '0', '0' };
 
 void FastBankSelection_UpdateMessage(const char rupeeValue[3]) {
     for (int i = 0; i <= 2; i++) {
-        gPlayState->msgCtx.decodedBuffer.schar[gPlayState->msgCtx.unk120C0 + i] = rupeeValue[i];
-        Font_LoadCharNES(gPlayState, gPlayState->msgCtx.decodedBuffer.schar[gPlayState->msgCtx.unk120C0 + i],
+        gPlayState->msgCtx.decodedBuffer.schar[gPlayState->msgCtx.codeBufOffset + i] = rupeeValue[i];
+        Font_LoadCharNES(gPlayState, gPlayState->msgCtx.decodedBuffer.schar[gPlayState->msgCtx.codeBufOffset + i],
                          gPlayState->msgCtx.unk120C4 + (i << 7));
     }
     Audio_PlaySfx(NA_SE_SY_RUPY_COUNT);

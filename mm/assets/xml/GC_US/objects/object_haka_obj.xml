@@ -13,13 +13,13 @@
         <Texture Name="object_haka_obj_TLUT_001A00" OutName="tlut_001A00" Format="rgba16" Width="4" Height="4" Offset="0x1A00" />
         <Texture Name="object_haka_obj_TLUT_001A20" OutName="tlut_001A20" Format="rgba16" Width="4" Height="4" Offset="0x1A20" />
         <Texture Name="object_haka_obj_TLUT_001A40" OutName="tlut_001A40" Format="rgba16" Width="16" Height="16" Offset="0x1A40" />
-        <Texture Name="object_haka_obj_Tex_001C40" OutName="tex_001C40" Format="ci8" Width="32" Height="32" Offset="0x1C40" />
-        <Texture Name="object_haka_obj_Tex_002040" OutName="tex_002040" Format="ci8" Width="32" Height="32" Offset="0x2040" />
+        <Texture Name="object_haka_obj_Tex_001C40" OutName="tex_001C40" Format="ci8" Width="32" Height="32" Offset="0x1C40" TlutOffset="0x1800"/>
+        <Texture Name="object_haka_obj_Tex_002040" OutName="tex_002040" Format="ci8" Width="32" Height="32" Offset="0x2040" TlutOffset="0x1800"/>
         <Texture Name="object_haka_obj_Tex_002440" OutName="tex_002440" Format="rgba16" Width="32" Height="32" Offset="0x2440" />
-        <Texture Name="object_haka_obj_Tex_002C40" OutName="tex_002C40" Format="ci4" Width="64" Height="64" Offset="0x2C40" />
-        <Texture Name="object_haka_obj_Tex_003440" OutName="tex_003440" Format="ci4" Width="64" Height="64" Offset="0x3440" />
-        <Texture Name="object_haka_obj_Tex_003C40" OutName="tex_003C40" Format="ci8" Width="32" Height="64" Offset="0x3C40" />
-        <Texture Name="object_haka_obj_Tex_004440" OutName="tex_004440" Format="ci8" Width="32" Height="32" Offset="0x4440" />
+        <Texture Name="object_haka_obj_Tex_002C40" OutName="tex_002C40" Format="ci4" Width="64" Height="64" Offset="0x2C40" TlutOffset="0x1A00"/>
+        <Texture Name="object_haka_obj_Tex_003440" OutName="tex_003440" Format="ci4" Width="64" Height="64" Offset="0x3440" TlutOffset="0x1A20"/>
+        <Texture Name="object_haka_obj_Tex_003C40" OutName="tex_003C40" Format="ci8" Width="32" Height="64" Offset="0x3C40" TlutOffset="0x1A40"/>
+        <Texture Name="object_haka_obj_Tex_004440" OutName="tex_004440" Format="ci8" Width="32" Height="32" Offset="0x4440" TlutOffset="0x1A40"/>
         <Texture Name="object_haka_obj_Tex_004840" OutName="tex_004840" Format="rgba16" Width="64" Height="8" Offset="0x4840" />
         <Texture Name="object_haka_obj_Tex_004C40" OutName="tex_004C40" Format="rgba16" Width="16" Height="16" Offset="0x4C40" />
         <Texture Name="object_haka_obj_Tex_004E40" OutName="tex_004E40" Format="rgba16" Width="32" Height="32" Offset="0x4E40" />

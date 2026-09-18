@@ -598,7 +598,8 @@ void func_80B32C34(EnZoraegg* this, PlayState* play) {
     this->actor.focus.pos.y += 10.0f;
     sp30 = this->actor.world.pos.y;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp30, &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp30,
+                                         &waterBox)) {
         if ((this->actor.world.pos.y + 50.0f) < sp30) {
             this->actionFunc = func_80B32BB8;
         }
@@ -619,7 +620,8 @@ void func_80B32D08(EnZoraegg* this, PlayState* play) {
     this->actor.focus.pos.y += 10.0f;
     sp40 = this->actor.world.pos.y;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp40, &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp40,
+                                         &waterBox)) {
         if (this->actor.world.pos.y < sp40) {
             sp34.x = this->actor.world.pos.x;
             sp34.y = sp40;

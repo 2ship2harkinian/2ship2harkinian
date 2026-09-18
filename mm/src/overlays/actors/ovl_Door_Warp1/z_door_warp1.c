@@ -74,21 +74,29 @@ void DoorWarp1_SetupAction(DoorWarp1* this, DoorWarp1ActionFunc actionFunc) {
     this->actionFunc = actionFunc;
 }
 
-s32 func_808B849C(DoorWarp1* this, PlayState* play) {
-    s32 ret = 0;
+/**
+ * Returns a number representing which remains was obtained inside this warp.
+ * * 0: None (if it's not a boss or the remains were already obtained)
+ * * 1: Odolwa
+ * * 2: Goht
+ * * 3: Gyorg
+ * * 4: Twinmold
+ */
+s32 DoorWarp1_GetRemains(DoorWarp1* this, PlayState* play) {
+    s32 remains = 0;
 
-    if (GameInteractor_Should(VB_SPAWN_BOSS_REMAINS, true, &ret)) {
+    if (GameInteractor_Should(VB_SPAWN_BOSS_REMAINS, true, &remains)) {
         if ((play->sceneId == SCENE_MITURIN_BS) && !CHECK_QUEST_ITEM(QUEST_REMAINS_ODOLWA)) {
-            ret = 1;
+            remains = 1 + GI_REMAINS_ODOLWA - GI_REMAINS_ODOLWA;
         } else if ((play->sceneId == SCENE_HAKUGIN_BS) && !CHECK_QUEST_ITEM(QUEST_REMAINS_GOHT)) {
-            ret = 2;
+            remains = 1 + GI_REMAINS_GOHT - GI_REMAINS_ODOLWA;
         } else if ((play->sceneId == SCENE_SEA_BS) && !CHECK_QUEST_ITEM(QUEST_REMAINS_GYORG)) {
-            ret = 3;
+            remains = 1 + GI_REMAINS_GYORG - GI_REMAINS_ODOLWA;
         } else if ((play->sceneId == SCENE_INISIE_BS) && !CHECK_QUEST_ITEM(QUEST_REMAINS_TWINMOLD)) {
-            ret = 4;
+            remains = 1 + GI_REMAINS_TWINMOLD - GI_REMAINS_ODOLWA;
         }
     }
-    return ret;
+    return remains;
 }
 
 void func_808B8568(DoorWarp1* this, PlayState* play) {
@@ -510,10 +518,11 @@ void func_808B98A8(DoorWarp1* this, PlayState* play) {
 
 void func_808B9B30(DoorWarp1* this, PlayState* play) {
     if (fabsf(this->dyna.actor.xzDistToPlayer) >= 60.0f) {
-        if (func_808B849C(this, play)) {
-            this->unk_1A0 = (DmHina*)Actor_SpawnAsChild(
-                &play->actorCtx, &this->dyna.actor, play, ACTOR_DM_HINA, this->dyna.actor.world.pos.x,
-                this->dyna.actor.world.pos.y, this->dyna.actor.world.pos.z, 0, 0, 0, func_808B849C(this, play) - 1);
+        if (DoorWarp1_GetRemains(this, play) != 0) {
+            this->unk_1A0 = (DmHina*)Actor_SpawnAsChild(&play->actorCtx, &this->dyna.actor, play, ACTOR_DM_HINA,
+                                                        this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.y,
+                                                        this->dyna.actor.world.pos.z, 0, 0, 0,
+                                                        DoorWarp1_GetRemains(this, play) - 1);
         }
         DoorWarp1_SetupAction(this, func_808B9BE8);
     }
@@ -537,7 +546,7 @@ void func_808B9BE8(DoorWarp1* this, PlayState* play) {
     }
 
     this->dyna.actor.parent = NULL;
-    if (func_808B849C(this, play)) {
+    if (DoorWarp1_GetRemains(this, play) != 0) {
         this->unk_202 = 1;
         DoorWarp1_SetupAction(this, func_808B9CE8);
     } else {
@@ -552,7 +561,8 @@ void func_808B9CE8(DoorWarp1* this, PlayState* play) {
     }
 
     if (!Actor_HasParent(&this->dyna.actor, play)) {
-        Actor_OfferGetItem(&this->dyna.actor, play, (GI_REMAINS_ODOLWA - 1) + func_808B849C(this, play), 30.0f, 80.0f);
+        Actor_OfferGetItem(&this->dyna.actor, play, DoorWarp1_GetRemains(this, play) + (GI_REMAINS_ODOLWA - 1), 30.0f,
+                           80.0f);
         return;
     }
 
@@ -583,7 +593,7 @@ void func_808B9CE8(DoorWarp1* this, PlayState* play) {
 
     gSaveContext.save.saveInfo.unk_EA8[1] = (gSaveContext.save.saveInfo.unk_EA8[1] & 0xFFFFFF00) |
                                             ((((u8)gSaveContext.save.saveInfo.unk_EA8[1]) + 1) & 0xFF);
-    Item_Give(play, func_808B849C(this, play) + (ITEM_REMAINS_ODOLWA - 1));
+    Item_Give(play, DoorWarp1_GetRemains(this, play) + (ITEM_REMAINS_ODOLWA - 1));
     DoorWarp1_SetupAction(this, func_808B9E94);
 }
 

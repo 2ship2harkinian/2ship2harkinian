@@ -63,17 +63,17 @@
         <DList Name="object_zog_DL_0224E8" Offset="0x224E8" />
         <Texture Name="object_zog_TLUT_022790" OutName="tlut_022790" Format="rgba16" Width="16" Height="16" Offset="0x22790" />
         <Texture Name="object_zog_TLUT_022990" OutName="tlut_022990" Format="rgba16" Width="16" Height="16" Offset="0x22990" />
-        <Texture Name="object_zog_Tex_022B90" OutName="tex_022B90" Format="ci8" Width="8" Height="8" Offset="0x22B90" />
-        <Texture Name="object_zog_Tex_022BD0" OutName="tex_022BD0" Format="ci8" Width="32" Height="32" Offset="0x22BD0" />
-        <Texture Name="object_zog_Tex_022FD0" OutName="tex_022FD0" Format="ci8" Width="32" Height="32" Offset="0x22FD0" />
+        <Texture Name="object_zog_Tex_022B90" OutName="tex_022B90" Format="ci8" Width="8" Height="8" Offset="0x22B90" TlutOffset="0x22790"/>
+        <Texture Name="object_zog_Tex_022BD0" OutName="tex_022BD0" Format="ci8" Width="32" Height="32" Offset="0x22BD0" TlutOffset="0x22790"/>
+        <Texture Name="object_zog_Tex_022FD0" OutName="tex_022FD0" Format="ci8" Width="32" Height="32" Offset="0x22FD0" TlutOffset="0x22990"/>
         <Texture Name="object_zog_Tex_0233D0" OutName="tex_0233D0" Format="rgba16" Width="16" Height="16" Offset="0x233D0" />
-        <Texture Name="object_zog_Tex_0235D0" OutName="tex_0235D0" Format="ci8" Width="32" Height="64" Offset="0x235D0" />
-        <Texture Name="object_zog_Tex_023DD0" OutName="tex_023DD0" Format="ci8" Width="8" Height="16" Offset="0x23DD0" />
+        <Texture Name="object_zog_Tex_0235D0" OutName="tex_0235D0" Format="ci8" Width="32" Height="64" Offset="0x235D0" TlutOffset="0x22790"/>
+        <Texture Name="object_zog_Tex_023DD0" OutName="tex_023DD0" Format="ci8" Width="8" Height="16" Offset="0x23DD0" TlutOffset="0x22790"/>
         <Texture Name="object_zog_Tex_023E50" OutName="tex_023E50" Format="rgba16" Width="16" Height="16" Offset="0x23E50" />
-        <Texture Name="object_zog_Tex_024050" OutName="tex_024050" Format="ci8" Width="16" Height="16" Offset="0x24050" />
+        <Texture Name="object_zog_Tex_024050" OutName="tex_024050" Format="ci8" Width="16" Height="16" Offset="0x24050" TlutOffset="0x22790"/>
         <Texture Name="object_zog_Tex_024150" OutName="tex_024150" Format="rgba16" Width="16" Height="16" Offset="0x24150" />
-        <Texture Name="object_zog_Tex_024350" OutName="tex_024350" Format="ci8" Width="16" Height="32" Offset="0x24350" />
-        <Texture Name="object_zog_Tex_024550" OutName="tex_024550" Format="ci8" Width="16" Height="32" Offset="0x24550" />
+        <Texture Name="object_zog_Tex_024350" OutName="tex_024350" Format="ci8" Width="16" Height="32" Offset="0x24350" TlutOffset="0x22790"/>
+        <Texture Name="object_zog_Tex_024550" OutName="tex_024550" Format="ci8" Width="16" Height="32" Offset="0x24550" TlutOffset="0x22790"/>
         <Texture Name="object_zog_Tex_024750" OutName="tex_024750" Format="rgba16" Width="32" Height="32" Offset="0x24750" />
         <Texture Name="object_zog_Tex_024F50" OutName="tex_024F50" Format="rgba16" Width="32" Height="32" Offset="0x24F50" />
         <Texture Name="object_zog_Tex_025750" OutName="tex_025750" Format="rgba16" Width="32" Height="32" Offset="0x25750" />

@@ -41,7 +41,7 @@
         <Texture Name="gTingleNoseSideTex" OutName="tingle_nose" Format="rgba16" Width="16" Height="32" Offset="0x82D0" />
         <Texture Name="gTingleHandTex" OutName="tingle_hand" Format="rgba16" Width="32" Height="16" Offset="0x86D0" />
         <Texture Name="gTinglePenTopTex" OutName="tingle_pen_top" Format="rgba16" Width="16" Height="16" Offset="0x8AD0" />
-        <Texture Name="gTingleMapTex" OutName="tingle_map" Format="ci4" Width="64" Height="64" Offset="0x8CD0" />
+        <Texture Name="gTingleMapTex" OutName="tingle_map" Format="ci4" Width="64" Height="64" Offset="0x8CD0" TlutOffset="0x53B0"/>
         <Texture Name="gTingleEyeClosedTex" OutName="tingle_eye_closed" Format="rgba16" Width="32" Height="64" Offset="0x94D0" />
 
         <!-- Skeleton -->

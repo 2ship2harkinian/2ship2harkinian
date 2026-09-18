@@ -13,8 +13,8 @@ typedef void (*EnPrzActionFunc)(struct EnPrz*, PlayState*);
 typedef struct EnPrz {
     /* 0x000 */ Actor actor;
     /* 0x144 */ SkelAnime skelAnime;
-    /* 0x188 */ Vec3s jointTable[OBJECT_PR_2_LIMB_MAX];
-    /* 0x1A6 */ Vec3s morphTable[OBJECT_PR_2_LIMB_MAX];
+    /* 0x188 */ Vec3s jointTable[PR_2_LIMB_MAX];
+    /* 0x1A6 */ Vec3s morphTable[PR_2_LIMB_MAX];
     /* 0x1C4 */ EnPrzActionFunc actionFunc;
     /* 0x1C8 */ u8 unk_1C8;
     /* 0x1CC */ Vec3f unk_1CC;

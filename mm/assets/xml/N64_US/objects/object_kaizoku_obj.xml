@@ -15,18 +15,18 @@
         <DList Name="gPirateGratedShutterDL" Offset="0x5720" /> <!-- Original name is "Y2_AMIshutter_model" -->
         <Collision Name="gPirateGratedShutterCol" Offset="0x5EC8" /> <!-- Original name is "Y2_AMIshutter_bgdatainfo" -->
         <Texture Name="object_kaizoku_obj_TLUT_005F00" OutName="tlut_005F00" Format="rgba16" Width="4" Height="4" Offset="0x5F00" />
-        <Texture Name="object_kaizoku_obj_Tex_005F20" OutName="tex_005F20" Format="ci4" Width="64" Height="64" Offset="0x5F20" />
+        <Texture Name="object_kaizoku_obj_Tex_005F20" OutName="tex_005F20" Format="ci4" Width="64" Height="64" Offset="0x5F20" TlutOffset="0x5F00"/>
         <DList Name="object_kaizoku_obj_DL_007630" Offset="0x7630" /> <!-- Original name is "Y2_boat_model" -->
         <Texture Name="object_kaizoku_obj_TLUT_0083C8" OutName="tlut_0083C8" Format="rgba16" Width="16" Height="16" Offset="0x83C8" />
         <Texture Name="object_kaizoku_obj_TLUT_0085C8" OutName="tlut_0085C8" Format="rgba16" Width="4" Height="4" Offset="0x85C8" />
         <Texture Name="object_kaizoku_obj_TLUT_0085E8" OutName="tlut_0085E8" Format="rgba16" Width="4" Height="4" Offset="0x85E8" />
-        <Texture Name="object_kaizoku_obj_Tex_008608" OutName="tex_008608" Format="ci8" Width="16" Height="32" Offset="0x8608" />
-        <Texture Name="object_kaizoku_obj_Tex_008808" OutName="tex_008808" Format="ci8" Width="32" Height="16" Offset="0x8808" />
-        <Texture Name="object_kaizoku_obj_Tex_008A08" OutName="tex_008A08" Format="ci8" Width="16" Height="16" Offset="0x8A08" />
-        <Texture Name="object_kaizoku_obj_Tex_008B08" OutName="tex_008B08" Format="ci4" Width="32" Height="32" Offset="0x8B08" />
-        <Texture Name="object_kaizoku_obj_Tex_008D08" OutName="tex_008D08" Format="ci8" Width="32" Height="32" Offset="0x8D08" />
-        <Texture Name="object_kaizoku_obj_Tex_009108" OutName="tex_009108" Format="ci8" Width="32" Height="32" Offset="0x9108" />
-        <Texture Name="object_kaizoku_obj_Tex_009508" OutName="tex_009508" Format="ci4" Width="4" Height="4" Offset="0x9508" />
+        <Texture Name="object_kaizoku_obj_Tex_008608" OutName="tex_008608" Format="ci8" Width="16" Height="32" Offset="0x8608" TlutOffset="0x83C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_008808" OutName="tex_008808" Format="ci8" Width="32" Height="16" Offset="0x8808" TlutOffset="0x83C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_008A08" OutName="tex_008A08" Format="ci8" Width="16" Height="16" Offset="0x8A08" TlutOffset="0x83C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_008B08" OutName="tex_008B08" Format="ci4" Width="32" Height="32" Offset="0x8B08" TlutOffset="0x85C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_008D08" OutName="tex_008D08" Format="ci8" Width="32" Height="32" Offset="0x8D08" TlutOffset="0x83C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_009108" OutName="tex_009108" Format="ci8" Width="32" Height="32" Offset="0x9108" TlutOffset="0x83C8"/>
+        <Texture Name="object_kaizoku_obj_Tex_009508" OutName="tex_009508" Format="ci4" Width="4" Height="4" Offset="0x9508" TlutOffset="0x85E8"/>
         <Collision Name="object_kaizoku_obj_Colheader_009A88" Offset="0x9A88" /> <!-- Original name is "Y2_boat_bgdatainfo" -->
         <DList Name="gPiratesFortressDoorDL" Offset="0x9F20" /> <!-- Original name is "Y2_KaizokuDoor_model" -->
         <Texture Name="gPiratesFortressDoorTex" OutName="door" Format="rgba16" Width="16" Height="64" Offset="0xA210" />
@@ -34,8 +34,8 @@
         <DList Name="object_kaizoku_obj_DL_00AD50" Offset="0xAD50" /> <!-- Original name is "Y2_kibako_model" -->
         <Texture Name="object_kaizoku_obj_TLUT_00AF38" OutName="tlut_00AF38" Format="rgba16" Width="4" Height="4" Offset="0xAF38" />
         <Texture Name="object_kaizoku_obj_TLUT_00AF58" OutName="tlut_00AF58" Format="rgba16" Width="4" Height="4" Offset="0xAF58" />
-        <Texture Name="object_kaizoku_obj_Tex_00AF78" OutName="tex_00AF78" Format="ci4" Width="32" Height="64" Offset="0xAF78" />
-        <Texture Name="object_kaizoku_obj_Tex_00B378" OutName="tex_00B378" Format="ci4" Width="32" Height="64" Offset="0xB378" />
+        <Texture Name="object_kaizoku_obj_Tex_00AF78" OutName="tex_00AF78" Format="ci4" Width="32" Height="64" Offset="0xAF78" TlutOffset="0xAF38"/>
+        <Texture Name="object_kaizoku_obj_Tex_00B378" OutName="tex_00B378" Format="ci4" Width="32" Height="64" Offset="0xB378" TlutOffset="0xAF58"/>
         <Collision Name="object_kaizoku_obj_Colheader_00B868" Offset="0xB868" /> <!-- Original name is "Y2_kibako_bgdatainfo" -->
     </File>
 </Root>

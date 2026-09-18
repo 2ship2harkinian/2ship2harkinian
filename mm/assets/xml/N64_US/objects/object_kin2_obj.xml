@@ -34,7 +34,7 @@
         <Texture Name="gOceanSpiderHouseBombableWallCrackTex" OutName="ocean_spider_house_bombable_wall_crack" Format="ia8" Width="64" Height="64" Offset="0x13C0" />
         <Texture Name="gOceanSpiderHouseBookshelfWoodTex" OutName="ocean_spider_house_bookshelf_wood" Format="rgba16" Width="32" Height="32" Offset="0x23C0" />
         <Texture Name="gOceanSpiderHouseFireplaceGrateTex" OutName="ocean_spider_house_fireplace_grate" Format="rgba16" Width="32" Height="32" Offset="0x2BC0" />
-        <Texture Name="gOceanSpiderHouseSkullkidPaintingTex" OutName="ocean_spider_house_skullkid_painting" Format="ci4" Width="64" Height="64" Offset="0x33C0" />
+        <Texture Name="gOceanSpiderHouseSkullkidPaintingTex" OutName="ocean_spider_house_skullkid_painting" Format="ci4" Width="64" Height="64" Offset="0x33C0" TlutOffset="0x1380"/>
         
         <Texture Name="gOceanSpiderHouseChestOfDrawersFrontTex" OutName="ocean_spider_house_chest_of_drawers_front" Format="rgba16" Width="32" Height="64" Offset="0x3BC0" />
         <Texture Name="gOceanSpiderHouseChestOfDrawersBackTex" OutName="ocean_spider_house_chest_of_drawers_back" Format="rgba16" Width="32" Height="64" Offset="0x4BC0" />

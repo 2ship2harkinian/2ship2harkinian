@@ -2959,7 +2959,7 @@ void Interface_UpdateButtonsPart2(PlayState* play) {
         // #endregion
 
         Interface_SetHudVisibility(HUD_VISIBILITY_B);
-    } else if (CHECK_WEEKEVENTREG(WEEKEVENTREG_82_08)) {
+    } else if (CHECK_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME)) {
         // Swordsman's log minigame
         for (i = EQUIP_SLOT_C_LEFT; i <= EQUIP_SLOT_C_RIGHT; i++) {
             if (gSaveContext.buttonStatus[i] == BTN_ENABLED) {
@@ -3779,7 +3779,7 @@ void Interface_UpdateButtonsPart1(PlayState* play) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_A_B_MINIMAP);
                     } else if ((gSaveContext.minigameStatus == MINIGAME_STATUS_ACTIVE) && CHECK_EVENTINF(EVENTINF_35)) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_B_MINIMAP);
-                    } else if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_82_08) &&
+                    } else if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME) &&
                                (gSaveContext.minigameStatus == MINIGAME_STATUS_ACTIVE)) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_B);
                     } else if (play->bButtonAmmoPlusOne >= 2) {

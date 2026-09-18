@@ -567,7 +567,7 @@ void EnBox_Open(EnBox* this, PlayState* play) {
                 this->unk_1A8 = 1.0f;
             }
         }
-        if (WaterBox_GetSurfaceImpl(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
+        if (BgCheck_GetWaterSurface(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
                                     &waterSurface, &waterBox, &bgId) &&
             (this->dyna.actor.floorHeight < waterSurface)) {
             EffectSsBubble_Spawn(play, &this->dyna.actor.world.pos, 5.0f, 2.0f, 20.0f, 0.3f);

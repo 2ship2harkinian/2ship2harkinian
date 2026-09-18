@@ -31,20 +31,20 @@
         <Texture Name="gFsnNostrilTLUT" OutName="fsn_nostril_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5300" />
 
         <!-- Textures -->
-        <Texture Name="gFsnHandTex" OutName="fsn_hand" Format="ci8" Width="16" Height="16" Offset="0x5500" />
-        <Texture Name="gFsnSkinTex" OutName="fsn_skin" Format="ci8" Width="8" Height="8" Offset="0x5600" />
-        <Texture Name="gFsnShirtTex" OutName="fsn_shirt" Format="ci8" Width="8" Height="16" Offset="0x5640" />
+        <Texture Name="gFsnHandTex" OutName="fsn_hand" Format="ci8" Width="16" Height="16" Offset="0x5500" TlutOffset="0x4300"/>
+        <Texture Name="gFsnSkinTex" OutName="fsn_skin" Format="ci8" Width="8" Height="8" Offset="0x5600" TlutOffset="0x4500"/>
+        <Texture Name="gFsnShirtTex" OutName="fsn_shirt" Format="ci8" Width="8" Height="16" Offset="0x5640" TlutOffset="0x4700"/>
         <Texture Name="gFsnPantsTex" OutName="fsn_pants" Format="rgba16" Width="16" Height="16" Offset="0x56C0" />
         <Texture Name="gFsnBootsTex" OutName="fsn_boots" Format="rgba16" Width="16" Height="16" Offset="0x58C0" />
-        <Texture Name="gFsnHairTex" OutName="fsn_hair" Format="ci8" Width="16" Height="16" Offset="0x5AC0" />
-        <Texture Name="gFsnEyeOpenTex" OutName="fsn_eye_open" Format="ci8" Width="32" Height="32" Offset="0x5BC0" /> 
-        <Texture Name="gFsnEarTex" OutName="fsn_ear" Format="ci8" Width="8" Height="8" Offset="0x5FC0" />
-        <Texture Name="gFsnHairSkinTex" OutName="fsn_hair_and_skin" Format="ci8" Width="16" Height="16" Offset="0x6000" />
-        <Texture Name="gFsnMouthTex" OutName="fsn_mouth" Format="ci8" Width="32" Height="32" Offset="0x6100" />
-        <Texture Name="gFsnNostrilTex" OutName="fsn_nostril" Format="ci8" Width="8" Height="8" Offset="0x6500" />
+        <Texture Name="gFsnHairTex" OutName="fsn_hair" Format="ci8" Width="16" Height="16" Offset="0x5AC0" TlutOffset="0x4900"/>
+        <Texture Name="gFsnEyeOpenTex" OutName="fsn_eye_open" Format="ci8" Width="32" Height="32" Offset="0x5BC0" TlutOffset="0x4B00"/>
+        <Texture Name="gFsnEarTex" OutName="fsn_ear" Format="ci8" Width="8" Height="8" Offset="0x5FC0" TlutOffset="0x4D00"/>
+        <Texture Name="gFsnHairSkinTex" OutName="fsn_hair_and_skin" Format="ci8" Width="16" Height="16" Offset="0x6000" TlutOffset="0x4F00"/>
+        <Texture Name="gFsnMouthTex" OutName="fsn_mouth" Format="ci8" Width="32" Height="32" Offset="0x6100" TlutOffset="0x5100"/>
+        <Texture Name="gFsnNostrilTex" OutName="fsn_nostril" Format="ci8" Width="8" Height="8" Offset="0x6500" TlutOffset="0x5300"/>
         <Texture Name="gFsnVestTex" OutName="fsn_vest" Format="rgba16" Width="32" Height="32" Offset="0x6540" />
-        <Texture Name="gFsnEyeHalfTex" OutName="fsn_eye_half" Format="ci8" Width="32" Height="32" Offset="0x6D40" />
-        <Texture Name="gFsnEyeClosedTex" OutName="fsn_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x7140" />
+        <Texture Name="gFsnEyeHalfTex" OutName="fsn_eye_half" Format="ci8" Width="32" Height="32" Offset="0x6D40" TlutOffset="0x4B00"/>
+        <Texture Name="gFsnEyeClosedTex" OutName="fsn_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x7140" TlutOffset="0x4B00"/>
         
         <!-- Unused -->
         <!-- <Blob Name="object_fsn_Blob_007540" Size="0x1100" Offset="0x7540" /> -->

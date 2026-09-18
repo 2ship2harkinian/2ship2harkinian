@@ -24,17 +24,17 @@
 
         <!-- Textures -->
         <Texture Name="gBombShopkeeperTLUT" OutName="bomb_shopkeeper_tlut" Format="rgba16" Width="16" Height="16" Offset="0x4FD8" />
-        <Texture Name="gBombShopkeeperEarTex" OutName="bomb_shopkeeper_ear" Format="ci8" Width="8" Height="8" Offset="0x51D8" />
-        <Texture Name="gBombShopkeeperSkinTex" OutName="bomb_shopkeeper_skin" Format="ci8" Width="8" Height="8" Offset="0x5218" />
-        <Texture Name="gBombShopkeeperTorsoTex" OutName="bomb_shopkeeper_torso" Format="ci8" Width="8" Height="32" Offset="0x5258" />
-        <Texture Name="gBombShopkeeperFingersTex" OutName="bomb_shopkeeper_fingers" Format="ci8" Width="16" Height="16" Offset="0x5358" />
+        <Texture Name="gBombShopkeeperEarTex" OutName="bomb_shopkeeper_ear" Format="ci8" Width="8" Height="8" Offset="0x51D8" TlutOffset="0x4FD8"/>
+        <Texture Name="gBombShopkeeperSkinTex" OutName="bomb_shopkeeper_skin" Format="ci8" Width="8" Height="8" Offset="0x5218" TlutOffset="0x4FD8"/>
+        <Texture Name="gBombShopkeeperTorsoTex" OutName="bomb_shopkeeper_torso" Format="ci8" Width="8" Height="32" Offset="0x5258" TlutOffset="0x4FD8"/>
+        <Texture Name="gBombShopkeeperFingersTex" OutName="bomb_shopkeeper_fingers" Format="ci8" Width="16" Height="16" Offset="0x5358" TlutOffset="0x4FD8"/>
         <Texture Name="gBombShopkeeperEyeTex" OutName="bomb_shopkeeper_eye" Format="rgba16" Width="32" Height="32" Offset="0x5458" />
-        <Texture Name="gBombShopkeeperTatooTex" OutName="bomb_shopkeeper_tatoo" Format="ci8" Width="32" Height="64" Offset="0x5C58" />
+        <Texture Name="gBombShopkeeperTatooTex" OutName="bomb_shopkeeper_tatoo" Format="ci8" Width="32" Height="64" Offset="0x5C58" TlutOffset="0x4FD8"/>
         <Texture Name="gBombShopkeeperShortsTex" OutName="bomb_shopkeeper_shorts" Format="rgba16" Width="16" Height="16" Offset="0x6458" />
         <Texture Name="gBombShopkeeperSandalsTex" OutName="bomb_shopkeeper_sandals" Format="rgba16" Width="8" Height="8" Offset="0x6658" />
         <Texture Name="gBombShopkeeperVestTex" OutName="bomb_shopkeeper_vest" Format="rgba16" Width="16" Height="16" Offset="0x66D8" />
-        <Texture Name="gBombShopkeeperToesTex" OutName="bomb_shopkeeper_toes" Format="ci8" Width="16" Height="16" Offset="0x68D8" />
-        <Texture Name="gBombShopkeeperWristBandTex" OutName="bomb_shopkeeper_wrist_band" Format="ci8" Width="32" Height="32" Offset="0x69D8" />
+        <Texture Name="gBombShopkeeperToesTex" OutName="bomb_shopkeeper_toes" Format="ci8" Width="16" Height="16" Offset="0x68D8" TlutOffset="0x4FD8"/>
+        <Texture Name="gBombShopkeeperWristBandTex" OutName="bomb_shopkeeper_wrist_band" Format="ci8" Width="32" Height="32" Offset="0x69D8" TlutOffset="0x4FD8"/>
 
         <!-- Animations -->
         <Animation Name="gBombShopkeeperSwayAnim" Offset="0x788C" /> <!-- Original name is "rsn_ending" -->

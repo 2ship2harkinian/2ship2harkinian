@@ -58,13 +58,13 @@
 
         <!-- Textures -->
         <Texture Name="object_dy_obj_TLUT_0165C8" OutName="tlut_0165C8" Format="rgba16" Width="16" Height="16" Offset="0x165C8" />
-        <Texture Name="object_dy_obj_Tex_0167C8" OutName="tex_0167C8" Format="ci8" Width="8" Height="8" Offset="0x167C8" />
-        <Texture Name="object_dy_obj_Tex_016808" OutName="tex_016808" Format="ci8" Width="8" Height="8" Offset="0x16808" />
-        <Texture Name="object_dy_obj_Tex_016848" OutName="tex_016848" Format="ci8" Width="32" Height="64" Offset="0x16848" />
-        <Texture Name="object_dy_obj_Tex_017048" OutName="tex_017048" Format="ci8" Width="8" Height="8" Offset="0x17048" />
-        <Texture Name="object_dy_obj_Tex_017088" OutName="tex_017088" Format="ci8" Width="32" Height="32" Offset="0x17088" />
-        <Texture Name="object_dy_obj_Tex_017488" OutName="tex_017488" Format="ci8" Width="32" Height="32" Offset="0x17488" />
-        <Texture Name="object_dy_obj_Tex_017888" OutName="tex_017888" Format="ci8" Width="16" Height="16" Offset="0x17888" />
+        <Texture Name="object_dy_obj_Tex_0167C8" OutName="tex_0167C8" Format="ci8" Width="8" Height="8" Offset="0x167C8" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_016808" OutName="tex_016808" Format="ci8" Width="8" Height="8" Offset="0x16808" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_016848" OutName="tex_016848" Format="ci8" Width="32" Height="64" Offset="0x16848" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_017048" OutName="tex_017048" Format="ci8" Width="8" Height="8" Offset="0x17048" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_017088" OutName="tex_017088" Format="ci8" Width="32" Height="32" Offset="0x17088" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_017488" OutName="tex_017488" Format="ci8" Width="32" Height="32" Offset="0x17488" TlutOffset="0x165C8"/>
+        <Texture Name="object_dy_obj_Tex_017888" OutName="tex_017888" Format="ci8" Width="16" Height="16" Offset="0x17888" TlutOffset="0x165C8"/>
         <Texture Name="object_dy_obj_Tex_017988" OutName="tex_017988" Format="rgba16" Width="32" Height="16" Offset="0x17988" />
 
         <Texture Name="object_dy_obj_Tex_017D88" OutName="tex_017D88" Format="rgba16" Width="32" Height="32" Offset="0x17D88" />

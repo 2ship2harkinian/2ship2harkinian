@@ -547,7 +547,7 @@ f32 Play_GetWaterSurface(PlayState* this, Vec3f* pos, s32* lightIndex) {
     WaterBox* waterBox;
     s32 bgId;
 
-    if (!WaterBox_GetSurfaceImpl(this, &this->colCtx, pos->x, pos->z, &waterSurfaceY, &waterBox, &bgId)) {
+    if (!BgCheck_GetWaterSurface(this, &this->colCtx, pos->x, pos->z, &waterSurfaceY, &waterBox, &bgId)) {
         return BGCHECK_Y_MIN;
     }
 
@@ -2147,8 +2147,8 @@ s32 Play_IsUnderwater(PlayState* this, Vec3f* pos) {
 
     waterSurfacePos = *pos;
 
-    if ((WaterBox_GetSurface1(this, &this->colCtx, waterSurfacePos.x, waterSurfacePos.z, &waterSurfacePos.y,
-                              &waterBox) == true) &&
+    if ((BgCheck_GetWaterSurfaceNoBgIdAlt(this, &this->colCtx, waterSurfacePos.x, waterSurfacePos.z, &waterSurfacePos.y,
+                                          &waterBox) == true) &&
         (pos->y < waterSurfacePos.y) &&
         (BgCheck_EntityRaycastFloor3(&this->colCtx, &poly, &bgId, &waterSurfacePos) != BGCHECK_Y_MIN)) {
         return true;

@@ -3,9 +3,9 @@
 
 #include "align_asset_macro.h"
 
-#define dovl_En_Bombers_DL_12C8 "__OTR__overlays/ovl_En_Bombers/ovl_En_Bombers_DL_12C8"
-static const ALIGN_ASSET(2) char ovl_En_Bombers_DL_12C8[] = dovl_En_Bombers_DL_12C8;
+#define dgBomberRedBandanaDL "__OTR__overlays/ovl_En_Bombers/gBomberRedBandanaDL"
+static const ALIGN_ASSET(2) char gBomberRedBandanaDL[] = dgBomberRedBandanaDL;
 
-#define dovl_En_Bombers_DL_12D8 "__OTR__overlays/ovl_En_Bombers/ovl_En_Bombers_DL_12D8"
-static const ALIGN_ASSET(2) char ovl_En_Bombers_DL_12D8[] = dovl_En_Bombers_DL_12D8;
+#define dgBomberBlueBandanaDL "__OTR__overlays/ovl_En_Bombers/gBomberBlueBandanaDL"
+static const ALIGN_ASSET(2) char gBomberBlueBandanaDL[] = dgBomberBlueBandanaDL;
 #endif // OVERLAYS_OVL_EN_BOMBERS_H

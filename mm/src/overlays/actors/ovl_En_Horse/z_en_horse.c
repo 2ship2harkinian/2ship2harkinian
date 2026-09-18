@@ -3485,7 +3485,7 @@ s32 EnHorse_CalcFloorHeight(EnHorse* this, PlayState* play, Vec3f* pos, Collisio
         return 1; // No floor
     }
 
-    if ((WaterBox_GetSurface1_2(play, &play->colCtx, pos->x, pos->z, &waterY, &waterbox) == 1) &&
+    if ((BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, pos->x, pos->z, &waterY, &waterbox) == true) &&
         (*floorHeight < waterY)) {
         return 2; // Water
     }
@@ -3564,8 +3564,8 @@ void EnHorse_CheckFloors(EnHorse* this, PlayState* play) {
     WaterBox* waterbox;
     f32 dist;
 
-    if ((WaterBox_GetSurface1_2(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterHeight,
-                                &waterbox) == true) &&
+    if ((BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                       &waterHeight, &waterbox) == true) &&
         (this->actor.floorHeight < waterHeight)) {
         EnHorse_ObstructMovement(this, play, 1, galloping);
         return;
@@ -4014,7 +4014,7 @@ void EnHorse_UpdateBgCheckInfo(EnHorse* this, PlayState* play) {
     }
 }
 
-void func_80886C00(EnHorse* this, PlayState* play) {
+void EnHorse_CheckBoost(EnHorse* this, PlayState* play) {
     Input* input = &play->state.input[this->unk_52C];
 
     if (((this->action == ENHORSE_ACTION_MOUNTED_WALK) || (this->action == ENHORSE_ACTION_MOUNTED_TROT) ||
@@ -4244,7 +4244,7 @@ void EnHorse_Update(Actor* thisx, PlayState* play2) {
     if (!(this->stateFlags & ENHORSE_INACTIVE)) {
         if ((this->action == ENHORSE_ACTION_MOUNTED_GALLOP) || (this->action == ENHORSE_ACTION_MOUNTED_TROT) ||
             (this->action == ENHORSE_ACTION_MOUNTED_WALK)) {
-            func_80886C00(this, play);
+            EnHorse_CheckBoost(this, play);
         }
 
         if (this->playerControlled == true) {

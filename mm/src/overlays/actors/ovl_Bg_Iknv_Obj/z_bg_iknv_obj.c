@@ -124,7 +124,7 @@ s32 func_80BD7CEC(BgIknvObj* this) {
 }
 
 void BgIknvObj_UpdateWaterwheel(BgIknvObj* this, PlayState* play) {
-    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
         this->dyna.actor.shape.rot.z -= 0x64;
         Actor_PlaySeq_FlaggedMusicBoxHouse(&this->dyna.actor);
         Actor_PlaySfx_Flagged(&this->dyna.actor, NA_SE_EV_WOOD_WATER_WHEEL - SFX_FLAG);

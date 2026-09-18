@@ -18,15 +18,15 @@ static const ALIGN_ASSET(2) char object_astr_obj_Tex_001020[] = dobject_astr_obj
 #define dobject_astr_obj_DL_002170 "__OTR__objects/object_astr_obj/object_astr_obj_DL_002170"
 static const ALIGN_ASSET(2) char object_astr_obj_DL_002170[] = dobject_astr_obj_DL_002170;
 
-#define dobject_astr_obj_DL_002178 "__OTR__objects/object_astr_obj/object_astr_obj_DL_002178"
-static const ALIGN_ASSET(2) char object_astr_obj_DL_002178[] = dobject_astr_obj_DL_002178;
+#define dgAstralObservatoryBombWallFragmentDL "__OTR__objects/object_astr_obj/gAstralObservatoryBombWallFragmentDL"
+static const ALIGN_ASSET(2) char gAstralObservatoryBombWallFragmentDL[] = dgAstralObservatoryBombWallFragmentDL;
 
-#define dobject_astr_obj_DL_0022E0 "__OTR__objects/object_astr_obj/object_astr_obj_DL_0022E0"
-static const ALIGN_ASSET(2) char object_astr_obj_DL_0022E0[] = dobject_astr_obj_DL_0022E0;
+#define dgAstralObservatoryBombWallCrackDL "__OTR__objects/object_astr_obj/gAstralObservatoryBombWallCrackDL"
+static const ALIGN_ASSET(2) char gAstralObservatoryBombWallCrackDL[] = dgAstralObservatoryBombWallCrackDL;
 
-#define dobject_astr_obj_DL_002380 "__OTR__objects/object_astr_obj/object_astr_obj_DL_002380"
-static const ALIGN_ASSET(2) char object_astr_obj_DL_002380[] = dobject_astr_obj_DL_002380;
+#define dgAstralObservatoryBombWallDL "__OTR__objects/object_astr_obj/gAstralObservatoryBombWallDL"
+static const ALIGN_ASSET(2) char gAstralObservatoryBombWallDL[] = dgAstralObservatoryBombWallDL;
 
-#define dobject_astr_obj_Colheader_002498 "__OTR__objects/object_astr_obj/object_astr_obj_Colheader_002498"
-static const ALIGN_ASSET(2) char object_astr_obj_Colheader_002498[] = dobject_astr_obj_Colheader_002498;
+#define dgAstralObservatoryBombWallCol "__OTR__objects/object_astr_obj/gAstralObservatoryBombWallCol"
+static const ALIGN_ASSET(2) char gAstralObservatoryBombWallCol[] = dgAstralObservatoryBombWallCol;
 #endif // OBJECTS_OBJECT_ASTR_OBJ_H
