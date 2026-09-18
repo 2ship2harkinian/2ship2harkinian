@@ -5,9 +5,9 @@
 
 ## Discord
 
-Official Discord: https://discord.com/invite/shipofharkinian
+Official Discord: https://discord.gg/h3ssn6K6JG
 
-If you're having any trouble after reading through this `README`, feel free ask for help in the 2 Ship 2 Harkinian Support text channels. Please keep in mind that we do not condone piracy.
+If you're having any trouble after reading through this `README`, feel free ask for help in the Discord. Please keep in mind that we do not condone piracy.
 
 # Quick Start
 
@@ -16,7 +16,7 @@ If you're having any trouble after reading through this `README`, feel free ask 
 ### 1. Verify your ROM dump
 You can verify you have dumped a supported copy of the game by using the compatibility checker at https://2ship.equipment/. If you'd prefer to manually validate your ROM dump, you can cross-reference its `sha1` hash with the hashes [here](docs/supportedHashes.json).
 
-### 2. Download 2 Ship 2 Harkinian from [Releases](https://github.com/HarbourMasters/2Ship2Harkinian/releases)
+### 2. Download 2 Ship 2 Harkinian from [Releases](https://github.com/2ship2harkinian/2Ship2Harkinian/releases)
 
 ### 3. Launch the Game!
 #### Windows
@@ -74,9 +74,9 @@ If you want to manually compile 2S2H, please consult the [building instructions]
 # Nightly Builds
 If you want to playtest a continuous integration build, you can find them at the links below. Keep in mind that these are for playtesting only, and you will likely encounter bugs and possibly crashes. 
 
-* [Windows](https://nightly.link/HarbourMasters/2ship2harkinian/workflows/main/develop/2ship-windows.zip)
-* [Linux](https://nightly.link/HarbourMasters/2ship2harkinian/workflows/main/develop/2ship-linux.zip)
-* [Mac](https://nightly.link/HarbourMasters/2ship2harkinian/workflows/main/develop/2ship-mac.zip)
+* [Windows](https://nightly.link/2ship2harkinian/2ship2harkinian/workflows/main/develop/2ship-windows.zip)
+* [Linux](https://nightly.link/2ship2harkinian/2ship2harkinian/workflows/main/develop/2ship-linux.zip)
+* [Mac](https://nightly.link/2ship2harkinian/2ship2harkinian/workflows/main/develop/2ship-mac.zip)
 
 <a href="https://github.com/Kenix3/libultraship/">
   <picture>

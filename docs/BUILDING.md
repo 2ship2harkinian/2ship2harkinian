@@ -197,7 +197,7 @@ _Note: If you're using Visual Studio Code, the [CMake Tools plugin](https://mark
 
 ```bash
 # Clone the repo and enter the directory
-git clone https://github.com/HarbourMasters/2ship2harkinian.git
+git clone https://github.com/2ship2harkinian/2ship2harkinian.git
 cd 2ship2harkinian
 
 # Clone the submodules
@@ -252,7 +252,7 @@ _Note: If you're using Visual Studio Code, the [cpack plugin](https://marketplac
 
 ```bash
 # Clone the repo
-git clone https://github.com/HarbourMasters/2ship2harkinian.git
+git clone https://github.com/2ship2harkinian/2ship2harkinian.git
 cd 2ship2harkinian
 # Clone the submodule libultraship
 git submodule update --init

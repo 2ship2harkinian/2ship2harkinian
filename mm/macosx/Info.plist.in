@@ -28,7 +28,7 @@
     <key>CFBundleVersion</key>
     <string>@CMAKE_PROJECT_VERSION@</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright 2024 HarbourMasters.</string>
+    <string>Copyright 2026 2ship2harkinian.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.games</string>
     <key>LSMinimumSystemVersion</key>
