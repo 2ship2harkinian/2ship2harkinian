@@ -3,6 +3,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "functions.h"
@@ -32,19 +33,19 @@ void RegisterSkipKafeiReveal() {
         Message_BombersNotebookQueueEvent(gPlayState, BOMBERS_NOTEBOOK_EVENT_RECEIVED_PENDANT_OF_MEMORIES);
 
         if (GameInteractor_Should(VB_GIVE_PENDANT_OF_MEMORIES_FROM_KAFEI, true)) {
-            GameInteractor::Instance->events.emplace_back(
-                GIEventGiveItem{ .showGetItemCutscene = true,
-                                 .param = GID_PENDANT_OF_MEMORIES,
-                                 .giveItem = [](Actor* actor, PlayState* play) {
-                                     if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                                         CustomMessage::SetActiveCustomMessage("You received the Pendant of Memories!",
-                                                                               { .textboxType = 2 });
-                                     } else {
-                                         CustomMessage::StartTextbox(
-                                             "You received the Pendant of Memories!\x1C\x02\x10", { .textboxType = 2 });
-                                     }
-                                     Item_Give(play, ITEM_PENDANT_OF_MEMORIES);
-                                 } });
+            GameInteractor::Instance->Queue(GIActions::GiveItem(
+                { .showGetItemCutscene = true,
+                  .param = GID_PENDANT_OF_MEMORIES,
+                  .giveItem = [](Actor* actor, PlayState* play) {
+                      if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                          CustomMessage::SetActiveCustomMessage("You received the Pendant of Memories!",
+                                                                { .textboxType = 2 });
+                      } else {
+                          CustomMessage::StartTextbox("You received the Pendant of Memories!\x1C\x02\x10",
+                                                      { .textboxType = 2 });
+                      }
+                      Item_Give(play, ITEM_PENDANT_OF_MEMORIES);
+                  } }));
         }
     });
 }

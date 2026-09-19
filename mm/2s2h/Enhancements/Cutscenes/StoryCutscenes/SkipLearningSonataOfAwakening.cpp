@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -27,24 +28,24 @@ void RegisterSkipLearningSonataOfAwakening() {
                 *should = false;
             } else if (*csId == 12) {
                 if (GameInteractor_Should(VB_GIVE_ITEM_FROM_MNK, true)) {
-                    GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                        .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
-                        .giveItem =
-                            [](Actor* actor, PlayState* play) {
-                                if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                                    CustomMessage::SetActiveCustomMessage("You learned the Sonata of Awakening!",
-                                                                          { .textboxType = 2 });
-                                } else {
-                                    CustomMessage::StartTextbox("You learned the Sonata of Awakening!\x1C\x02\x10",
-                                                                { .textboxType = 2 });
-                                }
-                                Item_Give(gPlayState, ITEM_SONG_SONATA);
-                            },
-                        .drawItem =
-                            [](Actor* actor, PlayState* play) {
-                                Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                                Rando::DrawItem(RI_SONG_SONATA);
-                            } });
+                    GameInteractor::Instance->Queue(GIActions::GiveItem(
+                        { .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
+                          .giveItem =
+                              [](Actor* actor, PlayState* play) {
+                                  if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                                      CustomMessage::SetActiveCustomMessage("You learned the Sonata of Awakening!",
+                                                                            { .textboxType = 2 });
+                                  } else {
+                                      CustomMessage::StartTextbox("You learned the Sonata of Awakening!\x1C\x02\x10",
+                                                                  { .textboxType = 2 });
+                                  }
+                                  Item_Give(gPlayState, ITEM_SONG_SONATA);
+                              },
+                          .drawItem =
+                              [](Actor* actor, PlayState* play) {
+                                  Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                                  Rando::DrawItem(RI_SONG_SONATA);
+                              } }));
                 }
                 gPlayState->nextEntrance = ENTRANCE(DEKU_PALACE, 1);
                 gPlayState->transitionType = TRANS_TYPE_64;

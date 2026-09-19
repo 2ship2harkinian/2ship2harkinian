@@ -2,6 +2,7 @@
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "z64actor.h"
@@ -31,7 +32,7 @@ void RegisterDemoBehavior() {
 
                     // You can put whatever you want here. For instance you can use the GI queue to queue up a different
                     // kind of item give:
-                    GameInteractor::Instance->events.push_back(GIEventGiveItem{
+                    GameInteractor::Instance->Queue(GIActions::GiveItem({
                         .showGetItemCutscene = true,
                         .param = GID_RUPEE_GREEN,
                         .giveItem =
@@ -50,7 +51,7 @@ void RegisterDemoBehavior() {
                                 Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
                                 GetItem_Draw(play, CUSTOM_ITEM_PARAM);
                             },
-                    });
+                    }));
 
                     // Or you can spawn another CustomItem to give an item that way, but the GI queue is more flexible
                     // and reliable
@@ -104,22 +105,6 @@ void RegisterDemoBehavior() {
                                                                       .textboxType = 2,
                                                                       .icon = 0x3D,
                                                                   });
-
-            // Pot Hydra
-            // GameInteractor::Instance->events.push_back(GIEventSpawnActor{
-            //     .actorId = ACTOR_OBJ_TSUBO,
-            //     .posX = 50.0f,
-            //     .posY = 0,
-            //     .posZ = -40.0f, // Behind the player
-            //     .relativeCoords = true,
-            // });
-            // GameInteractor::Instance->events.push_back(GIEventSpawnActor{
-            //     .actorId = ACTOR_OBJ_TSUBO,
-            //     .posX = -50.0f,
-            //     .posY = 0,
-            //     .posZ = -50.0f, // Behind the player
-            //     .relativeCoords = true,
-            // });
         }
     });
 

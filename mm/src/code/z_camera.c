@@ -285,6 +285,9 @@ f32 Camera_GetFocalActorHeight(Camera* camera) {
 
     if (focalActor == &GET_PLAYER(camera->play)->actor) {
         focalActorHeight = Player_GetHeight((Player*)focalActor);
+        // #region 2S2H [Enhancement] Let effects that resize the player bring the camera with them
+        GameInteractor_Should(VB_MODIFY_CAMERA_FOCAL_HEIGHT, true, &focalActorHeight);
+        // #endregion
     } else {
         focalActorFocus = Actor_GetFocus(focalActor);
         focalActorHeight = focalActorFocus.pos.y - camera->focalActorPosRot.pos.y;
