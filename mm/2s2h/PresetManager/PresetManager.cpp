@@ -666,6 +666,40 @@ nlohmann::json voyage3PresetJ = R"(
 }
 )"_json;
 
+nlohmann::json pcExperiencePresetJ = R"(
+{
+    "CVars": {
+        "gEnhancements": {
+            "Camera": {
+                "FirstPerson": {
+                    "GyroEnabled": 1,
+                    "MoveInFirstPerson": 1,
+                    "RightStickEnabled": 1
+                },
+                "FreeLook": {
+                    "Enable": 1
+                }
+            },
+            "Equipment": {
+                "ActiveItemOnB": 1,
+                "MouseQuickspin": {
+                    "Enable": 1
+                },
+                "MouseShielding": {
+                    "Enable": 1
+                }
+            }
+        },
+        "gSettings": {
+            "AutoCaptureMouse": 1,
+            "EnableMouse": 1
+        }
+    },
+    "type": "2S2H_PRESET",
+    "version": 1
+}
+)"_json;
+
 std::unordered_map<std::string, std::pair<nlohmann::json, std::set<std::string>>> presets = {};
 const std::filesystem::path presetsFolderPath(Ship::Context::GetPathRelativeToAppDirectory("presets", appShortName));
 
@@ -675,6 +709,7 @@ void PresetManager_RefreshPresets() {
         { "Defaults (Everything Off)", { defaultsPresetJ, { "Developer Tools", "Enhancements", "HUD", "Rando" } } });
     presets.insert({ "Curated", { curatedPresetJ, { "Developer Tools", "Enhancements", "HUD" } } });
     presets.insert({ "Voyage 3", { voyage3PresetJ, { "Developer Tools", "Enhancements", "Rando" } } });
+    presets.insert({ "PC Experience", { pcExperiencePresetJ, { "Enhancements" } } });
 
     // ensure the presets folder exists
     if (!std::filesystem::exists(presetsFolderPath)) {

@@ -48,6 +48,7 @@
 #include "2s2h/BenPort.h"
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/Mouse.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 
 void Player_Init(Actor* thisx, PlayState* play);
@@ -5630,6 +5631,10 @@ s32 Player_CanSpinAttack(Player* this) {
         return false;
     }
 
+    if (GameInteractor_Should(VB_SHOULD_QUICKSPIN, false, sp3C)) {
+        return true;
+    }
+
     iter = &this->controlStickSpinAngles[0];
     iter2 = &sp3C[0];
 
@@ -8723,8 +8728,12 @@ void func_8083A98C(Actor* thisx, PlayState* play2) {
             s16 inputX;
             s16 newYaw; // from base position shape.rot.y
 
-            // Pitch:
             inputY = sPlayerControlInput->rel.stick_y * 4;
+            inputX = sPlayerControlInput->rel.stick_x * -4;
+
+            GameInteractor_ExecuteOnPlayerTelescopeAim(&inputX, &inputY);
+
+            // Pitch:
             inputY *= -GameInteractor_InvertControl(GI_INVERT_TELESCOPE_Y);
             // Add input, clamped to prevent turning too fast
             thisx->focus.rot.x += CLAMP(inputY, -0x12C, 0x12C);
@@ -8732,7 +8741,6 @@ void func_8083A98C(Actor* thisx, PlayState* play2) {
             thisx->focus.rot.x = CLAMP(thisx->focus.rot.x, -0x2EE0, 0x2EE0);
 
             // Yaw: shape.rot.y is used as a fixed starting position
-            inputX = sPlayerControlInput->rel.stick_x * -4;
             inputX *= GameInteractor_InvertControl(GI_INVERT_TELESCOPE_X);
             // Start from current position: no input -> no change
             newYaw = thisx->focus.rot.y - thisx->shape.rot.y;
@@ -10056,7 +10064,10 @@ s32 func_8083E514(Player* this, f32* arg2, s16* arg3, PlayState* play) {
         if (this->focusActor != NULL) {
             func_8083C62C(this, true);
         } else {
-            Math_SmoothStepToS(&this->actor.focus.rot.x, (sPlayerControlInput->rel.stick_y * 240.0f), 0xE, 0xFA0, 0x1E);
+            if (GameInteractor_Should(VB_SHOULD_OVERSHOULDER_AIM, true, this)) {
+                Math_SmoothStepToS(&this->actor.focus.rot.x, (sPlayerControlInput->rel.stick_y * 240.0f), 0xE, 0xFA0,
+                                   0x1E);
+            }
             func_80832754(this, true);
         }
     } else {
@@ -13536,6 +13547,12 @@ s32 Ship_HandleFirstPersonAiming(PlayState* play, Player* this, s32 arg2) {
         gyroX = sPlayerControlInput->cur.gyro_y * 720; // -40 to 40, avg -4 to 4
         gyroY = sPlayerControlInput->cur.gyro_x * 720; // -20 to 20, avg -2 to 2
 
+        if (Mouse_IsCaptured() && CVarGetInteger("gSettings.EnableMouse", 0)) {
+            MouseCoords mouseDelta = Mouse_GetDelta();
+            gyroX -= mouseDelta.x * 12.0f;
+            gyroY += mouseDelta.y * 12.0f;
+        }
+
         gyroX *= GameInteractor_InvertControl(GI_INVERT_FIRST_PERSON_GYRO_X);
         gyroY *= -GameInteractor_InvertControl(GI_INVERT_FIRST_PERSON_GYRO_Y);
 
@@ -15323,6 +15340,13 @@ void Player_Action_18(Player* this, PlayState* play) {
 
         xStick *= GameInteractor_InvertControl(GI_INVERT_SHIELD_X);
         yStick *= GameInteractor_InvertControl(GI_INVERT_SHIELD_Y);
+
+        bool shieldHandled = false;
+        GameInteractor_ExecuteOnPlayerShieldControl(this, play, &xStick, &yStick, &shieldHandled);
+        if (shieldHandled) {
+            goto skipShieldAim;
+        }
+
         var_a1 = (yStick * Math_CosS(temp_a0)) + (Math_SinS(temp_a0) * xStick);
         temp_ft5 = (xStick * Math_CosS(temp_a0)) - (Math_SinS(temp_a0) * yStick);
 
@@ -15337,6 +15361,7 @@ void Player_Action_18(Player* this, PlayState* play) {
         this->upperLimbRot.x = this->actor.focus.rot.x;
         Math_ScaledStepToS(&this->upperLimbRot.y, temp_ft5, var_a3);
 
+    skipShieldAim:
         if (this->av1.actionVar1 != 0) {
             if (!func_808401F4(play, this)) {
                 if (this->skelAnime.curFrame < 2.0f) {
@@ -19328,6 +19353,9 @@ void func_80855F9C(PlayState* play, Player* this) {
     s16 yawTarget;
 
     this->stateFlags2 |= PLAYER_STATE2_20;
+
+    GameInteractor_ExecuteOnPlayerDekuCharge(this);
+
     Player_GetMovementSpeedAndYaw(this, &speedTarget, &yawTarget, SPEED_MODE_CURVED, play);
     Math_ScaledStepToS(&this->yaw, yawTarget, 0x258);
 }
