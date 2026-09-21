@@ -165,6 +165,18 @@ std::map < std::tuple<s16, s16, s16, s16>, RandoCheckId> objRailliftMap{
     { { ACTOR_OBJ_RAILLIFT, SCENE_MITURIN, 10, 1}, RC_WOODFALL_TEMPLE_PIT_ROOM_MOVING_PLATFORM_DEKU_FLOWER_2, },
     { { ACTOR_OBJ_RAILLIFT, SCENE_MITURIN, 5, 0}, RC_WOODFALL_TEMPLE_WATER_ROOM_MOVING_PLATFORM_DEKU_FLOWER, },
 };
+
+std::map < std::tuple<s16, s16, s16>, RandoCheckId> clearWoodfallMap{
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 7 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_1, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 2 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_2, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 8 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_3, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 5 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_4, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 6 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_5, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 4 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_6, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 3 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_7, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 1 }, RC_WOODFALL_MAD_SCRUB_DEKU_FLOWER_8, },
+    { { ACTOR_OBJ_ETCETERA, SCENE_21MITURINMAE, 0 }, RC_WOODFALL_OWL_STATUE_PLATFORM_DEKU_FLOWER, },
+};
 // clang-format on
 
 // For flowers that are identified based on being a bouncing pink flower, identify based on the home pos.
@@ -210,12 +222,20 @@ RandoCheckId IdentifyEtceteraBasedOnPos(Actor* actor) {
 
 // For flowers spawned by the scene, identify based on actor id
 RandoCheckId IdentifyEtceteraBasedOnId(Actor* actor) {
-    auto it = objEtceteraMap.find(
-        { actor->id, gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
-    if (it == objEtceteraMap.end()) {
-        return RC_UNKNOWN;
+    if (gPlayState->sceneId == SCENE_21MITURINMAE && CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_WOODFALL_TEMPLE)) {
+        auto it = clearWoodfallMap.find({ actor->id, gPlayState->sceneId, GetActorListIndex(actor) });
+        if (it == clearWoodfallMap.end()) {
+            return RC_UNKNOWN;
+        }
+        return it->second;
+    } else {
+        auto it = objEtceteraMap.find(
+            { actor->id, gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
+        if (it == objEtceteraMap.end()) {
+            return RC_UNKNOWN;
+        }
+        return it->second;
     }
-    return it->second;
 }
 
 RandoCheckId IdentifyEtceteraBasedOnParent(Actor* actor) {
