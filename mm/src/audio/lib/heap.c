@@ -1104,6 +1104,11 @@ void* AudioHeap_AllocPermanent(s32 tableType, s32 id, size_t size) {
     void* addr;
     s32 index = gAudioCtx.permanentPool.count;
 
+    // 2S2H [Custom Audio] permanentEntries is heap allocated (see AudioLoad_Init). Fail the load instead of oob
+    if (index >= gAudioCtx.permanentEntriesCapacity) {
+        return NULL;
+    }
+
     addr = AudioHeap_Alloc(&gAudioCtx.permanentPool, size);
     gAudioCtx.permanentEntries[index].addr = addr;
 

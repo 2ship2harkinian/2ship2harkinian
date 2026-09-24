@@ -253,7 +253,7 @@ void AudioThread_QueueCmdU16(u32 opArgs, u16 data);
 void AudioThread_QueueCmdPtr(u32 opArgs, void* data);
 s32 AudioThread_ScheduleProcessCmds(void);
 u32 AudioThread_GetExternalLoadQueueMsg(u32* retMsg);
-u8* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts, u8* buff);
+u16* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts, u16* buff);
 s32 func_80193C5C(void);
 s32 AudioThread_ResetAudioHeap(s32 specId);
 void AudioThread_PreNMIInternal(void);

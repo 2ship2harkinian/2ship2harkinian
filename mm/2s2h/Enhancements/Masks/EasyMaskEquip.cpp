@@ -14,8 +14,8 @@ PlayerItemAction Player_ItemToItemAction(Player* player, ItemId item);
 #define CVAR CVarGetInteger(CVAR_NAME, 0)
 #define CVAR_PERSISTENT_BUNNY_HOOD_NAME "gEnhancements.Masks.PersistentBunnyHood.Enabled"
 #define CVAR_PERSISTENT_BUNNY_HOOD CVarGetInteger(CVAR_PERSISTENT_BUNNY_HOOD_NAME, 0)
-#define CVAR_FAST_TRANSFORMATION_NAME "gEnhancements.Masks.FastTransformation"
-#define CVAR_FAST_TRANSFORMATION CVarGetInteger(CVAR_FAST_TRANSFORMATION_NAME, 0)
+
+extern bool ShouldFastTransform();
 
 typedef enum PendingMode {
     PENDING_NONE,
@@ -467,11 +467,11 @@ static void ProcessPendingMaskEquip(Actor* actor) {
         case PENDING_RETURN_TO_HUMAN_THEN_REGULAR:
             if (player->transformation == PLAYER_FORM_HUMAN) {
                 if (player->currentMask != sPendingAction.targetMask) {
-                    ApplyRegularMaskTarget(player, sPendingAction.targetMask, CVAR_FAST_TRANSFORMATION);
+                    ApplyRegularMaskTarget(player, sPendingAction.targetMask, ShouldFastTransform());
                 } else {
                     sMaskEquippedWithoutButton =
                         IsRegularMask(sPendingAction.targetMask) ? sPendingAction.targetMask : PLAYER_MASK_NONE;
-                    if (CVAR_FAST_TRANSFORMATION) {
+                    if (ShouldFastTransform()) {
                         PlayAppliedMaskSfx(player, sPendingAction.targetMask);
                     }
                 }
@@ -495,7 +495,7 @@ static void ProcessPendingMaskEquip(Actor* actor) {
                 sMaskEquippedWithoutButton = ShouldMaintainMaskWithoutButton(sPendingAction.targetMask)
                                                  ? sPendingAction.targetMask
                                                  : PLAYER_MASK_NONE;
-                if (CVAR_FAST_TRANSFORMATION && (sPendingAction.targetMask != PLAYER_MASK_GIANT)) {
+                if (ShouldFastTransform() && (sPendingAction.targetMask != PLAYER_MASK_GIANT)) {
                     PlayAppliedMaskSfx(player, sPendingAction.targetMask);
                 }
                 ResetPendingAction();

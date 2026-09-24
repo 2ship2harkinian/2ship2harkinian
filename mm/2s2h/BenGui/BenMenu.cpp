@@ -98,6 +98,12 @@ static const std::vector<const char*> clockTypeOptions = {
     "Text only",  // CLOCK_TYPE_TEXT_BASED
 };
 
+static const std::vector<const char*> fastTransformationOptions = {
+    "Off",              // FAST_TRANSFORM_OFF
+    "On",               // FAST_TRANSFORM_ON
+    "After First Time", // FAST_TRANSFORM_AFTER_FIRST
+};
+
 static const std::vector<const char*> textureFilteringOptions = {
     "Three-Point", // Fast::FILTER_THREE_POINT,
     "Linear",      // Fast::FILTER_LINEAR
@@ -144,6 +150,12 @@ static const std::vector<const char*> speedModifierModeOptions = {
     "Toggle Buttons",
 };
 
+static const std::vector<const char*> dashAfterRollOptions = {
+    "Off",                   // DASH_AFTER_ROLL_OFF
+    "On",                    // DASH_AFTER_ROLL_ON
+    "Stack with Bunny Hood", // DASH_AFTER_ROLL_STACK
+};
+
 static const std::vector<const char*> notificationPosition = {
     "Top Left", "Top Right", "Bottom Left", "Bottom Right", "Hidden",
 };
@@ -178,6 +190,12 @@ static const std::vector<const char*> goronRaceDifficultyOptions = {
     "Vanilla",  // GORON_RACE_DIFFICULTY_VANILLA
     "Balanced", // GORON_RACE_DIFFICULTY_BALANCED
     "Skip",     // GORON_RACE_DIFFICULTY_SKIP
+};
+
+static const std::vector<const char*> torchTimeLimitOptions = {
+    "Normal",   // TORCH_TIME_LIMIT_NORMAL
+    "Double",   // TORCH_TIME_LIMIT_DOUBLE
+    "Infinity", // TORCH_TIME_LIMIT_INFINITY
 };
 
 static const std::vector<const char*> timerDisplayOptions = {
@@ -1096,6 +1114,14 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "Manual Jump", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Player.ManualJump")
         .Options(CheckboxOptions().Tooltip("Z + A to Jump and B while midair to Jump Attack."));
+    AddWidget(path, "Dash After Roll", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.Player.DashAfterRoll")
+        .Options(ComboboxOptions()
+                     .Tooltip("Keep holding A after a roll to dash.\n\n"
+                              "- On: Dashing runs at Bunny Hood speed, wearing the bunny hood adds nothing extra.\n"
+                              "- Stack with Bunny Hood: Dashing while wearing the Bunny Hood combines both boosts to "
+                              "run even faster.")
+                     .ComboVec(&dashAfterRollOptions));
     AddWidget(path, "Dpad Equips", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Dpad.DpadEquips")
         .Options(CheckboxOptions().Tooltip("Allows you to equip items to your D-pad."));
@@ -1451,9 +1477,11 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "Blast Mask has Powder Keg Force", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Masks.BlastMaskKeg")
         .Options(CheckboxOptions().Tooltip("Blast Mask can also destroy objects only the Powder Keg can."));
-    AddWidget(path, "Fast Transformation", WIDGET_CVAR_CHECKBOX)
+    AddWidget(path, "Fast Transformation", WIDGET_CVAR_COMBOBOX)
         .CVar("gEnhancements.Masks.FastTransformation")
-        .Options(CheckboxOptions().Tooltip("Removes the delay when using transformation masks."));
+        .Options(ComboboxOptions()
+                     .Tooltip("Removes the delay when using transformation masks.")
+                     .ComboVec(&fastTransformationOptions));
     AddWidget(path, "3DS Style Mask Equipping", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Masks.3DSMaskEquip")
         .Options(CheckboxOptions().Tooltip("Allows equipping masks while in other forms, returning you to human form "
@@ -1798,41 +1826,8 @@ void BenMenu::AddEnhancements() {
     // Difficulty Options
     path = { "Enhancements", "Difficulty Options", SECTION_COLUMN_1 };
     AddSidebarEntry("Enhancements", "Difficulty Options", 3);
-    AddWidget(path, "Combat", WIDGET_SEPARATOR_TEXT);
-    AddWidget(path, "Hyper Enemies", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.DifficultyOptions.HyperEnemies")
-        .Options(CheckboxOptions().Tooltip("Double the rate at which enemies are updated, making them more difficult"));
-    AddWidget(path, "Boss Health Multiplier", WIDGET_CVAR_COMBOBOX)
-        .CVar("gEnhancements.DifficultyOptions.BossHealthMultiplier")
-        .Options(ComboboxOptions()
-                     .Tooltip("Multiply the health of all bosses. Requires a Scene Reload to take effect.")
-                     .ComboMap(&bossHealthOptions));
-    AddWidget(path, "Damage Multiplier", WIDGET_CVAR_COMBOBOX)
-        .CVar("gEnhancements.DifficultyOptions.DamageMultiplier")
-        .Options(ComboboxOptions()
-                     .Tooltip("Adjusts the amount of damage Link takes from all sources.")
-                     .ComboMap(&damageMultiplierOptions));
-    AddWidget(path, "Permanent Heart Loss", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.DifficultyOptions.PermanentHeartLoss")
-        .Options(CheckboxOptions().Tooltip(
-            "When you lose 4 quarters of a heart you will permanently lose that heart container.\n\nDisabling this "
-            "after the fact will not restore any received heart containers."));
-    AddWidget(path, "Delete File on Death", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.DifficultyOptions.DeleteFileOnDeath")
-        .Options(CheckboxOptions().Tooltip("Dying will delete your file\n\n     " ICON_FA_EXCLAMATION_TRIANGLE
-                                           " WARNING " ICON_FA_EXCLAMATION_TRIANGLE
-                                           "\nTHIS IS NOT REVERSIBLE\nUSE AT YOUR OWN RISK!"));
-    AddWidget(path, "Jinxed Timer: %d seconds", WIDGET_CVAR_SLIDER_INT)
-        .CVar("gEnhancements.DifficultyOptions.JinxedTimer")
-        .Options(
-            IntSliderOptions()
-                .Tooltip("Set the duration of the Jinxed effect. Setting it to 0 will prevent the effect entirely.")
-                .Min(0)
-                .Max(60)
-                .DefaultValue(60));
 
-    path.column = SECTION_COLUMN_2;
-    AddWidget(path, "Minigames", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Clock Town Minigames", WIDGET_SEPARATOR_TEXT);
     AddWidget(path, "Bombers Hide-and-Seek Count", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.Minigames.BombersHideAndSeek")
         .Options(IntSliderOptions()
@@ -1868,6 +1863,16 @@ void BenMenu::AddEnhancements() {
                      .Min(1)
                      .Max(16)
                      .DefaultValue(16));
+    AddWidget(path, "Treasure Chest Shop Maze", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.Minigames.TreasureChestShopShowFullMaze")
+        .Options(ComboboxOptions()
+                     .Tooltip("Shows the entire maze layout in the Treasure Chest Shop minigame instead of only "
+                              "revealing tiles near Link.\n"
+                              "-Off: Only tiles near Link are revealed\n"
+                              "-Full Height: The whole maze is raised to the same height\n"
+                              "-Tiered: Tiles are raised higher the further back they are, so the front rows "
+                              "don't hide the rest")
+                     .ComboVec(&treasureChestShopMazeOptions));
     AddWidget(path, "Town Archery Perfect Score", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.Minigames.TownArcheryScore")
         .Options(IntSliderOptions()
@@ -1880,6 +1885,8 @@ void BenMenu::AddEnhancements() {
         .CVar("gEnhancements.Minigames.RandomizeShootingGalleryOctoroks")
         .Options(CheckboxOptions().Tooltip("Randomizes the positions of Octoroks in the Town Shooting Gallery minigame "
                                            "each time they appear."));
+
+    AddWidget(path, "Southern Swamp Minigames", WIDGET_SEPARATOR_TEXT);
     AddWidget(path, "Swamp Archery Perfect Score", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.Minigames.SwampArcheryScore")
         .Options(IntSliderOptions()
@@ -1888,53 +1895,6 @@ void BenMenu::AddEnhancements() {
                      .Min(1000)
                      .Max(2180)
                      .DefaultValue(2180));
-    AddWidget(path, "Romani Target Practice Winning Score", WIDGET_CVAR_SLIDER_INT)
-        .CVar("gEnhancements.Minigames.RomaniTargetPractice")
-        .Options(IntSliderOptions()
-                     .Tooltip("Sets the score required to win Romani's Target Practice.")
-                     .Min(1)
-                     .Max(10)
-                     .DefaultValue(10));
-    AddWidget(path, "Skip Alien Invasion", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.Minigames.SkipRanchInvasion")
-        .Options(CheckboxOptions().Tooltip("Link automatically succeeds in defending Romani Ranch from the invasion. "
-                                           "In order for this to happen, you must be present at the ranch between "
-                                           "2:30 and 5:15 AM. Automatically advances to 5:15 AM."));
-    AddWidget(path, "Always Win Doggy Race", WIDGET_CVAR_COMBOBOX)
-        .CVar("gEnhancements.Minigames.AlwaysWinDoggyRace")
-        .Options(ComboboxOptions().Tooltip("Makes the Doggy Race easier to win.").ComboVec(&alwaysWinDoggyraceOptions));
-
-    AddWidget(path, "Cucco Shack Cucco Count", WIDGET_CVAR_SLIDER_INT)
-        .CVar("gEnhancements.Minigames.CuccoShackCuccoCount")
-        .Options(IntSliderOptions()
-                     .Tooltip("Choose how many cuccos you need to raise to make Grog happy.")
-                     .Min(1)
-                     .Max(10)
-                     .DefaultValue(10));
-    AddWidget(path, "Skip Gorman Horse Race", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.Minigames.SkipHorseRace")
-        .Options(CheckboxOptions().Tooltip("Instantly win the Gorman Horse Race"));
-    AddWidget(path, "Beaver Race Rings Collected", WIDGET_CVAR_SLIDER_INT)
-        .CVar("gEnhancements.Minigames.BeaverRaceRingsCollected")
-        .Options(IntSliderOptions()
-                     .Tooltip("Sets the number of rings required for both Beavers. If the slider is set to 20, the "
-                              "first Beaver will require 20 rings, and the second Beaver will require 25 rings, which "
-                              "are their vanilla values.")
-                     .Min(1)
-                     .Max(20)
-                     .DefaultValue(20));
-    AddWidget(path, "Skip Little Beaver Brother Races", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.Minigames.SkipLittleBeaver")
-        .Options(CheckboxOptions().Tooltip("Only Race the Older Beaver."));
-    AddWidget(path, "Goron Race", WIDGET_CVAR_COMBOBOX)
-        .CVar("gEnhancements.DifficultyOptions.GoronRace")
-        .Options(ComboboxOptions()
-                     .Tooltip("Set CPU behavior for the Goron Race:\n"
-                              "- Vanilla: Gorons ahead of Link slow down, and Gorons behind speed up.\n"
-                              "- Balanced: Gorons ahead of Link slow down, but Gorons behind do not speed up.\n"
-                              "- Skip: Instantly win the race.\n")
-                     .DefaultIndex(GoronRaceDifficultyOptions::GORON_RACE_DIFFICULTY_VANILLA)
-                     .ComboVec(&goronRaceDifficultyOptions));
     AddWidget(path, "Swamp Boat Archery Target Score", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.Minigames.BoatArcheryScore")
         .Options(IntSliderOptions()
@@ -1959,18 +1919,129 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "Invincible", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Minigames.BoatArcheryInvincible")
         .Options(CheckboxOptions().Tooltip("Koume's health does not decrease when hit."));
-    AddWidget(path, "Treasure Chest Shop Maze", WIDGET_CVAR_COMBOBOX)
-        .CVar("gEnhancements.Minigames.TreasureChestShopShowFullMaze")
+
+    path.column = SECTION_COLUMN_2;
+    AddWidget(path, "Milk Road Minigames", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Romani Target Practice Winning Score", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.Minigames.RomaniTargetPractice")
+        .Options(IntSliderOptions()
+                     .Tooltip("Sets the score required to win Romani's Target Practice.")
+                     .Min(1)
+                     .Max(10)
+                     .DefaultValue(10));
+    AddWidget(path, "Alien Speed: %.1fx", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar("gEnhancements.Minigames.AlienSpeed")
+        .PreFunc([](WidgetInfo& info) {
+            if (mBenMenu->disabledMap.at(DISABLE_FOR_INVASION_SKIP).active) {
+                info.activeDisables.push_back(DISABLE_FOR_INVASION_SKIP);
+            }
+        })
+        .Options(FloatSliderOptions()
+                     .Tooltip("Changes the movement speed of the aliens during the Romani Ranch invasion.")
+                     .Format("%.1fx")
+                     .Min(0.5f)
+                     .Max(5.0f)
+                     .Step(0.1f)
+                     .DefaultValue(1.0f));
+    AddWidget(path, "Skip Invasion", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Minigames.SkipRanchInvasion")
+        .Options(CheckboxOptions().Tooltip("Link automatically succeeds in defending Romani Ranch from the invasion. "
+                                           "In order for this to happen, you must be present at the ranch between "
+                                           "2:30 and 5:15 AM. Automatically advances to 5:15 AM."));
+    AddWidget(path, "Always Win Doggy Race", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.Minigames.AlwaysWinDoggyRace")
+        .Options(ComboboxOptions().Tooltip("Makes the Doggy Race easier to win.").ComboVec(&alwaysWinDoggyraceOptions));
+
+    AddWidget(path, "Cucco Shack Cucco Count", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.Minigames.CuccoShackCuccoCount")
+        .Options(IntSliderOptions()
+                     .Tooltip("Choose how many cuccos you need to raise to make Grog happy.")
+                     .Min(1)
+                     .Max(10)
+                     .DefaultValue(10));
+    AddWidget(path, "Skip Gorman Horse Race", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Minigames.SkipHorseRace")
+        .Options(CheckboxOptions().Tooltip("Instantly win the Gorman Horse Race"));
+
+    AddWidget(path, "Goron Minigames", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Goron Race", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.DifficultyOptions.GoronRace")
         .Options(ComboboxOptions()
-                     .Tooltip("Shows the entire maze layout in the Treasure Chest Shop minigame instead of only "
-                              "revealing tiles near Link.\n"
-                              "-Off: Only tiles near Link are revealed\n"
-                              "-Full Height: The whole maze is raised to the same height\n"
-                              "-Tiered: Tiles are raised higher the further back they are, so the front rows "
-                              "don't hide the rest")
-                     .ComboVec(&treasureChestShopMazeOptions));
+                     .Tooltip("Set CPU behavior for the Goron Race:\n"
+                              "- Vanilla: Gorons ahead of Link slow down, and Gorons behind speed up.\n"
+                              "- Balanced: Gorons ahead of Link slow down, but Gorons behind do not speed up.\n"
+                              "- Skip: Instantly win the race.\n")
+                     .DefaultIndex(GoronRaceDifficultyOptions::GORON_RACE_DIFFICULTY_VANILLA)
+                     .ComboVec(&goronRaceDifficultyOptions));
+
+    AddWidget(path, "Great Bay Minigames", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Beaver Race Rings Collected", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.Minigames.BeaverRaceRingsCollected")
+        .Options(IntSliderOptions()
+                     .Tooltip("Sets the number of rings required for both Beavers. If the slider is set to 20, the "
+                              "first Beaver will require 20 rings, and the second Beaver will require 25 rings, which "
+                              "are their vanilla values.")
+                     .Min(1)
+                     .Max(20)
+                     .DefaultValue(20));
+    AddWidget(path, "Skip Little Beaver Brother Races", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Minigames.SkipLittleBeaver")
+        .Options(CheckboxOptions().Tooltip("Only Race the Older Beaver."));
+    AddWidget(path, "Fisherman's Jumping Game Torch Time Limit", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.Minigames.FishermanJumpingGame.TorchTimeLimit")
+        .Options(ComboboxOptions()
+                     .Tooltip("Sets the time limit for Link to jump to each torch in the Fisherman's Jumping Game."
+                              "\n- Normal: 5 seconds."
+                              "\n- Double: 10 seconds."
+                              "\n- Infinity: No time limit.")
+                     .DefaultIndex(TorchTimeLimitOptions::TORCH_TIME_LIMIT_NORMAL)
+                     .ComboVec(&torchTimeLimitOptions));
+    AddWidget(path, "Fisherman's Jumping Game Target Score", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.Minigames.FishermanJumpingGame.TargetScore")
+        .Options(IntSliderOptions()
+                     .Tooltip("Sets the target score for the Fisherman's Jumping Game.")
+                     .Min(1)
+                     .Max(40)
+                     .DefaultValue(20));
+    AddWidget(path, "Win Jumping Game Early", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Minigames.FishermanJumpingGame.EarlyWin")
+        .Options(CheckboxOptions().Tooltip(
+            "Link wins the Fisherman's Jumping Game immediately upon reaching the target score."));
 
     path.column = SECTION_COLUMN_3;
+    AddWidget(path, "Combat", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Hyper Enemies", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.DifficultyOptions.HyperEnemies")
+        .Options(CheckboxOptions().Tooltip("Double the rate at which enemies are updated, making them more difficult"));
+    AddWidget(path, "Boss Health Multiplier", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.DifficultyOptions.BossHealthMultiplier")
+        .Options(ComboboxOptions()
+                     .Tooltip("Multiply the health of all bosses. Requires a Scene Reload to take effect.")
+                     .ComboMap(&bossHealthOptions));
+    AddWidget(path, "Damage Multiplier", WIDGET_CVAR_COMBOBOX)
+        .CVar("gEnhancements.DifficultyOptions.DamageMultiplier")
+        .Options(ComboboxOptions()
+                     .Tooltip("Adjusts the amount of damage Link takes from all sources.")
+                     .ComboMap(&damageMultiplierOptions));
+    AddWidget(path, "Permanent Heart Loss", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.DifficultyOptions.PermanentHeartLoss")
+        .Options(CheckboxOptions().Tooltip(
+            "When you lose 4 quarters of a heart you will permanently lose that heart container.\n\nDisabling this "
+            "after the fact will not restore any received heart containers."));
+    AddWidget(path, "Delete File on Death", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.DifficultyOptions.DeleteFileOnDeath")
+        .Options(CheckboxOptions().Tooltip("Dying will delete your file\n\n     " ICON_FA_EXCLAMATION_TRIANGLE
+                                           " WARNING " ICON_FA_EXCLAMATION_TRIANGLE
+                                           "\nTHIS IS NOT REVERSIBLE\nUSE AT YOUR OWN RISK!"));
+    AddWidget(path, "Jinxed Timer: %d seconds", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.DifficultyOptions.JinxedTimer")
+        .Options(
+            IntSliderOptions()
+                .Tooltip("Set the duration of the Jinxed effect. Setting it to 0 will prevent the effect entirely.")
+                .Min(0)
+                .Max(60)
+                .DefaultValue(60));
+
     AddWidget(path, "Other", WIDGET_SEPARATOR_TEXT);
     AddWidget(path, "Lower Bank Reward Thresholds", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.DifficultyOptions.LowerBankRewardThresholds")
@@ -1989,6 +2060,10 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "No Random Drops", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.DifficultyOptions.NoRandomDrops")
         .Options(CheckboxOptions().Tooltip("Prevents spawning of any collectibles."));
+    AddWidget(path, "Always Find Rock Sirloin", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.DifficultyOptions.AlwaysFindRockSirloin")
+        .Options(CheckboxOptions().Tooltip(
+            "Breaking any pot on the Goron Shrine's chandelier will reveal the Rock Sirloin."));
     AddWidget(path, "Deku Guard Search Balls", WIDGET_CVAR_COMBOBOX)
         .CVar("gEnhancements.DifficultyOptions.DekuGuardSearchBalls")
         .Options(
@@ -2371,6 +2446,9 @@ void BenMenu::InitElement() {
                return CVarGetInteger("gEnhancements.Minigames.BoatArcheryInvincible", 0);
            },
             "Koume is Invincible" } },
+        { DISABLE_FOR_INVASION_SKIP,
+          { [](disabledInfo& info) -> bool { return CVarGetInteger("gEnhancements.Minigames.SkipRanchInvasion", 0); },
+            "Alien Invasion Skipped" } }
     };
 }
 

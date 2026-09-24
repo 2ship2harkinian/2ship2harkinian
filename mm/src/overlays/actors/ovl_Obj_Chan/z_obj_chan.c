@@ -13,6 +13,7 @@
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_obj_chan/object_obj_chan.h"
 #include "objects/object_tsubo/object_tsubo.h"
+#include "2s2h/GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED | ACTOR_FLAG_DRAW_CULLING_DISABLED)
 
@@ -313,7 +314,7 @@ void ObjChan_PotAction(ObjChan* this, PlayState* play) {
         ((ObjChan*)this->actor.parent)->pots[this->myPotIndex] = NULL;
         SoundSource_PlaySfxAtFixedWorldPos(play, &this->actor.world.pos, 20, NA_SE_EV_CHANDELIER_BROKEN);
         func_80BB9A1C((ObjChan*)this->actor.parent, 40.0f);
-        if (this->myPotIndex == 4) {
+        if (GameInteractor_Should(VB_FIND_ROCK_SIRLOIN, this->myPotIndex == 4)) {
             if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_37_10)) {
                 SET_WEEKEVENTREG(WEEKEVENTREG_37_10);
                 Actor_SpawnAsChildAndCutscene(&play->actorCtx, play, ACTOR_EN_MM, this->actor.world.pos.x,

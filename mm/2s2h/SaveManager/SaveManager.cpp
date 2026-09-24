@@ -42,7 +42,7 @@ const std::filesystem::path savesFolderPath(Ship::Context::GetPathRelativeToAppD
 // - Create the migration file in the Migrations folder with the name `{CURRENT_SAVE_VERSION}.cpp`
 // - Add the migration function definition below and add it to the `migrations` map with the key being the previous
 // version
-const uint32_t CURRENT_SAVE_VERSION = 7;
+const uint32_t CURRENT_SAVE_VERSION = 8;
 
 void SaveManager_Migration_1(nlohmann::json& j);
 void SaveManager_Migration_2(nlohmann::json& j);
@@ -51,6 +51,7 @@ void SaveManager_Migration_4(nlohmann::json& j);
 void SaveManager_Migration_5(nlohmann::json& j);
 void SaveManager_Migration_6(nlohmann::json& j);
 void SaveManager_Migration_7(nlohmann::json& j);
+void SaveManager_Migration_8(nlohmann::json& j);
 
 const std::unordered_map<uint32_t, std::function<void(nlohmann::json&)>> migrations = {
     // Pre-1.0.0 Migrations, deprecated
@@ -62,6 +63,7 @@ const std::unordered_map<uint32_t, std::function<void(nlohmann::json&)>> migrati
     { 4, SaveManager_Migration_5 },
     { 5, SaveManager_Migration_6 },
     { 6, SaveManager_Migration_7 },
+    { 7, SaveManager_Migration_8 },
 };
 
 int SaveManager_MigrateSave(nlohmann::json& j) {
