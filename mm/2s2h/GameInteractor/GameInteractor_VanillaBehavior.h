@@ -646,7 +646,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*ObjEtcetera` 
+    // - `*ObjEtcetera`
     VB_DRAW_ETCETERA_IDLE,
 
     // #### `result`
@@ -654,7 +654,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*ObjEtcetera` 
+    // - `*ObjEtcetera`
     VB_DRAW_ETCETERA_ANIMATED,
 
     // #### `result`
