@@ -36,6 +36,7 @@
 #include "overlays/actors/ovl_En_Door/z_en_door.h"
 #include "assets/objects/gameplay_keep/gameplay_keep.h"
 #include "overlays/actors/ovl_En_Clear_Tag/z_en_clear_tag.h"
+#include "2s2h/GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED)
 
@@ -735,6 +736,7 @@ void EnInvadepoh_Alien_PathComputeProgress(EnInvadepoh* this) {
     if (sInvasionState == INVASION_STATE_WAIT) {
         this->pathProgress = 0.0f;
     } else if (sInvasionState == INVASION_STATE_ACTIVE) {
+        GameInteractor_Should(VB_SET_ALIEN_SPEED, false, &warpInTime, EN_INVADEPOH_GET_INDEX(&this->actor));
         if ((currentTime - warpInTime) < 0) {
             this->pathProgress = 0.0f;
         } else {
@@ -1182,6 +1184,7 @@ void EnInvadepoh_InvasionHandler_SetInitialInvasionState(EnInvadepoh* this, Play
                     spawnTime = EnInvadepoh_Alien_GetSpawnTime(i);
                     firstSpawn = MIN(spawnTime, firstSpawn);
                 }
+                GameInteractor_Should(VB_SET_ALIEN_SPEED, false, &firstSpawn, 0);
 
                 if (currentTime < (firstSpawn + (80 * CLOCK_TIME_MINUTE) + 1)) {
                     // The alien with the earliest spawn time hasn't reached the barn, so the invasion is ongoing.

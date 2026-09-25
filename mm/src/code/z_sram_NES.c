@@ -1015,6 +1015,7 @@ void Sram_InitNewSave(void) {
     memcpy(&gSaveContext.save.shipSaveInfo.commitHash, &gGitCommitHash,
            sizeof(gSaveContext.save.shipSaveInfo.commitHash));
     gSaveContext.save.shipSaveInfo.pauseSaveEntrance = -1;
+    gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
     gSaveContext.save.shipSaveInfo.saveType = SAVETYPE_VANILLA;
     gSaveContext.save.shipSaveInfo.fileCreatedAt = 0;
     gSaveContext.save.shipSaveInfo.fileCompletedAt = 0;
@@ -1247,6 +1248,7 @@ void Sram_InitDebugSave(void) {
     memcpy(&gSaveContext.save.shipSaveInfo.commitHash, &gGitCommitHash,
            sizeof(gSaveContext.save.shipSaveInfo.commitHash));
     gSaveContext.save.shipSaveInfo.pauseSaveEntrance = -1;
+    gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
     gSaveContext.save.shipSaveInfo.saveType = SAVETYPE_VANILLA;
     gSaveContext.save.shipSaveInfo.fileCreatedAt = 0;
     gSaveContext.save.shipSaveInfo.fileCompletedAt = 0;

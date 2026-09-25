@@ -14,11 +14,9 @@ extern const char* D_801C0B20[28];
 }
 
 #define CVAR_NAME "gEnhancements.Masks.PersistentBunnyHood.Enabled"
-#define STATE_CVAR_NAME "gEnhancements.Masks.PersistentBunnyHood.State"
 #define CVAR CVarGetInteger(CVAR_NAME, 0)
-#define STATE_CVAR CVarGetInteger(STATE_CVAR_NAME, 0)
 
-void UpdatePersistentMasksState() {
+static void UpdatePersistentMasksState() {
     static Vtx* persistentMasksVtx;
     static HOOK_ID beforePageDrawHook = 0;
     static HOOK_ID onPlayerPostLimbDrawHook = 0;
@@ -26,14 +24,14 @@ void UpdatePersistentMasksState() {
     GameInteractor::Instance->UnregisterGameHookForID<GameInteractor::OnPlayerPostLimbDraw>(onPlayerPostLimbDrawHook);
 
     if (!CVAR) {
-        CVarClear(STATE_CVAR_NAME);
+        gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
         return;
     }
 
     // If the mask is equipped, unequip it
     if (gSaveContext.save.equippedMask == PLAYER_MASK_BUNNY) {
         gSaveContext.save.equippedMask = PLAYER_MASK_NONE;
-        CVarSetInteger(STATE_CVAR_NAME, 1);
+        gSaveContext.save.shipSaveInfo.persistentBunnyHood = true;
 
         if (gPlayState != NULL) {
             Player* player = GET_PLAYER(gPlayState);
@@ -44,13 +42,13 @@ void UpdatePersistentMasksState() {
 
     // If they don't have the mask, clear the state
     if (INV_CONTENT(ITEM_MASK_BUNNY) != ITEM_MASK_BUNNY) {
-        CVarClear(STATE_CVAR_NAME);
+        gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
     }
 
     // This hook draws the mask on the players head when it's active and they aren't in first person
     onPlayerPostLimbDrawHook = GameInteractor::Instance->RegisterGameHookForID<GameInteractor::OnPlayerPostLimbDraw>(
         PLAYER_LIMB_HEAD, [](Player* player, s32 limbIndex) {
-            if (!STATE_CVAR) {
+            if (!gSaveContext.save.shipSaveInfo.persistentBunnyHood) {
                 return;
             }
 
@@ -133,7 +131,7 @@ void UpdatePersistentMasksState() {
                 persistentMasksVtx[i + 0].v.cn[3] = persistentMasksVtx[i + 1].v.cn[3] =
                     persistentMasksVtx[i + 2].v.cn[3] = persistentMasksVtx[i + 3].v.cn[3] = pauseCtx->alpha;
 
-                if (STATE_CVAR) {
+                if (gSaveContext.save.shipSaveInfo.persistentBunnyHood) {
                     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 100, 200, 255, 255);
                     gSPVertex(POLY_OPA_DISP++, (uintptr_t)persistentMasksVtx, 4, 0);
                     POLY_OPA_DISP = Gfx_DrawTexQuadIA8(POLY_OPA_DISP, (TexturePtr)gEquippedItemOutlineTex, 32, 32, 0);
@@ -144,7 +142,7 @@ void UpdatePersistentMasksState() {
         });
 }
 
-void RegisterPersistentMasks() {
+static void RegisterPersistentMasks() {
     UpdatePersistentMasksState();
 
     // Easiest way to handle things like loading into a different file, debug warping, etc.
@@ -156,7 +154,7 @@ void RegisterPersistentMasks() {
 
         // But don't speed up if the player is non-human and controller input is being overriden for cutscenes/minigames
         // or if player is Kafei
-        if (player && STATE_CVAR && player->actor.id == ACTOR_PLAYER &&
+        if (player && gSaveContext.save.shipSaveInfo.persistentBunnyHood && player->actor.id == ACTOR_PLAYER &&
             (GET_PLAYER_FORM == PLAYER_FORM_HUMAN || gPlayState->actorCtx.isOverrideInputOn == 0)) {
             *should = true;
         }
@@ -178,8 +176,8 @@ void RegisterPersistentMasks() {
         if (*maskId == PLAYER_MASK_BUNNY) {
             *should = false;
 
-            CVarSetInteger(STATE_CVAR_NAME, !STATE_CVAR);
-            if (STATE_CVAR) {
+            gSaveContext.save.shipSaveInfo.persistentBunnyHood = !gSaveContext.save.shipSaveInfo.persistentBunnyHood;
+            if (gSaveContext.save.shipSaveInfo.persistentBunnyHood) {
                 func_8082E1F0(player, NA_SE_PL_CHANGE_ARMS);
             } else {
                 func_8082E1F0(player, NA_SE_PL_TAKE_OUT_SHIELD);
@@ -194,7 +192,7 @@ void RegisterPersistentMasks() {
         va_arg(args, s32); // slot
         va_arg(args, s32); // isDpad
         va_arg(args, s32); // pageIndex
-        if (*itemId == ITEM_MASK_BUNNY && STATE_CVAR) {
+        if (*itemId == ITEM_MASK_BUNNY && gSaveContext.save.shipSaveInfo.persistentBunnyHood) {
             *should = false;
         }
     });
@@ -212,8 +210,8 @@ void RegisterPersistentMasks() {
         ItemId itemId = (ItemId)*va_arg(args, u16*);
         if (itemId == ITEM_MASK_BUNNY) {
             *should = false;
-            CVarSetInteger(STATE_CVAR_NAME, !STATE_CVAR);
-            if (STATE_CVAR) {
+            gSaveContext.save.shipSaveInfo.persistentBunnyHood = !gSaveContext.save.shipSaveInfo.persistentBunnyHood;
+            if (gSaveContext.save.shipSaveInfo.persistentBunnyHood) {
                 Audio_PlaySfx(NA_SE_SY_CAMERA_ZOOM_DOWN);
             } else {
                 Audio_PlaySfx(NA_SE_SY_CAMERA_ZOOM_UP);
@@ -227,7 +225,7 @@ void RegisterPersistentMasks() {
         Player* player = GET_PLAYER(gPlayState);
         PlayerItemAction playerItemAction = (PlayerItemAction)va_arg(args, int);
 
-        if (player && STATE_CVAR && playerItemAction == PLAYER_IA_MASK_BUNNY) {
+        if (player && gSaveContext.save.shipSaveInfo.persistentBunnyHood && playerItemAction == PLAYER_IA_MASK_BUNNY) {
             *should = true;
         }
     });

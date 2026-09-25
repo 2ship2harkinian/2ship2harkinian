@@ -22,8 +22,8 @@ extern "C" {
 }
 
 static constexpr const char* CUSTOM_COSMETIC_GROUP = "Custom";
-static constexpr const char* CUSTOM_CVAR_PREFIX = "gCosmetic.Custom.";
-static constexpr const char* RAINBOW_SYNC_CVAR = "gCosmetics.RainbowSync";
+static constexpr const char* CUSTOM_CVAR_PREFIX = CVAR_COSMETIC("Custom.");
+static constexpr const char* RAINBOW_SYNC_CVAR = CVAR_COSMETIC("RainbowSync");
 
 struct CustomCosmeticBinding {
     std::string materialPath;

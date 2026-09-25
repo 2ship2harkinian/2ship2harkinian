@@ -368,7 +368,7 @@ TunedSample* AudioPlayback_GetInstrumentTunedSample(Instrument* instrument, s32 
 Instrument* AudioPlayback_GetInstrumentInner(s32 fontId, s32 instId) {
     Instrument* inst;
 
-    if (fontId == 0xFF) {
+    if (fontId == 0xFFFF) {
         return NULL;
     }
 
@@ -397,7 +397,7 @@ Instrument* AudioPlayback_GetInstrumentInner(s32 fontId, s32 instId) {
 Drum* AudioPlayback_GetDrum(s32 fontId, s32 drumId) {
     Drum* drum = NULL;
 
-    if (fontId == 0xFF) {
+    if (fontId == 0xFFFF) {
         return NULL;
     }
 
@@ -421,7 +421,7 @@ Drum* AudioPlayback_GetDrum(s32 fontId, s32 drumId) {
 SoundEffect* AudioPlayback_GetSoundEffect(s32 fontId, s32 sfxId) {
     SoundEffect* soundEffect;
 
-    if (fontId == 0xFF) {
+    if (fontId == 0xFFFF) {
         return NULL;
     }
 
@@ -447,7 +447,7 @@ SoundEffect* AudioPlayback_GetSoundEffect(s32 fontId, s32 sfxId) {
 }
 
 s32 AudioPlayback_SetFontInstrument(s32 instrumentType, s32 fontId, s32 index, void* value) {
-    if (fontId == 0xFF) {
+    if (fontId == 0xFFFF) {
         return -1;
     }
 

@@ -34,8 +34,16 @@ ResourceFactoryBinaryAudioSequenceV2::ReadResource(std::shared_ptr<Ship::File> f
     for (uint32_t i = 0; i < 16; i++) {
         audioSequence->sequence.fonts[i] = 0;
     }
-    for (uint32_t i = 0; i < audioSequence->sequence.numFonts; i++) {
-        audioSequence->sequence.fonts[i] = reader->ReadUByte();
+
+    if (audioSequence->sequence.numFonts == 0xFFFFFFFF) {
+        // Using crc64 to reference sound font
+        for (uint32_t i = 0; i < 4; i++) {
+            audioSequence->sequence.fonts[i] = reader->ReadUInt16();
+        }
+    } else {
+        for (uint32_t i = 0; i < audioSequence->sequence.numFonts; i++) {
+            audioSequence->sequence.fonts[i] = reader->ReadUByte();
+        }
     }
 
     return audioSequence;
@@ -331,12 +339,6 @@ ResourceFactoryXMLAudioSequenceV0::ReadResource(std::shared_ptr<Ship::File> file
 
     tinyxml2::XMLElement* fontsElement = child->FirstChildElement();
     tinyxml2::XMLElement* fontElement = fontsElement->FirstChildElement();
-    while (fontElement != nullptr) {
-        sequence->sequence.fonts[i] = fontElement->IntAttribute("FontIdx");
-        fontElement = fontElement->NextSiblingElement();
-        i++;
-    }
-    sequence->sequence.numFonts = i;
 
     const char* path = child->Attribute("Path");
     std::shared_ptr<Ship::File> seqFile;
@@ -345,10 +347,27 @@ ResourceFactoryXMLAudioSequenceV0::ReadResource(std::shared_ptr<Ship::File> file
     }
 
     if (!streamed) {
+        while (fontElement != nullptr) {
+            sequence->sequence.fonts[i] = fontElement->IntAttribute("FontIdx");
+            fontElement = fontElement->NextSiblingElement();
+            i++;
+        }
+        sequence->sequence.numFonts = i;
         sequence->sequence.seqDataSize = seqFile->Buffer.get()->size();
         sequence->sequence.seqData = new char[seqFile->Buffer.get()->size()];
         memcpy(sequence->sequence.seqData, seqFile->Buffer.get()->data(), seqFile->Buffer.get()->size());
     } else {
+        // Ensure font indicies are actually zeroed out
+        for (uint32_t i = 0; i < 16; i++) {
+            sequence->sequence.fonts[i] = 0;
+        }
+        // Combine components into the first 4 entries of fonts[] so they can be converted to u64 properly in
+        // AudioLoad_Init()
+        while (fontElement != nullptr) {
+            sequence->sequence.fonts[i / 2] |= fontElement->IntAttribute("FontIdx") << (8 * (i % 2));
+            fontElement = fontElement->NextSiblingElement();
+            i++;
+        }
         // setting numFonts to -1 tells the game's audio engine the sound font to used is CRC64 encoded in the font
         // indicies.
         sequence->sequence.numFonts = -1;
