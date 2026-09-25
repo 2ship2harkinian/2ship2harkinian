@@ -1147,6 +1147,8 @@ extern AudioContext gAudioCtx;
 // #end region
 #include <libultraship/bridge/resourcebridge.h>
 
+void Mixer_Init(void);
+
 void AudioLoad_Init(void* heap, size_t heapSize) {
     s32 pad1[9];
     s32 numFonts;
@@ -1155,6 +1157,7 @@ void AudioLoad_Init(void* heap, size_t heapSize) {
     void* addr;
     s32 i;
     s32 j;
+    Mixer_Init();
 
     gAudioCustomUpdateFunction = NULL;
     gAudioCustomReverbFunction = NULL;
