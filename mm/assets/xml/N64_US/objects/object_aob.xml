@@ -26,17 +26,17 @@
 
         <!-- Mamamu Yan Textures -->
         <Texture Name="gMamamuYanTLUT" OutName="mamamu_yan_tlut" Format="rgba16" Width="16" Height="16" Offset="0x198" />
-        <Texture Name="gMamamuYanHairTex" OutName="mamamu_yan_hair" Format="ci8" Width="16" Height="16" Offset="0x398" />
-        <Texture Name="gMamamuYanSkinTex" OutName="mamamu_yan_skin" Format="ci8" Width="8" Height="8" Offset="0x498" />
-        <Texture Name="gMamamuYanEarTex" OutName="mamamu_yan_ear" Format="ci8" Width="16" Height="16" Offset="0x4D8" />
-        <Texture Name="gMamamuYanLipsTex" OutName="mamamu_yan_lips" Format="ci8" Width="8" Height="8" Offset="0x5D8" />
-        <Texture Name="gMamamuYanNostrilTex" OutName="mamamu_yan_nostril" Format="ci8" Width="8" Height="8" Offset="0x618" />
+        <Texture Name="gMamamuYanHairTex" OutName="mamamu_yan_hair" Format="ci8" Width="16" Height="16" Offset="0x398" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanSkinTex" OutName="mamamu_yan_skin" Format="ci8" Width="8" Height="8" Offset="0x498" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanEarTex" OutName="mamamu_yan_ear" Format="ci8" Width="16" Height="16" Offset="0x4D8" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanLipsTex" OutName="mamamu_yan_lips" Format="ci8" Width="8" Height="8" Offset="0x5D8" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanNostrilTex" OutName="mamamu_yan_nostril" Format="ci8" Width="8" Height="8" Offset="0x618" TlutOffset="0x198"/>
         <Texture Name="gMamamuYanEyeOpenTex" OutName="mamamu_yan_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x658" /> 
         <Texture Name="gMamamuYanEyeHalfTex" OutName="mamamu_yan_eye_half" Format="rgba16" Width="32" Height="32" Offset="0xE58" /> 
         <Texture Name="gMamamuYanEyeClosedTex" OutName="mamamu_yan_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x1658" /> 
-        <Texture Name="gMamamuYanFingersTex" OutName="mamamu_yan_fingers" Format="ci8" Width="16" Height="16" Offset="0x1E58" />
-        <Texture Name="gMamamuYanSleevesTex" OutName="mamamu_yan_sleeves" Format="ci8" Width="8" Height="8" Offset="0x1F58" />
-        <Texture Name="gMamamuYanDressTex" OutName="mamamu_yan_dress" Format="ci8" Width="8" Height="8" Offset="0x1F98" />
+        <Texture Name="gMamamuYanFingersTex" OutName="mamamu_yan_fingers" Format="ci8" Width="16" Height="16" Offset="0x1E58" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanSleevesTex" OutName="mamamu_yan_sleeves" Format="ci8" Width="8" Height="8" Offset="0x1F58" TlutOffset="0x198"/>
+        <Texture Name="gMamamuYanDressTex" OutName="mamamu_yan_dress" Format="ci8" Width="8" Height="8" Offset="0x1F98" TlutOffset="0x198"/>
 
         <!-- Mamamu Yan Limb DisplayLists -->
         <DList Name="gMamamuYanHeadDL" Offset="0x3D18" />

@@ -27,20 +27,20 @@
         <DList Name="object_rz_DL_00B170" Offset="0xB170" />
         <DList Name="object_rz_DL_00B288" Offset="0xB288" />
         <Texture Name="object_rz_TLUT_00B450" OutName="tlut_00B450" Format="rgba16" Width="16" Height="16" Offset="0xB450" />
-        <Texture Name="object_rz_Tex_00B650" OutName="tex_00B650" Format="rgba16" Width="16" Height="16" Offset="0xB650" />
-        <Texture Name="object_rz_Tex_00B850" OutName="tex_00B850" Format="ci8" Width="8" Height="8" Offset="0xB850" />
-        <Texture Name="object_rz_Tex_00B890" OutName="tex_00B890" Format="ci8" Width="8" Height="8" Offset="0xB890" />
-        <Texture Name="object_rz_Tex_00B8D0" OutName="tex_00B8D0" Format="ci8" Width="16" Height="16" Offset="0xB8D0" />
-        <Texture Name="object_rz_Tex_00B9D0" OutName="tex_00B9D0" Format="ci8" Width="16" Height="16" Offset="0xB9D0" />
-        <Texture Name="object_rz_Tex_00BAD0" OutName="tex_00BAD0" Format="ci8" Width="16" Height="16" Offset="0xBAD0" />
-        <Texture Name="object_rz_Tex_00BBD0" OutName="tex_00BBD0" Format="ci8" Width="8" Height="16" Offset="0xBBD0" />
-        <Texture Name="object_rz_Tex_00BC50" OutName="tex_00BC50" Format="ci8" Width="32" Height="32" Offset="0xBC50" />
-        <Texture Name="object_rz_Tex_00C050" OutName="tex_00C050" Format="ci8" Width="16" Height="16" Offset="0xC050" />
+        <Texture Name="object_rz_TLUT_00B650" OutName="tlut_00B650" Format="rgba16" Width="16" Height="16" Offset="0xB650"/>
+        <Texture Name="object_rz_Tex_00B850" OutName="tex_00B850" Format="ci8" Width="8" Height="8" Offset="0xB850" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00B890" OutName="tex_00B890" Format="ci8" Width="8" Height="8" Offset="0xB890" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00B8D0" OutName="tex_00B8D0" Format="ci8" Width="16" Height="16" Offset="0xB8D0" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00B9D0" OutName="tex_00B9D0" Format="ci8" Width="16" Height="16" Offset="0xB9D0" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00BAD0" OutName="tex_00BAD0" Format="ci8" Width="16" Height="16" Offset="0xBAD0" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00BBD0" OutName="tex_00BBD0" Format="ci8" Width="8" Height="16" Offset="0xBBD0" TlutOffset="0xB450"/>
+        <Texture Name="object_rz_Tex_00BC50" OutName="tex_00BC50" Format="ci8" Width="32" Height="32" Offset="0xBC50" TlutOffset="0xB650"/>
+        <Texture Name="object_rz_Tex_00C050" OutName="tex_00C050" Format="ci8" Width="16" Height="16" Offset="0xC050" TlutOffset="0xB450"/>
         <Texture Name="object_rz_Tex_00C150" OutName="tex_00C150" Format="i8" Width="8" Height="8" Offset="0xC150" />
-        <Texture Name="object_rz_Tex_00C190" OutName="tex_00C190" Format="ci8" Width="32" Height="32" Offset="0xC190" />
-        <Texture Name="object_rz_Tex_00C590" OutName="tex_00C590" Format="ci8" Width="32" Height="32" Offset="0xC590" />
-        <Texture Name="object_rz_Tex_00C990" OutName="tex_00C990" Format="ci8" Width="32" Height="32" Offset="0xC990" />
-        <Texture Name="object_rz_Tex_00CD90" OutName="tex_00CD90" Format="ci8" Width="32" Height="32" Offset="0xCD90" />
+        <Texture Name="object_rz_Tex_00C190" OutName="tex_00C190" Format="ci8" Width="32" Height="32" Offset="0xC190" TlutOffset="0xB650"/>
+        <Texture Name="object_rz_Tex_00C590" OutName="tex_00C590" Format="ci8" Width="32" Height="32" Offset="0xC590" TlutOffset="0xB650"/>
+        <Texture Name="object_rz_Tex_00C990" OutName="tex_00C990" Format="ci8" Width="32" Height="32" Offset="0xC990" TlutOffset="0xB650"/>
+        <Texture Name="object_rz_Tex_00CD90" OutName="tex_00CD90" Format="ci8" Width="32" Height="32" Offset="0xCD90" TlutOffset="0xB650"/>
         <Texture Name="object_rz_Tex_00D190" OutName="tex_00D190" Format="i8" Width="8" Height="8" Offset="0xD190" />
         <Texture Name="object_rz_Tex_00D1D0" OutName="tex_00D1D0" Format="i8" Width="16" Height="16" Offset="0xD1D0" />
         <Texture Name="object_rz_Tex_00D2D0" OutName="tex_00D2D0" Format="i8" Width="32" Height="32" Offset="0xD2D0" />

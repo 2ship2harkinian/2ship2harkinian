@@ -16,16 +16,16 @@
         <Animation Name="object_boj_Anim_005CE4" Offset="0x5CE4" /> <!-- Original name is "Boj_juggling" -->
         <Animation Name="object_boj_Anim_005D9C" Offset="0x5D9C" /> <!-- Original name is "Boj_matsu" ("to wait​") -->
         <Texture Name="object_boj_TLUT_005DB0" OutName="tlut_005DB0" Format="rgba16" Width="16" Height="16" Offset="0x5DB0" />
-        <Texture Name="object_boj_Tex_005FB0" OutName="tex_005FB0" Format="ci8" Width="8" Height="16" Offset="0x5FB0" />
-        <Texture Name="object_boj_Tex_006030" OutName="tex_006030" Format="ci8" Width="8" Height="8" Offset="0x6030" />
-        <Texture Name="object_boj_Tex_006070" OutName="tex_006070" Format="ci8" Width="32" Height="16" Offset="0x6070" />
-        <Texture Name="object_boj_Tex_006270" OutName="tex_006270" Format="ci8" Width="8" Height="8" Offset="0x6270" />
-        <Texture Name="object_boj_Tex_0062B0" OutName="tex_0062B0" Format="ci8" Width="16" Height="16" Offset="0x62B0" />
-        <Texture Name="object_boj_Tex_0063B0" OutName="tex_0063B0" Format="ci8" Width="16" Height="16" Offset="0x63B0" />
-        <Texture Name="object_boj_Tex_0064B0" OutName="tex_0064B0" Format="ci8" Width="16" Height="16" Offset="0x64B0" />
-        <Texture Name="object_boj_Tex_0065B0" OutName="tex_0065B0" Format="ci8" Width="8" Height="8" Offset="0x65B0" />
+        <Texture Name="object_boj_Tex_005FB0" OutName="tex_005FB0" Format="ci8" Width="8" Height="16" Offset="0x5FB0" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_006030" OutName="tex_006030" Format="ci8" Width="8" Height="8" Offset="0x6030" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_006070" OutName="tex_006070" Format="ci8" Width="32" Height="16" Offset="0x6070" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_006270" OutName="tex_006270" Format="ci8" Width="8" Height="8" Offset="0x6270" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_0062B0" OutName="tex_0062B0" Format="ci8" Width="16" Height="16" Offset="0x62B0" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_0063B0" OutName="tex_0063B0" Format="ci8" Width="16" Height="16" Offset="0x63B0" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_0064B0" OutName="tex_0064B0" Format="ci8" Width="16" Height="16" Offset="0x64B0" TlutOffset="0x5DB0"/>
+        <Texture Name="object_boj_Tex_0065B0" OutName="tex_0065B0" Format="ci8" Width="8" Height="8" Offset="0x65B0" TlutOffset="0x5DB0"/>
         <Texture Name="object_boj_Tex_0065F0" OutName="tex_0065F0" Format="i8" Width="16" Height="16" Offset="0x65F0" />
-        <Texture Name="object_boj_Tex_0066F0" OutName="tex_0066F0" Format="ci8" Width="8" Height="8" Offset="0x66F0" />
+        <Texture Name="object_boj_Tex_0066F0" OutName="tex_0066F0" Format="ci8" Width="8" Height="8" Offset="0x66F0" TlutOffset="0x5DB0"/>
         <Texture Name="object_boj_Tex_006730" OutName="tex_006730" Format="i8" Width="8" Height="8" Offset="0x6730" />
         <DList Name="object_boj_DL_0083A0" Offset="0x83A0" />
         <DList Name="object_boj_DL_008778" Offset="0x8778" />
@@ -42,14 +42,14 @@
         <DList Name="object_boj_DL_009448" Offset="0x9448" />
         <DList Name="object_boj_DL_009558" Offset="0x9558" />
         <DList Name="object_boj_DL_009660" Offset="0x9660" />
-        <!-- <Blob Name="object_boj_Blob_009848" Size="0x1F8" Offset="0x9848" /> -->
-        <Texture Name="object_boj_Tex_009A40" OutName="tex_009A40" Format="ci8" Width="8" Height="8" Offset="0x9A40" />
-        <Texture Name="object_boj_Tex_009A80" OutName="tex_009A80" Format="ci8" Width="16" Height="16" Offset="0x9A80" />
-        <Texture Name="object_boj_Tex_009B80" OutName="tex_009B80" Format="ci8" Width="16" Height="16" Offset="0x9B80" />
-        <Texture Name="object_boj_Tex_009C80" OutName="tex_009C80" Format="ci8" Width="8" Height="16" Offset="0x9C80" />
-        <Texture Name="object_boj_Tex_009D00" OutName="tex_009D00" Format="ci8" Width="16" Height="16" Offset="0x9D00" />
-        <Texture Name="object_boj_Tex_009E00" OutName="tex_009E00" Format="ci8" Width="16" Height="16" Offset="0x9E00" />
-        <Texture Name="object_boj_Tex_009F00" OutName="tex_009F00" Format="ci8" Width="16" Height="16" Offset="0x9F00" />
+        <Texture Name="object_boj_TLUT_009848" OutName="tlut_009848" Format="rgba16" Width="252" Height="1" Offset="0x9848" />
+        <Texture Name="object_boj_Tex_009A40" OutName="tex_009A40" Format="ci8" Width="8" Height="8" Offset="0x9A40" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009A80" OutName="tex_009A80" Format="ci8" Width="16" Height="16" Offset="0x9A80" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009B80" OutName="tex_009B80" Format="ci8" Width="16" Height="16" Offset="0x9B80" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009C80" OutName="tex_009C80" Format="ci8" Width="8" Height="16" Offset="0x9C80" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009D00" OutName="tex_009D00" Format="ci8" Width="16" Height="16" Offset="0x9D00" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009E00" OutName="tex_009E00" Format="ci8" Width="16" Height="16" Offset="0x9E00" TlutOffset="0x9848"/>
+        <Texture Name="object_boj_Tex_009F00" OutName="tex_009F00" Format="ci8" Width="16" Height="16" Offset="0x9F00" TlutOffset="0x9848"/>
         <DList Name="object_boj_DL_00AF90" Offset="0xAF90" />
         <DList Name="object_boj_DL_00B1D8" Offset="0xB1D8" /> <!-- object_ginko_limb15_dlist -->
         <DList Name="object_boj_DL_00B3E8" Offset="0xB3E8" />
@@ -89,6 +89,6 @@
         <Animation Name="object_boj_Anim_012E84" Offset="0x12E84" /> <!-- Original name is "scm_yarare" ("to suffer damage") -->
         <DList Name="gBombShopBagDL" Offset="0x13380" /> <!-- Original name is "seb_model" -->
         <Texture Name="gBombShopBagTLUT" OutName="bomb_shop_bag_tlut" Format="rgba16" Width="16" Height="16" Offset="0x134C0" />
-        <Texture Name="gBombShopBagTex" OutName="bomb_shop_bag" Format="ci8" Width="16" Height="16" Offset="0x136C0" />
+        <Texture Name="gBombShopBagTex" OutName="bomb_shop_bag" Format="ci8" Width="16" Height="16" Offset="0x136C0" TlutOffset="0x134C0"/>
     </File>
 </Root>

@@ -21,19 +21,19 @@
         <!-- Textures for Burly Guy's body, as well as the Swamp Shooting Gallery Man's head -->
         <Texture Name="gSwampShootingGalleryManNoseTLUT" OutName="swamp_shooting_gallery_man_nose_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5688" />
         <Texture Name="gBurlyGuyTLUT" OutName="shooting_gallery_man_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5888" />
-        <Texture Name="gBurlyGuySkinTex" OutName="shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0x5A88" />
+        <Texture Name="gBurlyGuySkinTex" OutName="shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0x5A88" TlutOffset="0x5888"/>
         <Texture Name="gSwampShootingGalleryManEyeOpenTex" OutName="swamp_shooting_gallery_man_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x5AC8" />
         <Texture Name="gSwampShootingGalleryManEyeHalfTex" OutName="swamp_shooting_gallery_man_eye_half" Format="rgba16" Width="32" Height="32" Offset="0x62C8" />
         <Texture Name="gSwampShootingGalleryManEyeClosedTex" OutName="swamp_shooting_gallery_man_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x6AC8" />
-        <Texture Name="gSwampShootingGalleryManEarTex" OutName="swamp_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0x72C8" />
-        <Texture Name="gSwampShootingGalleryManNoseTex" OutName="swamp_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0x73C8" />
-        <Texture Name="gSwampShootingGalleryManBeardAndLipsTex" OutName="swamp_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x7408" />
-        <Texture Name="gSwampShootingGalleryManHairTex" OutName="swamp_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0x7808" />
-        <Texture Name="gBurlyGuyHandTex" OutName="shooting_gallery_man_hand" Format="ci8" Width="16" Height="16" Offset="0x7908" />
-        <Texture Name="gBurlyGuyBodyHairTex" OutName="shooting_gallery_man_body_hair" Format="ci8" Width="32" Height="32" Offset="0x7A08" />
-        <Texture Name="gBurlyGuyVestTex" OutName="shooting_gallery_man_vest" Format="ci8" Width="16" Height="16" Offset="0x7E08" />
-        <Texture Name="gBurlyGuyPantsTex" OutName="shooting_gallery_man_pants" Format="ci8" Width="8" Height="8" Offset="0x7F08" />
-        <Texture Name="gBurlyGuyShoesTex" OutName="shooting_gallery_man_shoes" Format="ci8" Width="16" Height="16" Offset="0x7F48" />
+        <Texture Name="gSwampShootingGalleryManEarTex" OutName="swamp_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0x72C8" TlutOffset="0x5888"/>
+        <Texture Name="gSwampShootingGalleryManNoseTex" OutName="swamp_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0x73C8" TlutOffset="0x5688"/>
+        <Texture Name="gSwampShootingGalleryManBeardAndLipsTex" OutName="swamp_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x7408" TlutOffset="0x5888"/>
+        <Texture Name="gSwampShootingGalleryManHairTex" OutName="swamp_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0x7808" TlutOffset="0x5888"/>
+        <Texture Name="gBurlyGuyHandTex" OutName="shooting_gallery_man_hand" Format="ci8" Width="16" Height="16" Offset="0x7908" TlutOffset="0x5888"/>
+        <Texture Name="gBurlyGuyBodyHairTex" OutName="shooting_gallery_man_body_hair" Format="ci8" Width="32" Height="32" Offset="0x7A08" TlutOffset="0x5888"/>
+        <Texture Name="gBurlyGuyVestTex" OutName="shooting_gallery_man_vest" Format="ci8" Width="16" Height="16" Offset="0x7E08" TlutOffset="0x5888"/>
+        <Texture Name="gBurlyGuyPantsTex" OutName="shooting_gallery_man_pants" Format="ci8" Width="8" Height="8" Offset="0x7F08" TlutOffset="0x5888"/>
+        <Texture Name="gBurlyGuyShoesTex" OutName="shooting_gallery_man_shoes" Format="ci8" Width="16" Height="16" Offset="0x7F48" TlutOffset="0x5888"/>
 
         <!-- Unused Empty Texture Animation -->
         <TextureAnimation Name="gBurlyGuyEmpty1TexAnim" Offset="0x8050" />
@@ -53,12 +53,12 @@
         <Texture Name="gUnusedTownShootingGalleryManNoseTLUT" OutName="unused_town_shooting_gallery_man_nose_tlut" Format="rgba16" Width="16" Height="16" Offset="0x97D8" />
         <Texture Name="gUnusedTownShootingGalleryManEyeTLUT" OutName="unused_town_shooting_gallery_man_eye_tlut" Format="rgba16" Width="16" Height="16" Offset="0x99D8" />
         <Texture Name="gUnusedTownShootingGalleryManSkinTLUT" OutName="unused_town_shooting_gallery_man_skin_tlut" Format="rgba16" Width="16" Height="16" Offset="0x9BD8" />
-        <Texture Name="gUnusedTownShootingGalleryManBeardAndLipsTex" OutName="unused_town_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x9DD8" /> <!-- Used only for the lips -->
-        <Texture Name="gUnusedTownShootingGalleryManHairTex" OutName="unused_town_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0xA1D8" />
-        <Texture Name="gUnusedTownShootingGalleryManEarTex" OutName="unused_town_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0xA2D8" />
-        <Texture Name="gUnusedTownShootingGalleryManNoseTex" OutName="unused_town_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0xA3D8" />
-        <Texture Name="gUnusedTownShootingGalleryManEyeTex" OutName="unused_town_shooting_gallery_man_eye" Format="ci8" Width="32" Height="32" Offset="0xA418" />
-        <Texture Name="gUnusedTownShootingGalleryManSkinTex" OutName="unused_town_shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0xA818" />
+        <Texture Name="gUnusedTownShootingGalleryManBeardAndLipsTex" OutName="unused_town_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x9DD8" TlutOffset="0x91D8"/> <!-- Used only for the lips -->
+        <Texture Name="gUnusedTownShootingGalleryManHairTex" OutName="unused_town_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0xA1D8" TlutOffset="0x93D8"/>
+        <Texture Name="gUnusedTownShootingGalleryManEarTex" OutName="unused_town_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0xA2D8" TlutOffset="0x95D8"/>
+        <Texture Name="gUnusedTownShootingGalleryManNoseTex" OutName="unused_town_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0xA3D8" TlutOffset="0x97D8"/>
+        <Texture Name="gUnusedTownShootingGalleryManEyeTex" OutName="unused_town_shooting_gallery_man_eye" Format="ci8" Width="32" Height="32" Offset="0xA418" TlutOffset="0x99D8"/>
+        <Texture Name="gUnusedTownShootingGalleryManSkinTex" OutName="unused_town_shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0xA818" TlutOffset="0x9BD8"/>
 
         <!-- Unused Empty DisplayList -->
         <DList Name="gBurlyGuyEmptyDL" Offset="0xB730" />
@@ -69,14 +69,14 @@
         <!-- Textures for the Swamp Guide's head -->
         <Texture Name="gSwampGuideHairFabricAndSkinTLUT" OutName="swamp_guide_hair_fabric_and_skin_tlut" Format="rgba16" Width="16" Height="16" Offset="0xBCD8" />
         <Texture Name="gSwampGuideMouthGoggleAndEyeTLUT" OutName="swamp_guide_mouth_goggle_and_eye_tlut" Format="rgba16" Width="16" Height="16" Offset="0xBED8" />
-        <Texture Name="gSwampGuideSkinTex" OutName="swamp_guide_skin" Format="ci8" Width="8" Height="8" Offset="0xC0D8" />
-        <Texture Name="gSwampGuideHatFabricTex" OutName="swamp_guide_hat_fabric" Format="ci8" Width="16" Height="16" Offset="0xC118" />
-        <Texture Name="gSwampGuideHairAndBeardTex" OutName="swamp_guide_hair_and_beard" Format="ci8" Width="16" Height="16" Offset="0xC218" />
-        <Texture Name="gSwampGuideHatAndGogglesMetalTex" OutName="swamp_guide_hat_and_goggles_metal" Format="ci8" Width="32" Height="16" Offset="0xC318" />
-        <Texture Name="gSwampGuideEyeTex" OutName="swamp_guide_eye" Format="ci8" Width="32" Height="32" Offset="0xC518" />
-        <Texture Name="gSwampGuideGoggleStrapTex" OutName="swamp_guide_goggle_strap" Format="ci8" Width="16" Height="16" Offset="0xC918" />
+        <Texture Name="gSwampGuideSkinTex" OutName="swamp_guide_skin" Format="ci8" Width="8" Height="8" Offset="0xC0D8" TlutOffset="0xBCD8"/>
+        <Texture Name="gSwampGuideHatFabricTex" OutName="swamp_guide_hat_fabric" Format="ci8" Width="16" Height="16" Offset="0xC118" TlutOffset="0xBCD8"/>
+        <Texture Name="gSwampGuideHairAndBeardTex" OutName="swamp_guide_hair_and_beard" Format="ci8" Width="16" Height="16" Offset="0xC218" TlutOffset="0xBCD8"/>
+        <Texture Name="gSwampGuideHatAndGogglesMetalTex" OutName="swamp_guide_hat_and_goggles_metal" Format="ci8" Width="32" Height="16" Offset="0xC318" TlutOffset="0xBED8"/>
+        <Texture Name="gSwampGuideEyeTex" OutName="swamp_guide_eye" Format="ci8" Width="32" Height="32" Offset="0xC518" TlutOffset="0xBED8"/>
+        <Texture Name="gSwampGuideGoggleStrapTex" OutName="swamp_guide_goggle_strap" Format="ci8" Width="16" Height="16" Offset="0xC918" TlutOffset="0xBED8"/>
         <Texture Name="gSwampGuideNoseTex" OutName="swamp_guide_nose" Format="rgba16" Width="8" Height="8" Offset="0xCA18" />
-        <Texture Name="gSwampGuideMouthTex" OutName="swamp_guide_mouth" Format="ci8" Width="16" Height="32" Offset="0xCA98" />
+        <Texture Name="gSwampGuideMouthTex" OutName="swamp_guide_mouth" Format="ci8" Width="16" Height="32" Offset="0xCA98" TlutOffset="0xBED8"/>
 
         <!-- Burly Guy Animations -->
         <Animation Name="gBurlyGuyHeadScratchEndAnim" Offset="0xD2F8" /> <!-- Original name is "shn_w02TOw01" ("wait02 to wait01"?) -->
@@ -113,11 +113,11 @@
         <Texture Name="gTownShootingGalleryManHeadTLUT" OutName="town_shooting_gallery_man_head_tlut" Format="rgba16" Width="16" Height="16" Offset="0xF990" />
         <Texture Name="gTownShootingGalleryManEyeOpenTex" OutName="town_shooting_gallery_man_eye_open" Format="rgba16" Width="32" Height="32" Offset="0xFB90" />
         <Texture Name="gTownShootingGalleryManEyeClosedTex" OutName="town_shooting_gallery_man_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x10390" />
-        <Texture Name="gTownShootingGalleryManBeardAndLipsTex" OutName="town_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x10B90" /> <!-- Used only for the lips -->
-        <Texture Name="gTownShootingGalleryManNoseTex" OutName="town_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0x10F90" />
-        <Texture Name="gTownShootingGalleryManEarTex" OutName="town_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0x10FD0" />
-        <Texture Name="gTownShootingGalleryManHairTex" OutName="town_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0x110D0" />
-        <Texture Name="gTownShootingGalleryManSkinTex" OutName="town_shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0x111D0" />
+        <Texture Name="gTownShootingGalleryManBeardAndLipsTex" OutName="town_shooting_gallery_man_beard_and_lips" Format="ci8" Width="32" Height="32" Offset="0x10B90" TlutOffset="0xF990"/> <!-- Used only for the lips -->
+        <Texture Name="gTownShootingGalleryManNoseTex" OutName="town_shooting_gallery_man_nose" Format="ci8" Width="8" Height="8" Offset="0x10F90" TlutOffset="0xF790"/>
+        <Texture Name="gTownShootingGalleryManEarTex" OutName="town_shooting_gallery_man_ear" Format="ci8" Width="16" Height="16" Offset="0x10FD0" TlutOffset="0xF990"/>
+        <Texture Name="gTownShootingGalleryManHairTex" OutName="town_shooting_gallery_man_hair" Format="ci8" Width="16" Height="16" Offset="0x110D0" TlutOffset="0xF990"/>
+        <Texture Name="gTownShootingGalleryManSkinTex" OutName="town_shooting_gallery_man_skin" Format="ci8" Width="8" Height="8" Offset="0x111D0" TlutOffset="0xF990"/>
 
         <!-- Unused Empty Texture Animation -->
         <TextureAnimation Name="gBurlyGuyEmpty2TexAnim" Offset="0x11210" />

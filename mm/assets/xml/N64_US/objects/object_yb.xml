@@ -27,14 +27,14 @@
         <DList Name="gYbLeftForearmDL" Offset="0x4EC0" />
         <DList Name="gYbLeftHandDL" Offset="0x4FE0" />
         <Texture Name="gYbTLUT" OutName="yb_tlut" Format="rgba16" Width="16" Height="16" Offset="0x51B8" />
-        <Texture Name="gYbForeheadBlotchTex" OutName="yb_forhead_blotch" Format="ci8" Width="8" Height="8" Offset="0x53B8" />
-        <Texture Name="gYbPonytailTex" OutName="yb_ponytail" Format="ci8" Width="8" Height="16" Offset="0x53F8" />
-        <Texture Name="gYbFingersTex" OutName="yb_fingers" Format="ci8" Width="16" Height="16" Offset="0x5478" />
-        <Texture Name="gYbToesTex" OutName="yb_toes" Format="ci8" Width="16" Height="16" Offset="0x5578" />
-        <Texture Name="gYbHairlineTex" OutName="yb_hairline" Format="ci8" Width="16" Height="16" Offset="0x5678" />
-        <Texture Name="gYbBellybuttonTex" OutName="yb_bellybutton" Format="ci8" Width="8" Height="16" Offset="0x5778" />
-        <Texture Name="gYbNoseTex" OutName="yb_nose" Format="ci8" Width="16" Height="16" Offset="0x57F8" />
-        <Texture Name="gYbEyeTex" OutName="yb_eye" Format="ci8" Width="32" Height="32" Offset="0x58F8" />
+        <Texture Name="gYbForeheadBlotchTex" OutName="yb_forhead_blotch" Format="ci8" Width="8" Height="8" Offset="0x53B8" TlutOffset="0x51B8"/>
+        <Texture Name="gYbPonytailTex" OutName="yb_ponytail" Format="ci8" Width="8" Height="16" Offset="0x53F8" TlutOffset="0x51B8"/>
+        <Texture Name="gYbFingersTex" OutName="yb_fingers" Format="ci8" Width="16" Height="16" Offset="0x5478" TlutOffset="0x51B8"/>
+        <Texture Name="gYbToesTex" OutName="yb_toes" Format="ci8" Width="16" Height="16" Offset="0x5578" TlutOffset="0x51B8"/>
+        <Texture Name="gYbHairlineTex" OutName="yb_hairline" Format="ci8" Width="16" Height="16" Offset="0x5678" TlutOffset="0x51B8"/>
+        <Texture Name="gYbBellybuttonTex" OutName="yb_bellybutton" Format="ci8" Width="8" Height="16" Offset="0x5778" TlutOffset="0x51B8"/>
+        <Texture Name="gYbNoseTex" OutName="yb_nose" Format="ci8" Width="16" Height="16" Offset="0x57F8" TlutOffset="0x51B8"/>
+        <Texture Name="gYbEyeTex" OutName="yb_eye" Format="ci8" Width="32" Height="32" Offset="0x58F8" TlutOffset="0x51B8"/>
         <Texture Name="gYbPantsTex" OutName="yb_pants" Format="i8" Width="16" Height="16" Offset="0x5CF8" />
         <!-- some limbs wont highlight in z64utils, some guesswork here -->
         <Limb Name="gYbMainRootLimb" Type="Standard" EnumName="YB_LIMB_MAIN_ROOT" Offset="0x5DF8" />

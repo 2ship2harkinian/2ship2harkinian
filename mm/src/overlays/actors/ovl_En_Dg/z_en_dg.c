@@ -1173,7 +1173,7 @@ void EnDg_Swim(EnDg* this, PlayState* play) {
     // this code will make the dog "skip" along the water's surface, assuming the floor
     // height is low enough to make it try to jump out.
     if (this->actor.bgCheckFlags & BGCHECKFLAG_WALL) {
-        if (!WaterBox_GetSurface1(play, &play->colCtx, pos.x, pos.z, &waterSurface, &waterBox)) {
+        if (!BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, pos.x, pos.z, &waterSurface, &waterBox)) {
             if (floorHeight > -100.0f) {
                 this->dogFlags &= ~DOG_FLAG_SWIMMING;
                 this->actionFunc = EnDg_JumpOutOfWater;

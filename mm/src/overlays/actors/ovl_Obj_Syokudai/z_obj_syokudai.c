@@ -155,8 +155,8 @@ void ObjSyokudai_Update(Actor* thisx, PlayState* play2) {
             this->pendingAction = OBJ_SYOKUDAI_PENDING_ACTION_NONE;
         }
     } else {
-        if (WaterBox_GetSurface1_2(play, &play->colCtx, thisx->world.pos.x, thisx->world.pos.z, &waterSurface,
-                                   &waterBox) &&
+        if (BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, thisx->world.pos.x, thisx->world.pos.z, &waterSurface,
+                                          &waterBox) &&
             ((waterSurface - thisx->world.pos.y) > OBJ_SYOKUDAI_FLAME_HEIGHT)) {
 
             this->snuffTimer = OBJ_SYOKUDAI_SNUFF_OUT;

@@ -16,8 +16,8 @@
         <Texture Name="object_moonend_TLUT_006D10" OutName="tlut_006D10" Format="rgba16" Width="4" Height="4" Offset="0x6D10" />
         <Texture Name="object_moonend_Tex_006D30" OutName="tex_006D30" Format="rgba16" Width="32" Height="32" Offset="0x6D30" />
         <Texture Name="object_moonend_Tex_007530" OutName="tex_007530" Format="rgba16" Width="64" Height="32" Offset="0x7530" />
-        <Texture Name="object_moonend_Tex_008530" OutName="tex_008530" Format="ci4" Width="64" Height="64" Offset="0x8530" />
-        <Texture Name="object_moonend_Tex_008D30" OutName="tex_008D30" Format="ci4" Width="64" Height="64" Offset="0x8D30" />
+        <Texture Name="object_moonend_Tex_008530" OutName="tex_008530" Format="ci4" Width="64" Height="64" Offset="0x8530" TlutOffset="0x6CF0"/>
+        <Texture Name="object_moonend_Tex_008D30" OutName="tex_008D30" Format="ci4" Width="64" Height="64" Offset="0x8D30" TlutOffset="0x6D10"/>
         <Texture Name="object_moonend_Tex_009530" OutName="tex_009530" Format="i8" Width="64" Height="64" Offset="0x9530" />
         <Texture Name="object_moonend_Tex_00A530" OutName="tex_00A530" Format="i8" Width="64" Height="64" Offset="0xA530" />
         <TextureAnimation Name="object_moonend_Matanimheader_00B540" Offset="0xB540" />

@@ -26,7 +26,7 @@ typedef struct EnGb2 {
     /* 0x21C */ ColliderCylinder collider;
     /* 0x268 */ Actor* unk_268;
     /* 0x26C */ u16 unk_26C;
-    /* 0x26E */ u16 unk_26E;
+    /* 0x26E */ u16 textId;
     /* 0x270 */ Vec3s headRot;
     /* 0x276 */ Vec3s torsoRot;
     /* 0x27C */ s16 unk_27C;

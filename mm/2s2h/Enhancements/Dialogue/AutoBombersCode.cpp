@@ -15,7 +15,7 @@ void RegisterAutoBombersCode() {
         if (gPlayState->msgCtx.currentTextId == 0x0729 && CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
             for (int i = 0; i < 5; i++) {
                 u8 digit = gSaveContext.save.saveInfo.bomberCode[i];
-                gPlayState->msgCtx.unk12054[i] = digit;
+                gPlayState->msgCtx.codeGuessDigits[i] = digit;
                 Font_LoadCharNES(gPlayState, '0' + digit, gPlayState->msgCtx.unk120C4 + (i << 7));
             }
         }

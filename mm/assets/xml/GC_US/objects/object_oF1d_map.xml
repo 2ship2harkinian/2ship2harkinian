@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- Object file for Gorons -->
     <File Name="object_oF1d_map" Segment="6">
         <!-- Snowball -->
@@ -39,11 +42,11 @@
         <!-- Don Gero's Mask -->
         <DList Name="gGoronDonGeroMaskDL" Offset="0x4DB0" />
         <Texture Name="gGoronDonGeroMaskTLUT" OutName="goron_don_gero_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5340" />
-        <Texture Name="gGoronDonGeroMaskBottomTex" OutName="goron_don_gero_mask_bottom" Format="ci8" Width="16" Height="16" Offset="0x5540" />
+        <Texture Name="gGoronDonGeroMaskBottomTex" OutName="goron_don_gero_mask_bottom" Format="ci8" Width="16" Height="16" Offset="0x5540" TlutOffset="0x5340"/>
         <Texture Name="gGoronDonGeroMaskToesTex" OutName="goron_don_gero_mask_toes" Format="rgba16" Width="32" Height="32" Offset="0x5640" />
-        <Texture Name="gGoronDonGeroMaskTopTex" OutName="goron_don_gero_mask_top" Format="ci8" Width="16" Height="16" Offset="0x5E40" />
-        <Texture Name="gGoronDonGeroMaskNostrilTex" OutName="goron_don_gero_mask_nostril" Format="ci8" Width="32" Height="32" Offset="0x5F40" />
-        <Texture Name="gGoronDonGeroMaskMouthTex" OutName="goron_don_gero_mask_mouth" Format="ci8" Width="16" Height="16" Offset="0x6340" />
+        <Texture Name="gGoronDonGeroMaskTopTex" OutName="goron_don_gero_mask_top" Format="ci8" Width="16" Height="16" Offset="0x5E40" TlutOffset="0x5340"/>
+        <Texture Name="gGoronDonGeroMaskNostrilTex" OutName="goron_don_gero_mask_nostril" Format="ci8" Width="32" Height="32" Offset="0x5F40" TlutOffset="0x5340"/>
+        <Texture Name="gGoronDonGeroMaskMouthTex" OutName="goron_don_gero_mask_mouth" Format="ci8" Width="16" Height="16" Offset="0x6340" TlutOffset="0x5340"/>
         <Texture Name="gGoronDonGeroMaskFrillsTex" OutName="goron_don_gero_mask_frills" Format="rgba16" Width="32" Height="32" Offset="0x6440" />
         <Texture Name="gGoronDonGeroMaskEyeTex" OutName="goron_don_gero_mask_eye" Format="rgba16" Width="16" Height="16" Offset="0x6C40" />
 
@@ -52,20 +55,20 @@
         <DList Name="gGoronEmptyDL" Offset="0x7A60" />
         <DList Name="gGoronScaredDL" Offset="0x7A68" />
         <Texture Name="gGoronScaredTLUT" OutName="goron_scared_tlut" Format="rgba16" Width="16" Height="16" Offset="0x7EF0" />
-        <Texture Name="gGoronScaredSkinTex" OutName="goron_scared_skin" Format="ci8" Width="16" Height="16" Offset="0x80F0" />
-        <Texture Name="gGoronScaredBellyButtonTex" OutName="goron_scared_belly_button" Format="ci8" Width="8" Height="8" Offset="0x81F0" />
-        <Texture Name="gGoronScaredBottomTex" OutName="goron_scared_bottom" Format="ci8" Width="8" Height="16" Offset="0x8230" />
-        <Texture Name="gGoronScaredRocksTex" OutName="goron_scared_rocks" Format="ci8" Width="32" Height="64" Offset="0x82B0" />
-        <Texture Name="gGoronScaredHairTex" OutName="goron_scared_hair" Format="ci8" Width="16" Height="16" Offset="0x8AB0" />
+        <Texture Name="gGoronScaredSkinTex" OutName="goron_scared_skin" Format="ci8" Width="16" Height="16" Offset="0x80F0" TlutOffset="0x7EF0"/>
+        <Texture Name="gGoronScaredBellyButtonTex" OutName="goron_scared_belly_button" Format="ci8" Width="8" Height="8" Offset="0x81F0" TlutOffset="0x7EF0"/>
+        <Texture Name="gGoronScaredBottomTex" OutName="goron_scared_bottom" Format="ci8" Width="8" Height="16" Offset="0x8230" TlutOffset="0x7EF0"/>
+        <Texture Name="gGoronScaredRocksTex" OutName="goron_scared_rocks" Format="ci8" Width="32" Height="64" Offset="0x82B0" TlutOffset="0x7EF0"/>
+        <Texture Name="gGoronScaredHairTex" OutName="goron_scared_hair" Format="ci8" Width="16" Height="16" Offset="0x8AB0" TlutOffset="0x7EF0"/>
 
         <!-- Rolled Up -->
         <DList Name="gGoronEmpty2DL" Offset="0x91A0" />
         <DList Name="gGoronRolledUpDL" Offset="0x91A8" /> <!-- Original name is "oF1d_iwa2_model" -->
         <Texture Name="gGoronRolledUpTLUT" OutName="goron_rolled_up_tlut" Format="rgba16" Width="16" Height="16" Offset="0x94E0" />
-        <Texture Name="gGoronRolledUpSkinTex" OutName="goron_rolled_up_skin" Format="ci8" Width="16" Height="16" Offset="0x96E0" />
-        <Texture Name="gGoronRolledUpBellyButtonTex" OutName="goron_rolled_up_belly_button" Format="ci8" Width="8" Height="8" Offset="0x97E0" />
-        <Texture Name="gGoronRolledUpBottomTex" OutName="goron_rolled_up_bottom" Format="ci8" Width="8" Height="16" Offset="0x9820" />
-        <Texture Name="gGoronRolledUpRocksTex" OutName="goron_rolled_up_rocks" Format="ci8" Width="32" Height="64" Offset="0x98A0" />
+        <Texture Name="gGoronRolledUpSkinTex" OutName="goron_rolled_up_skin" Format="ci8" Width="16" Height="16" Offset="0x96E0" TlutOffset="0x94E0"/>
+        <Texture Name="gGoronRolledUpBellyButtonTex" OutName="goron_rolled_up_belly_button" Format="ci8" Width="8" Height="8" Offset="0x97E0" TlutOffset="0x94E0"/>
+        <Texture Name="gGoronRolledUpBottomTex" OutName="goron_rolled_up_bottom" Format="ci8" Width="8" Height="16" Offset="0x9820" TlutOffset="0x94E0"/>
+        <Texture Name="gGoronRolledUpRocksTex" OutName="goron_rolled_up_rocks" Format="ci8" Width="32" Height="64" Offset="0x98A0" TlutOffset="0x94E0"/>
 
         <!-- Animation -->
         <Animation Name="gGoronTPoseAnim" Offset="0xA118" /> <!-- Original name is "ng_kihon" -->
@@ -90,21 +93,21 @@
         <!-- Textures -->
         <Texture Name="gGoronTLUT" OutName="goron_tlut" Format="rgba16" Width="16" Height="16" Offset="0xEA78" />
         <Texture Name="gGoronEyeTLUT" OutName="goron_eye_tlut" Format="rgba16" Width="16" Height="16" Offset="0xEC78" />
-        <Texture Name="gGoronSkinTex" OutName="goron_skin" Format="ci8" Width="16" Height="16" Offset="0xEE78" />
-        <Texture Name="gGoronFingersTex" OutName="goron_fingers" Format="ci8" Width="16" Height="16" Offset="0xEF78" />
-        <Texture Name="gGoronTatooTex" OutName="goron_tatoo" Format="ci8" Width="32" Height="32" Offset="0xF078" />
-        <Texture Name="gGoronToesTex" OutName="goron_toes" Format="ci8" Width="32" Height="16" Offset="0xF478" />
-        <Texture Name="gGoronFootTex" OutName="goron_foot" Format="ci8" Width="32" Height="32" Offset="0xF678" />
-        <Texture Name="gGoronNostrilTex" OutName="goron_nostril" Format="ci8" Width="8" Height="8" Offset="0xFA78" />
-        <Texture Name="gGoronBottomTex" OutName="goron_bottom" Format="ci8" Width="8" Height="16" Offset="0xFAB8" />
-        <Texture Name="gGoronsRocksTex" OutName="goron_rocks" Format="ci8" Width="32" Height="64" Offset="0xFB38" />
-        <Texture Name="gGoronHairTex" OutName="goron_hair" Format="ci8" Width="16" Height="16" Offset="0x10338" />
-        <Texture Name="gGoronEyeOpenTex" OutName="goron_eye_open" Format="ci8" Width="32" Height="32" Offset="0x10438" />
-        <Texture Name="gGoronEyeClosed2Tex" OutName="goron_eye_closed2" Format="ci8" Width="32" Height="32" Offset="0x10838" />
-        <Texture Name="gGoronEyeHalfTex" OutName="goron_eye_half" Format="ci8" Width="32" Height="32" Offset="0x10C38" />
-        <Texture Name="gGoronEyeClosedTex" OutName="goron_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x11038" />
+        <Texture Name="gGoronSkinTex" OutName="goron_skin" Format="ci8" Width="16" Height="16" Offset="0xEE78" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronFingersTex" OutName="goron_fingers" Format="ci8" Width="16" Height="16" Offset="0xEF78" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronTatooTex" OutName="goron_tatoo" Format="ci8" Width="32" Height="32" Offset="0xF078" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronToesTex" OutName="goron_toes" Format="ci8" Width="32" Height="16" Offset="0xF478" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronFootTex" OutName="goron_foot" Format="ci8" Width="32" Height="32" Offset="0xF678" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronNostrilTex" OutName="goron_nostril" Format="ci8" Width="8" Height="8" Offset="0xFA78" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronBottomTex" OutName="goron_bottom" Format="ci8" Width="8" Height="16" Offset="0xFAB8" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronsRocksTex" OutName="goron_rocks" Format="ci8" Width="32" Height="64" Offset="0xFB38" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronHairTex" OutName="goron_hair" Format="ci8" Width="16" Height="16" Offset="0x10338" TlutOffset="0xEA78"/>
+        <Texture Name="gGoronEyeOpenTex" OutName="goron_eye_open" Format="ci8" Width="32" Height="32" Offset="0x10438" TlutOffset="0xEC78"/>
+        <Texture Name="gGoronEyeClosed2Tex" OutName="goron_eye_closed2" Format="ci8" Width="32" Height="32" Offset="0x10838" TlutOffset="0xEC78"/>
+        <Texture Name="gGoronEyeHalfTex" OutName="goron_eye_half" Format="ci8" Width="32" Height="32" Offset="0x10C38" TlutOffset="0xEC78"/>
+        <Texture Name="gGoronEyeClosedTex" OutName="goron_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x11038" TlutOffset="0xEC78"/>
         <Texture Name="gGoronLipsTex" OutName="goron_lips" Format="rgba16" Width="8" Height="8" Offset="0x11438" />
-        <Texture Name="gGoronDimpleTex" OutName="goron_dimple" Format="ci8" Width="16" Height="16" Offset="0x114B8" />
+        <Texture Name="gGoronDimpleTex" OutName="goron_dimple" Format="ci8" Width="16" Height="16" Offset="0x114B8" TlutOffset="0xEA78"/>
         <Texture Name="gGoronBeardTex" OutName="goron_beard" Format="rgba16" Width="32" Height="16" Offset="0x115B8" />
 
         <!-- Skeleton -->

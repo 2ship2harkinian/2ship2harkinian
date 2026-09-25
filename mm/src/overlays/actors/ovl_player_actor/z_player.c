@@ -169,7 +169,7 @@ void Player_Action_47(Player* this, PlayState* play);
 void Player_Action_48(Player* this, PlayState* play);
 void Player_Action_49(Player* this, PlayState* play);
 void Player_Action_50(Player* this, PlayState* play);
-void Player_Action_51(Player* this, PlayState* play);
+void Player_Action_DismountLadder(Player* this, PlayState* play);
 void Player_Action_52(Player* this, PlayState* play);
 void Player_Action_53(Player* this, PlayState* play);
 void Player_Action_54(Player* this, PlayState* play);
@@ -7102,7 +7102,7 @@ void func_80836D8C(Player* this) {
 }
 
 s32 func_80836DC0(PlayState* play, Player* this) {
-    if ((MREG(48) != 0) || func_800C9DDC(&play->colCtx, this->actor.floorPoly, this->actor.floorBgId)) {
+    if ((MREG(48) != 0) || SurfaceType_IsFloorDekuFlower(&play->colCtx, this->actor.floorPoly, this->actor.floorBgId)) {
         Player_SetAction(play, this, Player_Action_93, 0);
         this->stateFlags1 &= ~(PLAYER_STATE1_PARALLEL | PLAYER_STATE1_LOCK_ON_FORCED_TO_RELEASE);
         Player_Anim_PlayOnceMorph(play, this, &gPlayerAnim_pn_attack);
@@ -7356,7 +7356,7 @@ s32 func_80837730(PlayState* play, Player* this, f32 arg2, s32 scale) {
 
         Math_Vec3f_Copy(&pos, &this->bodyPartsPos[PLAYER_BODYPART_WAIST]);
         pos.y += 20.0f;
-        if (WaterBox_GetSurface1(play, &play->colCtx, pos.x, pos.z, &pos.y, &waterBox)) {
+        if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, pos.x, pos.z, &pos.y, &waterBox)) {
             sp34 = pos.y - this->bodyPartsPos[PLAYER_BODYPART_LEFT_FOOT].y;
             if ((sp34 > -2.0f) && (sp34 < 100.0f)) {
                 EffectSsGSplash_Spawn(play, &pos, NULL, NULL,
@@ -7673,10 +7673,10 @@ void func_8083827C(Player* this, PlayState* play) {
                                 sp48 = func_80835CD8(play, this, &D_8085D154, &sp4C, &sp60, &sp5C);
                                 sp44 = this->actor.world.pos.y;
 
-                                if (GameInteractor_Should(
-                                        VB_LINK_DIVE_OVER_WATER,
-                                        WaterBox_GetSurface1(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) &&
-                                            ((sp44 - sp48) > 50.0f))) {
+                                if (GameInteractor_Should(VB_LINK_DIVE_OVER_WATER,
+                                                          BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, sp4C.x,
+                                                                                           sp4C.z, &sp44, &waterBox) &&
+                                                              ((sp44 - sp48) > 50.0f))) {
                                     func_80834DB8(this, &gPlayerAnim_link_normal_run_jump_water_fall, 6.0f, play);
                                     Player_SetAction(play, this, Player_Action_27, 0);
                                     return;
@@ -8671,8 +8671,8 @@ s32 func_8083A878(PlayState* play, Player* this, f32 arg2) {
     WaterBox* waterBox;
     f32 ySurface = this->actor.world.pos.y;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &ySurface,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &ySurface, &waterBox)) {
         ySurface -= this->actor.world.pos.y;
         if (this->ageProperties->unk_24 <= ySurface) {
             Player_SetAction(play, this, Player_Action_55, 0);
@@ -9864,8 +9864,8 @@ s32 func_8083D860(Player* this, PlayState* play) {
     return false;
 }
 
-void func_8083DCC4(Player* this, PlayerAnimationHeader* anim, PlayState* play) {
-    Player_SetAction_PreserveMoveFlags(play, this, Player_Action_51, 0);
+void Player_SetupDismountLadder(Player* this, PlayerAnimationHeader* anim, PlayState* play) {
+    Player_SetAction_PreserveMoveFlags(play, this, Player_Action_DismountLadder, 0);
     PlayerAnimation_PlayOnceSetSpeed(play, &this->skelAnime, anim, 4.0f / 3.0f);
 }
 
@@ -11721,7 +11721,7 @@ void Player_UpdateInterface(PlayState* play, Player* this) {
                     (sp38 || ((this->stateFlags1 & PLAYER_STATE1_8000000) &&
                               !(this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)))) ||
                    ((this->transformation == PLAYER_FORM_DEKU) && (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) &&
-                    func_800C9DDC(&play->colCtx, this->actor.floorPoly, this->actor.floorBgId))) {
+                    SurfaceType_IsFloorDekuFlower(&play->colCtx, this->actor.floorPoly, this->actor.floorBgId))) {
             doActionA = (this->transformation == PLAYER_FORM_ZORA) ? DO_ACTION_SWIM
                         : ((this->stateFlags1 & PLAYER_STATE1_8000000) && (interactRangeActor != NULL) &&
                            (interactRangeActor->id == ACTOR_EN_ZOG))
@@ -16820,7 +16820,8 @@ void Player_Action_50(Player* this, PlayState* play) {
                             func_808381A0(this, &gPlayerAnim_link_normal_jump_climb_up_free, play);
                             this->stateFlags1 |= PLAYER_STATE1_4000;
                         } else {
-                            func_8083DCC4(this, this->ageProperties->unk_D4[this->av2.actionVar2], play);
+                            Player_SetupDismountLadder(
+                                this, this->ageProperties->dismountLadderUpAnim[this->av2.actionVar2], play);
                         }
                     } else {
                         this->skelAnime.prevTransl = this->ageProperties->unk_4A[sp78];
@@ -16834,8 +16835,9 @@ void Player_Action_50(Player* this, PlayState* play) {
                             this->skelAnime.prevTransl = this->ageProperties->unk_44;
                         }
 
-                        func_8083DCC4(this, this->ageProperties->unk_CC[this->av2.actionVar2], play);
-                        this->av2.actionVar2 = 1;
+                        Player_SetupDismountLadder(
+                            this, this->ageProperties->dismountLadderDownAnim[this->av2.actionVar2], play);
+                        this->av2.dismountDown = true;
                     }
                 } else {
                     sp78 ^= 1;
@@ -16878,17 +16880,22 @@ void Player_Action_50(Player* this, PlayState* play) {
     }
 }
 
-f32 D_8085D66C[] = { 11.0f, 21.0f };
-f32 D_8085D674[] = { 40.0f, 50.0f };
+f32 sUpDismountLadderFrames[] = { 11.0f, 21.0f };
+f32 sDownDismountLadderFrames[] = { 40.0f, 50.0f };
 
-AnimSfxEntry D_8085D67C[] = {
+AnimSfxEntry sDownDismountLadderAnimSfx[] = {
     ANIMSFX(ANIMSFX_TYPE_SURFACE, 10, NA_SE_PL_WALK_LADDER, CONTINUE),
     ANIMSFX(ANIMSFX_TYPE_SURFACE, 20, NA_SE_PL_WALK_LADDER, CONTINUE),
     ANIMSFX(ANIMSFX_TYPE_SURFACE, 30, NA_SE_PL_WALK_LADDER, STOP),
 };
 
-void Player_Action_51(Player* this, PlayState* play) {
+/**
+ * Dismounting ladders, both upwards and downwards.
+ * actionVar2 (dismountDown) true if dismounting down
+ */
+void Player_Action_DismountLadder(Player* this, PlayState* play) {
     PlayerActionInterruptResult interruptResult;
+    f32* frame;
 
     this->stateFlags2 |= PLAYER_STATE2_40;
 
@@ -16896,30 +16903,33 @@ void Player_Action_51(Player* this, PlayState* play) {
 
     if (interruptResult == PLAYER_INTERRUPT_NEW_ACTION) {
         this->stateFlags1 &= ~PLAYER_STATE1_200000;
-    } else if ((interruptResult >= PLAYER_INTERRUPT_MOVE) || PlayerAnimation_Update(play, &this->skelAnime)) {
+        return;
+    }
+
+    if ((interruptResult >= PLAYER_INTERRUPT_MOVE) || PlayerAnimation_Update(play, &this->skelAnime)) {
         func_80839E74(this, play);
         this->stateFlags1 &= ~PLAYER_STATE1_200000;
-    } else {
-        f32* var_v1 = D_8085D66C;
+        return;
+    }
 
-        if (this->av2.actionVar2 != 0) {
-            Player_PlayAnimSfx(this, D_8085D67C);
-            var_v1 = D_8085D674;
-        }
+    frame = sUpDismountLadderFrames;
 
-        if (PlayerAnimation_OnFrame(&this->skelAnime, var_v1[0]) ||
-            PlayerAnimation_OnFrame(&this->skelAnime, var_v1[1])) {
-            CollisionPoly* poly;
-            s32 bgId;
-            Vec3f pos;
+    if (this->av2.dismountDown) {
+        Player_PlayAnimSfx(this, sDownDismountLadderAnimSfx);
+        frame = sDownDismountLadderFrames;
+    }
 
-            pos.x = this->actor.world.pos.x;
-            pos.y = this->actor.world.pos.y + 20.0f;
-            pos.z = this->actor.world.pos.z;
-            if (BgCheck_EntityRaycastFloor5(&play->colCtx, &poly, &bgId, &this->actor, &pos) != 0.0f) {
-                this->floorSfxOffset = SurfaceType_GetSfxOffset(&play->colCtx, poly, bgId);
-                Player_AnimSfx_PlayFloorLand(this);
-            }
+    if (PlayerAnimation_OnFrame(&this->skelAnime, frame[0]) || PlayerAnimation_OnFrame(&this->skelAnime, frame[1])) {
+        CollisionPoly* poly;
+        s32 bgId;
+        Vec3f raycastPos;
+
+        raycastPos.x = this->actor.world.pos.x;
+        raycastPos.y = this->actor.world.pos.y + 20.0f;
+        raycastPos.z = this->actor.world.pos.z;
+        if (BgCheck_EntityRaycastFloor5(&play->colCtx, &poly, &bgId, &this->actor, &raycastPos) != 0.0f) {
+            this->floorSfxOffset = SurfaceType_GetSfxOffset(&play->colCtx, poly, bgId);
+            Player_AnimSfx_PlayFloorLand(this);
         }
     }
 }

@@ -26,8 +26,8 @@ typedef struct {
 } DListPatchInfo;
 
 static DListPatchInfo freezardBodyDListPatchInfos[] = {
-    { object_fz_DL_001130, 5 }, { object_fz_DL_0021A0, 5 }, { object_fz_DL_002CA0, 5 },
-    { object_fz_DL_003260, 5 }, { object_fz_DL_0033F0, 5 },
+    { gFreezardBodyIntactDL, 5 }, { gFreezardBodyHornBrokenDL, 5 }, { gFreezardBodyHeadBrokenDL, 5 },
+    { gFreezardIceSpikeDL, 5 },   { gFreezardIceChunkDL, 5 },
 };
 
 static DListPatchInfo ironKnuckleDListPatchInfos[] = {
@@ -77,11 +77,11 @@ static DListPatchInfo arrowTipDListPatchInfos[] = {
 void PatchArrowTipTexture() {
     // Custom texture for Arrow tips that accounts for overflow texture reading
     Gfx arrowTipTextureWithOverflowFixGfx =
-        gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, gameplay_keep_Tex_00CA30_Overflow);
+        gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, gHilite2Tex_Overflow);
 
     // Gfx instructions to fix authentic vanilla bug where the Arrow tips texture is read as the wrong size
     Gfx arrowTipTextureWithSizeFixGfx[] = {
-        gsDPLoadTextureBlock(gameplay_keep_Tex_00CA30, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP,
+        gsDPLoadTextureBlock(gHilite2Tex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_MIRROR | G_TX_WRAP,
                              G_TX_MIRROR | G_TX_WRAP, 5, 5, 1, 1),
     };
 

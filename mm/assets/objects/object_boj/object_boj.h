@@ -129,6 +129,9 @@ static const ALIGN_ASSET(2) char object_boj_DL_009558[] = dobject_boj_DL_009558;
 #define dobject_boj_DL_009660 "__OTR__objects/object_boj/object_boj_DL_009660"
 static const ALIGN_ASSET(2) char object_boj_DL_009660[] = dobject_boj_DL_009660;
 
+#define dobject_boj_TLUT_009848 "__OTR__objects/object_boj/object_boj_TLUT_009848"
+static const ALIGN_ASSET(2) char object_boj_TLUT_009848[] = dobject_boj_TLUT_009848;
+
 #define dobject_boj_Tex_009A40 "__OTR__objects/object_boj/object_boj_Tex_009A40"
 static const ALIGN_ASSET(2) char object_boj_Tex_009A40[] = dobject_boj_Tex_009A40;
 
@@ -224,9 +227,6 @@ static const ALIGN_ASSET(2) char gBombShopBagTLUT[] = dgBombShopBagTLUT;
 
 #define dgBombShopBagTex "__OTR__objects/object_boj/gBombShopBagTex"
 static const ALIGN_ASSET(2) char gBombShopBagTex[] = dgBombShopBagTex;
-
-#define dobject_bojTLUT_009848 "__OTR__objects/object_boj/object_bojTLUT_009848"
-static const ALIGN_ASSET(2) char object_bojTLUT_009848[] = dobject_bojTLUT_009848;
 
 typedef enum ObjectBojLimb {
     /* 0x00 */ OBJECT_BOJ_LIMB_NONE,

@@ -119,9 +119,9 @@ s32 func_80B0F660(EnGb2* this, PlayState* play) {
 void func_80B0F6DC(EnGb2* this) {
     if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_54_20)) {
         SET_WEEKEVENTREG(WEEKEVENTREG_54_20);
-        this->unk_26E = 0x14D0;
+        this->textId = 0x14D0;
     } else {
-        this->unk_26E = 0x14D1;
+        this->textId = 0x14D1;
     }
     this->unk_288 = 30;
     this->actionFunc = func_80B0FEBC;
@@ -130,7 +130,7 @@ void func_80B0F6DC(EnGb2* this) {
 void func_80B0F728(EnGb2* this, PlayState* play) {
     if (CHECK_EVENTINF(EVENTINF_44)) {
         func_80B0FBF0(this, play);
-        this->unk_26E = 0x14E1;
+        this->textId = 0x14E1;
         if (CHECK_EVENTINF(EVENTINF_47)) {
             this->unk_288 = 10;
         } else {
@@ -138,10 +138,10 @@ void func_80B0F728(EnGb2* this, PlayState* play) {
         }
     } else if (CHECK_EVENTINF(EVENTINF_45)) {
         func_80B0FBF0(this, play);
-        this->unk_26E = 0x14E0;
+        this->textId = 0x14E0;
         this->unk_26C |= 2;
     } else {
-        this->unk_26E = 0x14DC;
+        this->textId = 0x14DC;
     }
 
     CLEAR_EVENTINF(EVENTINF_44);
@@ -151,7 +151,7 @@ void func_80B0F728(EnGb2* this, PlayState* play) {
 }
 
 u16 func_80B0F7FC(EnGb2* this) {
-    switch (this->unk_26E) {
+    switch (this->textId) {
         case 0x14D0:
             return 0x14D1;
 
@@ -197,7 +197,7 @@ u16 func_80B0F7FC(EnGb2* this) {
 }
 
 u16 func_80B0F8F8(EnGb2* this) {
-    switch (this->unk_26E) {
+    switch (this->textId) {
         case 0x14DC:
             this->unk_26C |= 2;
             return 0x14DD;
@@ -219,7 +219,7 @@ u16 func_80B0F8F8(EnGb2* this) {
 }
 
 u16 func_80B0F97C(EnGb2* this) {
-    switch (this->unk_26E) {
+    switch (this->textId) {
         case 0x14F5:
             return 0x14F6;
 
@@ -249,40 +249,40 @@ void func_80B0FA04(EnGb2* this) {
     this->csIdList[2] = CutsceneManager_GetAdditionalCsId(this->csIdList[1]);
 }
 
-s32 func_80B0FA48(EnGb2* this, PlayState* play) {
+s32 EnGb2_MustTalkManually(EnGb2* this, PlayState* play) {
     switch (Player_GetMask(play)) {
         case PLAYER_MASK_GIBDO:
             this->unk_26C |= 4;
-            this->unk_26E = 0x14E6;
+            this->textId = 0x14E6;
             return false;
 
         case PLAYER_MASK_GARO:
             this->unk_26C |= 8;
-            this->unk_26E = 0x14E6;
+            this->textId = 0x14E6;
             return false;
 
         case PLAYER_MASK_CAPTAIN:
-            if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_80_40)) {
-                this->unk_26E = 0x14EB;
+            if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_TALKED_TO_CANYON_GUARD_WITH_CAPTAINS_HAT)) {
+                this->textId = 0x14EB;
                 return false;
             } else {
-                this->unk_26E = 0x14EE;
+                this->textId = 0x14EE;
                 return true;
             }
 
         default:
-            if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_80_20)) {
-                this->unk_26E = 0x14EF;
+            if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_TALKED_TO_CANYON_GUARD_WITH_NO_MASK)) {
+                this->textId = 0x14EF;
                 return false;
             } else {
-                this->unk_26E = 0x14F4;
+                this->textId = 0x14F4;
                 return true;
             }
     }
 }
 
 u16 func_80B0FB24(EnGb2* this) {
-    switch (this->unk_26E) {
+    switch (this->textId) {
         case 0x14E6:
             if (this->unk_26C & 4) {
                 return 0x14E7;
@@ -380,12 +380,12 @@ void func_80B0FEBC(EnGb2* this, PlayState* play) {
     if ((play->msgCtx.ocarinaMode == OCARINA_MODE_EVENT) && (play->msgCtx.lastPlayedSong == OCARINA_SONG_HEALING)) {
         play->msgCtx.ocarinaMode = OCARINA_MODE_END;
         SET_EVENTINF(EVENTINF_47);
-        this->unk_26E = 0x14D1;
+        this->textId = 0x14D1;
         this->unk_288 = 10;
     }
 
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
-        Message_StartTextbox(play, this->unk_26E, &this->actor);
+        Message_StartTextbox(play, this->textId, &this->actor);
         this->actionFunc = func_80B0FFA8;
     } else if ((this->actor.xzDistToPlayer < 300.0f) || this->actor.isLockedOn) {
         Actor_OfferTalkNearColChkInfoCylinder(&this->actor, play);
@@ -400,43 +400,43 @@ void func_80B0FFA8(EnGb2* this, PlayState* play) {
             if (this->unk_26C & 2) {
                 play->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
                 play->msgCtx.stateTimer = 4;
-                this->unk_26E = 0x14D1;
+                this->textId = 0x14D1;
                 this->unk_288 = 30;
                 CLEAR_EVENTINF(EVENTINF_47);
                 this->unk_26C &= ~2;
                 this->actionFunc = func_80B0FEBC;
             } else {
-                this->unk_26E = func_80B0F7FC(this);
-                Message_StartTextbox(play, this->unk_26E, &this->actor);
+                this->textId = func_80B0F7FC(this);
+                Message_StartTextbox(play, this->textId, &this->actor);
             }
         }
     } else if ((talkState == TEXT_STATE_CHOICE) && Message_ShouldAdvance(play)) {
-        if (this->unk_26E == 0x14D5) {
+        if (this->textId == 0x14D5) {
             switch (play->msgCtx.choiceIndex) {
                 case 0:
                     if (gSaveContext.save.saveInfo.playerData.rupees < this->unk_288) {
                         Audio_PlaySfx(NA_SE_SY_ERROR);
-                        this->unk_26E = 0x14D7;
+                        this->textId = 0x14D7;
                         this->unk_26C |= 2;
-                        Message_StartTextbox(play, this->unk_26E, &this->actor);
+                        Message_StartTextbox(play, this->textId, &this->actor);
                     } else {
                         Audio_PlaySfx_MessageDecide();
-                        this->unk_26E = 0x14D8;
-                        Message_StartTextbox(play, this->unk_26E, &this->actor);
+                        this->textId = 0x14D8;
+                        Message_StartTextbox(play, this->textId, &this->actor);
                     }
                     break;
 
                 case 1:
                     Audio_PlaySfx_MessageCancel();
-                    this->unk_26E = 0x14D6;
+                    this->textId = 0x14D6;
                     this->unk_26C |= 2;
-                    Message_StartTextbox(play, this->unk_26E, &this->actor);
+                    Message_StartTextbox(play, this->textId, &this->actor);
                     break;
 
                 default:
                     break;
             }
-        } else if (this->unk_26E == 0x14DA) {
+        } else if (this->textId == 0x14DA) {
             switch (play->msgCtx.choiceIndex) {
                 case 0:
                     Audio_PlaySfx_MessageDecide();
@@ -449,9 +449,9 @@ void func_80B0FFA8(EnGb2* this, PlayState* play) {
 
                 case 1:
                     Audio_PlaySfx_MessageCancel();
-                    this->unk_26E = 0x14DB;
+                    this->textId = 0x14DB;
                     this->unk_26C |= 2;
-                    Message_StartTextbox(play, this->unk_26E, &this->actor);
+                    Message_StartTextbox(play, this->textId, &this->actor);
                     break;
 
                 default:
@@ -551,7 +551,7 @@ void func_80B10344(EnGb2* this, PlayState* play) {
 
 void func_80B10584(EnGb2* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
-        Message_StartTextbox(play, this->unk_26E, &this->actor);
+        Message_StartTextbox(play, this->textId, &this->actor);
         this->actor.flags &= ~ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
         this->actionFunc = func_80B10634;
     } else if (this->actor.xzDistToPlayer < 300.0f) {
@@ -569,20 +569,20 @@ void func_80B10634(EnGb2* this, PlayState* play) {
                 play->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
                 play->msgCtx.stateTimer = 4;
                 this->unk_26C &= ~2;
-                if (this->unk_26E == 0x14DD) {
-                    this->unk_26E = 0x14DE;
+                if (this->textId == 0x14DD) {
+                    this->textId = 0x14DE;
                     this->actionFunc = func_80B10924;
-                } else if (this->unk_26E == 0x14DF) {
+                } else if (this->textId == 0x14DF) {
                     this->actionFunc = func_80B10A48;
                 } else {
-                    this->unk_26E = 0x14D1;
+                    this->textId = 0x14D1;
                     this->unk_288 = 30;
                     CLEAR_EVENTINF(EVENTINF_47);
                     this->actionFunc = func_80B0FEBC;
                 }
             } else {
-                this->unk_26E = func_80B0F8F8(this);
-                Message_StartTextbox(play, this->unk_26E, &this->actor);
+                this->textId = func_80B0F8F8(this);
+                Message_StartTextbox(play, this->textId, &this->actor);
             }
         }
     } else if ((talkState == TEXT_STATE_CHOICE) && Message_ShouldAdvance(play)) {
@@ -590,9 +590,9 @@ void func_80B10634(EnGb2* this, PlayState* play) {
             case 0:
                 if (gSaveContext.save.saveInfo.playerData.rupees < this->unk_288) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
-                    this->unk_26E = 0x14D7;
+                    this->textId = 0x14D7;
                     this->unk_26C |= 2;
-                    Message_StartTextbox(play, this->unk_26E, &this->actor);
+                    Message_StartTextbox(play, this->textId, &this->actor);
                 } else {
                     Audio_PlaySfx_MessageDecide();
                     Rupees_ChangeBy(-this->unk_288);
@@ -605,9 +605,9 @@ void func_80B10634(EnGb2* this, PlayState* play) {
 
             case 1:
                 Audio_PlaySfx_MessageCancel();
-                this->unk_26E = 0x14E3;
+                this->textId = 0x14E3;
                 this->unk_26C |= 2;
-                Message_StartTextbox(play, this->unk_26E, &this->actor);
+                Message_StartTextbox(play, this->textId, &this->actor);
                 break;
 
             default:
@@ -654,7 +654,7 @@ void func_80B10924(EnGb2* this, PlayState* play) {
 
 void func_80B109DC(EnGb2* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
-        Message_StartTextbox(play, this->unk_26E, &this->actor);
+        Message_StartTextbox(play, this->textId, &this->actor);
         this->actionFunc = func_80B10634;
     } else {
         Actor_OfferTalkExchangeEquiCylinder(&this->actor, play, 300.0f, PLAYER_IA_MINUS1);
@@ -678,7 +678,7 @@ void func_80B10A48(EnGb2* this, PlayState* play) {
 
             case ENGB2_7_2:
                 CutsceneManager_Stop(this->csIdList[this->csIdIndex]);
-                if (this->unk_26E == 0x14FB) {
+                if (this->textId == 0x14FB) {
                     Flags_SetSwitch(play, ENGB2_GET_SWITCH_FLAG(&this->actor));
                     Actor_Kill(&this->actor);
                     return;
@@ -704,13 +704,13 @@ void func_80B10B5C(EnGb2* this, PlayState* play) {
         this->unk_26C &= ~0x40;
     }
 
-    if (func_80B0FA48(this, play)) {
+    if (EnGb2_MustTalkManually(this, play)) {
         this->unk_26C &= ~0x20;
         if (Actor_TalkOfferAccepted(&this->actor, &play->state) && (this->unk_26C & 0x40)) {
-            if ((this->unk_26E == 0x14EE) || (this->unk_26E == 0x14F4)) {
+            if ((this->textId == 0x14EE) || (this->textId == 0x14F4)) {
                 this->unk_26C |= 2;
             }
-            Message_StartTextbox(play, this->unk_26E, &this->actor);
+            Message_StartTextbox(play, this->textId, &this->actor);
             this->csIdIndex = 1;
             this->unk_26C &= ~0x40;
             this->actionFunc = func_80B10DAC;
@@ -722,11 +722,11 @@ void func_80B10B5C(EnGb2* this, PlayState* play) {
         this->unk_26C &= ~0x40;
         if (Actor_TalkOfferAccepted(&this->actor, &play->state) && (this->unk_26C & 0x20)) {
             this->actor.flags &= ~ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
-            Message_StartTextbox(play, this->unk_26E, &this->actor);
-            if (this->unk_26E == 0x14EB) {
-                SET_WEEKEVENTREG(WEEKEVENTREG_80_40);
-            } else if (this->unk_26E == 0x14EF) {
-                SET_WEEKEVENTREG(WEEKEVENTREG_80_20);
+            Message_StartTextbox(play, this->textId, &this->actor);
+            if (this->textId == 0x14EB) {
+                SET_WEEKEVENTREG(WEEKEVENTREG_TALKED_TO_CANYON_GUARD_WITH_CAPTAINS_HAT);
+            } else if (this->textId == 0x14EF) {
+                SET_WEEKEVENTREG(WEEKEVENTREG_TALKED_TO_CANYON_GUARD_WITH_NO_MASK);
             }
             this->unk_26C &= ~0x20;
             this->csIdIndex = 0;
@@ -769,7 +769,7 @@ void func_80B10E98(EnGb2* this, PlayState* play) {
             this->unk_26C &= ~2;
             play->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
             play->msgCtx.stateTimer = 4;
-            if ((this->unk_26E != 0x14E8) && (this->unk_26E != 0x14EA)) {
+            if ((this->textId != 0x14E8) && (this->textId != 0x14EA)) {
                 CutsceneManager_Stop(this->csIdList[this->csIdIndex]);
                 this->actionFunc = func_80B10B5C;
             } else if (Flags_GetSwitch(play, ENGB2_GET_SWITCH_FLAG(&this->actor))) {
@@ -781,16 +781,20 @@ void func_80B10E98(EnGb2* this, PlayState* play) {
                 this->actionFunc = func_80B10DAC;
             }
         } else {
-            s32 temp;
-
-            this->unk_26E = func_80B0FB24(this);
-            Message_StartTextbox(play, this->unk_26E, &this->actor);
-            temp = this->unk_26E;
-            if ((temp == 0x14E7) || (temp == 0x14E9) || (temp == 0x14EC) || (temp == 0x14F0)) {
-                CutsceneManager_Stop(this->csIdList[this->csIdIndex]);
-                this->csIdIndex = 1;
-                CutsceneManager_Queue(this->csIdList[this->csIdIndex]);
-                this->actionFunc = func_80B10DAC;
+            this->textId = func_80B0FB24(this);
+            Message_StartTextbox(play, this->textId, &this->actor);
+            switch (this->textId) {
+                case 0x14E7:
+                case 0x14E9:
+                case 0x14EC:
+                case 0x14F0:
+                    CutsceneManager_Stop(this->csIdList[this->csIdIndex]);
+                    this->csIdIndex = 1;
+                    CutsceneManager_Queue(this->csIdList[this->csIdIndex]);
+                    this->actionFunc = func_80B10DAC;
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -799,7 +803,7 @@ void func_80B10E98(EnGb2* this, PlayState* play) {
 void func_80B11048(EnGb2* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         this->actor.flags &= ~ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
-        Message_StartTextbox(play, this->unk_26E, &this->actor);
+        Message_StartTextbox(play, this->textId, &this->actor);
         this->actionFunc = func_80B10DAC;
     } else if (this->actor.xzDistToPlayer < 300.0f) {
         this->actor.flags |= ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
@@ -815,8 +819,8 @@ void func_80B110F8(EnGb2* this, PlayState* play) {
             this->unk_26C &= ~2;
             this->actionFunc = func_80B10A48;
         } else {
-            this->unk_26E = func_80B0F97C(this);
-            Message_StartTextbox(play, this->unk_26E, &this->actor);
+            this->textId = func_80B0F97C(this);
+            Message_StartTextbox(play, this->textId, &this->actor);
         }
     }
 }
@@ -863,7 +867,7 @@ void func_80B11268(EnGb2* this, PlayState* play) {
             this->unk_26C &= ~0x100;
             this->actor.flags |= ACTOR_FLAG_ATTENTION_ENABLED;
             this->actor.draw = EnGb2_Draw;
-            this->unk_26E = 0x14F9;
+            this->textId = 0x14F9;
             this->actionFunc = func_80B11048;
         } else {
             this->actionFunc = func_80B111AC;
@@ -964,7 +968,7 @@ void EnGb2_Init(Actor* thisx, PlayState* play) {
                 this->actionFunc = func_80B111AC;
             } else {
                 this->unk_28A = 255;
-                this->unk_26E = 0x14F5;
+                this->textId = 0x14F5;
                 this->actionFunc = func_80B11048;
             }
             break;

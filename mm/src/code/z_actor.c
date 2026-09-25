@@ -1862,7 +1862,8 @@ void Actor_UpdateBgCheckInfo(PlayState* play, Actor* actor, f32 wallCheckHeight,
         func_800B7678(play, actor, &pos, updBgCheckInfoFlags);
         y = actor->world.pos.y;
 
-        if (WaterBox_GetSurface1(play, &play->colCtx, actor->world.pos.x, actor->world.pos.z, &y, &waterbox)) {
+        if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, actor->world.pos.x, actor->world.pos.z, &y,
+                                             &waterbox)) {
             actor->depthInWater = y - actor->world.pos.y;
             if (actor->depthInWater <= 0.0f) {
                 actor->bgCheckFlags &= ~(BGCHECKFLAG_WATER | BGCHECKFLAG_WATER_TOUCH);
@@ -1892,7 +1893,8 @@ void Actor_UpdateBgCheckInfo(PlayState* play, Actor* actor, f32 wallCheckHeight,
         WaterBox* waterbox;
         f32 y = actor->world.pos.y;
 
-        if (WaterBox_GetSurface1(play, &play->colCtx, actor->world.pos.x, actor->world.pos.z, &y, &waterbox)) {
+        if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, actor->world.pos.x, actor->world.pos.z, &y,
+                                             &waterbox)) {
             actor->depthInWater = y - actor->world.pos.y;
 
             if (actor->depthInWater < 0.0f) {
@@ -5018,16 +5020,25 @@ void Npc_TrackPoint(Actor* actor, NpcInteractInfo* interactInfo, s16 presetIndex
 }
 
 // #region 2S2H - These DisplayLists are now extracted
-// Gfx D_801AEF88[] = {
-//     gsDPSetRenderMode(AA_EN | Z_CMP | Z_UPD | IM_RD | CLR_ON_CVG | CVG_DST_WRAP | ZMODE_XLU | FORCE_BL |
-//                           G_RM_FOG_SHADE_A,
-//                       AA_EN | Z_CMP | Z_UPD | IM_RD | CLR_ON_CVG | CVG_DST_WRAP | ZMODE_XLU | FORCE_BL |
-//                           GBL_c2(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_1MA)),
+/**
+ * A display list setting up for translucent drawing when a fading actor is partially faded,
+ * overriding the opaque render mode from the calling display list.
+ * Typically this DL is assigned to a segment that is called by the display lists from the assets.
+ * @see gActorSetupOpaDL
+ */
+// Gfx gActorSetupXluDL[] = {
+//     gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2 | Z_UPD),
 //     gsDPSetAlphaCompare(G_AC_THRESHOLD),
 //     gsSPEndDisplayList(),
 // };
-
-// Gfx D_801AEFA0[] = {
+//
+/**
+ * A no-op display list to use when a fading actor is fully opaque,
+ * retaining the opaque render mode from the calling display list.
+ * Typically this DL is assigned to a segment that is called by the display lists from the assets.
+ * @see gActorSetupXluDL
+ */
+// Gfx gActorSetupOpaDL[] = {
 //     gsSPEndDisplayList(),
 // };
 // #endregion

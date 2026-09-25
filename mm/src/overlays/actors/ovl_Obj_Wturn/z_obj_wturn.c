@@ -11,14 +11,14 @@
 void ObjWturn_Init(Actor* thisx, PlayState* play);
 void ObjWturn_Update(Actor* thisx, PlayState* play);
 
-void func_808A7954(ObjWturn* this);
-void func_808A7968(ObjWturn* this, PlayState* play);
-void func_808A7A24(ObjWturn* this);
-void func_808A7A5C(ObjWturn* this, PlayState* play);
-void func_808A7AAC(ObjWturn* this, PlayState* play);
-void func_808A7BA0(ObjWturn* this, PlayState* play);
-void func_808A7C04(ObjWturn* this, PlayState* play);
-void func_808A7C78(ObjWturn* this, PlayState* play);
+void ObjWturn_SetupIdle(ObjWturn* this);
+void ObjWturn_Idle(ObjWturn* this, PlayState* play);
+void ObjWturn_TriggerInversion(ObjWturn* this);
+void ObjWturn_AwaitInversion(ObjWturn* this, PlayState* play);
+void ObjWturn_SetupInversionCs(ObjWturn* this, PlayState* play);
+void ObjWturn_InversionCs(ObjWturn* this, PlayState* play);
+void ObjWturn_SetupFallingCs(ObjWturn* this, PlayState* play);
+void ObjWturn_FallingCs(ObjWturn* this, PlayState* play);
 
 ActorProfile Obj_Wturn_Profile = {
     /**/ ACTOR_OBJ_WTURN,
@@ -35,14 +35,14 @@ ActorProfile Obj_Wturn_Profile = {
 void ObjWturn_Init(Actor* thisx, PlayState* play) {
     ObjWturn* this = (ObjWturn*)thisx;
 
-    func_808A7954(this);
+    ObjWturn_SetupIdle(this);
 }
 
-void func_808A7954(ObjWturn* this) {
-    this->actionFunc = func_808A7968;
+void ObjWturn_SetupIdle(ObjWturn* this) {
+    this->actionFunc = ObjWturn_Idle;
 }
 
-void func_808A7968(ObjWturn* this, PlayState* play) {
+void ObjWturn_Idle(ObjWturn* this, PlayState* play) {
     if ((play->msgCtx.ocarinaMode >= OCARINA_MODE_WARP_TO_GREAT_BAY_COAST) &&
         (play->msgCtx.ocarinaMode <= OCARINA_MODE_WARP_TO_ENTRANCE)) {
         Flags_UnsetSwitch(play, OBJWTURN_GET_SWITCH_FLAG(&this->actor));
@@ -52,24 +52,24 @@ void func_808A7968(ObjWturn* this, PlayState* play) {
 
     if ((Flags_GetSwitch(play, OBJWTURN_GET_SWITCH_FLAG(&this->actor)) && (play->sceneId == SCENE_F40)) ||
         (!Flags_GetSwitch(play, OBJWTURN_GET_SWITCH_FLAG(&this->actor)) && (play->sceneId == SCENE_F41))) {
-        func_808A7A24(this);
+        ObjWturn_TriggerInversion(this);
     }
 }
 
-void func_808A7A24(ObjWturn* this) {
+void ObjWturn_TriggerInversion(ObjWturn* this) {
     CutsceneManager_Queue(this->actor.csId);
-    this->actionFunc = func_808A7A5C;
+    this->actionFunc = ObjWturn_AwaitInversion;
 }
 
-void func_808A7A5C(ObjWturn* this, PlayState* play) {
+void ObjWturn_AwaitInversion(ObjWturn* this, PlayState* play) {
     if (CutsceneManager_IsNext(this->actor.csId)) {
-        func_808A7AAC(this, play);
+        ObjWturn_SetupInversionCs(this, play);
     } else {
         CutsceneManager_Queue(this->actor.csId);
     }
 }
 
-void func_808A7AAC(ObjWturn* this, PlayState* play) {
+void ObjWturn_SetupInversionCs(ObjWturn* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
     Vec3f subCamEye;
     Vec3f subCamAt;
@@ -85,38 +85,38 @@ void func_808A7AAC(ObjWturn* this, PlayState* play) {
     subCamEye.z = (Math_CosS(this->actor.shape.rot.y) * 150.0f) + subCamAt.z;
     subCamEye.y = subCamAt.y + 4.0f;
     Play_SetCameraAtEye(play, this->subCamId, &subCamAt, &subCamEye);
-    this->actionFunc = func_808A7BA0;
+    this->actionFunc = ObjWturn_InversionCs;
 }
 
-void func_808A7BA0(ObjWturn* this, PlayState* play) {
+void ObjWturn_InversionCs(ObjWturn* this, PlayState* play) {
     if (Math_ScaledStepToS(&this->actor.shape.rot.z, -0x8000, 0x200)) {
-        func_808A7C04(this, play);
+        ObjWturn_SetupFallingCs(this, play);
     }
     Actor_PlaySfx_FlaggedCentered2(&this->actor, NA_SE_EV_EARTHQUAKE - SFX_FLAG);
     Play_SetCameraRoll(play, this->subCamId, this->actor.shape.rot.z);
 }
 
-void func_808A7C04(ObjWturn* this, PlayState* play) {
+void ObjWturn_SetupFallingCs(ObjWturn* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     this->actor.world.pos.y += this->actor.playerHeightRel;
     player->actor.shape.shadowAlpha = 0;
     Player_SetCsActionWithHaltedActors(play, &this->actor, PLAYER_CSACTION_84);
     Player_PlaySfx(player, NA_SE_VO_NAVY_ENEMY);
-    this->unk_14A = 0;
+    this->fallingFrame = 0;
     Play_DisableMotionBlur();
-    this->actionFunc = func_808A7C78;
+    this->actionFunc = ObjWturn_FallingCs;
 }
 
-void func_808A7C78(ObjWturn* this, PlayState* play) {
+void ObjWturn_FallingCs(ObjWturn* this, PlayState* play) {
     static Vec3f sSubCamUp = { 0.0f, -1.0f, 0.0f };
     Camera* subCam = Play_GetCamera(play, this->subCamId);
     Player* player = GET_PLAYER(play);
 
-    this->unk_14A++;
-    player->actor.world.pos.y = this->actor.world.pos.y + this->unk_14A * 4.0f;
+    this->fallingFrame++;
+    player->actor.world.pos.y = this->actor.world.pos.y + this->fallingFrame * 4.0f;
     Play_SetCameraAtEyeUp(play, this->subCamId, &player->actor.focus.pos, &subCam->eye, &sSubCamUp);
-    if (this->unk_14A == 1) {
+    if (this->fallingFrame == 1) {
         play->transitionType = TRANS_TYPE_64;
         gSaveContext.nextTransitionType = TRANS_TYPE_FADE_WHITE;
         gSaveContext.nextCutsceneIndex = 0;

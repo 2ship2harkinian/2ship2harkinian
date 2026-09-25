@@ -99,23 +99,23 @@
         <Texture Name="gBossMaskOdolwaFaceTLUT" OutName="boss_mask_odolwa_face_tlut" Format="rgba16" Width="4" Height="4" Offset="0xCFB0" />
         <Texture Name="gBossMaskOdolwaEarTLUT" OutName="boss_mask_odolwa_ear_tlut" Format="rgba16" Width="4" Height="4" Offset="0xCFD0" />
         <Texture Name="gBossMaskOdolwaPlumeTex" OutName="boss_mask_odolwa_plume" Format="rgba16" Width="16" Height="16" Offset="0xCFF0" />
-        <Texture Name="gBossMaskOdolwaFaceTex" OutName="boss_mask_odolwa_face" Format="ci4" Width="64" Height="64" Offset="0xD1F0" />
-        <Texture Name="gBossMaskOdolwaEarTex" OutName="boss_mask_odolwa_ear" Format="ci4" Width="64" Height="64" Offset="0xD9F0" />
+        <Texture Name="gBossMaskOdolwaFaceTex" OutName="boss_mask_odolwa_face" Format="ci4" Width="64" Height="64" Offset="0xD1F0" TlutOffset="0xCFB0"/>
+        <Texture Name="gBossMaskOdolwaEarTex" OutName="boss_mask_odolwa_ear" Format="ci4" Width="64" Height="64" Offset="0xD9F0" TlutOffset="0xCFD0"/>
         <Texture Name="gBossMaskGyorgSkinTLUT" OutName="boss_mask_gyorg_skin_tlut" Format="rgba16" Width="4" Height="4" Offset="0xE1F0" />
         <Texture Name="gBossMaskGyorgMouthTLUT" OutName="boss_mask_gyorg_mouth_tlut" Format="rgba16" Width="4" Height="4" Offset="0xE210" />
         <Texture Name="gBossMaskGyorgToothHornTLUT" OutName="boss_mask_gyorg_tooth_horn_tlut" Format="rgba16" Width="4" Height="4" Offset="0xE230" />
         <Texture Name="gBossMaskGyorgTwinmoldEyeTex" OutName="boss_mask_gyorg_twinmold_eye" Format="rgba16" Width="32" Height="32" Offset="0xE250" />
-        <Texture Name="gBossMaskGyorgSkinTex" OutName="boss_mask_gyorg_skin" Format="ci4" Width="64" Height="64" Offset="0xEA50" />
-        <Texture Name="gBossMaskGyorgMouthTex" OutName="boss_mask_gyorg_mouth" Format="ci4" Width="64" Height="64" Offset="0xF250" />
-        <Texture Name="gBossMaskGyorgToothHornTex" OutName="boss_mask_gyorg_tooth_horn" Format="ci4" Width="16" Height="16" Offset="0xFA50" />
+        <Texture Name="gBossMaskGyorgSkinTex" OutName="boss_mask_gyorg_skin" Format="ci4" Width="64" Height="64" Offset="0xEA50" TlutOffset="0xE1F0"/>
+        <Texture Name="gBossMaskGyorgMouthTex" OutName="boss_mask_gyorg_mouth" Format="ci4" Width="64" Height="64" Offset="0xF250" TlutOffset="0xE210"/>
+        <Texture Name="gBossMaskGyorgToothHornTex" OutName="boss_mask_gyorg_tooth_horn" Format="ci4" Width="16" Height="16" Offset="0xFA50" TlutOffset="0xE230"/>
         <Texture Name="gBossMaskGohtEyeTex" OutName="boss_mask_goht_eye" Format="rgba16" Width="32" Height="64" Offset="0xFAD0" />
         <Texture Name="gBossMaskGohtTopPatternTex" OutName="boss_mask_goht_top_pattern" Format="rgba16" Width="32" Height="64" Offset="0x10AD0" />
         <Texture Name="gBossMaskGohtTwinmoldPatternTex" OutName="boss_mask_goht_twinmold_pattern" Format="rgba16" Width="32" Height="64" Offset="0x11AD0" /> <!-- Used for the lower part of Goht's mask and for the mouth of Twinmold's mask -->
         <Texture Name="gBossMaskGohtSpikeTwinmoldMandibleTex" OutName="boss_mask_goht_spike_twinmold_mandible" Format="rgba16" Width="32" Height="32" Offset="0x12AD0" />
         <Texture Name="gBossMaskTwinmoldSkinTLUT" OutName="boss_mask_twinmold_skin_tlut" Format="rgba16" Width="4" Height="4" Offset="0x132D0" />
         <Texture Name="gBossMaskTwinmoldSnoutTLUT" OutName="boss_mask_twinmold_snout_tlut" Format="rgba16" Width="4" Height="4" Offset="0x132F0" />
-        <Texture Name="gBossMaskTwinmoldSkinTex" OutName="boss_mask_twinmold_skin" Format="ci4" Width="64" Height="64" Offset="0x13310" />
-        <Texture Name="gBossMaskTwinmoldSnoutTex" OutName="boss_mask_twinmold_snout" Format="ci4" Width="64" Height="64" Offset="0x13B10" />
+        <Texture Name="gBossMaskTwinmoldSkinTex" OutName="boss_mask_twinmold_skin" Format="ci4" Width="64" Height="64" Offset="0x13310" TlutOffset="0x132D0"/>
+        <Texture Name="gBossMaskTwinmoldSnoutTex" OutName="boss_mask_twinmold_snout" Format="ci4" Width="64" Height="64" Offset="0x13B10" TlutOffset="0x132F0"/>
 
         <!-- Boss Mask DisplayLists -->
         <DList Name="gBossMaskOdolwaDL" Offset="0x149A0" />

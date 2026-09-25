@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- Assets for cuttable signs -->
     <File Name="object_kanban" Segment="6">
         <DList Name="gSignMaterialDL" Offset="0xC30" />

@@ -1,5 +1,7 @@
 <Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="misc/scene_texture_04.xml" OutPath="misc/scene_texture_04/"/>
+
     <File Name="Z2_17SETUGEN2" Segment="2" Game="MM">
         <Scene Name="Z2_17SETUGEN2" Offset="0x0"/>
     </File>

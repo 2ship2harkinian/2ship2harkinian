@@ -234,7 +234,7 @@ void EnTakaraya_Talk(EnTakaraya* this, PlayState* play) {
         }
     } else if ((talkState == TEXT_STATE_CHOICE) && Message_ShouldAdvance(play)) {
         if (play->msgCtx.choiceIndex == 0) {
-            if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.unk1206C) {
+            if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.firstChoicePrice) {
                 this->actor.textId = 0x77B;
                 if (this->skelAnime.animation == &object_bg_Anim_009890) {
                     Animation_MorphToPlayOnce(&this->skelAnime, &object_bg_Anim_000968, 5.0f);
@@ -242,7 +242,7 @@ void EnTakaraya_Talk(EnTakaraya* this, PlayState* play) {
                 Audio_PlaySfx(NA_SE_SY_ERROR);
             } else {
                 Audio_PlaySfx_MessageDecide();
-                Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                 EnTakaraya_SpawnWalls(this, play);
                 this->actor.textId = 0x778;
                 if (this->skelAnime.animation != &object_bg_Anim_009890) {

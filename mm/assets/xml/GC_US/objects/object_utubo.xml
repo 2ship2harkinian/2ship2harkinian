@@ -19,10 +19,10 @@
         <Texture Name="gDeepPythonHeadAndCollarTLUT" OutName="deep_python_head_and_collar_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2E48" />
         <Texture Name="gDeepPythonBodySegment1FrontTLUT" OutName="deep_python_body_segment_1_front_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2E68" />
         <Texture Name="gDeepPythonBodyTLUT" OutName="deep_python_body_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2E88" />
-        <Texture Name="gDeepPythonHeadAndCollarTex" OutName="deep_python_head_and_collar" Format="ci4" Width="64" Height="64" Offset="0x2EA8" />
+        <Texture Name="gDeepPythonHeadAndCollarTex" OutName="deep_python_head_and_collar" Format="ci4" Width="64" Height="64" Offset="0x2EA8" TlutOffset="0x2E48"/>
         <Texture Name="gDeepPythonEyeTex" OutName="deep_python_eye" Format="rgba16" Width="32" Height="32" Offset="0x36A8" />
-        <Texture Name="gDeepPythonBodySegment1FrontTex" OutName="deep_python_body_segment_1_front" Format="ci4" Width="32" Height="32" Offset="0x3EA8" />
-        <Texture Name="gDeepPythonBodyTex" OutName="deep_python_body" Format="ci4" Width="32" Height="32" Offset="0x40A8" />
+        <Texture Name="gDeepPythonBodySegment1FrontTex" OutName="deep_python_body_segment_1_front" Format="ci4" Width="32" Height="32" Offset="0x3EA8" TlutOffset="0x2E68"/>
+        <Texture Name="gDeepPythonBodyTex" OutName="deep_python_body" Format="ci4" Width="32" Height="32" Offset="0x40A8" TlutOffset="0x2E88"/>
 
         <!-- Deep Python Limbs -->
         <Limb Name="gDeepPythonRootLimb" Type="Standard" EnumName="DEEP_PYTHON_LIMB_ROOT" Offset="0x42A8" />

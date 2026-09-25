@@ -224,7 +224,7 @@ void EnHgo_HandlePlayerChoice(EnHgo* this, PlayState* play) {
                 break;
 
             case 0x1590:
-                if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+                if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
                     Message_StartTextbox(play, 0x1591, &this->actor);
                     this->textId = 0x1591;
                     break;

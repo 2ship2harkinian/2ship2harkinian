@@ -32,12 +32,12 @@
         <DList Name="object_zob_DL_00CB98" Offset="0xCB98" />
         <Texture Name="object_zob_TLUT_00CE20" OutName="tlut_00CE20" Format="rgba16" Width="16" Height="16" Offset="0xCE20" />
         <Texture Name="object_zob_TLUT_00D020" OutName="tlut_00D020" Format="rgba16" Width="16" Height="16" Offset="0xD020" />
-        <Texture Name="object_zob_Tex_00D220" OutName="tex_00D220" Format="ci8" Width="8" Height="8" Offset="0xD220" />
-        <Texture Name="object_zob_Tex_00D260" OutName="tex_00D260" Format="ci8" Width="32" Height="32" Offset="0xD260" />
+        <Texture Name="object_zob_Tex_00D220" OutName="tex_00D220" Format="ci8" Width="8" Height="8" Offset="0xD220" TlutOffset="0xCE20"/>
+        <Texture Name="object_zob_Tex_00D260" OutName="tex_00D260" Format="ci8" Width="32" Height="32" Offset="0xD260" TlutOffset="0xCE20"/>
         <Texture Name="object_zob_Tex_00D660" OutName="tex_00D660" Format="rgba16" Width="16" Height="16" Offset="0xD660" />
         <Texture Name="object_zob_Tex_00D860" OutName="tex_00D860" Format="rgba16" Width="16" Height="16" Offset="0xD860" />
         <Texture Name="object_zob_Tex_00DA60" OutName="tex_00DA60" Format="rgba16" Width="32" Height="32" Offset="0xDA60" />
-        <Texture Name="object_zob_Tex_00E260" OutName="tex_00E260" Format="ci8" Width="8" Height="8" Offset="0xE260" />
+        <Texture Name="object_zob_Tex_00E260" OutName="tex_00E260" Format="ci8" Width="8" Height="8" Offset="0xE260" TlutOffset="0xD020"/>
         <Texture Name="object_zob_Tex_00E2A0" OutName="tex_00E2A0" Format="rgba16" Width="32" Height="32" Offset="0xE2A0" />
         <Texture Name="object_zob_Tex_00EAA0" OutName="tex_00EAA0" Format="rgba16" Width="32" Height="32" Offset="0xEAA0" />
         <Texture Name="object_zob_Tex_00F2A0" OutName="tex_00F2A0" Format="rgba16" Width="32" Height="32" Offset="0xF2A0" />

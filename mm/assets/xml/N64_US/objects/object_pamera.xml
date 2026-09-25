@@ -24,22 +24,22 @@
         <DList Name="gPamelaRightFootDL" Offset="0x5D70" />
 
         <Texture Name="object_pamera_TLUT_0060E8" OutName="tlut_0060E8" Format="rgba16" Width="16" Height="16" Offset="0x60E8" />
-        <Texture Name="object_pamera_Tex_0062E8" OutName="tex_0062E8" Format="ci8" Width="16" Height="16" Offset="0x62E8" />
-        <Texture Name="object_pamera_Tex_0063E8" OutName="tex_0063E8" Format="ci8" Width="16" Height="16" Offset="0x63E8" />
-        <Texture Name="object_pamera_Tex_0064E8" OutName="tex_0064E8" Format="ci8" Width="16" Height="16" Offset="0x64E8" />
-        <Texture Name="object_pamera_Tex_0065E8" OutName="tex_0065E8" Format="ci8" Width="16" Height="16" Offset="0x65E8" />
-        <Texture Name="object_pamera_Tex_0066E8" OutName="tex_0066E8" Format="ci8" Width="32" Height="32" Offset="0x66E8" />
-        <Texture Name="object_pamera_Tex_006AE8" OutName="tex_006AE8" Format="ci8" Width="32" Height="32" Offset="0x6AE8" />
-        <Texture Name="object_pamera_Tex_006EE8" OutName="tex_006EE8" Format="ci8" Width="32" Height="32" Offset="0x6EE8" />
-        <Texture Name="object_pamera_Tex_0072E8" OutName="tex_0072E8" Format="ci8" Width="16" Height="16" Offset="0x72E8" />
-        <Texture Name="object_pamera_Tex_0073E8" OutName="tex_0073E8" Format="ci8" Width="16" Height="16" Offset="0x73E8" />
-        <Texture Name="object_pamera_Tex_0074E8" OutName="tex_0074E8" Format="ci8" Width="32" Height="32" Offset="0x74E8" />
-        <Texture Name="object_pamera_Tex_0078E8" OutName="tex_0078E8" Format="ci8" Width="32" Height="32" Offset="0x78E8" />
-        <Texture Name="object_pamera_Tex_007CE8" OutName="tex_007CE8" Format="ci8" Width="16" Height="16" Offset="0x7CE8" />
-        <Texture Name="object_pamera_Tex_007DE8" OutName="tex_007DE8" Format="ci8" Width="32" Height="16" Offset="0x7DE8" />
-        <Texture Name="object_pamera_Tex_007FE8" OutName="tex_007FE8" Format="ci8" Width="16" Height="16" Offset="0x7FE8" />
-        <Texture Name="object_pamera_Tex_0080E8" OutName="tex_0080E8" Format="ci8" Width="16" Height="16" Offset="0x80E8" />
-        <Texture Name="object_pamera_Tex_0081E8" OutName="tex_0081E8" Format="ci8" Width="16" Height="16" Offset="0x81E8" />
+        <Texture Name="object_pamera_Tex_0062E8" OutName="tex_0062E8" Format="ci8" Width="16" Height="16" Offset="0x62E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0063E8" OutName="tex_0063E8" Format="ci8" Width="16" Height="16" Offset="0x63E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0064E8" OutName="tex_0064E8" Format="ci8" Width="16" Height="16" Offset="0x64E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0065E8" OutName="tex_0065E8" Format="ci8" Width="16" Height="16" Offset="0x65E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0066E8" OutName="tex_0066E8" Format="ci8" Width="32" Height="32" Offset="0x66E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_006AE8" OutName="tex_006AE8" Format="ci8" Width="32" Height="32" Offset="0x6AE8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_006EE8" OutName="tex_006EE8" Format="ci8" Width="32" Height="32" Offset="0x6EE8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0072E8" OutName="tex_0072E8" Format="ci8" Width="16" Height="16" Offset="0x72E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0073E8" OutName="tex_0073E8" Format="ci8" Width="16" Height="16" Offset="0x73E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0074E8" OutName="tex_0074E8" Format="ci8" Width="32" Height="32" Offset="0x74E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0078E8" OutName="tex_0078E8" Format="ci8" Width="32" Height="32" Offset="0x78E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_007CE8" OutName="tex_007CE8" Format="ci8" Width="16" Height="16" Offset="0x7CE8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_007DE8" OutName="tex_007DE8" Format="ci8" Width="32" Height="16" Offset="0x7DE8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_007FE8" OutName="tex_007FE8" Format="ci8" Width="16" Height="16" Offset="0x7FE8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0080E8" OutName="tex_0080E8" Format="ci8" Width="16" Height="16" Offset="0x80E8" TlutOffset="0x60E8"/>
+        <Texture Name="object_pamera_Tex_0081E8" OutName="tex_0081E8" Format="ci8" Width="16" Height="16" Offset="0x81E8" TlutOffset="0x60E8"/>
 
         <Limb Name="gPamelaRootLimb" Type="Standard" EnumName="PAMELA_LIMB_ROOT" Offset="0x82E8" />
         <Limb Name="gPamelaUpperBodyRootLimb" Type="Standard" EnumName="PAMELA_LIMB_UPPER_BODY_ROOT" Offset="0x82F4" />

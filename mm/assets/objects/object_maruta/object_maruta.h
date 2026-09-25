@@ -12,30 +12,30 @@ static const ALIGN_ASSET(2) char object_maruta_Tex_000800[] = dobject_maruta_Tex
 #define dobject_maruta_Tex_001000 "__OTR__objects/object_maruta/object_maruta_Tex_001000"
 static const ALIGN_ASSET(2) char object_maruta_Tex_001000[] = dobject_maruta_Tex_001000;
 
-#define dobject_maruta_DL_002220 "__OTR__objects/object_maruta/object_maruta_DL_002220"
-static const ALIGN_ASSET(2) char object_maruta_DL_002220[] = dobject_maruta_DL_002220;
+#define dgPracticeLogBottomLeftBigChunkDL "__OTR__objects/object_maruta/gPracticeLogBottomLeftBigChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogBottomLeftBigChunkDL[] = dgPracticeLogBottomLeftBigChunkDL;
 
-#define dobject_maruta_DL_0023D0 "__OTR__objects/object_maruta/object_maruta_DL_0023D0"
-static const ALIGN_ASSET(2) char object_maruta_DL_0023D0[] = dobject_maruta_DL_0023D0;
+#define dgPracticeLogBottomRightBigChunkDL "__OTR__objects/object_maruta/gPracticeLogBottomRightBigChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogBottomRightBigChunkDL[] = dgPracticeLogBottomRightBigChunkDL;
 
-#define dobject_maruta_DL_002568 "__OTR__objects/object_maruta/object_maruta_DL_002568"
-static const ALIGN_ASSET(2) char object_maruta_DL_002568[] = dobject_maruta_DL_002568;
+#define dgPracticeLogBottomLeftCornerChunkDL "__OTR__objects/object_maruta/gPracticeLogBottomLeftCornerChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogBottomLeftCornerChunkDL[] = dgPracticeLogBottomLeftCornerChunkDL;
 
-#define dobject_maruta_DL_002660 "__OTR__objects/object_maruta/object_maruta_DL_002660"
-static const ALIGN_ASSET(2) char object_maruta_DL_002660[] = dobject_maruta_DL_002660;
+#define dgPracticeLogBottomRightCornerChunkDL "__OTR__objects/object_maruta/gPracticeLogBottomRightCornerChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogBottomRightCornerChunkDL[] = dgPracticeLogBottomRightCornerChunkDL;
 
-#define dobject_maruta_DL_002758 "__OTR__objects/object_maruta/object_maruta_DL_002758"
-static const ALIGN_ASSET(2) char object_maruta_DL_002758[] = dobject_maruta_DL_002758;
+#define dgPracticeLogTopLeftCornerChunkDL "__OTR__objects/object_maruta/gPracticeLogTopLeftCornerChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogTopLeftCornerChunkDL[] = dgPracticeLogTopLeftCornerChunkDL;
 
-#define dobject_maruta_DL_002850 "__OTR__objects/object_maruta/object_maruta_DL_002850"
-static const ALIGN_ASSET(2) char object_maruta_DL_002850[] = dobject_maruta_DL_002850;
+#define dgPracticeLogTopRightCornerChunkDL "__OTR__objects/object_maruta/gPracticeLogTopRightCornerChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogTopRightCornerChunkDL[] = dgPracticeLogTopRightCornerChunkDL;
 
-#define dobject_maruta_DL_002948 "__OTR__objects/object_maruta/object_maruta_DL_002948"
-static const ALIGN_ASSET(2) char object_maruta_DL_002948[] = dobject_maruta_DL_002948;
+#define dgPracticeLogTopLeftBigChunkDL "__OTR__objects/object_maruta/gPracticeLogTopLeftBigChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogTopLeftBigChunkDL[] = dgPracticeLogTopLeftBigChunkDL;
 
-#define dobject_maruta_DL_002AE0 "__OTR__objects/object_maruta/object_maruta_DL_002AE0"
-static const ALIGN_ASSET(2) char object_maruta_DL_002AE0[] = dobject_maruta_DL_002AE0;
+#define dgPracticeLogTopRightBigChunkDL "__OTR__objects/object_maruta/gPracticeLogTopRightBigChunkDL"
+static const ALIGN_ASSET(2) char gPracticeLogTopRightBigChunkDL[] = dgPracticeLogTopRightBigChunkDL;
 
-#define dobject_maruta_DL_002EC0 "__OTR__objects/object_maruta/object_maruta_DL_002EC0"
-static const ALIGN_ASSET(2) char object_maruta_DL_002EC0[] = dobject_maruta_DL_002EC0;
+#define dgPracticeLogWholeDL "__OTR__objects/object_maruta/gPracticeLogWholeDL"
+static const ALIGN_ASSET(2) char gPracticeLogWholeDL[] = dgPracticeLogWholeDL;
 #endif // OBJECTS_OBJECT_MARUTA_H

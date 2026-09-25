@@ -21,13 +21,13 @@
 
         <Texture Name="object_link_nuts_TLUT_003CB0" OutName="tlut_003CB0" Format="rgba16" Width="16" Height="16" Offset="0x3CB0" />
         <Texture Name="object_link_nuts_TLUT_003EB0" OutName="tlut_003EB0" Format="rgba16" Width="16" Height="16" Offset="0x3EB0" />
-        <Texture Name="object_link_nuts_Tex_0040B0" OutName="tex_0040B0" Format="ci8" Width="16" Height="16" Offset="0x40B0" />
-        <Texture Name="object_link_nuts_Tex_0041B0" OutName="tex_0041B0" Format="ci8" Width="16" Height="16" Offset="0x41B0" />
-        <Texture Name="object_link_nuts_Tex_0042B0" OutName="tex_0042B0" Format="ci8" Width="16" Height="16" Offset="0x42B0" />
-        <Texture Name="object_link_nuts_Tex_0043B0" OutName="tex_0043B0" Format="ci8" Width="16" Height="16" Offset="0x43B0" />
-        <Texture Name="object_link_nuts_Tex_0044B0" OutName="tex_0044B0" Format="ci8" Width="32" Height="32" Offset="0x44B0" />
+        <Texture Name="object_link_nuts_Tex_0040B0" OutName="tex_0040B0" Format="ci8" Width="16" Height="16" Offset="0x40B0" TlutOffset="0x3CB0"/>
+        <Texture Name="object_link_nuts_Tex_0041B0" OutName="tex_0041B0" Format="ci8" Width="16" Height="16" Offset="0x41B0" TlutOffset="0x3CB0"/>
+        <Texture Name="object_link_nuts_Tex_0042B0" OutName="tex_0042B0" Format="ci8" Width="16" Height="16" Offset="0x42B0" TlutOffset="0x3EB0"/>
+        <Texture Name="object_link_nuts_Tex_0043B0" OutName="tex_0043B0" Format="ci8" Width="16" Height="16" Offset="0x43B0" TlutOffset="0x3EB0"/>
+        <Texture Name="object_link_nuts_Tex_0044B0" OutName="tex_0044B0" Format="ci8" Width="32" Height="32" Offset="0x44B0" TlutOffset="0x3EB0"/>
         <Texture Name="object_link_nuts_Tex_0048B0" OutName="tex_0048B0" Format="rgba16" Width="64" Height="32" Offset="0x48B0" />
-        <Texture Name="object_link_nuts_Tex_0058B0" OutName="tex_0058B0" Format="ci8" Width="16" Height="16" Offset="0x58B0" />
+        <Texture Name="object_link_nuts_Tex_0058B0" OutName="tex_0058B0" Format="ci8" Width="16" Height="16" Offset="0x58B0" TlutOffset="0x3CB0"/>
         <DList Name="object_link_nuts_DL_007390" Offset="0x7390" />
         <DList Name="object_link_nuts_DL_007548" Offset="0x7548" />
         <DList Name="object_link_nuts_DL_0076A0" Offset="0x76A0" />
@@ -53,7 +53,7 @@
         <DList Name="object_link_nuts_DL_00A348" Offset="0xA348" />
         <Texture Name="object_link_nuts_Tex_00A4E0" OutName="tex_00A4E0" Format="rgba16" Width="32" Height="64" Offset="0xA4E0" />
         <DList Name="object_link_nuts_DL_00B690" Offset="0xB690" />
-        <Texture Name="object_link_nuts_Tex_00B780" OutName="tex_00B780" Format="ci8" Width="16" Height="16" Offset="0xB780" />
+        <Texture Name="object_link_nuts_Tex_00B780" OutName="tex_00B780" Format="ci8" Width="16" Height="16" Offset="0xB780" TlutOffset="0x3EB0"/>
 
         <Limb Name="gLinkDekuRootLimb" Type="LOD" EnumName="LINK_DEKU_LIMB_ROOT" Offset="0xB880" />
         <Limb Name="gLinkDekuWaistLimb" Type="LOD" EnumName="LINK_DEKU_LIMB_WAIST" Offset="0xB890" />

@@ -74,7 +74,7 @@ void EffectSsBubble_Update(PlayState* play2, u32 index, EffectSs* this) {
     Vec3f ripplePos;
     PlayState* play = play2;
 
-    if (!WaterBox_GetSurface1(play, &play->colCtx, this->pos.x, this->pos.z, &waterSurfaceY, &waterBox)) {
+    if (!BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->pos.x, this->pos.z, &waterSurfaceY, &waterBox)) {
         this->life = -1;
         return;
     }

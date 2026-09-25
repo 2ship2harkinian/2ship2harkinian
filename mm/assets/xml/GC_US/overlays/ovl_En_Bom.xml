@@ -12,12 +12,12 @@
 
         <!-- Textures and DisplayList for the Powder Keg -->
         <Texture Name="gPowderKegBarrelTLUT" OutName="powder_keg_barrel_tlut" Format="rgba16" Width="16" Height="16" Offset="0x22B0"/>
-        <Texture Name="gPowderKegBarrelTex" OutName="powder_keg_barrel" Format="ci8" Width="32" Height="32" Offset="0x24B0"/>
+        <Texture Name="gPowderKegBarrelTex" OutName="powder_keg_barrel" Format="ci8" Width="32" Height="32" Offset="0x24B0" TlutOffset="0x22B0"/>
         <DList Name="gPowderKegBarrelDL" Offset="0x2EF0"/> <!-- Original name is "bb_model_model" -->
 
         <!-- Textures and DisplayList for the Goron Skull on the side of the Powder Keg -->
         <Texture Name="gPowderKegGoronSkullTLUT" OutName="powder_keg_goron_skull_tlut" Format="rgba16" Width="16" Height="16" Offset="0x3048"/>
-        <Texture Name="gPowderKegGoronSkullTex" OutName="powder_keg_goron_skull" Format="ci8" Width="16" Height="32" Offset="0x3248"/>
+        <Texture Name="gPowderKegGoronSkullTex" OutName="powder_keg_goron_skull" Format="ci8" Width="16" Height="32" Offset="0x3248" TlutOffset="0x3048"/>
         <DList Name="gPowderKegGoronSkullDL" Offset="0x3548"/> <!-- Original name is "bb_relief_model" -->
     </File>
 </Root>

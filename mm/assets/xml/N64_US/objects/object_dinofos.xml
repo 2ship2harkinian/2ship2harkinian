@@ -32,7 +32,7 @@
         <DList Name="gDinolfosLeftClawsDL" Offset="0x8058" />
 
         <Texture Name="gDinolfosTLUT" OutName="dinolfos_tlut" Format="rgba16" Width="16" Height="16" Offset="0x81B0" />
-        <Texture Name="gDinolfosSkinTex" OutName="dinolfos_skin" Format="ci8" Width="16" Height="16" Offset="0x83B0" />
+        <Texture Name="gDinolfosSkinTex" OutName="dinolfos_skin" Format="ci8" Width="16" Height="16" Offset="0x83B0" TlutOffset="0x81B0"/>
         <Texture Name="gDinolfosScaleTex" OutName="dinolfos_scale" Format="rgba16" Width="16" Height="16" Offset="0x84B0" />
         <Texture Name="gDinolfosArmorTex" OutName="dinolfos_armor" Format="rgba16" Width="16" Height="16" Offset="0x86B0" />
         <Texture Name="gDinolfosSpikeTex" OutName="dinolfos_spike" Format="rgba16" Width="8" Height="8" Offset="0x88B0" />
