@@ -8,6 +8,7 @@
 #include "2s2h/BenGui/Notification.h"
 #include "2s2h/Rando/Spoiler/Spoiler.h"
 #include "2s2h/ShipUtils.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 #include "interface/icon_item_dungeon_static/icon_item_dungeon_static.h"
 #include "archives/icon_item_24_static/icon_item_24_static_yar.h"
@@ -994,52 +995,52 @@ void DrawItemsAndMasksTab() {
             std::string buttonLabel = "Give ";
             buttonLabel += randoStaticItem.name;
             if (UIWidgets::Button(buttonLabel.c_str())) {
-                GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                    .showGetItemCutscene =
-                        Rando::StaticData::ShouldShowGetItemCutscene(Rando::ConvertItem(randoItemId)),
-                    .param = (int16_t)randoItemId,
-                    .giveItem =
-                        [](Actor* actor, PlayState* play) {
-                            RandoItemId randoItemId = Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM);
-                            std::string prefix = "You found";
-                            std::string message = Rando::StaticData::GetItemName(randoItemId);
+                GameInteractor::Instance->Queue(GIActions::GiveItem(
+                    { .showGetItemCutscene =
+                          Rando::StaticData::ShouldShowGetItemCutscene(Rando::ConvertItem(randoItemId)),
+                      .param = (int16_t)randoItemId,
+                      .giveItem =
+                          [](Actor* actor, PlayState* play) {
+                              RandoItemId randoItemId = Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM);
+                              std::string prefix = "You found";
+                              std::string message = Rando::StaticData::GetItemName(randoItemId);
 
-                            CustomMessage::Entry entry = {
-                                .textboxType = 2,
-                                .icon = Rando::StaticData::GetIconForZMessage(randoItemId),
-                                .msg = prefix + " " + message + "!",
-                            };
+                              CustomMessage::Entry entry = {
+                                  .textboxType = 2,
+                                  .icon = Rando::StaticData::GetIconForZMessage(randoItemId),
+                                  .msg = prefix + " " + message + "!",
+                              };
 
-                            if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                                CustomMessage::SetActiveCustomMessage(entry.msg, entry);
-                            } else if (Rando::StaticData::ShouldShowGetItemCutscene(
-                                           Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM))) {
-                                CustomMessage::StartTextbox(entry.msg + "\x1C\x02\x10", entry);
-                            } else {
-                                Notification::Emit({
-                                    .itemIcon = Rando::StaticData::GetIconTexturePath(randoItemId),
-                                    .message = prefix,
-                                    .suffix = message,
-                                });
-                            }
-                            Rando::GiveItem(randoItemId);
-                            CUSTOM_ITEM_PARAM = randoItemId;
-                        },
-                    .drawItem =
-                        [](Actor* actor, PlayState* play) {
-                            RandoItemId randoItemId;
+                              if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                                  CustomMessage::SetActiveCustomMessage(entry.msg, entry);
+                              } else if (Rando::StaticData::ShouldShowGetItemCutscene(
+                                             Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM))) {
+                                  CustomMessage::StartTextbox(entry.msg + "\x1C\x02\x10", entry);
+                              } else {
+                                  Notification::Emit({
+                                      .itemIcon = Rando::StaticData::GetIconTexturePath(randoItemId),
+                                      .message = prefix,
+                                      .suffix = message,
+                                  });
+                              }
+                              Rando::GiveItem(randoItemId);
+                              CUSTOM_ITEM_PARAM = randoItemId;
+                          },
+                      .drawItem =
+                          [](Actor* actor, PlayState* play) {
+                              RandoItemId randoItemId;
 
-                            // If the item has been given, the CUSTOM_ITEM_PARAM is set to the RI, prior to that it's
-                            // the RC
-                            if (CUSTOM_ITEM_FLAGS & CustomItem::CALLED_ACTION) {
-                                randoItemId = (RandoItemId)CUSTOM_ITEM_PARAM;
-                            } else {
-                                randoItemId = Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM);
-                            }
+                              // If the item has been given, the CUSTOM_ITEM_PARAM is set to the RI, prior to that it's
+                              // the RC
+                              if (CUSTOM_ITEM_FLAGS & CustomItem::CALLED_ACTION) {
+                                  randoItemId = (RandoItemId)CUSTOM_ITEM_PARAM;
+                              } else {
+                                  randoItemId = Rando::ConvertItem((RandoItemId)CUSTOM_ITEM_PARAM);
+                              }
 
-                            Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                            Rando::DrawItem(randoItemId, RC_UNKNOWN, actor);
-                        } });
+                              Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                              Rando::DrawItem(randoItemId, RC_UNKNOWN, actor);
+                          } }));
             }
         }
     }

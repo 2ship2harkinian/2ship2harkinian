@@ -3,6 +3,7 @@
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "functions.h"
@@ -17,19 +18,19 @@ void RegisterSkipHealingMikau() {
         if (gPlayState->sceneId == SCENE_30GYOSON) { // Great Bay Coast
             if (*csId == 13) {                       // Played Song of Healing for Mikau
                 // Transition to Link bowing at Mikau's grave
-                GameInteractor::Instance->events.emplace_back(GIEventTransition{
+                GameInteractor::Instance->Queue(GIActions::Transition({
                     .entrance = ENTRANCE(GREAT_BAY_COAST, 10),
                     .cutsceneIndex = 0,
                     .transitionTrigger = TRANS_TRIGGER_START,
                     .transitionType = TRANS_TYPE_FADE_BLACK,
-                });
+                }));
                 /*
                  * This scene entrance has no transition effect, so assign gSaveContext.nextTransitionType manually
                  * to prevent the snap from black to the scene.
                  */
                 gSaveContext.nextTransitionType = TRANS_TYPE_FADE_BLACK;
                 if (GameInteractor_Should(VB_GIVE_ITEM_FROM_DMCHAR05, true, ITEM_MASK_ZORA)) {
-                    GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+                    GameInteractor::Instance->Queue(GIActions::GiveItem({
                         .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
                         .param = GID_MASK_ZORA,
                         .giveItem =
@@ -42,7 +43,7 @@ void RegisterSkipHealingMikau() {
                                                                 { .textboxType = 2 });
                                 }
                             },
-                    });
+                    }));
                     // Give item immediately instead of queuing it so that the gravestone and Mikau spawns behave
                     Item_Give(gPlayState, ITEM_MASK_ZORA);
                 }

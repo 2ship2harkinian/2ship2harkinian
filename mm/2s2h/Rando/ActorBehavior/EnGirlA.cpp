@@ -2,6 +2,7 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/Rando/MiscBehavior/Traps.h"
+#include "2s2h/Network/Anchor/Anchor.h"
 
 extern "C" {
 #include "variables.h"
@@ -79,12 +80,14 @@ void EnGirlA_RandoBuyFunc(PlayState* play, EnGirlA* enGirlA) {
     RandoItemId randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, randoCheckId);
     randoSaveCheck.obtained = randoSaveCheck.cycleObtained = true;
     Rupees_ChangeBy(-play->msgCtx.unk1206C);
+    Anchor::Instance->SendPacket_SetCheckStatus((RandoCheckId)enGirlA->actor.world.rot.z);
     if (randoItemId == RI_TRAP) {
         RollTrapType();
     } else if (randoItemId == RI_JUNK) {
         randoItemId = Rando::CurrentJunkItem(randoCheckId);
     }
     Rando::GiveItem(randoItemId);
+    Anchor::Instance->SendPacket_GiveItem(1, randoItemId);
 }
 
 void EnGirlA_RandoBuyFanfareFunc(PlayState* play, EnGirlA* enGirlA) {

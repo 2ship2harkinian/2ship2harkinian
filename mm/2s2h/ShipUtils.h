@@ -31,6 +31,7 @@ extern uint32_t Ship_Hash(std::string str);
 extern std::string GetActorDescription(u16 actorNum);
 extern std::string GetActorDebugName(u16 actorNum);
 extern std::string GetActorCategoryName(u8 category);
+bool IsStringEmpty(const std::string& str);
 
 extern "C" {
 #endif
