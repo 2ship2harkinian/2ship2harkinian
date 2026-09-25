@@ -2596,6 +2596,22 @@ typedef enum {
     // #### `args`
     // - `*f32` (speed)
     VB_ZTARGET_SPEED_CHECK,
+
+    // #### `result`
+    // ```c
+    // false
+    // ```
+    // #### `args`
+    // - `*s8` (control stick spin angles array)
+    VB_SHOULD_QUICKSPIN,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `Player*` (player)
+    VB_SHOULD_OVERSHOULDER_AIM,
 } GIVanillaBehavior;
 
 #endif
