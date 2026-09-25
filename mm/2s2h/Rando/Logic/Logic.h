@@ -467,11 +467,11 @@ inline bool OwnsHalfDayForMode(int halfDayIndex) {
 
         case RO_CLOCK_SHUFFLE_ASCENDING:
             // Ascending: own first N half-days in sequence (0,1,2,3,4,5)
-            return totalClocks > halfDayIndex;
+            return totalClocks > static_cast<uint32_t>(halfDayIndex);
 
         case RO_CLOCK_SHUFFLE_DESCENDING:
             // Descending: own last N half-days in reverse sequence (5,4,3,2,1,0)
-            return totalClocks > (5 - halfDayIndex);
+            return totalClocks > static_cast<uint32_t>(5 - halfDayIndex);
 
         default:
             return false;
