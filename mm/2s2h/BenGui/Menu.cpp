@@ -622,7 +622,7 @@ void Menu::DrawElement() {
     for (auto& label : menuOrder) {
         ImVec2 size = ImGui::CalcTextSize(label.c_str());
         headerSizes.push_back(size);
-        headerWidth += size.x + style.FramePadding.x * 2;
+        headerWidth += size.x + style.FramePadding.x * 2 + style.ItemSpacing.x;
         if (label == headerIndex) {
             headerWidth += style.ItemSpacing.x;
         }

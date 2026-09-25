@@ -1,6 +1,7 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -39,12 +40,12 @@ void RegisterSkipWakingAndRidingTurtle() {
             // 13 is turtle leaving zora cape first time, 15 is subsequent times
             if (*csId == 13 || *csId == 15) {
                 *should = false;
-                GameInteractor::Instance->events.emplace_back(GIEventTransition{
+                GameInteractor::Instance->Queue(GIActions::Transition({
                     .entrance = ENTRANCE(GREAT_BAY_TEMPLE, 0),
                     .cutsceneIndex = 0,
                     .transitionTrigger = TRANS_TRIGGER_START,
                     .transitionType = TRANS_TYPE_FADE_BLACK_FAST,
-                });
+                }));
             }
         }
     });

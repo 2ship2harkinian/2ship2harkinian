@@ -1,10 +1,10 @@
 #include "GameInteractor.h"
-#include <variant>
 #include <spdlog/spdlog.h>
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/BenPort.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "z64actor.h"
@@ -393,12 +393,6 @@ int GameInteractor_InvertControl(GIInvertType type) {
         }
     }
 
-    /*
-    if (CrowdControl::State::InvertedInputs) {
-        result *= -1;
-    }
-    */
-
     return result;
 }
 
@@ -484,118 +478,263 @@ uint32_t GameInteractor_CustomOcarinaControls(Input* input) {
     return result;
 }
 
-void ProcessEvents(Actor* actor) {
+static void Complete(GIAction& action, GIActionStatus status) {
+    if (action.onComplete) {
+        action.onComplete(status);
+    }
+}
+
+void GameInteractor::Queue(GIAction action) {
+    actions.push_back(std::move(action));
+}
+
+// The gates that apply to every action, regardless of what it does. These are the conditions
+// under which the game simply cannot accept anything right now; they are never permanent, so they
+// only ever defer.
+GIActionAvailability GameInteractor::CanProcessActions() {
+    if (gPlayState == NULL) {
+        return GI_AVAILABILITY_NOT_YET;
+    }
+
     Player* player = GET_PLAYER(gPlayState);
+    if (player == NULL) {
+        return GI_AVAILABILITY_NOT_YET;
+    }
 
-    // If the player has a message active, stop
+    // A message is on screen
     if (gPlayState->msgCtx.msgMode != 0) {
-        return;
+        return GI_AVAILABILITY_NOT_YET;
     }
 
-    // If the player is in a blocking cutscene, stop
     if (Player_InBlockingCsMode(gPlayState, player)) {
-        return;
+        return GI_AVAILABILITY_NOT_YET;
     }
 
-    // If player is dead, stop
     if (player->stateFlags1 & PLAYER_STATE1_DEAD) {
-        return;
+        return GI_AVAILABILITY_NOT_YET;
     }
 
-    // If there is an event active, stop
-    const auto& currentEvent = GameInteractor::Instance->currentEvent;
-    if (auto e = std::get_if<GIEventNone>(&currentEvent)) {
-        // no-op
-    } else {
-        return;
-    }
+    return GI_AVAILABILITY_READY;
+}
 
-    // If there are no events that need to happen, stop
-    if (GameInteractor::Instance->events.empty()) {
-        return;
-    }
-
-    GameInteractor::Instance->currentEvent = GameInteractor::Instance->events.front();
-    const auto& nextEvent = GameInteractor::Instance->currentEvent;
-
-    if (auto e = std::get_if<GIEventGiveItem>(&nextEvent)) {
-        EnItem00* enItem00;
-
-        s16 flags = CustomItem::HIDE_TILL_OVERHEAD | CustomItem::KEEP_ON_PLAYER;
-
-        // If the player is climbing or in the air, deliver the item without a cutscene but freeze the player
-        if (!e->showGetItemCutscene ||
-            (player->stateFlags1 &
-             (PLAYER_STATE1_CHARGING_SPIN_ATTACK | PLAYER_STATE1_2000 | PLAYER_STATE1_4000 | PLAYER_STATE1_40000 |
-              PLAYER_STATE1_80000 | PLAYER_STATE1_100000 | PLAYER_STATE1_200000 | PLAYER_STATE1_8000000)) ||
-            (Player_GetExplosiveHeld(player) > PLAYER_EXPLOSIVE_NONE)) {
-
-            flags |= CustomItem::GIVE_OVERHEAD;
-        } else {
-            flags |= CustomItem::GIVE_ITEM_CUTSCENE;
+const GIAction* GameInteractor::FindActive(GIActionId id) {
+    for (const auto& active : activeActions) {
+        if (active.id == id) {
+            return &active;
         }
+    }
+    return nullptr;
+}
 
-        enItem00 = CustomItem::Spawn(
-            player->actor.world.pos.x, player->actor.world.pos.y, player->actor.world.pos.z, 0, flags, e->param,
-            [](Actor* actor, PlayState* play) {
-                Player* player = GET_PLAYER(gPlayState);
-                const auto& nextEvent = GameInteractor::Instance->currentEvent;
-                if (auto e = std::get_if<GIEventGiveItem>(&nextEvent)) {
-                    e->giveItem(actor, play);
-                    if (e->showGetItemCutscene && !(CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE)) {
-                        player->actor.freezeTimer = 30;
-                    }
-                    GameInteractor::Instance->currentEvent = GIEventNone{};
+GIActionAvailability GameInteractor::GetAvailability(const GIAction& action) {
+    if (action.canApply) {
+        GIActionAvailability availability = action.canApply(action);
+        if (availability != GI_AVAILABILITY_READY) {
+            return availability;
+        }
+    }
+
+    // A timed action that's already running decides for itself what a second action means.
+    if (action.duration > 0 && action.id != GI_ACTION_NONE && IsActionActive(action.id)) {
+        const GIActions::Definition* definition = GIActions::Get(action.id);
+        if (definition == nullptr || definition->stacking == GI_STACK_QUEUE) {
+            return GI_AVAILABILITY_NOT_YET;
+        }
+    }
+
+    // Two different actions writing the same field wait for each other the same way two requests
+    // for one action do. The action names its own group, so this needs no list of who conflicts.
+    const GIActions::Definition* definition = action.id != GI_ACTION_NONE ? GIActions::Get(action.id) : nullptr;
+    if (definition != nullptr && definition->exclusionGroup != GI_EXCLUSION_NONE) {
+        for (const auto& active : activeActions) {
+            if (active.id == action.id) {
+                continue; // Same action: already settled by its stacking rule above.
+            }
+            const GIActions::Definition* other = GIActions::Get(active.id);
+            if (other != nullptr && other->exclusionGroup == definition->exclusionGroup) {
+                return GI_AVAILABILITY_NOT_YET;
+            }
+        }
+    }
+
+    return GI_AVAILABILITY_READY;
+}
+
+void GameInteractor::Dispatch(GIAction action) {
+    if (action.duration > 0 && action.id != GI_ACTION_NONE) {
+        const GIActions::Definition* definition = GIActions::Get(action.id);
+        if (definition != nullptr && definition->stacking == GI_STACK_REFRESH) {
+            for (auto& active : activeActions) {
+                if (active.id == action.id) {
+                    active.elapsed = 0;
+                    active.duration = action.duration;
+                    active.params = std::move(action.params);
+                    Complete(action, GI_STATUS_APPLIED);
+                    return;
                 }
-            },
-            e->drawItem);
-        enItem00->actor.destroy = [](Actor* actor, PlayState* play) {
-            if (!(CUSTOM_ITEM_FLAGS & CustomItem::CALLED_ACTION)) {
-                // Event was not handled, requeue it
-                auto lostEvent = GameInteractor::Instance->currentEvent;
-                GameInteractor::Instance->currentEvent = GIEventNone{};
-                GameInteractor::Instance->events.push_back(lostEvent);
             }
-        };
-    } else if (auto e = std::get_if<GIEventTransition>(&nextEvent)) {
-        gPlayState->nextEntrance = e->entrance;
-        gSaveContext.nextCutsceneIndex = e->cutsceneIndex;
-        gPlayState->transitionTrigger = e->transitionTrigger;
-        gPlayState->transitionType = e->transitionType;
-        GameInteractor::Instance->currentEvent = GIEventNone{};
-    } else if (auto e = std::get_if<GIEventSpawnActor>(&nextEvent)) {
-        // if true, the coordinates are made relative to the player's position and rotation, 0 rotation is facing the
-        // same direction as the player, x+ is to the players right, y+ is up, z+ is in front of the player
-        if (e->relativeCoords) {
-            f32 x = player->actor.world.pos.x;
-            f32 y = player->actor.world.pos.y;
-            f32 z = player->actor.world.pos.z;
-            f32 s = sin(player->actor.world.rot.y);
-            f32 c = cos(player->actor.world.rot.y);
-            f32 x2 = e->posX * c - e->posZ * s;
-            f32 z2 = e->posX * s + e->posZ * c;
-            Actor_Spawn(&gPlayState->actorCtx, gPlayState, e->actorId, x + x2, y + e->posY, z + z2, 0,
-                        e->rotY + player->actor.world.rot.y, 0, e->params);
-        } else {
-            Actor_Spawn(&gPlayState->actorCtx, gPlayState, e->actorId, e->posX, e->posY, e->posZ, e->rotX, e->rotY,
-                        e->rotZ, e->params);
-        }
-        GameInteractor::Instance->currentEvent = GIEventNone{};
-    } else if (auto e = std::get_if<GIEventTrap>(&nextEvent)) {
-        if (player->stateFlags1 & PLAYER_STATE1_800000) {
-            // Player is riding a horse, requeue the event
-            auto lostEvent = GameInteractor::Instance->currentEvent;
-            GameInteractor::Instance->currentEvent = GIEventNone{};
-            GameInteractor::Instance->events.push_back(lostEvent);
-        } else {
-            if (e->action) {
-                e->action();
-            }
-            GameInteractor::Instance->currentEvent = GIEventNone{};
         }
     }
 
-    GameInteractor::Instance->events.erase(GameInteractor::Instance->events.begin());
+    action.elapsed = 0;
+
+    if (action.onStart) {
+        action.onStart(action);
+    }
+
+    if (action.duration == 0 && !action.blocking) {
+        Complete(action, GI_STATUS_APPLIED);
+        return;
+    }
+
+    if (!action.blocking) {
+        Complete(action, GI_STATUS_APPLIED);
+    }
+
+    activeActions.push_back(std::move(action));
+}
+
+void GameInteractor::ProcessQueue(bool canApply) {
+    for (size_t i = 0; i < actions.size();) {
+        switch (canApply ? GetAvailability(actions[i]) : GI_AVAILABILITY_NOT_YET) {
+            case GI_AVAILABILITY_READY: {
+                GIAction action = std::move(actions[i]);
+                actions.erase(actions.begin() + i);
+                Dispatch(std::move(action));
+                return;
+            }
+            case GI_AVAILABILITY_NOT_YET: {
+                actions[i].framesWaiting++;
+                if (actions[i].expiresAfter > 0 && actions[i].framesWaiting >= actions[i].expiresAfter) {
+                    GIAction expired = std::move(actions[i]);
+                    actions.erase(actions.begin() + i);
+                    Complete(expired, GI_STATUS_EXPIRED);
+                } else {
+                    i++;
+                }
+                break;
+            }
+            case GI_AVAILABILITY_NEVER: {
+                GIAction impossible = std::move(actions[i]);
+                actions.erase(actions.begin() + i);
+                Complete(impossible, GI_STATUS_IMPOSSIBLE);
+                break;
+            }
+        }
+    }
+}
+
+void GameInteractor::TickActiveActions() {
+    for (size_t i = 0; i < activeActions.size();) {
+        if (activeActions[i].onTick) {
+            activeActions[i].onTick(activeActions[i]);
+        }
+
+        if (activeActions[i].duration == 0) {
+            i++;
+            continue;
+        }
+
+        activeActions[i].elapsed++;
+        if (activeActions[i].elapsed >= activeActions[i].duration) {
+            GIAction finished = std::move(activeActions[i]);
+            activeActions.erase(activeActions.begin() + i);
+            if (finished.onEnd) {
+                finished.onEnd(finished);
+            }
+            Complete(finished, GI_STATUS_FINISHED);
+        } else {
+            i++;
+        }
+    }
+}
+
+const GIAction* GameInteractor::BlockingAction() const {
+    for (const auto& active : activeActions) {
+        if (active.blocking) {
+            return &active;
+        }
+    }
+    return nullptr;
+}
+
+void GameInteractor::FinishBlocking(GIActionStatus status) {
+    for (size_t i = 0; i < activeActions.size(); i++) {
+        if (!activeActions[i].blocking) {
+            continue;
+        }
+
+        GIAction action = std::move(activeActions[i]);
+        activeActions.erase(activeActions.begin() + i);
+        if (action.onEnd) {
+            action.onEnd(action);
+        }
+        Complete(action, status);
+        return;
+    }
+}
+
+void GameInteractor::RequeueBlocking() {
+    for (size_t i = 0; i < activeActions.size(); i++) {
+        if (!activeActions[i].blocking) {
+            continue;
+        }
+
+        GIAction action = std::move(activeActions[i]);
+        activeActions.erase(activeActions.begin() + i);
+        action.elapsed = 0;
+        action.framesWaiting = 0;
+        actions.push_back(std::move(action));
+        return;
+    }
+}
+
+static int DrainIf(std::vector<GIAction>& list, const std::function<bool(const GIAction&)>& match, bool runOnEnd) {
+    int drained = 0;
+    for (size_t i = 0; i < list.size();) {
+        if (!match(list[i])) {
+            i++;
+            continue;
+        }
+
+        GIAction action = std::move(list[i]);
+        list.erase(list.begin() + i);
+        if (runOnEnd && action.onEnd) {
+            action.onEnd(action);
+        }
+        Complete(action, GI_STATUS_CANCELLED);
+        drained++;
+    }
+    return drained;
+}
+
+void GameInteractor::ClearSaveScopedActions() {
+    auto isSaveScoped = [](const GIAction& action) { return action.lifetime == GI_LIFETIME_SAVE; };
+
+    DrainIf(actions, isSaveScoped, false);
+    DrainIf(activeActions, isSaveScoped, true);
+}
+
+int GameInteractor::CancelAction(GIActionId id) {
+    auto matches = [id](const GIAction& action) { return action.id == id; };
+
+    return DrainIf(activeActions, matches, true) + DrainIf(actions, matches, false);
+}
+
+void GameInteractor::CancelAllActions() {
+    auto everything = [](const GIAction&) { return true; };
+
+    DrainIf(activeActions, everything, true);
+    DrainIf(actions, everything, false);
+}
+
+void ProcessActions(Actor* actor) {
+    GameInteractor::Instance->TickActiveActions();
+
+    bool canApply = GameInteractor::Instance->CanProcessActions() == GI_AVAILABILITY_READY &&
+                    GameInteractor::Instance->BlockingAction() == nullptr;
+
+    GameInteractor::Instance->ProcessQueue(canApply);
 }
 
 // On MSVC this is defined inline in the header instead; see the declaration for why.
@@ -610,5 +749,8 @@ void GameInteractor::RegisterOwnHooks() {
     GameInteractor::Instance->RegisterGameHook<GameInteractor::OnGameStateMainStart>(
         []() { GameInteractor::Instance->RemoveAllQueuedHooks(); });
 
-    GameInteractor::Instance->RegisterGameHookForID<GameInteractor::OnActorUpdate>(ACTOR_PLAYER, ProcessEvents);
+    GameInteractor::Instance->RegisterGameHookForID<GameInteractor::OnActorUpdate>(ACTOR_PLAYER, ProcessActions);
+
+    GameInteractor::Instance->RegisterGameHook<GameInteractor::OnSaveLoad>(
+        [](s16 fileNum) { GameInteractor::Instance->ClearSaveScopedActions(); });
 }

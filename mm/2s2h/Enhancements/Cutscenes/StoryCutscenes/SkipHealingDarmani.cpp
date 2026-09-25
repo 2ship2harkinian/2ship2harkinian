@@ -3,6 +3,7 @@
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "functions.h"
@@ -21,7 +22,7 @@ void RegisterSkipHealingDarmani() {
         // Played Song of Healing for Darmani in Goron Graveyard
         if (gPlayState->sceneId == SCENE_GORON_HAKA && *csId == 9) {
             if (GameInteractor_Should(VB_GIVE_ITEM_FROM_DMCHAR05, true, ITEM_MASK_GORON)) {
-                GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+                GameInteractor::Instance->Queue(GIActions::GiveItem({
                     .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
                     .param = GID_MASK_GORON,
                     .giveItem =
@@ -35,7 +36,7 @@ void RegisterSkipHealingDarmani() {
                             }
                             Item_Give(gPlayState, ITEM_MASK_GORON);
                         },
-                });
+                }));
             }
             /*
              * Darmani's ghost normally goes away after a scene reload, but we're skipping that transition, so we

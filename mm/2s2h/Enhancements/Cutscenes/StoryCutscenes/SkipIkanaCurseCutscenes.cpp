@@ -3,6 +3,7 @@
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -23,12 +24,12 @@ void skipHealingPamelasFather() {
      * where Pamela and her father embrace and Tatl yells at Link for killing the moment, but this
      * is easier than replicating all actor states in the skip.
      */
-    GameInteractor::Instance->events.emplace_back(GIEventTransition{
+    GameInteractor::Instance->Queue(GIActions::Transition({
         .entrance = ENTRANCE(MUSIC_BOX_HOUSE, 0),
         .cutsceneIndex = 0,
         .transitionTrigger = TRANS_TRIGGER_START,
         .transitionType = TRANS_TYPE_INSTANT,
-    });
+    }));
     SET_WEEKEVENTREG(WEEKEVENTREG_75_20); // Flag for healing Gibdo dad
 }
 
@@ -74,17 +75,17 @@ void RegisterSkipIkanaCurseCutscenes() {
                 SET_WEEKEVENTREG(WEEKEVENTREG_61_02);
                 SET_WEEKEVENTREG(WEEKEVENTREG_61_04);
                 // Kick out the player
-                GameInteractor::Instance->events.emplace_back(GIEventTransition{
+                GameInteractor::Instance->Queue(GIActions::Transition({
                     .entrance = ENTRANCE(IKANA_CANYON, 2),
                     .cutsceneIndex = 0,
                     .transitionTrigger = TRANS_TRIGGER_START,
                     .transitionType = TRANS_TYPE_FADE_BLACK_FAST,
-                });
+                }));
                 *should = false;
             } else if (*csId == 11) { // Heal Pamela's father for the first time
                 skipHealingPamelasFather();
                 if (GameInteractor_Should(VB_GIVE_ITEM_FROM_DMCHAR05, true, ITEM_MASK_GIBDO)) {
-                    GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+                    GameInteractor::Instance->Queue(GIActions::GiveItem({
                         .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
                         .param = GID_MASK_GIBDO,
                         .giveItem =
@@ -98,7 +99,7 @@ void RegisterSkipIkanaCurseCutscenes() {
                                 }
                                 Item_Give(gPlayState, ITEM_MASK_GIBDO);
                             },
-                    });
+                    }));
                 }
                 *should = false;
             } else if (*csId == 13) { // Heal Pamela's father subsequent times (no mask drop)
@@ -124,12 +125,12 @@ void RegisterSkipIkanaCurseCutscenes() {
         s16* csId = va_arg(args, s16*);
         if (gPlayState->sceneId == SCENE_IKANA && *csId == 20) { // Played Song of Storms for Sharp
             // Reload the scene so that all actor states are appropriate
-            GameInteractor::Instance->events.emplace_back(GIEventTransition{
+            GameInteractor::Instance->Queue(GIActions::Transition({
                 .entrance = ENTRANCE(IKANA_CANYON, 14),
                 .cutsceneIndex = 0,
                 .transitionTrigger = TRANS_TRIGGER_START,
                 .transitionType = TRANS_TYPE_INSTANT,
-            });
+            }));
             SET_WEEKEVENTREG(WEEKEVENTREG_14_04); // Healed Sharp
             *should = false;
         }
