@@ -648,7 +648,7 @@ typedef enum {
     // #### `args`
     // - `*EnTest3`
     VB_DRAW_KAFEI_KEATON_MASK,
-    
+
     // #### `result`
     // ```c
     // true

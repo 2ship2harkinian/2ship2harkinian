@@ -2,7 +2,6 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/Enhancements/FrameInterpolation/FrameInterpolation.h"
 
-
 extern "C" {
 #include "functions.h"
 #include "variables.h"
