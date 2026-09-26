@@ -1277,11 +1277,13 @@ void EnTest3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList1, Gfx** dL
                 ((!BEN_ANIM_EQUAL(this->player.skelAnime.animation, gPlayerAnim_cl_setmask)) ||
                  (this->player.skelAnime.curFrame >= 12.0f))) {
                 if (func_80127438(play, &this->player, this->player.currentMask)) {
-                    OPEN_DISPS(play->state.gfxCtx);
+                    if (GameInteractor_Should(VB_DRAW_KAFEI_KEATON_MASK, true, this)) {
+                        OPEN_DISPS(play->state.gfxCtx);
 
-                    gSPDisplayList(POLY_OPA_DISP++, object_mask_ki_tan_DL_0004A0);
+                        gSPDisplayList(POLY_OPA_DISP++, object_mask_ki_tan_DL_0004A0);
 
-                    CLOSE_DISPS(play->state.gfxCtx);
+                        CLOSE_DISPS(play->state.gfxCtx);
+                    }
                 }
             }
         }
@@ -1298,11 +1300,13 @@ void EnTest3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList1, Gfx** dL
             (this->player.getItemDrawIdPlusOne - 1 == GID_PENDANT_OF_MEMORIES)) {
             D_80A41D60 = true;
         } else {
-            OPEN_DISPS(play->state.gfxCtx);
+            if (GameInteractor_Should(VB_DRAW_KAFEI_PENDANT, true, this)) {
+                OPEN_DISPS(play->state.gfxCtx);
 
-            gSPDisplayList(POLY_OPA_DISP++, gKafeiPendantOfMemoriesDL);
+                gSPDisplayList(POLY_OPA_DISP++, gKafeiPendantOfMemoriesDL);
 
-            CLOSE_DISPS(play->state.gfxCtx);
+                CLOSE_DISPS(play->state.gfxCtx);
+            }
         }
     } else {
         Player_SetFeetPos(play, &this->player, limbIndex);
