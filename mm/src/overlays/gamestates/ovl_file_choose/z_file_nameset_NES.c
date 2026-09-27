@@ -10,6 +10,218 @@
 #include "misc/title_static/title_static.h"
 #include "overlays/ovl_file_choose/ovl_file_choose.h"
 #include "BenPort.h"
+
+#define DECLARE_PAL_TITLE_TEXTURE(name)                          \
+    static const ALIGN_ASSET(2) char name[] =                    \
+        "__OTR__misc/title_static/" #name
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelOptionsGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelOptionsFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelOptionsESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSoundGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSoundFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSoundESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelTargetingGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelTargetingFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelTargetingESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelCheckBrightnessGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelCheckBrightnessFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelCheckBrightnessESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelStereoGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelStereoFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelStereoESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelMonoGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelMonoFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelMonoESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHeadsetGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHeadsetFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHeadsetESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSwitchGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSwitchFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelSwitchESPTex);
+
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHoldGERTex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHoldFRATex);
+DECLARE_PAL_TITLE_TEXTURE(gFileSelHoldESPTex);
+
+#undef DECLARE_PAL_TITLE_TEXTURE
+
+// PAL options menu vertices
+static const ALIGN_ASSET(2) char sOptionsMenuHeadersPALVtx[] =
+    "__OTR__overlays/ovl_file_choose/gOptionsMenuHeadersPALVtx";
+
+static const ALIGN_ASSET(2) char sOptionsMenuSettingsPALVtx[] =
+    "__OTR__overlays/ovl_file_choose/gOptionsMenuSettingsPALVtx";
+
+static const ALIGN_ASSET(2) char sOptionsBrightnessPALVtx[] =
+    "__OTR__overlays/ovl_file_choose/gOptionsBrightnessPALVtx";
+
+static const ALIGN_ASSET(2) char sOptionsDividersPALVtx[] =
+    "__OTR__overlays/ovl_file_choose/gOptionsDividersPALVtx";
+
+static const ALIGN_ASSET(2) char sOptionsLanguageSettingsPALVtx[] =
+    "__OTR__overlays/ovl_file_choose/gOptionsLanguageSettingsPALVtx";
+
+// PAL language textures
+static const ALIGN_ASSET(2) char sFileSelLanguageSmallFRATex[] =
+    "__OTR__misc/title_static/gFileSelLanguageSmallFRATex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageSmallGERTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageSmallGERTex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageSmallENGTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageSmallENGTex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageSmallESPTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageSmallESPTex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageFRATex[] =
+    "__OTR__misc/title_static/gFileSelLanguageFRATex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageGERTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageGERTex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageENGTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageENGTex";
+
+static const ALIGN_ASSET(2) char sFileSelLanguageESPTex[] =
+    "__OTR__misc/title_static/gFileSelLanguageESPTex";
+
+static const TexturePtr sPalLanguageChoiceTextures[] = {
+    sFileSelLanguageSmallENGTex,
+    sFileSelLanguageSmallGERTex,
+    sFileSelLanguageSmallFRATex,
+    sFileSelLanguageSmallESPTex,
+};
+
+typedef struct {
+    TexturePtr options;
+    TexturePtr sound;
+    TexturePtr targeting;
+    TexturePtr language;
+    TexturePtr checkBrightness;
+
+    TexturePtr stereo;
+    TexturePtr mono;
+    TexturePtr headset;
+    TexturePtr surround;
+    TexturePtr switchTarget;
+    TexturePtr holdTarget;
+} PalOptionsTextures;
+
+static const PalOptionsTextures sPalOptionsTextures[4] = {
+    // English
+    {
+        gFileSelOptionsENGTex,
+        gFileSelSoundENGTex,
+        gFileSelTargetingENGTex,
+        sFileSelLanguageENGTex,
+        gFileSelCheckBrightnessENGTex,
+
+        gFileSelStereoENGTex,
+        gFileSelMonoENGTex,
+        gFileSelHeadsetENGTex,
+        gFileSelSurroundENGTex,
+        gFileSelSwitchENGTex,
+        gFileSelHoldENGTex,
+    },
+
+    // Deutsch
+    {
+        gFileSelOptionsGERTex,
+        gFileSelSoundGERTex,
+        gFileSelTargetingGERTex,
+        sFileSelLanguageGERTex,
+        gFileSelCheckBrightnessGERTex,
+
+        gFileSelStereoGERTex,
+        gFileSelMonoGERTex,
+        gFileSelHeadsetGERTex,
+        gFileSelSurroundENGTex,
+        gFileSelSwitchGERTex,
+        gFileSelHoldGERTex,
+    },
+
+    // Français
+    {
+        gFileSelOptionsFRATex,
+        gFileSelSoundFRATex,
+        gFileSelTargetingFRATex,
+        sFileSelLanguageFRATex,
+        gFileSelCheckBrightnessFRATex,
+
+        gFileSelStereoFRATex,
+        gFileSelMonoFRATex,
+        gFileSelHeadsetFRATex,
+        gFileSelSurroundENGTex,
+        gFileSelSwitchFRATex,
+        gFileSelHoldFRATex,
+    },
+
+    // Español
+    {
+        gFileSelOptionsESPTex,
+        gFileSelSoundESPTex,
+        gFileSelTargetingESPTex,
+        sFileSelLanguageESPTex,
+        gFileSelCheckBrightnessESPTex,
+
+        gFileSelStereoESPTex,
+        gFileSelMonoESPTex,
+        gFileSelHeadsetESPTex,
+        gFileSelSurroundENGTex,
+        gFileSelSwitchESPTex,
+        gFileSelHoldESPTex,
+    },
+};
+
+static s32 FileSelect_HasPalVersion(void) {
+    u32 versionCount = ResourceMgr_GetNumGameVersions();
+
+    for (u32 i = 0; i < versionCount; i++) {
+        if (ResourceMgr_GetGameVersion(i) == MM_PAL_11) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static u8 FileSelect_GetPalLanguageIndex(void) {
+    if ((gSaveContext.options.language < LANGUAGE_ENG) ||
+        (gSaveContext.options.language > LANGUAGE_SPA)) {
+        return 0;
+    }
+
+    return gSaveContext.options.language - LANGUAGE_ENG;
+}
+
+static void FileSelect_ChangeLanguage(s32 direction) {
+    if (direction < 0) {
+        if (gSaveContext.options.language <= LANGUAGE_ENG) {
+            gSaveContext.options.language = LANGUAGE_SPA;
+        } else {
+            gSaveContext.options.language--;
+        }
+    } else {
+        if (gSaveContext.options.language >= LANGUAGE_SPA) {
+            gSaveContext.options.language = LANGUAGE_ENG;
+        } else {
+            gSaveContext.options.language++;
+        }
+    }
+
+    gSaveContext.options.languageSetting =
+        gSaveContext.options.language - LANGUAGE_ENG;
+}
+
 #include "2s2h/BenGui/CosmeticEditor.h"
 
 void FileSelect_DrawTexQuadI4(GraphicsContext* gfxCtx, TexturePtr texture, s16 point) {
@@ -783,37 +995,76 @@ void FileSelect_UpdateOptionsMenu(GameState* thisx) {
     if (this->stickAdjX < -30) {
         Audio_PlaySfx(NA_SE_SY_FSEL_CURSOR);
 
-        if (sSelectedSetting == FS_SETTING_AUDIO) {
-            gSaveContext.options.audioSetting--;
+        switch (sSelectedSetting) {
+            case FS_SETTING_AUDIO:
+                gSaveContext.options.audioSetting--;
+                // because audio setting is unsigned, can't check for < 0
+                if (gSaveContext.options.audioSetting > 0xF0) {
+                    gSaveContext.options.audioSetting = SAVE_AUDIO_SURROUND;
+                }
+                break;
 
-            // because audio setting is unsigned, can't check for < 0
-            if (gSaveContext.options.audioSetting > 0xF0) {
-                gSaveContext.options.audioSetting = SAVE_AUDIO_SURROUND;
-            }
-        } else {
-            gSaveContext.options.zTargetSetting ^= 1;
+            case FS_SETTING_ZTARGET:
+                gSaveContext.options.zTargetSetting ^= 1;
+                break;
+
+            case FS_SETTING_LANGUAGE:
+                if (FileSelect_HasPalVersion()) {
+                    FileSelect_ChangeLanguage(-1);
+                }
+                break;
         }
     } else if (this->stickAdjX > 30) {
         Audio_PlaySfx(NA_SE_SY_FSEL_CURSOR);
 
-        if (sSelectedSetting == FS_SETTING_AUDIO) {
-            gSaveContext.options.audioSetting++;
-            if (gSaveContext.options.audioSetting > SAVE_AUDIO_SURROUND) {
-                gSaveContext.options.audioSetting = SAVE_AUDIO_STEREO;
-            }
-        } else {
-            gSaveContext.options.zTargetSetting ^= 1;
+        switch (sSelectedSetting) {
+            case FS_SETTING_AUDIO:
+                gSaveContext.options.audioSetting++;
+                if (gSaveContext.options.audioSetting > SAVE_AUDIO_SURROUND) {
+                    gSaveContext.options.audioSetting = SAVE_AUDIO_STEREO;
+                }
+                break;
+
+            case FS_SETTING_ZTARGET:
+                gSaveContext.options.zTargetSetting ^= 1;
+                break;
+
+            case FS_SETTING_LANGUAGE:
+                if (FileSelect_HasPalVersion()) {
+                    FileSelect_ChangeLanguage(1);
+                }
+                break;
         }
     }
 
     if ((this->stickAdjY < -30) || (this->stickAdjY > 30)) {
+        u8 settingCount = FileSelect_HasPalVersion() ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
+
         Audio_PlaySfx(NA_SE_SY_FSEL_CURSOR);
-        sSelectedSetting ^= 1;
+
+        if (this->stickAdjY < -30) {
+            sSelectedSetting++;
+            if (sSelectedSetting >= settingCount) {
+                sSelectedSetting = FS_SETTING_AUDIO;
+            }
+        } else {
+            if (sSelectedSetting == FS_SETTING_AUDIO) {
+                sSelectedSetting = settingCount - 1;
+            } else {
+                sSelectedSetting--;
+            }
+        }
         return;
     }
+
     if (CHECK_BTN_ALL(input->press.button, BTN_A)) {
+        u8 settingCount = FileSelect_HasPalVersion() ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
+
         Audio_PlaySfx(NA_SE_SY_FSEL_DECIDE_L);
-        sSelectedSetting ^= 1;
+        sSelectedSetting++;
+        if (sSelectedSetting >= settingCount) {
+            sSelectedSetting = FS_SETTING_AUDIO;
+        }
     }
 }
 
@@ -1305,6 +1556,510 @@ void FileSelect_DrawOptionsImpl(GameState* thisx) {
     CLOSE_DISPS(this->state.gfxCtx);
 }
 
+void FileSelect_DrawOptionsImpl_PAL(GameState* thisx) {
+    static s16 sCursorPrimRed = 255;
+    static s16 sCursorPrimGreen = 255;
+    static s16 sCursorPrimBlue = 255;
+    static s16 sCursorEnvRed = 0;
+    static s16 sCursorEnvGreen = 0;
+    static s16 sCursorEnvBlue = 0;
+    static s16 sCursorPulseDir = 1;
+    static s16 sCursorFlashTimer = 20;
+    static s16 sCursorPrimColors[][3] = {
+        { 255, 255, 255 },
+        { 0, 255, 255 },
+    };
+    static s16 sCursorEnvColors[][3] = {
+        { 0, 0, 0 },
+        { 0, 150, 150 },
+    };
+    FileSelectState* this = (FileSelectState*)thisx;
+    s16 cursorRedStep;
+    s16 cursorGreenStep;
+    s16 cursorBlueStep;
+    s16 i;
+    s16 vtx;
+
+    u8 languageIndex = FileSelect_GetPalLanguageIndex();
+
+    // The PAL extraction offsets already crop each localized Targeting label
+    // to the correct horizontal start. Keep the same quad origin for every
+    // language; only German and Spanish need the wider source texture.
+    u16 targetingWidth =
+        ((languageIndex == 1) || (languageIndex == 3)) ? 144 : 64;
+    s16 targetingX = -100;
+
+    Vtx* targetingHeaderVtx =
+        GRAPH_ALLOC(this->state.gfxCtx, 4 * sizeof(Vtx));
+
+    targetingHeaderVtx[0].v.ob[0] =
+    targetingHeaderVtx[2].v.ob[0] = targetingX;
+
+    targetingHeaderVtx[1].v.ob[0] =
+    targetingHeaderVtx[3].v.ob[0] = targetingX + targetingWidth;
+
+    targetingHeaderVtx[0].v.ob[1] =
+    targetingHeaderVtx[1].v.ob[1] = 15;
+
+    targetingHeaderVtx[2].v.ob[1] =
+    targetingHeaderVtx[3].v.ob[1] = -1;
+
+    for (i = 0; i < 4; i++) {
+        targetingHeaderVtx[i].v.ob[2] = 0;
+        targetingHeaderVtx[i].v.flag = 0;
+
+        targetingHeaderVtx[i].v.cn[0] = 255;
+        targetingHeaderVtx[i].v.cn[1] = 255;
+        targetingHeaderVtx[i].v.cn[2] = 255;
+        targetingHeaderVtx[i].v.cn[3] = 255;
+    }
+
+    targetingHeaderVtx[0].v.tc[0] = 0;
+    targetingHeaderVtx[0].v.tc[1] = 0;
+
+    targetingHeaderVtx[1].v.tc[0] = targetingWidth << 5;
+    targetingHeaderVtx[1].v.tc[1] = 0;
+
+    targetingHeaderVtx[2].v.tc[0] = 0;
+    targetingHeaderVtx[2].v.tc[1] = 16 << 5;
+
+    targetingHeaderVtx[3].v.tc[0] = targetingWidth << 5;
+    targetingHeaderVtx[3].v.tc[1] = 16 << 5;
+
+    const PalOptionsTextures* textures = &sPalOptionsTextures[languageIndex];
+
+    const TexturePtr palHeaders[] = {
+        textures->options,
+        textures->sound,
+        textures->targeting,
+        textures->language,
+        textures->checkBrightness,
+    };
+
+    const TexturePtr palSettings[] = {
+        textures->stereo,
+        textures->mono,
+        textures->headset,
+        textures->surround,
+        textures->switchTarget,
+        textures->holdTarget,
+    };
+
+    OPEN_DISPS(this->state.gfxCtx);
+
+    cursorRedStep = ABS_ALT(sCursorPrimRed - sCursorPrimColors[sCursorPulseDir][0]) / sCursorFlashTimer;
+    cursorGreenStep = ABS_ALT(sCursorPrimGreen - sCursorPrimColors[sCursorPulseDir][1]) / sCursorFlashTimer;
+    cursorBlueStep = ABS_ALT(sCursorPrimBlue - sCursorPrimColors[sCursorPulseDir][2]) / sCursorFlashTimer;
+
+    if (sCursorPrimRed >= sCursorPrimColors[sCursorPulseDir][0]) {
+        sCursorPrimRed -= cursorRedStep;
+    } else {
+        sCursorPrimRed += cursorRedStep;
+    }
+
+    if (sCursorPrimGreen >= sCursorPrimColors[sCursorPulseDir][1]) {
+        sCursorPrimGreen -= cursorGreenStep;
+    } else {
+        sCursorPrimGreen += cursorGreenStep;
+    }
+
+    if (sCursorPrimBlue >= sCursorPrimColors[sCursorPulseDir][2]) {
+        sCursorPrimBlue -= cursorBlueStep;
+    } else {
+        sCursorPrimBlue += cursorBlueStep;
+    }
+
+    cursorRedStep = ABS_ALT(sCursorEnvRed - sCursorEnvColors[sCursorPulseDir][0]) / sCursorFlashTimer;
+    cursorGreenStep = ABS_ALT(sCursorEnvGreen - sCursorEnvColors[sCursorPulseDir][1]) / sCursorFlashTimer;
+    cursorBlueStep = ABS_ALT(sCursorEnvBlue - sCursorEnvColors[sCursorPulseDir][2]) / sCursorFlashTimer;
+
+    if (sCursorEnvRed >= sCursorEnvColors[sCursorPulseDir][0]) {
+        sCursorEnvRed -= cursorRedStep;
+    } else {
+        sCursorEnvRed += cursorRedStep;
+    }
+
+    if (sCursorEnvGreen >= sCursorEnvColors[sCursorPulseDir][1]) {
+        sCursorEnvGreen -= cursorGreenStep;
+    } else {
+        sCursorEnvGreen += cursorGreenStep;
+    }
+
+    if (sCursorEnvBlue >= sCursorEnvColors[sCursorPulseDir][2]) {
+        sCursorEnvBlue -= cursorBlueStep;
+    } else {
+        sCursorEnvBlue += cursorBlueStep;
+    }
+
+    if (--sCursorFlashTimer == 0) {
+        sCursorPrimRed = sCursorPrimColors[sCursorPulseDir][0];
+        sCursorPrimGreen = sCursorPrimColors[sCursorPulseDir][1];
+        sCursorPrimBlue = sCursorPrimColors[sCursorPulseDir][2];
+
+        sCursorEnvRed = sCursorEnvColors[sCursorPulseDir][0];
+        sCursorEnvGreen = sCursorEnvColors[sCursorPulseDir][1];
+        sCursorEnvBlue = sCursorEnvColors[sCursorPulseDir][2];
+
+        sCursorFlashTimer = 20;
+
+        if (++sCursorPulseDir > 1) {
+            sCursorPulseDir = 0;
+        }
+    }
+
+    // blue divider lines
+    gDPPipeSync(POLY_OPA_DISP++);
+    gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 255, 255,
+                    this->titleAlpha[FS_TITLE_CUR]);
+    gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
+
+    gDPLoadTextureBlock_4b(
+        POLY_OPA_DISP++,
+        gFileSelOptionsDividerTex,
+        G_IM_FMT_IA,
+        256,
+        2,
+        0,
+        G_TX_NOMIRROR | G_TX_WRAP,
+        G_TX_NOMIRROR | G_TX_WRAP,
+        G_TX_NOMASK,
+        G_TX_NOMASK,
+        G_TX_NOLOD,
+        G_TX_NOLOD
+    );
+
+    gSPVertex(POLY_OPA_DISP++, sOptionsDividersPALVtx, 16, 0);
+
+    for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
+        gSP1Quadrangle(
+            POLY_OPA_DISP++,
+            vtx,
+            vtx + 2,
+            vtx + 3,
+            vtx + 1,
+            0
+        );
+    }
+
+    {
+        const u16 palHeaderHeights[] = {
+            16,
+            16,
+            16,
+            16,
+            16,
+        };
+
+        const u16 palHeaderWidths[] = {
+            128,
+            64,
+            targetingWidth,
+            64,
+            128,
+        };
+
+        gSPVertex(POLY_OPA_DISP++, sOptionsMenuHeadersPALVtx, 24, 0);
+
+        // Replace vertices 8 through 11, which correspond to the Targeting label.
+        gSPVertex(POLY_OPA_DISP++, targetingHeaderVtx, 4, 8);
+
+        gDPPipeSync(POLY_OPA_DISP++);
+        gDPSetCombineLERP(
+            POLY_OPA_DISP++,
+            PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT,
+            TEXEL0, 0, PRIMITIVE, 0,
+            PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT,
+            TEXEL0, 0, PRIMITIVE, 0
+        );
+
+        for (i = 0, vtx = 0; i < 5; i++, vtx += 4) {
+            gDPPipeSync(POLY_OPA_DISP++);
+
+            gDPSetPrimColor(
+                POLY_OPA_DISP++,
+                0,
+                0,
+                255,
+                255,
+                255,
+                this->titleAlpha[FS_TITLE_CUR]
+            );
+            gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+
+            gDPLoadTextureBlock_4b(
+                POLY_OPA_DISP++,
+                palHeaders[i],
+                G_IM_FMT_IA,
+                palHeaderWidths[i],
+                palHeaderHeights[i],
+                0,
+                G_TX_NOMIRROR | G_TX_WRAP,
+                G_TX_NOMIRROR | G_TX_WRAP,
+                G_TX_NOMASK,
+                G_TX_NOMASK,
+                G_TX_NOLOD,
+                G_TX_NOLOD
+            );
+
+            gSP1Quadrangle(
+                POLY_OPA_DISP++,
+                vtx,
+                vtx + 2,
+                vtx + 3,
+                vtx + 1,
+                0
+            );
+        }
+    }
+
+    gDPPipeSync(POLY_OPA_DISP++);
+    gDPSetCombineLERP(POLY_OPA_DISP++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0, PRIMITIVE,
+                      ENVIRONMENT, TEXEL0, ENVIRONMENT, TEXEL0, 0, PRIMITIVE, 0);
+
+    gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, this->titleAlpha[FS_TITLE_CUR]);
+    gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+    gSPVertex(POLY_OPA_DISP++, sOptionsMenuSettingsPALVtx, 24, 0);
+
+    for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
+        gDPPipeSync(POLY_OPA_DISP++);
+        if (i == gSaveContext.options.audioSetting) {
+            if (sSelectedSetting == FS_SETTING_AUDIO) {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sCursorPrimRed, sCursorPrimGreen, sCursorPrimBlue,
+                                this->titleAlpha[FS_TITLE_CUR]);
+                gDPSetEnvColor(POLY_OPA_DISP++, sCursorEnvRed, sCursorEnvGreen, sCursorEnvBlue, 255);
+            } else {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, this->titleAlpha[FS_TITLE_CUR]);
+                gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+            }
+        } else {
+            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 120, 120, 120, this->titleAlpha[FS_TITLE_CUR]);
+            gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+        }
+
+        gDPLoadTextureBlock_4b(
+            POLY_OPA_DISP++,
+            palSettings[i],
+            G_IM_FMT_IA,
+            48,
+            16,
+            0,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMASK,
+            G_TX_NOMASK,
+            G_TX_NOLOD,
+            G_TX_NOLOD
+        );
+        gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
+    }
+
+    for (; i < 6; i++, vtx += 4) {
+        gDPPipeSync(POLY_OPA_DISP++);
+
+        if (i == (gSaveContext.options.zTargetSetting + 4)) {
+            if (sSelectedSetting == FS_SETTING_ZTARGET) {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, sCursorPrimRed, sCursorPrimGreen, sCursorPrimBlue,
+                                this->titleAlpha[FS_TITLE_CUR]);
+                gDPSetEnvColor(POLY_OPA_DISP++, sCursorEnvRed, sCursorEnvGreen, sCursorEnvBlue, 255);
+            } else {
+                gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, this->titleAlpha[FS_TITLE_CUR]);
+                gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+            }
+        } else {
+            gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 120, 120, 120, this->titleAlpha[FS_TITLE_CUR]);
+            gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+        }
+
+        gDPLoadTextureBlock_4b(
+            POLY_OPA_DISP++,
+            palSettings[i],
+            G_IM_FMT_IA,
+            48,
+            16,
+            0,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMASK,
+            G_TX_NOMASK,
+            G_TX_NOLOD,
+            G_TX_NOLOD
+        );
+        gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
+    }
+
+    /*
+     * The PAL Dolby and Surround quads overlap slightly.
+     * Keep the original PAL vertex positions.
+     */
+    gSPVertex(POLY_OPA_DISP++, sOptionsMenuHeadersPALVtx, 24, 0);
+
+    gDPPipeSync(POLY_OPA_DISP++);
+
+    if (gSaveContext.options.audioSetting == SAVE_AUDIO_SURROUND) {
+        gDPSetPrimColor(
+            POLY_OPA_DISP++,
+            0,
+            0,
+            255,
+            255,
+            255,
+            this->titleAlpha[FS_TITLE_CUR]
+        );
+        gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 255, 255);
+    } else {
+        gDPSetPrimColor(
+            POLY_OPA_DISP++,
+            0,
+            0,
+            0,
+            0,
+            0,
+            this->titleAlpha[FS_TITLE_CUR]
+        );
+        gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+    }
+
+    gDPLoadTextureBlock(
+        POLY_OPA_DISP++,
+        gFileSelDolbySurroundLogoENGTex,
+        G_IM_FMT_I,
+        G_IM_SIZ_8b,
+        48,
+        17,
+        0,
+        G_TX_NOMIRROR | G_TX_WRAP,
+        G_TX_NOMIRROR | G_TX_WRAP,
+        G_TX_NOMASK,
+        G_TX_NOMASK,
+        G_TX_NOLOD,
+        G_TX_NOLOD
+    );
+
+    /* Sixth header quad: vertices 20 through 23. */
+    gSP1Quadrangle(POLY_OPA_DISP++, 20, 22, 23, 21, 0);
+
+    gSPVertex(
+        POLY_OPA_DISP++,
+        sOptionsLanguageSettingsPALVtx,
+        16,
+        0
+    );
+
+    for (i = 0, vtx = 0; i < 4; i++, vtx += 4) {
+        gDPPipeSync(POLY_OPA_DISP++);
+
+        if (i == FileSelect_GetPalLanguageIndex()) {
+            if (sSelectedSetting == FS_SETTING_LANGUAGE) {
+                gDPSetPrimColor(
+                    POLY_OPA_DISP++,
+                    0,
+                    0,
+                    sCursorPrimRed,
+                    sCursorPrimGreen,
+                    sCursorPrimBlue,
+                    this->titleAlpha[FS_TITLE_CUR]
+                );
+                gDPSetEnvColor(
+                    POLY_OPA_DISP++,
+                    sCursorEnvRed,
+                    sCursorEnvGreen,
+                    sCursorEnvBlue,
+                    255
+                );
+            } else {
+                gDPSetPrimColor(
+                    POLY_OPA_DISP++,
+                    0,
+                    0,
+                    255,
+                    255,
+                    255,
+                    this->titleAlpha[FS_TITLE_CUR]
+                );
+                gDPSetEnvColor(
+                    POLY_OPA_DISP++,
+                    0,
+                    0,
+                    0,
+                    255
+                );
+            }
+        } else {
+            gDPSetPrimColor(
+                POLY_OPA_DISP++,
+                0,
+                0,
+                120,
+                120,
+                120,
+                this->titleAlpha[FS_TITLE_CUR]
+            );
+            gDPSetEnvColor(
+                POLY_OPA_DISP++,
+                0,
+                0,
+                0,
+                255
+            );
+        }
+
+        gDPLoadTextureBlock_4b(
+            POLY_OPA_DISP++,
+            sPalLanguageChoiceTextures[i],
+            G_IM_FMT_IA,
+            48,
+            16,
+            0,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMIRROR | G_TX_WRAP,
+            G_TX_NOMASK,
+            G_TX_NOMASK,
+            G_TX_NOLOD,
+            G_TX_NOLOD
+        );
+
+        gSP1Quadrangle(
+            POLY_OPA_DISP++,
+            vtx,
+            vtx + 2,
+            vtx + 3,
+            vtx + 1,
+            0
+        );
+    }
+
+    gDPPipeSync(POLY_OPA_DISP++);
+    gSPVertex(
+        POLY_OPA_DISP++,
+        sOptionsBrightnessPALVtx,
+        8,
+        0
+    );
+
+    vtx = 0;
+
+    // check brightness bars
+    gDPLoadTextureBlock_4b(POLY_OPA_DISP++, gFileSelBrightnessCheckTex, G_IM_FMT_IA, 96, 16, 0,
+                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+                           G_TX_NOLOD);
+    gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 55, 55, 55, this->titleAlpha[FS_TITLE_CUR]);
+    gDPSetEnvColor(POLY_OPA_DISP++, 40, 40, 40, 255);
+    gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
+
+    vtx += 4;
+
+    gDPPipeSync(POLY_OPA_DISP++);
+    gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 30, 30, 30, this->titleAlpha[FS_TITLE_CUR]);
+    gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 255);
+    gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
+
+    CLOSE_DISPS(this->state.gfxCtx);
+}
+
 void FileSelect_DrawOptions(GameState* thisx) {
-    FileSelect_DrawOptionsImpl(thisx);
+    if (FileSelect_HasPalVersion()) {
+        FileSelect_DrawOptionsImpl_PAL(thisx);
+    } else {
+        FileSelect_DrawOptionsImpl(thisx);
+    }
 }
