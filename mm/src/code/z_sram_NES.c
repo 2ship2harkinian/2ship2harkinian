@@ -16,21 +16,8 @@ void func_80147414(SramContext* sramCtx, s32 fileNum, s32 arg2);
     ((newf)[0] != 'Z' || (newf)[1] != 'E' || (newf)[2] != 'L' || (newf)[3] != 'D' || (newf)[4] != 'A' || \
      (newf)[5] != '3')
 
-static bool Sram_HasPalVersion(void) {
-    u32 versionCount = ResourceMgr_GetNumGameVersions();
-    u32 i;
-
-    for (i = 0; i < versionCount; i++) {
-        if (ResourceMgr_GetGameVersion(i) == MM_PAL_11) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 static void Sram_ValidateLanguageOption(void) {
-    if (!Sram_HasPalVersion() || (gSaveContext.options.language < LANGUAGE_ENG) ||
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11) || (gSaveContext.options.language < LANGUAGE_ENG) ||
         (gSaveContext.options.language > LANGUAGE_SPA)) {
         gSaveContext.options.language = LANGUAGE_ENG;
     }

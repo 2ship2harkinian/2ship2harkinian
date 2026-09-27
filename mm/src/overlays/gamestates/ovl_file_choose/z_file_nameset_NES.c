@@ -182,18 +182,6 @@ static const PalOptionsTextures sPalOptionsTextures[4] = {
     },
 };
 
-static s32 FileSelect_HasPalVersion(void) {
-    u32 versionCount = ResourceMgr_GetNumGameVersions();
-
-    for (u32 i = 0; i < versionCount; i++) {
-        if (ResourceMgr_GetGameVersion(i) == MM_PAL_11) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 static u8 FileSelect_GetPalLanguageIndex(void) {
     if ((gSaveContext.options.language < LANGUAGE_ENG) ||
         (gSaveContext.options.language > LANGUAGE_SPA)) {
@@ -1009,7 +997,7 @@ void FileSelect_UpdateOptionsMenu(GameState* thisx) {
                 break;
 
             case FS_SETTING_LANGUAGE:
-                if (FileSelect_HasPalVersion()) {
+                if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
                     FileSelect_ChangeLanguage(-1);
                 }
                 break;
@@ -1030,7 +1018,7 @@ void FileSelect_UpdateOptionsMenu(GameState* thisx) {
                 break;
 
             case FS_SETTING_LANGUAGE:
-                if (FileSelect_HasPalVersion()) {
+                if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
                     FileSelect_ChangeLanguage(1);
                 }
                 break;
@@ -1038,7 +1026,7 @@ void FileSelect_UpdateOptionsMenu(GameState* thisx) {
     }
 
     if ((this->stickAdjY < -30) || (this->stickAdjY > 30)) {
-        u8 settingCount = FileSelect_HasPalVersion() ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
+        u8 settingCount = ResourceMgr_HasGameVersion(MM_PAL_11) ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
 
         Audio_PlaySfx(NA_SE_SY_FSEL_CURSOR);
 
@@ -1058,7 +1046,7 @@ void FileSelect_UpdateOptionsMenu(GameState* thisx) {
     }
 
     if (CHECK_BTN_ALL(input->press.button, BTN_A)) {
-        u8 settingCount = FileSelect_HasPalVersion() ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
+        u8 settingCount = ResourceMgr_HasGameVersion(MM_PAL_11) ? FS_SETTING_MAX : FS_SETTING_LANGUAGE;
 
         Audio_PlaySfx(NA_SE_SY_FSEL_DECIDE_L);
         sSelectedSetting++;
@@ -2057,7 +2045,7 @@ void FileSelect_DrawOptionsImpl_PAL(GameState* thisx) {
 }
 
 void FileSelect_DrawOptions(GameState* thisx) {
-    if (FileSelect_HasPalVersion()) {
+    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
         FileSelect_DrawOptionsImpl_PAL(thisx);
     } else {
         FileSelect_DrawOptionsImpl(thisx);

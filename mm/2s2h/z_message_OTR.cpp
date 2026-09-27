@@ -60,23 +60,10 @@ extern "C" MessageTableEntry* OTRMessage_GetTable(u8 language) {
     return sMessageTables[language];
 }
 
-static bool OTRMessage_HasPalVersion() {
-    const auto gameVersions =
-        Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions();
-
-    for (uint32_t version : gameVersions) {
-        if (version == MM_PAL_11) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 extern "C" void OTRMessage_Init() {
     sMessageTables[LANGUAGE_ENG] = OTRMessage_LoadTable("text/message_data_static/message_data_static", true);
 
-    if (OTRMessage_HasPalVersion()) {
+    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
         sMessageTables[LANGUAGE_GER] =
             OTRMessage_LoadTable("text/message_data_static_ger/message_data_static_ger", true);
         sMessageTables[LANGUAGE_FRE] =

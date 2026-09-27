@@ -73,6 +73,7 @@ class OTRGlobals {
 };
 
 uint32_t IsGameMasterQuest();
+extern "C" bool ResourceMgr_HasGameVersion(uint32_t version);
 #endif
 
 #ifndef __cplusplus

@@ -1,6 +1,5 @@
 #include "SaveManager.h"
 
-#include <algorithm>
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -337,14 +336,8 @@ bool SaveManager_HandleFileDropped(char* filePath) {
 #define CVAR_LANGUAGE_SETTING "gSettings.Language"
 #define CVAR_ZTARGET_SETTING "gSettings.ZTargetSetting"
 
-static bool SaveManager_HasPalVersion() {
-    const auto versions =
-        Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions();
-    return std::find(versions.begin(), versions.end(), MM_PAL_11) != versions.end();
-}
-
 static u8 SaveManager_NormalizeLanguage(int32_t language) {
-    if (!SaveManager_HasPalVersion() || language < LANGUAGE_ENG || language > LANGUAGE_SPA) {
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11) || language < LANGUAGE_ENG || language > LANGUAGE_SPA) {
         return LANGUAGE_ENG;
     }
 

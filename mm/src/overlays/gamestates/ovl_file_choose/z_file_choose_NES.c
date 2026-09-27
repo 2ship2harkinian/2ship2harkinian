@@ -1693,18 +1693,6 @@ TexturePtr sActionButtonTextures[] = {
  * Draw most window contents including buttons, labels, and icons.
  * Does not include anything from the keyboard and settings windows.
  */
-static s32 FileSelect_HasPalVersion(void) {
-    u32 versionCount = ResourceMgr_GetNumGameVersions();
-
-    for (u32 i = 0; i < versionCount; i++) {
-        if (ResourceMgr_GetGameVersion(i) == MM_PAL_11) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void FileSelect_DrawWindowContents(GameState* thisx) {
     FileSelectState* this = (FileSelectState*)thisx;
     s16 fileIndex;
@@ -1722,7 +1710,7 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
     gSPVertex(POLY_OPA_DISP++, &this->windowContentVtx[0], 4, 0);
-    if (FileSelect_HasPalVersion()) {
+    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
         // PAL title labels are natively IA4, including English.
         gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sTitleLabels[this->titleLabel], G_IM_FMT_IA, 128, 16, 0,
                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
@@ -1737,7 +1725,7 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
     // draw next title label
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, this->titleAlpha[FS_TITLE_NEXT]);
-    if (FileSelect_HasPalVersion()) {
+    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
         gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sTitleLabels[this->nextTitleLabel], G_IM_FMT_IA, 128, 16, 0,
                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                G_TX_NOLOD, G_TX_NOLOD);
@@ -1887,7 +1875,7 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
             gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sWarningLabelsIA4[this->warningLabel], G_IM_FMT_IA, 128, 16, 0,
                                    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                    G_TX_NOLOD, G_TX_NOLOD);
-        } else if (FileSelect_HasPalVersion()) {
+        } else if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
             // PAL warning labels use the normal names, but their data is IA4.
             gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sWarningLabels[this->warningLabel], G_IM_FMT_IA, 128, 16, 0,
                                    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
