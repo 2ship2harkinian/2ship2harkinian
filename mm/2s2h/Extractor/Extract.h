@@ -30,6 +30,7 @@ class Extractor {
     std::unique_ptr<unsigned char[]> mRomData = std::make_unique<unsigned char[]>(MB64);
     std::string mCurrentRomPath;
     std::string mSearchPath;
+    std::string mLastError;
     size_t mCurRomSize = 0;
 
     bool GetRomPathFromBox();
@@ -65,6 +66,7 @@ class Extractor {
     bool Run(std::string searchPath, RomSearchMode searchMode = RomSearchMode::Both);
     bool CallZapd(std::string installPath, std::string exportdir, std::atomic<size_t>* extractCount,
                   std::atomic<size_t>* totalExtract);
+    const std::string& GetLastError() const;
     const char* GetZapdStr();
     std::string Mkdtemp();
 };

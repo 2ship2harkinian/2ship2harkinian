@@ -595,8 +595,32 @@ std::string Extractor::Mkdtemp() {
 extern "C" int zapd_report(int argc, char** argv, std::atomic<size_t>* extractCount, std::atomic<size_t>* totalExtract);
 static void MessageboxWorker();
 
+static std::string StripAnsiEscapeSequences(const std::string& input) {
+    std::string output;
+    output.reserve(input.size());
+
+    for (size_t i = 0; i < input.size();) {
+        if (input[i] == '\x1B' && i + 1 < input.size() && input[i + 1] == '[') {
+            i += 2;
+            while (i < input.size() && (input[i] < '@' || input[i] > '~')) {
+                ++i;
+            }
+            if (i < input.size()) {
+                ++i;
+            }
+            continue;
+        }
+
+        output.push_back(input[i]);
+        ++i;
+    }
+
+    return output;
+}
+
 bool Extractor::CallZapd(std::string installPath, std::string exportdir, std::atomic<size_t>* extractCount,
                          std::atomic<size_t>* totalExtract) {
+    mLastError.clear();
     constexpr int argc = 22;
     char xmlPath[1024];
     char confPath[1024];
@@ -647,15 +671,38 @@ bool Extractor::CallZapd(std::string installPath, std::string exportdir, std::at
     argv[20] = "-osf";
     argv[21] = "placeholder";
 
-    zapd_report(argc, (char**)argv.data(), extractCount, totalExtract);
+    auto cleanup = [&]() {
+        std::error_code ec;
+        std::filesystem::current_path(curdir, ec);
+        std::filesystem::remove_all(tempdir, ec);
+    };
 
-    std::filesystem::copy(otrFile, exportdir + "/" + otrFile, std::filesystem::copy_options::overwrite_existing);
+    try {
+        const int result = zapd_report(argc, (char**)argv.data(), extractCount, totalExtract);
+        if (result != 0) {
+            mLastError = "ZAPD extraction failed with exit code " + std::to_string(result) + ".";
+            cleanup();
+            return false;
+        }
 
-    // Go back to where this game was executed from
-    std::filesystem::current_path(curdir);
-    std::filesystem::remove_all(tempdir);
+        std::filesystem::copy(otrFile, exportdir + "/" + otrFile, std::filesystem::copy_options::overwrite_existing);
+    } catch (const std::exception& e) {
+        mLastError = "ZAPD extraction failed:\n\n";
+        mLastError += StripAnsiEscapeSequences(e.what());
+        cleanup();
+        return false;
+    } catch (...) {
+        mLastError = "ZAPD extraction failed with an unknown exception.";
+        cleanup();
+        return false;
+    }
 
-    return false;
+    cleanup();
+    return true;
+}
+
+const std::string& Extractor::GetLastError() const {
+    return mLastError;
 }
 
 static void MessageboxWorker() {
