@@ -190,9 +190,9 @@ void KaleidoScope_DrawDungeonMap(PlayState* play) {
     // QUAD_MAP_PAGE_DUNGEON_TITLE
     if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
         // PAL stores all localized dungeon titles, including English, as IA4.
-        POLY_OPA_DISP = Gfx_DrawTexQuad4b(
-            POLY_OPA_DISP, sDungeonTitleTextures[((void)0, gSaveContext.dungeonSceneSharedIndex)], G_IM_FMT_IA, 128, 16,
-            0);
+        POLY_OPA_DISP =
+            Gfx_DrawTexQuad4b(POLY_OPA_DISP, sDungeonTitleTextures[((void)0, gSaveContext.dungeonSceneSharedIndex)],
+                              G_IM_FMT_IA, 128, 16, 0);
     } else {
         POLY_OPA_DISP = Gfx_DrawTexQuadIA8(
             POLY_OPA_DISP, sDungeonTitleTextures[((void)0, gSaveContext.dungeonSceneSharedIndex)], 128, 16, 0);

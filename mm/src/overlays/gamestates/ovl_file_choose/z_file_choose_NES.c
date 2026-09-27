@@ -1717,8 +1717,8 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
                                G_TX_NOLOD, G_TX_NOLOD);
     } else {
         gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[this->titleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0,
-                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
-                            G_TX_NOLOD, G_TX_NOLOD);
+                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+                            G_TX_NOLOD);
     }
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
@@ -1731,8 +1731,8 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
                                G_TX_NOLOD, G_TX_NOLOD);
     } else {
         gDPLoadTextureBlock(POLY_OPA_DISP++, sTitleLabels[this->nextTitleLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16, 0,
-                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
-                            G_TX_NOLOD, G_TX_NOLOD);
+                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+                            G_TX_NOLOD);
     }
     gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 
