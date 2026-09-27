@@ -119,11 +119,11 @@ std::set<RandoCheckType> checkTypeFilter;
 
 std::vector<const char*> checkTypeIconList = {
     /*RCTYPE_UNKNOWN*/ gItemIconBombersNotebookTex,
-    /*RCTYPE_BARREL*/ gBarrelTrackerIcon,
+    /*RCTYPE_BARREL*/ ASSET_OR(gBarrelTrackerIcon, gItemIconPowderKegTex),
     /*RCTYPE_BUTTERFLY*/ gItemIconDekuStickTex,
-    /*RCTYPE_CHEST*/ gChestTrackerIcon,
+    /*RCTYPE_CHEST*/ ASSET_OR(gChestTrackerIcon, gMapChestIconTex),
     /*RCTYPE_COW*/ gItemIconRomaniMaskTex,
-    /*RCTYPE_CRATE*/ gCrateTrackerIcon,
+    /*RCTYPE_CRATE*/ ASSET_OR(gCrateTrackerIcon, gItemIconPictographBoxTex),
     /*RCTYPE_ENEMY_DROP*/ gDungeonMapSkullTex,
     /*RCTYPE_FREESTANDING*/ gRupeeCounterIconTex,
     /*RCTYPE_FROG*/ gItemIconDonGeroMaskTex,
@@ -133,7 +133,7 @@ std::vector<const char*> checkTypeIconList = {
     /*RCTYPE_MINIGAME*/ gArcheryScoreIconTex,
     /*RCTYPE_NPC*/ gItemIconBombersNotebookTex,
     /*RCTYPE_OWL*/ gWorldMapOwlFaceTex,
-    /*RCTYPE_POT*/ gPotTrackerIcon,
+    /*RCTYPE_POT*/ ASSET_OR(gPotTrackerIcon, gItemIconEmptyBottleTex),
     /*RCTYPE_REMAINS*/ gItemIconBombersNotebookTex,
     /*RCTYPE_SHOP*/ gItemIconAdultsWalletTex,
     /*RCTYPE_SKULL_TOKEN*/ gQuestIconGoldSkulltulaTex,

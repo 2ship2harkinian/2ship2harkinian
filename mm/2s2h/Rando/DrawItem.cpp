@@ -361,8 +361,15 @@ void DrawSkeletonKey() {
     Matrix_Scale(0.8f, 0.8f, 0.8f, MTXMODE_APPLY);
 
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, gPlayState->state.gfxCtx);
-    gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 170, 255);
-    gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gSkeletonKeyDL);
+    if (IS_MISSING_ASSET(gSkeletonKeyDL)) {
+        // Recolor the vanilla small key to bone white. Prim sets the highlights, env the shadows.
+        gDPSetPrimColor(POLY_OPA_DISP++, 0, 0x80, 255, 250, 230, 255);
+        gDPSetEnvColor(POLY_OPA_DISP++, 150, 140, 110, 255);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gGiDungeonSmallKeyDL);
+    } else {
+        gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 170, 255);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gSkeletonKeyDL);
+    }
 
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
