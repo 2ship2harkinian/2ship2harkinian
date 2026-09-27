@@ -615,7 +615,7 @@ void OTRGlobals::Initialize() {
         context->GetResourceManager()->GetArchiveManager()->AddArchive(mmPath);
     }
 
-    std::unordered_set<uint32_t> validHashes = { MM_NTSC_US_10, MM_NTSC_US_GC };
+    std::unordered_set<uint32_t> validHashes = { MM_NTSC_US_10, MM_NTSC_US_GC, MM_PAL_11 };
 
 #if (_DEBUG)
     auto defaultLogLevel = spdlog::level::debug;
@@ -1316,6 +1316,7 @@ extern "C" uint32_t ResourceMgr_GetGamePlatform(int index) {
         Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];
 
     switch (version) {
+        case MM_PAL_11:
         case MM_NTSC_US_10:
             return GAME_PLATFORM_N64;
         case MM_NTSC_US_GC:
@@ -1328,6 +1329,8 @@ extern "C" uint32_t ResourceMgr_GetGameRegion(int index) {
         Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];
 
     switch (version) {
+        case MM_PAL_11:
+            return GAME_REGION_PAL;
         case MM_NTSC_US_10:
         case MM_NTSC_US_GC:
             return GAME_REGION_NTSC;
