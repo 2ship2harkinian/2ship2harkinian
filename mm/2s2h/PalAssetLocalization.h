@@ -16,7 +16,7 @@ struct Entry {
     std::string_view esp;
 };
 
-inline constexpr std::array<Entry, 249> kEntries = {{
+inline constexpr std::array<Entry, 254> kEntries = {{
     { "do_action_static/gDoActionAttackENGTex", "do_action_static/gDoActionAttackGERTex", "do_action_static/gDoActionAttackFRATex", "do_action_static/gDoActionAttackESPTex" },
     { "do_action_static/gDoActionCheckENGTex", "do_action_static/gDoActionCheckGERTex", "do_action_static/gDoActionCheckFRATex", "do_action_static/gDoActionCheckESPTex" },
     { "do_action_static/gDoActionClimbENGTex", "do_action_static/gDoActionClimbGERTex", "do_action_static/gDoActionClimbFRATex", "do_action_static/gDoActionClimbESPTex" },
@@ -263,6 +263,11 @@ inline constexpr std::array<Entry, 249> kEntries = {{
     { "schedule_static/gBombersNotebookDay2ndENGTex", "schedule_static/gBombersNotebookDay2ndGERTex", "schedule_static/gBombersNotebookDay2ndFRATex", "schedule_static/gBombersNotebookDay2ndSPATex" },
     { "schedule_static/gBombersNotebookDayFinalENGTex", "schedule_static/gBombersNotebookDayFinalGERTex", "schedule_static/gBombersNotebookDayFinalFRATex", "schedule_static/gBombersNotebookDayFinalSPATex" },
     { "schedule_static/gBombersNotebookTimeOfDayENGTex", "schedule_static/gBombersNotebookTimeOfDayGERTex", "schedule_static/gBombersNotebookTimeOfDayFRATex", "schedule_static/gBombersNotebookTimeOfDaySPATex" },
+    { "textures/icon_item_static/gContinuePlayingENGTex", "textures/icon_item_static/gContinuePlayingGERTex", "textures/icon_item_static/gContinuePlayingFRATex", "textures/icon_item_static/gContinuePlayingESPTex" },
+    { "textures/icon_item_static/gPauseNoENGTex", "textures/icon_item_static/gPauseNoGERTex", "textures/icon_item_static/gPauseNoFRATex", "textures/icon_item_static/gPauseNoESPTex" },
+    { "textures/icon_item_static/gPauseSaveConfirmationENGTex", "textures/icon_item_static/gPauseSaveConfirmationGERTex", "textures/icon_item_static/gPauseSaveConfirmationFRATex", "textures/icon_item_static/gPauseSaveConfirmationESPTex" },
+    { "textures/icon_item_static/gPauseSavePromptENGTex", "textures/icon_item_static/gPauseSavePromptGERTex", "textures/icon_item_static/gPauseSavePromptFRATex", "textures/icon_item_static/gPauseSavePromptESPTex" },
+    { "textures/icon_item_static/gPauseYesENGTex", "textures/icon_item_static/gPauseYesGERTex", "textures/icon_item_static/gPauseYesFRATex", "textures/icon_item_static/gPauseYesESPTex" },
     { "week_static/gClockDay1stTex", "week_static/gClockDay1stGERTex", "week_static/gClockDay1stFRATex", "week_static/gClockDay1stESPTex" },
     { "week_static/gClockDay2ndTex", "week_static/gClockDay2ndGERTex", "week_static/gClockDay2ndFRATex", "week_static/gClockDay2ndESPTex" },
     { "week_static/gClockDayFinalTex", "week_static/gClockDayFinalGERTex", "week_static/gClockDayFinalFRATex", "week_static/gClockDayFinalESPTex" },
