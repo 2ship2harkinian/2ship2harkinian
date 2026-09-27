@@ -1,5 +1,6 @@
 #include "SaveManager.h"
 
+#include <algorithm>
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -333,24 +334,45 @@ bool SaveManager_HandleFileDropped(char* filePath) {
 
 #define SAVE_OPTIONS_VALID_ID 0xA51D
 #define CVAR_AUDIO_SETTING "gSettings.AudioSetting"
+#define CVAR_LANGUAGE_SETTING "gSettings.Language"
 #define CVAR_ZTARGET_SETTING "gSettings.ZTargetSetting"
 
+static bool SaveManager_HasPalVersion() {
+    const auto versions =
+        Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions();
+    return std::find(versions.begin(), versions.end(), MM_PAL_11) != versions.end();
+}
+
+static u8 SaveManager_NormalizeLanguage(int32_t language) {
+    if (!SaveManager_HasPalVersion() || language < LANGUAGE_ENG || language > LANGUAGE_SPA) {
+        return LANGUAGE_ENG;
+    }
+
+    return static_cast<u8>(language);
+}
+
 void SaveManager_WriteGlobalOptions(const SaveOptions& saveOptions) {
+    const u8 language = SaveManager_NormalizeLanguage(saveOptions.language);
+
     CVarSetInteger(CVAR_AUDIO_SETTING, saveOptions.audioSetting);
+    CVarSetInteger(CVAR_LANGUAGE_SETTING, language);
     CVarSetInteger(CVAR_ZTARGET_SETTING, saveOptions.zTargetSetting);
     CVarSave();
 }
 
 bool SaveManager_ReadGlobalOptions(SaveOptions& saveOptions) {
     // If these are nullptr, we might not have migrated yet.
-    if (CVarGet(CVAR_AUDIO_SETTING) == nullptr && CVarGet(CVAR_ZTARGET_SETTING) == nullptr) {
+    if (CVarGet(CVAR_AUDIO_SETTING) == nullptr && CVarGet(CVAR_LANGUAGE_SETTING) == nullptr &&
+        CVarGet(CVAR_ZTARGET_SETTING) == nullptr) {
         return false;
     }
 
+    const u8 language = SaveManager_NormalizeLanguage(CVarGetInteger(CVAR_LANGUAGE_SETTING, LANGUAGE_ENG));
+
     saveOptions.optionId = SAVE_OPTIONS_VALID_ID;
-    saveOptions.language = LANGUAGE_ENG;
+    saveOptions.language = language;
     saveOptions.audioSetting = CVarGetInteger(CVAR_AUDIO_SETTING, SAVE_AUDIO_STEREO);
-    saveOptions.languageSetting = 0;
+    saveOptions.languageSetting = language - LANGUAGE_ENG;
     saveOptions.zTargetSetting = CVarGetInteger(CVAR_ZTARGET_SETTING, 0);
     return true;
 }
