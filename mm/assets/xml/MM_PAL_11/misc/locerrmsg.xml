@@ -1,0 +1,10 @@
+<Root>
+	<File Name="locerrmsg" Segment="1">
+		<Texture Name="gNotDesignedForSystemErrorTex" OutName="not_designed_for_system_error" Format="i4" Width="208" Height="16" Offset="0x0"/>
+        <!-- PAL EU localized textures from visually validated ROM mapping -->
+        <Texture Name="gNotDesignedForSystemErrorFRATex" OutName="not_designed_for_system_error_fra" Format="i4" Width="208" Height="16" Offset="0x680" />
+        <Texture Name="gNotDesignedForSystemErrorGERTex" OutName="not_designed_for_system_error_ger" Format="i4" Width="208" Height="16" Offset="0xD00" />
+        <Texture Name="gNotDesignedForSystemErrorESPTex" OutName="not_designed_for_system_error_esp" Format="i4" Width="208" Height="16" Offset="0x1380" />
+
+	</File>
+</Root>

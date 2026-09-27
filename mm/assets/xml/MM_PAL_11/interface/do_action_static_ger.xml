@@ -1,0 +1,46 @@
+<Root>
+    <File Name="do_action_static_ger" Segment="9" OutName="do_action_static">
+        <Texture Name="gDoActionAttackGERTex" OutName="attack_ger" Format="ia4" Width="48" Height="16" Offset="0x0" />
+        <Texture Name="gDoActionCheckGERTex" OutName="check_ger" Format="ia4" Width="48" Height="16" Offset="0x180" />
+        <Texture Name="gDoActionEnterGERTex" OutName="enter_ger" Format="ia4" Width="48" Height="16" Offset="0x300" />
+        <Texture Name="gDoActionReturnGERTex" OutName="return_ger" Format="ia4" Width="48" Height="16" Offset="0x480" />
+        <Texture Name="gDoActionOpenGERTex" OutName="open_ger" Format="ia4" Width="48" Height="16" Offset="0x600" />
+        <Texture Name="gDoActionJumpGERTex" OutName="jump_ger" Format="ia4" Width="48" Height="16" Offset="0x780" />
+        <Texture Name="gDoActionDecideGERTex" OutName="decide_ger" Format="ia4" Width="48" Height="16" Offset="0x900" />
+        <Texture Name="gDoActionDiveGERTex" OutName="dive_ger" Format="ia4" Width="48" Height="16" Offset="0xA80" />
+        <Texture Name="gDoActionFasterGERTex" OutName="faster_ger" Format="ia4" Width="48" Height="16" Offset="0xC00" />
+        <Texture Name="gDoActionThrowGERTex" OutName="throw_ger" Format="ia4" Width="48" Height="16" Offset="0xD80" />
+        <Texture Name="gDoActionNaviGERTex" OutName="navi_ger" Format="ia4" Width="48" Height="16" Offset="0xF00" />
+        <Texture Name="gDoActionClimbGERTex" OutName="climb_ger" Format="ia4" Width="48" Height="16" Offset="0x1080" />
+        <Texture Name="gDoActionDropGERTex" OutName="drop_ger" Format="ia4" Width="48" Height="16" Offset="0x1200" />
+        <Texture Name="gDoActionDownGERTex" OutName="down_ger" Format="ia4" Width="48" Height="16" Offset="0x1380" />
+        <Texture Name="gDoActionQuitGERTex" OutName="quit_ger" Format="ia4" Width="48" Height="16" Offset="0x1500" />
+        <Texture Name="gDoActionSpeakGERTex" OutName="speak_ger" Format="ia4" Width="48" Height="16" Offset="0x1680" />
+        <Texture Name="gDoActionNextGERTex" OutName="next_ger" Format="ia4" Width="48" Height="16" Offset="0x1800" />
+        <Texture Name="gDoActionGrabGERTex" OutName="grab_ger" Format="ia4" Width="48" Height="16" Offset="0x1980" />
+        <Texture Name="gDoActionStopGERTex" OutName="stop_ger" Format="ia4" Width="48" Height="16" Offset="0x1B00" />
+        <Texture Name="gDoActionPutAwayGERTex" OutName="put_away_ger" Format="ia4" Width="48" Height="16" Offset="0x1C80" />
+        <Texture Name="gDoActionReelGERTex" OutName="reel_ger" Format="ia4" Width="48" Height="16" Offset="0x1E00" />
+        <Texture Name="gDoActionInfoGERTex" OutName="info_ger" Format="ia4" Width="48" Height="16" Offset="0x1F80" />
+        <Texture Name="gDoActionWarpGERTex" OutName="warp_ger" Format="ia4" Width="48" Height="16" Offset="0x2100" />
+        <Texture Name="gDoActionSnapGERTex" OutName="snap_ger" Format="ia4" Width="48" Height="16" Offset="0x2280" />
+        <Texture Name="gDoActionExplodeGERTex" OutName="explode_ger" Format="ia4" Width="48" Height="16" Offset="0x2400" />
+        <Texture Name="gDoActionDanceGERTex" OutName="dance_ger" Format="ia4" Width="48" Height="16" Offset="0x2580" />
+        <Texture Name="gDoActionMarchGERTex" OutName="march_ger" Format="ia4" Width="48" Height="16" Offset="0x2700" />
+        <Texture Name="gDoActionNum1GERTex" OutName="num_1_ger" Format="ia4" Width="48" Height="16" Offset="0x2880" />
+        <Texture Name="gDoActionNum2GERTex" OutName="num_2_ger" Format="ia4" Width="48" Height="16" Offset="0x2A00" />
+        <Texture Name="gDoActionNum3GERTex" OutName="num_3_ger" Format="ia4" Width="48" Height="16" Offset="0x2B80" />
+        <Texture Name="gDoActionNum4GERTex" OutName="num_4_ger" Format="ia4" Width="48" Height="16" Offset="0x2D00" />
+        <Texture Name="gDoActionNum5GERTex" OutName="num_5_ger" Format="ia4" Width="48" Height="16" Offset="0x2E80" />
+        <Texture Name="gDoActionNum6GERTex" OutName="num_6_ger" Format="ia4" Width="48" Height="16" Offset="0x3000" />
+        <Texture Name="gDoActionNum7GERTex" OutName="num_7_ger" Format="ia4" Width="48" Height="16" Offset="0x3180" />
+        <Texture Name="gDoActionNum8GERTex" OutName="num_8_ger" Format="ia4" Width="48" Height="16" Offset="0x3300" />
+        <Texture Name="gDoActionCurlGERTex" OutName="curl_ger" Format="ia4" Width="48" Height="16" Offset="0x3480" />
+        <Texture Name="gDoActionSurfaceGERTex" OutName="surface_ger" Format="ia4" Width="48" Height="16" Offset="0x3600" />
+        <Texture Name="gDoActionSwimGERTex" OutName="swim_ger" Format="ia4" Width="48" Height="16" Offset="0x3780" />
+        <Texture Name="gDoActionPunchGERTex" OutName="punch_ger" Format="ia4" Width="48" Height="16" Offset="0x3900" />
+        <Texture Name="gDoActionPoundGERTex" OutName="pound_ger" Format="ia4" Width="48" Height="16" Offset="0x3A80" />
+        <Texture Name="gDoActionHookGERTex" OutName="hook_ger" Format="ia4" Width="48" Height="16" Offset="0x3C00" />
+        <Texture Name="gDoActionShootGERTex" OutName="shoot_ger" Format="ia4" Width="48" Height="16" Offset="0x3D80" />
+    </File>
+</Root>

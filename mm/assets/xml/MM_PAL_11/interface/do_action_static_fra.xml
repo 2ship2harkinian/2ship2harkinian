@@ -1,0 +1,46 @@
+<Root>
+    <File Name="do_action_static_fra" Segment="9" OutName="do_action_static">
+        <Texture Name="gDoActionAttackFRATex" OutName="attack_fra" Format="ia4" Width="48" Height="16" Offset="0x0" />
+        <Texture Name="gDoActionCheckFRATex" OutName="check_fra" Format="ia4" Width="48" Height="16" Offset="0x180" />
+        <Texture Name="gDoActionEnterFRATex" OutName="enter_fra" Format="ia4" Width="48" Height="16" Offset="0x300" />
+        <Texture Name="gDoActionReturnFRATex" OutName="return_fra" Format="ia4" Width="48" Height="16" Offset="0x480" />
+        <Texture Name="gDoActionOpenFRATex" OutName="open_fra" Format="ia4" Width="48" Height="16" Offset="0x600" />
+        <Texture Name="gDoActionJumpFRATex" OutName="jump_fra" Format="ia4" Width="48" Height="16" Offset="0x780" />
+        <Texture Name="gDoActionDecideFRATex" OutName="decide_fra" Format="ia4" Width="48" Height="16" Offset="0x900" />
+        <Texture Name="gDoActionDiveFRATex" OutName="dive_fra" Format="ia4" Width="48" Height="16" Offset="0xA80" />
+        <Texture Name="gDoActionFasterFRATex" OutName="faster_fra" Format="ia4" Width="48" Height="16" Offset="0xC00" />
+        <Texture Name="gDoActionThrowFRATex" OutName="throw_fra" Format="ia4" Width="48" Height="16" Offset="0xD80" />
+        <Texture Name="gDoActionNaviFRATex" OutName="navi_fra" Format="ia4" Width="48" Height="16" Offset="0xF00" />
+        <Texture Name="gDoActionClimbFRATex" OutName="climb_fra" Format="ia4" Width="48" Height="16" Offset="0x1080" />
+        <Texture Name="gDoActionDropFRATex" OutName="drop_fra" Format="ia4" Width="48" Height="16" Offset="0x1200" />
+        <Texture Name="gDoActionDownFRATex" OutName="down_fra" Format="ia4" Width="48" Height="16" Offset="0x1380" />
+        <Texture Name="gDoActionQuitFRATex" OutName="quit_fra" Format="ia4" Width="48" Height="16" Offset="0x1500" />
+        <Texture Name="gDoActionSpeakFRATex" OutName="speak_fra" Format="ia4" Width="48" Height="16" Offset="0x1680" />
+        <Texture Name="gDoActionNextFRATex" OutName="next_fra" Format="ia4" Width="48" Height="16" Offset="0x1800" />
+        <Texture Name="gDoActionGrabFRATex" OutName="grab_fra" Format="ia4" Width="48" Height="16" Offset="0x1980" />
+        <Texture Name="gDoActionStopFRATex" OutName="stop_fra" Format="ia4" Width="48" Height="16" Offset="0x1B00" />
+        <Texture Name="gDoActionPutAwayFRATex" OutName="put_away_fra" Format="ia4" Width="48" Height="16" Offset="0x1C80" />
+        <Texture Name="gDoActionReelFRATex" OutName="reel_fra" Format="ia4" Width="48" Height="16" Offset="0x1E00" />
+        <Texture Name="gDoActionInfoFRATex" OutName="info_fra" Format="ia4" Width="48" Height="16" Offset="0x1F80" />
+        <Texture Name="gDoActionWarpFRATex" OutName="warp_fra" Format="ia4" Width="48" Height="16" Offset="0x2100" />
+        <Texture Name="gDoActionSnapFRATex" OutName="snap_fra" Format="ia4" Width="48" Height="16" Offset="0x2280" />
+        <Texture Name="gDoActionExplodeFRATex" OutName="explode_fra" Format="ia4" Width="48" Height="16" Offset="0x2400" />
+        <Texture Name="gDoActionDanceFRATex" OutName="dance_fra" Format="ia4" Width="48" Height="16" Offset="0x2580" />
+        <Texture Name="gDoActionMarchFRATex" OutName="march_fra" Format="ia4" Width="48" Height="16" Offset="0x2700" />
+        <Texture Name="gDoActionNum1FRATex" OutName="num_1_fra" Format="ia4" Width="48" Height="16" Offset="0x2880" />
+        <Texture Name="gDoActionNum2FRATex" OutName="num_2_fra" Format="ia4" Width="48" Height="16" Offset="0x2A00" />
+        <Texture Name="gDoActionNum3FRATex" OutName="num_3_fra" Format="ia4" Width="48" Height="16" Offset="0x2B80" />
+        <Texture Name="gDoActionNum4FRATex" OutName="num_4_fra" Format="ia4" Width="48" Height="16" Offset="0x2D00" />
+        <Texture Name="gDoActionNum5FRATex" OutName="num_5_fra" Format="ia4" Width="48" Height="16" Offset="0x2E80" />
+        <Texture Name="gDoActionNum6FRATex" OutName="num_6_fra" Format="ia4" Width="48" Height="16" Offset="0x3000" />
+        <Texture Name="gDoActionNum7FRATex" OutName="num_7_fra" Format="ia4" Width="48" Height="16" Offset="0x3180" />
+        <Texture Name="gDoActionNum8FRATex" OutName="num_8_fra" Format="ia4" Width="48" Height="16" Offset="0x3300" />
+        <Texture Name="gDoActionCurlFRATex" OutName="curl_fra" Format="ia4" Width="48" Height="16" Offset="0x3480" />
+        <Texture Name="gDoActionSurfaceFRATex" OutName="surface_fra" Format="ia4" Width="48" Height="16" Offset="0x3600" />
+        <Texture Name="gDoActionSwimFRATex" OutName="swim_fra" Format="ia4" Width="48" Height="16" Offset="0x3780" />
+        <Texture Name="gDoActionPunchFRATex" OutName="punch_fra" Format="ia4" Width="48" Height="16" Offset="0x3900" />
+        <Texture Name="gDoActionPoundFRATex" OutName="pound_fra" Format="ia4" Width="48" Height="16" Offset="0x3A80" />
+        <Texture Name="gDoActionHookFRATex" OutName="hook_fra" Format="ia4" Width="48" Height="16" Offset="0x3C00" />
+        <Texture Name="gDoActionShootFRATex" OutName="shoot_fra" Format="ia4" Width="48" Height="16" Offset="0x3D80" />
+    </File>
+</Root>

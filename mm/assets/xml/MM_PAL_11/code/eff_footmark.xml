@@ -1,0 +1,9 @@
+<Root>
+    <File Name="code" BaseAddress="0x800A5FE0" RangeStart="0x116d60" RangeEnd="0x116DF0" OutName="eff_footmark">
+        <Array Name="gEffFootprintVtx" Count="3" Offset="0x116d60">
+            <Vtx/>
+        </Array>
+        <DList Name="gEffFootprintMaterialDL" Offset="0x116d90"/>
+        <DList Name="gEffFootprintModelDL" Offset="0x116DD8"/>
+    </File>
+</Root>

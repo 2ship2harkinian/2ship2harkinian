@@ -1,0 +1,20 @@
+<Root>
+    <File Name="map_name_static_esp" OutName="map_name_static">
+        <Texture Name="gMapPointGreatBayESPTex" OutName="map_point_great_bay_esp" Format="ia4" Width="128" Height="16" Offset="0x0" />
+        <Texture Name="gMapPointZoraHallESPTex" OutName="map_point_zora_hall_esp" Format="ia4" Width="128" Height="16" Offset="0x400" />
+        <Texture Name="gMapPointRomaniRanchESPTex" OutName="map_point_romani_ranch_esp" Format="ia4" Width="128" Height="16" Offset="0x800" />
+        <Texture Name="gMapPointDekuPalaceESPTex" OutName="map_point_deku_palace_esp" Format="ia4" Width="128" Height="16" Offset="0xC00" />
+        <Texture Name="gMapPointWoodfallESPTex" OutName="map_point_woodfall_esp" Format="ia4" Width="128" Height="16" Offset="0x1000" />
+        <Texture Name="gMapPointClockTownESPTex" OutName="map_point_clock_town_esp" Format="ia4" Width="128" Height="16" Offset="0x1400" />
+        <Texture Name="gMapPointSnowheadESPTex" OutName="map_point_snowhead_esp" Format="ia4" Width="128" Height="16" Offset="0x1800" />
+        <Texture Name="gMapPointIkanaGraveyardESPTex" OutName="map_point_ikana_graveyard_esp" Format="ia4" Width="128" Height="16" Offset="0x1C00" />
+        <Texture Name="gMapPointIkanaCanyonESPTex" OutName="map_point_ikana_canyon_esp" Format="ia4" Width="128" Height="16" Offset="0x2000" />
+        <Texture Name="gMapPointGoronVillageESPTex" OutName="map_point_goron_village_esp" Format="ia4" Width="128" Height="16" Offset="0x2400" />
+        <Texture Name="gMapPointStoneTowerESPTex" OutName="map_point_stone_tower_esp" Format="ia4" Width="128" Height="16" Offset="0x2800" />
+        <Texture Name="gMapPointGreatBayCoastESPTex" OutName="map_point_great_bay_coast_esp" Format="ia4" Width="128" Height="16" Offset="0x2C00" />
+        <Texture Name="gMapPointSouthernSwampESPTex" OutName="map_point_southern_swamp_esp" Format="ia4" Width="128" Height="16" Offset="0x3000" />
+        <Texture Name="gMapPointMountainVillageESPTex" OutName="map_point_mountain_village_esp" Format="ia4" Width="128" Height="16" Offset="0x3400" />
+        <Texture Name="gMapPointMilkRoadESPTex" OutName="map_point_milk_road_esp" Format="ia4" Width="128" Height="16" Offset="0x3800" />
+        <Texture Name="gMapPointZoraCapeESPTex" OutName="map_point_zora_cape_esp" Format="ia4" Width="128" Height="16" Offset="0x3C00" />
+    </File>
+</Root>

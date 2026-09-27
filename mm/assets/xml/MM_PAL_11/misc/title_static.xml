@@ -1,0 +1,261 @@
+<Root>
+    <File Name="title_static" Segment="1">
+        <Texture Name="gFileSelNoFileToCopyENGTex" OutName="no_file_to_copy_eng" Format="ia4" Width="128" Height="16" Offset="0xe050"/>
+        <Texture Name="gFileSelNoFileToEraseENGTex" OutName="no_file_to_erase_eng" Format="ia4" Width="128" Height="16" Offset="0xf050"/>
+        <Texture Name="gFileSelNoEmptyFileENGTex" OutName="no_empty_file_eng" Format="ia4" Width="128" Height="16" Offset="0x10050"/>
+        <Texture Name="gFileSelFileEmptyENGTex" OutName="file_empty_eng" Format="ia4" Width="128" Height="16" Offset="0x11050"/>
+        <Texture Name="gFileSelFileInUseENGTex" OutName="file_in_use_eng" Format="ia4" Width="128" Height="16" Offset="0x12050"/>
+
+        <Texture Name="gFileSelConnectorTex" OutName="connector" Format="ia8" Width="24" Height="16" Offset="0xcfd0"/>
+
+        <Texture Name="gFileSelCopyWhichFileENGTex" OutName="copy_which_file_eng" Format="ia4" Width="128" Height="16" Offset="0x13050"/>
+        <Texture Name="gFileSelCopyToWhichFileENGTex" OutName="copy_to_which_file_eng" Format="ia4" Width="128" Height="16" Offset="0x15050"/>
+        <Texture Name="gFileSelAreYouSureCopyENGTex" OutName="are_you_sure_copy_eng" Format="ia4" Width="128" Height="16" Offset="0x14050"/>
+        <Texture Name="gFileSelFileCopiedENGTex" OutName="file_copied_eng" Format="ia4" Width="128" Height="16" Offset="0x16050"/>
+
+        <Texture Name="gFileSelPleaseSelectAFileENGTex" OutName="please_select_a_file_eng" Format="ia4" Width="128" Height="16" Offset="0x18050"/>
+        <Texture Name="gFileSelOpenThisFileENGTex" OutName="open_this_file_eng" Format="ia4" Width="128" Height="16" Offset="0x17050"/>
+
+        <Texture Name="gFileSelEraseWhichFileENGTex" OutName="erase_which_file_eng" Format="ia4" Width="128" Height="16" Offset="0x19050"/>
+        <Texture Name="gFileSelAreYouSureEraseENGTex" OutName="are_you_sure_erase_eng" Format="ia4" Width="128" Height="16" Offset="0x1a050"/>
+        <Texture Name="gFileSelFileErasedENGTex" OutName="file_erased_eng" Format="ia4" Width="128" Height="16" Offset="0x1b050"/>
+
+        <Texture Name="gFileSelOptionsENGTex" OutName="options_eng" Format="ia4" Width="128" Height="16" Offset="0x1c050"/>
+        <Texture Name="gFileSelNameENGTex" OutName="name_eng" Format="ia8" Width="56" Height="16" Offset="0x2f00"/>
+        <Texture Name="gFileSelSurroundENGTex" OutName="surround_eng" Format="ia4" Width="48" Height="16" Offset="0x1C820"/>
+        <Texture Name="gFileSelHeadsetENGTex" OutName="headset_eng" Format="ia4" Width="48" Height="16" Offset="0x1d2a0"/>
+        <Texture Name="gFileSelMonoENGTex" OutName="mono_eng" Format="ia4" Width="48" Height="16" Offset="0x1e6a0"/>
+        <Texture Name="gFileSelSoundENGTex" OutName="sound_eng" Format="ia4" Width="64" Height="16" Offset="0x1fd8f"/>
+        <Texture Name="gFileSelStereoENGTex" OutName="stereo_eng" Format="ia4" Width="48" Height="16" Offset="0x204A0"/>
+        <Texture Name="gFileSelTargetingENGTex" OutName="targeting_eng" Format="ia4" Width="64" Height="16" Offset="0x21410"/>
+        <Texture Name="gFileSelSwitchENGTex" OutName="switch_eng" Format="ia4" Width="48" Height="16" Offset="0x20aa0"/>
+        <Texture Name="gFileSelHoldENGTex" OutName="hold_eng" Format="ia4" Width="48" Height="16" Offset="0x1d8a0"/>
+        <Texture Name="gFileSelCheckBrightnessENGTex" OutName="check_brightness_eng" Format="ia4" Width="128" Height="16" Offset="0x1f18f"/>
+        <Texture Name="gFileSelDolbySurroundLogoENGTex" OutName="dolby_surround_logo_eng" Format="i8" Width="48" Height="17" Offset="0xCCA0"/>
+
+        <Texture Name="gFileSelDecideCancelENGTex" OutName="decide_cancel_eng" Format="ia8" Width="144" Height="16" Offset="0x6E00"/>
+        <Texture Name="gFileSelDecideSaveENGTex" OutName="decide_save_eng" Format="ia8" Width="152" Height="16" Offset="0x4900"/>
+        <Texture Name="gFileSelPleaseWaitENGTex" OutName="please_wait_eng" Format="ia8" Width="144" Height="16" Offset="0x9200"/>
+
+        <Texture Name="gFileSelWindow00Tex" OutName="window_00" Format="ia16" Width="64" Height="32" Offset="0x334D0"/>
+        <Texture Name="gFileSelWindow01Tex" OutName="window_01" Format="ia16" Width="64" Height="32" Offset="0x344D0"/>
+        <Texture Name="gFileSelWindow02Tex" OutName="window_02" Format="ia16" Width="64" Height="32" Offset="0x354D0"/>
+        <Texture Name="gFileSelWindow03Tex" OutName="window_03" Format="ia16" Width="48" Height="32" Offset="0x364D0"/>
+        <Texture Name="gFileSelWindow10Tex" OutName="window_10" Format="ia16" Width="64" Height="32" Offset="0x370D0"/>
+        <Texture Name="gFileSelWindow11Tex" OutName="window_11" Format="ia16" Width="64" Height="32" Offset="0x380D0"/>
+        <Texture Name="gFileSelWindow12Tex" OutName="window_12" Format="ia16" Width="64" Height="32" Offset="0x390D0"/>
+        <Texture Name="gFileSelWindow13Tex" OutName="window_13" Format="ia16" Width="48" Height="32" Offset="0x3A0D0"/>
+        <Texture Name="gFileSelWindow20Tex" OutName="window_20" Format="ia16" Width="64" Height="32" Offset="0x3ACD0"/>
+        <Texture Name="gFileSelWindow21Tex" OutName="window_21" Format="ia16" Width="64" Height="32" Offset="0x3BCD0"/>
+        <Texture Name="gFileSelWindow22Tex" OutName="window_22" Format="ia16" Width="64" Height="32" Offset="0x3CCD0"/>
+        <Texture Name="gFileSelWindow23Tex" OutName="window_23" Format="ia16" Width="48" Height="32" Offset="0x3DCD0"/>
+        <Texture Name="gFileSelWindow30Tex" OutName="window_30" Format="ia16" Width="64" Height="32" Offset="0x3E8D0"/>
+        <Texture Name="gFileSelWindow31Tex" OutName="window_31" Format="ia16" Width="64" Height="32" Offset="0x3F8D0"/>
+        <Texture Name="gFileSelWindow32Tex" OutName="window_32" Format="ia16" Width="64" Height="32" Offset="0x408D0"/>
+        <Texture Name="gFileSelWindow33Tex" OutName="window_33" Format="ia16" Width="48" Height="32" Offset="0x418D0"/>
+        <Texture Name="gFileSelWindow40Tex" OutName="window_40" Format="ia16" Width="64" Height="32" Offset="0x424D0"/>
+        <Texture Name="gFileSelWindow41Tex" OutName="window_41" Format="ia16" Width="64" Height="32" Offset="0x434D0"/>
+        <Texture Name="gFileSelWindow42Tex" OutName="window_42" Format="ia16" Width="64" Height="32" Offset="0x444D0"/>
+        <Texture Name="gFileSelWindow43Tex" OutName="window_43" Format="ia16" Width="48" Height="32" Offset="0x454D0"/>
+
+        <Texture Name="gFileSelCopyButtonENGTex" OutName="copy_button_eng" Format="ia16" Width="64" Height="16" Offset="0x22ED0"/>
+
+        <Texture Name="gFileSelFile1ButtonENGTex" OutName="file_1_button_eng" Format="ia16" Width="64" Height="16" Offset="0x24ED0"/>
+        <Texture Name="gFileSelFile2ButtonENGTex" OutName="file_2_button_eng" Format="ia16" Width="64" Height="16" Offset="0x26ED0"/>
+        <Texture Name="gFileSelFile3ButtonENGTex" OutName="file_3_button_eng" Format="ia16" Width="64" Height="16" Offset="0x28ED0"/>
+
+        <Texture Name="gFileSelYesButtonENGTex" OutName="yes_button_eng" Format="ia16" Width="64" Height="16" Offset="0x2AED0"/>
+        <Texture Name="gFileSelEraseButtonENGTex" OutName="erase_button_eng" Format="ia16" Width="64" Height="16" Offset="0x2CED0"/>
+        <Texture Name="gFileSelENDButtonENGTex" OutName="end_button_eng" Format="ia16" Width="44" Height="16" Offset="0x460D0"/>
+        <Texture Name="gFileSelBackspaceButtonTex" OutName="backspace_button" Format="ia16" Width="28" Height="16" Offset="0x46650"/>
+
+        <Texture Name="gFileSelFileNameBoxTex" OutName="file_name_box" Format="ia16" Width="108" Height="16" Offset="0x469D0"/>
+
+        <Texture Name="gFileSelFileInfoBox0Tex" OutName="file_info_box_0" Format="ia16" Width="36" Height="56" Offset="0x47750"/>
+        <Texture Name="gFileSelFileInfoBox1Tex" OutName="file_info_box_1" Format="ia16" Width="36" Height="56" Offset="0x48710"/>
+        <Texture Name="gFileSelFileInfoBox2Tex" OutName="file_info_box_2" Format="ia16" Width="36" Height="56" Offset="0x496D0"/>
+        <Texture Name="gFileSelFileInfoBox3Tex" OutName="file_info_box_3" Format="ia16" Width="36" Height="56" Offset="0x4A690"/>
+        <Texture Name="gFileSelFileInfoBox4Tex" OutName="file_info_box_4" Format="ia16" Width="24" Height="56" Offset="0x4B650"/>
+
+        <Texture Name="gFileSelOptionsButtonENGTex" OutName="options_button_eng" Format="ia16" Width="64" Height="16" Offset="0x304D0"/>
+
+        <Texture Name="gFileSelQuitButtonENGTex" OutName="quit_button_eng" Format="ia16" Width="64" Height="16" Offset="0x324D0"/>
+
+        <!-- Extension for owl save information -->
+        <Texture Name="gFileSelFileExtraInfoBox0Tex" OutName="file_extra_info_box_0" Format="ia16" Width="28" Height="56" Offset="0x4C0D0"/>
+        <Texture Name="gFileSelFileExtraInfoBox1Tex" OutName="file_extra_info_box_1" Format="ia16" Width="28" Height="56" Offset="0x4CD10"/>
+
+        <!-- Used for closed owl save file -->
+        <Texture Name="gFileSelBlankButtonTex" OutName="file_blank_button" Format="ia16" Width="52" Height="16" Offset="0x4D950"/>
+
+        <Texture Name="gFileSelOptionsDividerTex" OutName="options_divider" Format="ia4" Width="256" Height="2" Offset="0x21AD0"/>
+        <Texture Name="gFileSelBrightnessCheckTex" OutName="brightness_check" Format="ia4" Width="96" Height="16" Offset="0x21BD0"/>
+
+        <Texture Name="gFileSelBigButtonHighlightTex" OutName="big_button_highlight" Format="i8" Width="72" Height="24" Offset="0x50850"/>
+        <Texture Name="gFileSelCharHighlightTex" OutName="char_highlight" Format="i8" Width="24" Height="24" Offset="0x50F10"/>
+        <Texture Name="gFileSelMediumButtonHighlightTex" OutName="medium_button_highlight" Format="i8" Width="56" Height="24" Offset="0x51150"/>
+        <Texture Name="gFileSelSmallButtonHighlightTex" OutName="small_button_highlight" Format="i8" Width="40" Height="24" Offset="0x51690"/>
+
+        <!-- Boss remains textures -->
+        <Texture Name="gFileSelOdolwasRemainsTex" OutName="odolwas_remains" Format="rgba32" Width="32" Height="32" Offset="0x51A50"/>
+        <Texture Name="gFileSelGohtsRemainsTex" OutName="gohts_remains" Format="rgba32" Width="32" Height="32" Offset="0x52A50"/>
+        <Texture Name="gFileSelGyorgsRemainsTex" OutName="gyorgs_remains" Format="rgba32" Width="32" Height="32" Offset="0x53A50"/>
+        <Texture Name="gFileSelTwinmoldsRemainsTex" OutName="twinmolds_remains" Format="rgba32" Width="32" Height="32" Offset="0x54A50"/>
+
+        <Texture Name="gFileSelOwlSaveIconTex" OutName="owl_save_icon" Format="rgba32" Width="24" Height="12" Offset="0x55A50"/>
+
+        <Texture Name="gFileSelFirstDayENGTex" OutName="first_day_eng" Format="i4" Width="48" Height="24" Offset="0x4e8d0"/>
+        <Texture Name="gFileSelSecondDayENGTex" OutName="second_day_eng" Format="i4" Width="48" Height="24" Offset="0x4f1d0"/>
+        <Texture Name="gFileSelFinalDayENGTex" OutName="final_day_eng" Format="i4" Width="48" Height="24" Offset="0x4DFD0"/>
+
+        <Texture Name="gFileSelSaveXJPNTex" OutName="save_x_jpn" Format="i4" Width="32" Height="16" Offset="0x50750"/>
+
+        <Texture Name="gFileSelMASKSENGTex" OutName="masks_eng" Format="i4" Width="64" Height="16" Offset="0x4FAD0"/>
+
+        <Texture Name="gFileSel0QuarterHeartENGTex" OutName="0_quarter_heart" Format="ia8" Width="24" Height="16" Offset="0x0D150"/>
+        <Texture Name="gFileSel1QuarterHeartENGTex" OutName="1_quarter_heart" Format="ia8" Width="24" Height="16" Offset="0x0D2D0"/>
+        <Texture Name="gFileSel2QuarterHeartENGTex" OutName="2_quarter_heart" Format="ia8" Width="24" Height="16" Offset="0x0D450"/>
+        <Texture Name="gFileSel3QuarterHeartENGTex" OutName="3_quarter_heart" Format="ia8" Width="24" Height="16" Offset="0x0D5D0"/>
+
+        <Texture Name="gFileSelRupeeTex" OutName="rupee" Format="ia8" Width="16" Height="16" Offset="0x0D750"/>
+
+        <!-- PAL language choices -->
+        <Texture Name="gFileSelLanguageSmallFRATex" OutName="language_small_fra" Format="ia4" Width="48" Height="16" Offset="0x1C9A0"/>
+        <Texture Name="gFileSelLanguageSmallGERTex" OutName="language_small_ger" Format="ia4" Width="48" Height="16" Offset="0x1CB20"/>
+        <Texture Name="gFileSelLanguageSmallENGTex" OutName="language_small_eng" Format="ia4" Width="48" Height="16" Offset="0x1CCA0"/>
+        <Texture Name="gFileSelLanguageSmallESPTex" OutName="language_small_esp" Format="ia4" Width="48" Height="16" Offset="0x1CE20"/>
+
+        <!-- Localized LANGUAGE header -->
+        <Texture Name="gFileSelLanguageFRATex" OutName="language_fra" Format="ia4" Width="64" Height="16" Offset="0x1DBB0"/>
+        <Texture Name="gFileSelLanguageGERTex" OutName="language_ger" Format="ia4" Width="64" Height="16" Offset="0x1DDB0"/>
+        <Texture Name="gFileSelLanguageENGTex" OutName="language_eng" Format="ia4" Width="64" Height="16" Offset="0x1DFB0"/>
+        <Texture Name="gFileSelLanguageESPTex" OutName="language_esp" Format="ia4" Width="64" Height="16" Offset="0x1E1B0"/>
+
+        <!-- PAL localized options menu -->
+        <Texture Name="gFileSelOptionsGERTex" OutName="options_ger" Format="ia4" Width="128" Height="16" Offset="0x1BC50" />
+        <Texture Name="gFileSelOptionsFRATex" OutName="options_fra" Format="ia4" Width="128" Height="16" Offset="0x1B850" />
+        <Texture Name="gFileSelOptionsESPTex" OutName="options_esp" Format="ia4" Width="128" Height="16" Offset="0x1C450" />
+        <Texture Name="gFileSelSoundGERTex" OutName="sound_ger" Format="ia4" Width="64" Height="16" Offset="0x1FB8F" />
+        <Texture Name="gFileSelSoundFRATex" OutName="sound_fra" Format="ia4" Width="64" Height="16" Offset="0x1F98F" />
+        <Texture Name="gFileSelSoundESPTex" OutName="sound_esp" Format="ia4" Width="64" Height="16" Offset="0x1FF8F" />
+        <Texture Name="gFileSelTargetingGERTex" OutName="targeting_ger" Format="ia4" Width="144" Height="16" Offset="0x20F40" />
+        <Texture Name="gFileSelTargetingFRATex" OutName="targeting_fra" Format="ia4" Width="64" Height="16" Offset="0x20D8F" />
+        <Texture Name="gFileSelTargetingESPTex" OutName="targeting_esp" Format="ia4" Width="144" Height="16" Offset="0x215C0" />
+        <Texture Name="gFileSelCheckBrightnessGERTex" OutName="check_brightness_ger" Format="ia4" Width="128" Height="16" Offset="0x1ED8F" />
+        <Texture Name="gFileSelCheckBrightnessFRATex" OutName="check_brightness_fra" Format="ia4" Width="128" Height="16" Offset="0x1E98F" />
+        <Texture Name="gFileSelCheckBrightnessESPTex" OutName="check_brightness_esp" Format="ia4" Width="128" Height="16" Offset="0x1F58F" />
+        <Texture Name="gFileSelStereoGERTex" OutName="stereo_ger" Format="ia4" Width="48" Height="16" Offset="0x20320" />
+        <Texture Name="gFileSelStereoFRATex" OutName="stereo_fra" Format="ia4" Width="48" Height="16" Offset="0x201A0" />
+        <Texture Name="gFileSelStereoESPTex" OutName="stereo_esp" Format="ia4" Width="48" Height="16" Offset="0x20620" />
+        <Texture Name="gFileSelMonoGERTex" OutName="mono_ger" Format="ia4" Width="48" Height="16" Offset="0x1E520" />
+        <Texture Name="gFileSelMonoFRATex" OutName="mono_fra" Format="ia4" Width="48" Height="16" Offset="0x1E3A0" />
+        <Texture Name="gFileSelMonoESPTex" OutName="mono_esp" Format="ia4" Width="48" Height="16" Offset="0x1E820" />
+        <Texture Name="gFileSelHeadsetGERTex" OutName="headset_ger" Format="ia4" Width="48" Height="16" Offset="0x1D120" />
+        <Texture Name="gFileSelHeadsetFRATex" OutName="headset_fra" Format="ia4" Width="48" Height="16" Offset="0x1CFA0" />
+        <Texture Name="gFileSelHeadsetESPTex" OutName="headset_esp" Format="ia4" Width="48" Height="16" Offset="0x1D420" />
+        <Texture Name="gFileSelSwitchGERTex" OutName="switch_ger" Format="ia4" Width="48" Height="16" Offset="0x20923" />
+        <Texture Name="gFileSelSwitchFRATex" OutName="switch_fra" Format="ia4" Width="48" Height="16" Offset="0x207A0" />
+        <Texture Name="gFileSelSwitchESPTex" OutName="switch_esp" Format="ia4" Width="48" Height="16" Offset="0x20C20" />
+        <Texture Name="gFileSelHoldGERTex" OutName="hold_ger" Format="ia4" Width="48" Height="16" Offset="0x1D720" />
+        <Texture Name="gFileSelHoldFRATex" OutName="hold_fra" Format="ia4" Width="48" Height="16" Offset="0x1D5A0" />
+        <Texture Name="gFileSelHoldESPTex" OutName="hold_esp" Format="ia4" Width="48" Height="16" Offset="0x1DA20" />
+        <!-- PAL EU localized textures from visually validated ROM mapping -->
+        <Texture Name="gFileSelNameFRATex" OutName="name_fra" Format="ia8" Width="56" Height="16" Offset="0x2800" />
+        <Texture Name="gFileSelNameGERTex" OutName="name_ger" Format="ia8" Width="56" Height="16" Offset="0x2B80" />
+        <Texture Name="gFileSelNameESPTex" OutName="name_esp" Format="ia8" Width="56" Height="16" Offset="0x3280" />
+        <Texture Name="gFileSelDecideSaveFRATex" OutName="decide_save_fra" Format="ia8" Width="152" Height="16" Offset="0x3600" />
+        <Texture Name="gFileSelDecideSaveGERTex" OutName="decide_save_ger" Format="ia8" Width="152" Height="16" Offset="0x3F80" />
+        <Texture Name="gFileSelDecideSaveESPTex" OutName="decide_save_esp" Format="ia8" Width="152" Height="16" Offset="0x5280" />
+        <Texture Name="gFileSelDecideCancelFRATex" OutName="decide_cancel_fra" Format="ia8" Width="144" Height="16" Offset="0x5C00" />
+        <Texture Name="gFileSelDecideCancelGERTex" OutName="decide_cancel_ger" Format="ia8" Width="144" Height="16" Offset="0x6500" />
+        <Texture Name="gFileSelDecideCancelESPTex" OutName="decide_cancel_esp" Format="ia8" Width="144" Height="16" Offset="0x7700" />
+        <Texture Name="gFileSelPleaseWaitFRATex" OutName="please_wait_fra" Format="ia8" Width="144" Height="16" Offset="0x8000" />
+        <Texture Name="gFileSelPleaseWaitGERTex" OutName="please_wait_ger" Format="ia8" Width="144" Height="16" Offset="0x8900" />
+        <Texture Name="gFileSelPleaseWaitESPTex" OutName="please_wait_esp" Format="ia8" Width="144" Height="16" Offset="0x9B00" />
+        <Texture Name="gFileSelNoFileToCopyFRATex" OutName="no_file_to_copy_fra" Format="ia4" Width="128" Height="16" Offset="0xD850" />
+        <Texture Name="gFileSelNoFileToCopyGERTex" OutName="no_file_to_copy_ger" Format="ia4" Width="128" Height="16" Offset="0xDC50" />
+        <Texture Name="gFileSelNoFileToCopyESPTex" OutName="no_file_to_copy_esp" Format="ia4" Width="128" Height="16" Offset="0xE450" />
+        <Texture Name="gFileSelNoFileToEraseFRATex" OutName="no_file_to_erase_fra" Format="ia4" Width="128" Height="16" Offset="0xE850" />
+        <Texture Name="gFileSelNoFileToEraseGERTex" OutName="no_file_to_erase_ger" Format="ia4" Width="128" Height="16" Offset="0xEC50" />
+        <Texture Name="gFileSelNoFileToEraseESPTex" OutName="no_file_to_erase_esp" Format="ia4" Width="128" Height="16" Offset="0xF450" />
+        <Texture Name="gFileSelNoEmptyFileFRATex" OutName="no_empty_file_fra" Format="ia4" Width="128" Height="16" Offset="0xF850" />
+        <Texture Name="gFileSelNoEmptyFileGERTex" OutName="no_empty_file_ger" Format="ia4" Width="128" Height="16" Offset="0xFC50" />
+        <Texture Name="gFileSelNoEmptyFileESPTex" OutName="no_empty_file_esp" Format="ia4" Width="128" Height="16" Offset="0x10450" />
+        <Texture Name="gFileSelFileEmptyFRATex" OutName="file_empty_fra" Format="ia4" Width="128" Height="16" Offset="0x10850" />
+        <Texture Name="gFileSelFileEmptyGERTex" OutName="file_empty_ger" Format="ia4" Width="128" Height="16" Offset="0x10C50" />
+        <Texture Name="gFileSelFileEmptyESPTex" OutName="file_empty_esp" Format="ia4" Width="128" Height="16" Offset="0x11450" />
+        <Texture Name="gFileSelFileInUseFRATex" OutName="file_in_use_fra" Format="ia4" Width="128" Height="16" Offset="0x11850" />
+        <Texture Name="gFileSelFileInUseGERTex" OutName="file_in_use_ger" Format="ia4" Width="128" Height="16" Offset="0x11C50" />
+        <Texture Name="gFileSelFileInUseESPTex" OutName="file_in_use_esp" Format="ia4" Width="128" Height="16" Offset="0x12450" />
+        <Texture Name="gFileSelCopyWhichFileFRATex" OutName="copy_which_file_fra" Format="ia4" Width="128" Height="16" Offset="0x12850" />
+        <Texture Name="gFileSelCopyWhichFileGERTex" OutName="copy_which_file_ger" Format="ia4" Width="128" Height="16" Offset="0x12C50" />
+        <Texture Name="gFileSelCopyWhichFileESPTex" OutName="copy_which_file_esp" Format="ia4" Width="128" Height="16" Offset="0x13450" />
+        <Texture Name="gFileSelAreYouSureCopyFRATex" OutName="are_you_sure_copy_fra" Format="ia4" Width="128" Height="16" Offset="0x13850" />
+        <Texture Name="gFileSelAreYouSureCopyGERTex" OutName="are_you_sure_copy_ger" Format="ia4" Width="128" Height="16" Offset="0x13C50" />
+        <Texture Name="gFileSelAreYouSureCopyESPTex" OutName="are_you_sure_copy_esp" Format="ia4" Width="128" Height="16" Offset="0x14450" />
+        <Texture Name="gFileSelCopyToWhichFileFRATex" OutName="copy_to_which_file_fra" Format="ia4" Width="128" Height="16" Offset="0x14850" />
+        <Texture Name="gFileSelCopyToWhichFileGERTex" OutName="copy_to_which_file_ger" Format="ia4" Width="128" Height="16" Offset="0x14C50" />
+        <Texture Name="gFileSelCopyToWhichFileESPTex" OutName="copy_to_which_file_esp" Format="ia4" Width="128" Height="16" Offset="0x15450" />
+        <Texture Name="gFileSelFileCopiedFRATex" OutName="file_copied_fra" Format="ia4" Width="128" Height="16" Offset="0x15850" />
+        <Texture Name="gFileSelFileCopiedGERTex" OutName="file_copied_ger" Format="ia4" Width="128" Height="16" Offset="0x15C50" />
+        <Texture Name="gFileSelFileCopiedESPTex" OutName="file_copied_esp" Format="ia4" Width="128" Height="16" Offset="0x16450" />
+        <Texture Name="gFileSelOpenThisFileFRATex" OutName="open_this_file_fra" Format="ia4" Width="128" Height="16" Offset="0x16850" />
+        <Texture Name="gFileSelOpenThisFileGERTex" OutName="open_this_file_ger" Format="ia4" Width="128" Height="16" Offset="0x16C50" />
+        <Texture Name="gFileSelOpenThisFileESPTex" OutName="open_this_file_esp" Format="ia4" Width="128" Height="16" Offset="0x17450" />
+        <Texture Name="gFileSelPleaseSelectAFileFRATex" OutName="please_select_a_file_fra" Format="ia4" Width="128" Height="16" Offset="0x17850" />
+        <Texture Name="gFileSelPleaseSelectAFileGERTex" OutName="please_select_a_file_ger" Format="ia4" Width="128" Height="16" Offset="0x17C50" />
+        <Texture Name="gFileSelPleaseSelectAFileESPTex" OutName="please_select_a_file_esp" Format="ia4" Width="128" Height="16" Offset="0x18450" />
+        <Texture Name="gFileSelEraseWhichFileFRATex" OutName="erase_which_file_fra" Format="ia4" Width="128" Height="16" Offset="0x18850" />
+        <Texture Name="gFileSelEraseWhichFileGERTex" OutName="erase_which_file_ger" Format="ia4" Width="128" Height="16" Offset="0x18C50" />
+        <Texture Name="gFileSelEraseWhichFileESPTex" OutName="erase_which_file_esp" Format="ia4" Width="128" Height="16" Offset="0x19450" />
+        <Texture Name="gFileSelAreYouSureEraseFRATex" OutName="are_you_sure_erase_fra" Format="ia4" Width="128" Height="16" Offset="0x19850" />
+        <Texture Name="gFileSelAreYouSureEraseGERTex" OutName="are_you_sure_erase_ger" Format="ia4" Width="128" Height="16" Offset="0x19C50" />
+        <Texture Name="gFileSelAreYouSureEraseESPTex" OutName="are_you_sure_erase_esp" Format="ia4" Width="128" Height="16" Offset="0x1A450" />
+        <Texture Name="gFileSelFileErasedFRATex" OutName="file_erased_fra" Format="ia4" Width="128" Height="16" Offset="0x1A850" />
+        <Texture Name="gFileSelFileErasedGERTex" OutName="file_erased_ger" Format="ia4" Width="128" Height="16" Offset="0x1AC50" />
+        <Texture Name="gFileSelFileErasedESPTex" OutName="file_erased_esp" Format="ia4" Width="128" Height="16" Offset="0x1B450" />
+        <Texture Name="gFileSelCopyButtonFRATex" OutName="copy_button_fra" Format="ia16" Width="64" Height="16" Offset="0x21ED0" />
+        <Texture Name="gFileSelCopyButtonGERTex" OutName="copy_button_ger" Format="ia16" Width="64" Height="16" Offset="0x226D0" />
+        <Texture Name="gFileSelCopyButtonESPTex" OutName="copy_button_esp" Format="ia16" Width="64" Height="16" Offset="0x236D0" />
+        <Texture Name="gFileSelFile1ButtonFRATex" OutName="file_1_button_fra" Format="ia16" Width="64" Height="16" Offset="0x23ED0" />
+        <Texture Name="gFileSelFile1ButtonGERTex" OutName="file_1_button_ger" Format="ia16" Width="64" Height="16" Offset="0x246D0" />
+        <Texture Name="gFileSelFile1ButtonESPTex" OutName="file_1_button_esp" Format="ia16" Width="64" Height="16" Offset="0x256D0" />
+        <Texture Name="gFileSelFile2ButtonFRATex" OutName="file_2_button_fra" Format="ia16" Width="64" Height="16" Offset="0x25ED0" />
+        <Texture Name="gFileSelFile2ButtonGERTex" OutName="file_2_button_ger" Format="ia16" Width="64" Height="16" Offset="0x266D0" />
+        <Texture Name="gFileSelFile2ButtonESPTex" OutName="file_2_button_esp" Format="ia16" Width="64" Height="16" Offset="0x276D0" />
+        <Texture Name="gFileSelFile3ButtonFRATex" OutName="file_3_button_fra" Format="ia16" Width="64" Height="16" Offset="0x27ED0" />
+        <Texture Name="gFileSelFile3ButtonGERTex" OutName="file_3_button_ger" Format="ia16" Width="64" Height="16" Offset="0x286D0" />
+        <Texture Name="gFileSelFile3ButtonESPTex" OutName="file_3_button_esp" Format="ia16" Width="64" Height="16" Offset="0x296D0" />
+        <Texture Name="gFileSelYesButtonFRATex" OutName="yes_button_fra" Format="ia16" Width="64" Height="16" Offset="0x29ED0" />
+        <Texture Name="gFileSelYesButtonGERTex" OutName="yes_button_ger" Format="ia16" Width="64" Height="16" Offset="0x2A6D0" />
+        <Texture Name="gFileSelYesButtonESPTex" OutName="yes_button_esp" Format="ia16" Width="64" Height="16" Offset="0x2B6D0" />
+        <Texture Name="gFileSelEraseButtonFRATex" OutName="erase_button_fra" Format="ia16" Width="64" Height="16" Offset="0x2BED0" />
+        <Texture Name="gFileSelEraseButtonGERTex" OutName="erase_button_ger" Format="ia16" Width="64" Height="16" Offset="0x2C6D0" />
+        <Texture Name="gFileSelEraseButtonESPTex" OutName="erase_button_esp" Format="ia16" Width="64" Height="16" Offset="0x2D6D0" />
+        <Texture Name="gFileSelENDButtonFRATex" OutName="end_button_fra" Format="ia16" Width="44" Height="16" Offset="0x2DED0" />
+        <Texture Name="gFileSelENDButtonGERTex" OutName="end_button_ger" Format="ia16" Width="44" Height="16" Offset="0x2E450" />
+        <Texture Name="gFileSelENDButtonESPTex" OutName="end_button_esp" Format="ia16" Width="44" Height="16" Offset="0x2EF50" />
+        <Texture Name="gFileSelOptionsButtonFRATex" OutName="options_button_fra" Format="ia16" Width="64" Height="16" Offset="0x2F4D0" />
+        <Texture Name="gFileSelOptionsButtonGERTex" OutName="options_button_ger" Format="ia16" Width="64" Height="16" Offset="0x2FCD0" />
+        <Texture Name="gFileSelOptionsButtonESPTex" OutName="options_button_esp" Format="ia16" Width="64" Height="16" Offset="0x30CD0" />
+        <Texture Name="gFileSelQuitButtonFRATex" OutName="quit_button_fra" Format="ia16" Width="64" Height="16" Offset="0x314D0" />
+        <Texture Name="gFileSelQuitButtonGERTex" OutName="quit_button_ger" Format="ia16" Width="64" Height="16" Offset="0x31CD0" />
+        <Texture Name="gFileSelQuitButtonESPTex" OutName="quit_button_esp" Format="ia16" Width="64" Height="16" Offset="0x32CD0" />
+        <Texture Name="gFileSelFinalDayFRATex" OutName="final_day_fra" Format="i4" Width="48" Height="24" Offset="0x4E210" />
+        <Texture Name="gFileSelFinalDayGERTex" OutName="final_day_ger" Format="i4" Width="48" Height="24" Offset="0x4E450" />
+        <Texture Name="gFileSelFinalDayESPTex" OutName="final_day_esp" Format="i4" Width="48" Height="24" Offset="0x4E690" />
+        <Texture Name="gFileSelFirstDayFRATex" OutName="first_day_fra" Format="i4" Width="48" Height="24" Offset="0x4EB10" />
+        <Texture Name="gFileSelFirstDayGERTex" OutName="first_day_ger" Format="i4" Width="48" Height="24" Offset="0x4ED50" />
+        <Texture Name="gFileSelFirstDayESPTex" OutName="first_day_esp" Format="i4" Width="48" Height="24" Offset="0x4EF90" />
+        <Texture Name="gFileSelSecondDayFRATex" OutName="second_day_fra" Format="i4" Width="48" Height="24" Offset="0x4F410" />
+        <Texture Name="gFileSelSecondDayGERTex" OutName="second_day_ger" Format="i4" Width="48" Height="24" Offset="0x4F650" />
+        <Texture Name="gFileSelSecondDayESPTex" OutName="second_day_esp" Format="i4" Width="48" Height="24" Offset="0x4F890" />
+        <Texture Name="gFileSelMASKSGERTex" OutName="masks_ger" Format="i4" Width="64" Height="16" Offset="0x4FCD0" />
+        <Texture Name="gFileSelMASKSFRATex" OutName="masks_fra" Format="i4" Width="64" Height="16" Offset="0x4FED0" />
+        <Texture Name="gFileSelMASKSESPTex" OutName="masks_esp" Format="i4" Width="64" Height="16" Offset="0x500D0" />
+
+        <DList Name="gFileSelWindow1DL" Offset="0x55ED0"/>
+        <DList Name="gFileSelWindow2DL" Offset="0x560e8"/>
+        <DList Name="gFileSelWindow3DL" Offset="0x562f8"/>
+    </File>
+</Root>

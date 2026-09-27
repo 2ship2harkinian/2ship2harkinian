@@ -1,0 +1,13 @@
+﻿<Root>
+    <!-- Animations for Gorons at the Racetrack -->
+    <File Name="object_taisou" Segment="6">
+        <Animation Name="gGoronAthleticsSquatSideToSideAnim" Offset="0x16C8" />
+        <Animation Name="gGoronAthleticsShakeLimbsAnim" Offset="0x283C" />
+        <Animation Name="gGoronAthleticsCheerAnim" Offset="0x2C48" />
+        <Animation Name="gGoronAthleticsShoutAnim" Offset="0x31D8" />
+        <Animation Name="gGoronAthleticsDoubleArmSideBendAnim" Offset="0x4DD4" />
+        <Animation Name="gGoronAthleticsHamstringStretchStandingAnim" Offset="0x5790" />
+        <Animation Name="gGoronAthleticsHamstringStretchSittingAnim" Offset="0x5EE0" />
+        <Animation Name="gGoronAthleticsSingleArmSideBendAnim" Offset="0x7764" />
+    </File>
+</Root>

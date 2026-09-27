@@ -1,0 +1,93 @@
+﻿<Root>
+    <File Name="object_kz" Segment="6">
+        <Animation Name="gFighterPirateSlashAnim" Offset="0x3CC" /> <!-- Original name is "kz_attackA" -->
+        <Animation Name="gFighterPirateSpinAttackAnim" Offset="0xF5C" /> <!-- Original name is "kz_attackB" -->
+        <Animation Name="gFighterPirateFlipAnim" Offset="0x1390" /> <!-- Original name is "kz_back_ten" -->
+        <Animation Name="gFighterPirateBlockAnim" Offset="0x1578" /> <!-- Original name is "kz_defense" -->
+        <Animation Name="gFighterPirateThrowFlashAnim" Offset="0x1E9C" /> <!-- Original name is "kz_doron" -->
+        <Animation Name="gFighterPirateUnusedDefeatAnim" Offset="0x2730" /> <!-- Original name is "kz_down" -->
+        <Animation Name="gFighterPirateDefeatIdleAnim" Offset="0x2BA0" /> <!-- Original name is "kz_downwait" -->
+        <Animation Name="gFighterPirateDefeatAnim" Offset="0x3A3C" /> <!-- Original name is "kz_downwake" -->
+        <Animation Name="gFighterPirateDemonstrativeSwordSwingAnim" Offset="0x43E4" /> <!-- Original name is "kz_getout" -->
+        <Animation Name="gFighterPirateDamageAnim" Offset="0x4860" /> <!-- Original name is "kz_hit" -->
+        <Animation Name="gFighterPirateUnsheatheAnim" Offset="0x5644" /> <!-- Original name is "kz_kime" -->
+        <Animation Name="gFighterPirateWalkAnim" Offset="0x58B8" /> <!-- Original name is "kz_run" -->
+
+        <Texture Name="object_kz_TLUT_0058D0" OutName="tlut_0058D0" Format="rgba16" Width="16" Height="16" Offset="0x58D0" />
+        <Texture Name="object_kz_Tex_005AD0" OutName="tex_005AD0" Format="ci8" Width="8" Height="8" Offset="0x5AD0" />
+        <Texture Name="object_kz_Tex_005B10" OutName="tex_005B10" Format="ci8" Width="8" Height="8" Offset="0x5B10" />
+        <Texture Name="object_kz_Tex_005B50" OutName="tex_005B50" Format="ci8" Width="16" Height="16" Offset="0x5B50" />
+        <Texture Name="object_kz_Tex_005C50" OutName="tex_005C50" Format="i8" Width="16" Height="16" Offset="0x5C50" />
+        <Texture Name="object_kz_Tex_005D50" OutName="tex_005D50" Format="ci8" Width="16" Height="16" Offset="0x5D50" />
+        <Texture Name="object_kz_Tex_005E50" OutName="tex_005E50" Format="i8" Width="16" Height="16" Offset="0x5E50" />
+        <Texture Name="object_kz_Tex_005F50" OutName="tex_005F50" Format="i8" Width="8" Height="16" Offset="0x5F50" />
+
+        <DList Name="object_kz_DL_007CB0" Offset="0x7CB0" />
+        <DList Name="object_kz_DL_008130" Offset="0x8130" />
+        <DList Name="object_kz_DL_008268" Offset="0x8268" />
+        <DList Name="object_kz_DL_008490" Offset="0x8490" />
+        <DList Name="object_kz_DL_0085C8" Offset="0x85C8" />
+        <DList Name="object_kz_DL_0087F0" Offset="0x87F0" />
+        <DList Name="object_kz_DL_008A10" Offset="0x8A10" />
+        <DList Name="object_kz_DL_008B10" Offset="0x8B10" />
+        <DList Name="object_kz_DL_008D80" Offset="0x8D80" />
+        <DList Name="object_kz_DL_008E80" Offset="0x8E80" />
+
+        <!-- <Texture Name="object_kz_TLUT_009100" OutName="tlut_009100" Format="rgba16" Width="16" Height="16" Offset="0x9100" /> -->
+        <!-- <Blob Name="object_kz_Blob_009300" Size="0x38" Offset="0x9300" /> -->
+        <Texture Name="object_kz_Tex_009338" OutName="tex_009338" Format="ci8" Width="8" Height="16" Offset="0x9338" />
+        <Texture Name="gFighterPirateEyeOpenTex" OutName="eye_open" Format="ci8" Width="32" Height="32" Offset="0x93B8" TlutOffset="0x9100" />
+        <Texture Name="object_kz_Tex_0097B8" OutName="tex_0097B8" Format="i8" Width="16" Height="16" Offset="0x97B8" />
+        <Texture Name="object_kz_Tex_0098B8" OutName="tex_0098B8" Format="ci8" Width="8" Height="16" Offset="0x98B8" />
+        <Texture Name="object_kz_Tex_009938" OutName="tex_009938" Format="ci8" Width="8" Height="8" Offset="0x9938" />
+        <Texture Name="gFighterPirateEyeHalfTex" OutName="eye_half" Format="ci8" Width="32" Height="32" Offset="0x9978" TlutOffset="0x9100" />
+        <Texture Name="object_kz_Tex_009D78" OutName="tex_009D78" Format="i8" Width="8" Height="16" Offset="0x9D78" />
+        <Texture Name="object_kz_Tex_009DF8" OutName="tex_009DF8" Format="ci8" Width="16" Height="16" Offset="0x9DF8" />
+        <Texture Name="object_kz_Tex_009EF8" OutName="tex_009EF8" Format="ci8" Width="16" Height="16" Offset="0x9EF8" />
+        <Texture Name="object_kz_Tex_009FF8" OutName="tex_009FF8" Format="ci8" Width="16" Height="16" Offset="0x9FF8" />
+        <Texture Name="gFighterPirateEyeClosedTex" OutName="eye_closed" Format="ci8" Width="32" Height="32" Offset="0xA0F8" TlutOffset="0x9100" />
+
+        <DList Name="object_kz_DL_00C318" Offset="0xC318" />
+        <DList Name="object_kz_DL_00C4D8" Offset="0xC4D8" />
+        <DList Name="object_kz_DL_00C698" Offset="0xC698" />
+        <DList Name="object_kz_DL_00C830" Offset="0xC830" />
+        <DList Name="object_kz_DL_00CA08" Offset="0xCA08" />
+        <DList Name="object_kz_DL_00CBA0" Offset="0xCBA0" />
+        <DList Name="object_kz_DL_00CD78" Offset="0xCD78" />
+        <DList Name="object_kz_DL_00CE30" Offset="0xCE30" />
+        <DList Name="object_kz_DL_00CF20" Offset="0xCF20" />
+
+        <Limb Name="object_kz_Standardlimb_00D6B8" Type="Standard" EnumName="KAIZOKU_LIMB_01" Offset="0xD6B8" />
+        <Limb Name="object_kz_Standardlimb_00D6C4" Type="Standard" EnumName="KAIZOKU_LIMB_02" Offset="0xD6C4" />
+        <Limb Name="object_kz_Standardlimb_00D6D0" Type="Standard" EnumName="KAIZOKU_LIMB_03" Offset="0xD6D0" />
+        <Limb Name="object_kz_Standardlimb_00D6DC" Type="Standard" EnumName="KAIZOKU_LIMB_04" Offset="0xD6DC" />
+        <Limb Name="object_kz_Standardlimb_00D6E8" Type="Standard" EnumName="KAIZOKU_LIMB_05" Offset="0xD6E8" />
+        <Limb Name="object_kz_Standardlimb_00D6F4" Type="Standard" EnumName="KAIZOKU_LIMB_06" Offset="0xD6F4" />
+        <Limb Name="object_kz_Standardlimb_00D700" Type="Standard" EnumName="KAIZOKU_LIMB_07" Offset="0xD700" />
+        <Limb Name="object_kz_Standardlimb_00D70C" Type="Standard" EnumName="KAIZOKU_LIMB_08" Offset="0xD70C" />
+        <Limb Name="object_kz_Standardlimb_00D718" Type="Standard" EnumName="KAIZOKU_LIMB_09" Offset="0xD718" />
+        <Limb Name="object_kz_Standardlimb_00D724" Type="Standard" EnumName="KAIZOKU_LIMB_0A" Offset="0xD724" />
+        <Limb Name="object_kz_Standardlimb_00D730" Type="Standard" EnumName="KAIZOKU_LIMB_R_SWORD" Offset="0xD730" />
+        <Limb Name="object_kz_Standardlimb_00D73C" Type="Standard" EnumName="KAIZOKU_LIMB_0C" Offset="0xD73C" />
+        <Limb Name="object_kz_Standardlimb_00D748" Type="Standard" EnumName="KAIZOKU_LIMB_0D" Offset="0xD748" />
+        <Limb Name="object_kz_Standardlimb_00D754" Type="Standard" EnumName="KAIZOKU_LIMB_0E" Offset="0xD754" />
+        <Limb Name="object_kz_Standardlimb_00D760" Type="Standard" EnumName="KAIZOKU_LIMB_0F" Offset="0xD760" />
+        <Limb Name="object_kz_Standardlimb_00D76C" Type="Standard" EnumName="KAIZOKU_LIMB_10" Offset="0xD76C" />
+        <Limb Name="object_kz_Standardlimb_00D778" Type="Standard" EnumName="KAIZOKU_LIMB_11" Offset="0xD778" />
+        <Limb Name="object_kz_Standardlimb_00D784" Type="Standard" EnumName="KAIZOKU_LIMB_12" Offset="0xD784" />
+        <Limb Name="object_kz_Standardlimb_00D790" Type="Standard" EnumName="KAIZOKU_LIMB_L_FOOT" Offset="0xD790" />
+        <Limb Name="object_kz_Standardlimb_00D79C" Type="Standard" EnumName="KAIZOKU_LIMB_14" Offset="0xD79C" />
+        <Limb Name="object_kz_Standardlimb_00D7A8" Type="Standard" EnumName="KAIZOKU_LIMB_15" Offset="0xD7A8" />
+        <Limb Name="object_kz_Standardlimb_00D7B4" Type="Standard" EnumName="KAIZOKU_LIMB_R_FOOT" Offset="0xD7B4" />
+        <Limb Name="object_kz_Standardlimb_00D7C0" Type="Standard" EnumName="KAIZOKU_LIMB_17" Offset="0xD7C0" />
+        <Skeleton Name="gFighterPirateSkel" Type="Flex" LimbType="Standard" LimbNone="KAIZOKU_LIMB_NONE" LimbMax="KAIZOKU_LIMB_MAX" EnumName="KaizokuLimb" Offset="0xD828" />
+
+        <Animation Name="gFighterPirateSidestepAnim" Offset="0xDBE4" /> <!-- Original name is "kz_side_walk" -->
+        <Animation Name="gFighterPirateUnusedJumpAnim" Offset="0xE1C8" /> <!-- Original name is "kz_start" -->
+        <Animation Name="gFighterPirateLandAnim" Offset="0xE8BC" /> <!-- Original name is "kz_syuta" -->
+        <Animation Name="gFighterPirateLandTalkAnim" Offset="0xED1C" /> <!-- Original name is "kz_syutawait" -->
+        <Animation Name="gFighterPirateUnusedTalkAnim" Offset="0xEF9C" /> <!-- Original name is "kz_talk" -->
+        <Animation Name="gFighterPirateLowerWeaponsAnim" Offset="0xF288" /> <!-- Original name is "kz_togetout" -->
+        <Animation Name="gFighterPirateFightingIdleAnim" Offset="0xF8E4" /> <!-- Original name is "kz_wait" -->
+    </File>
+</Root>

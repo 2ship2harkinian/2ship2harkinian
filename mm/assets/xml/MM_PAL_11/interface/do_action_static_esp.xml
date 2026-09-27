@@ -1,0 +1,46 @@
+<Root>
+    <File Name="do_action_static_esp" Segment="9" OutName="do_action_static">
+        <Texture Name="gDoActionAttackESPTex" OutName="attack_esp" Format="ia4" Width="48" Height="16" Offset="0x0" />
+        <Texture Name="gDoActionCheckESPTex" OutName="check_esp" Format="ia4" Width="48" Height="16" Offset="0x180" />
+        <Texture Name="gDoActionEnterESPTex" OutName="enter_esp" Format="ia4" Width="48" Height="16" Offset="0x300" />
+        <Texture Name="gDoActionReturnESPTex" OutName="return_esp" Format="ia4" Width="48" Height="16" Offset="0x480" />
+        <Texture Name="gDoActionOpenESPTex" OutName="open_esp" Format="ia4" Width="48" Height="16" Offset="0x600" />
+        <Texture Name="gDoActionJumpESPTex" OutName="jump_esp" Format="ia4" Width="48" Height="16" Offset="0x780" />
+        <Texture Name="gDoActionDecideESPTex" OutName="decide_esp" Format="ia4" Width="48" Height="16" Offset="0x900" />
+        <Texture Name="gDoActionDiveESPTex" OutName="dive_esp" Format="ia4" Width="48" Height="16" Offset="0xA80" />
+        <Texture Name="gDoActionFasterESPTex" OutName="faster_esp" Format="ia4" Width="48" Height="16" Offset="0xC00" />
+        <Texture Name="gDoActionThrowESPTex" OutName="throw_esp" Format="ia4" Width="48" Height="16" Offset="0xD80" />
+        <Texture Name="gDoActionNaviESPTex" OutName="navi_esp" Format="ia4" Width="48" Height="16" Offset="0xF00" />
+        <Texture Name="gDoActionClimbESPTex" OutName="climb_esp" Format="ia4" Width="48" Height="16" Offset="0x1080" />
+        <Texture Name="gDoActionDropESPTex" OutName="drop_esp" Format="ia4" Width="48" Height="16" Offset="0x1200" />
+        <Texture Name="gDoActionDownESPTex" OutName="down_esp" Format="ia4" Width="48" Height="16" Offset="0x1380" />
+        <Texture Name="gDoActionQuitESPTex" OutName="quit_esp" Format="ia4" Width="48" Height="16" Offset="0x1500" />
+        <Texture Name="gDoActionSpeakESPTex" OutName="speak_esp" Format="ia4" Width="48" Height="16" Offset="0x1680" />
+        <Texture Name="gDoActionNextESPTex" OutName="next_esp" Format="ia4" Width="48" Height="16" Offset="0x1800" />
+        <Texture Name="gDoActionGrabESPTex" OutName="grab_esp" Format="ia4" Width="48" Height="16" Offset="0x1980" />
+        <Texture Name="gDoActionStopESPTex" OutName="stop_esp" Format="ia4" Width="48" Height="16" Offset="0x1B00" />
+        <Texture Name="gDoActionPutAwayESPTex" OutName="put_away_esp" Format="ia4" Width="48" Height="16" Offset="0x1C80" />
+        <Texture Name="gDoActionReelESPTex" OutName="reel_esp" Format="ia4" Width="48" Height="16" Offset="0x1E00" />
+        <Texture Name="gDoActionInfoESPTex" OutName="info_esp" Format="ia4" Width="48" Height="16" Offset="0x1F80" />
+        <Texture Name="gDoActionWarpESPTex" OutName="warp_esp" Format="ia4" Width="48" Height="16" Offset="0x2100" />
+        <Texture Name="gDoActionSnapESPTex" OutName="snap_esp" Format="ia4" Width="48" Height="16" Offset="0x2280" />
+        <Texture Name="gDoActionExplodeESPTex" OutName="explode_esp" Format="ia4" Width="48" Height="16" Offset="0x2400" />
+        <Texture Name="gDoActionDanceESPTex" OutName="dance_esp" Format="ia4" Width="48" Height="16" Offset="0x2580" />
+        <Texture Name="gDoActionMarchESPTex" OutName="march_esp" Format="ia4" Width="48" Height="16" Offset="0x2700" />
+        <Texture Name="gDoActionNum1ESPTex" OutName="num_1_esp" Format="ia4" Width="48" Height="16" Offset="0x2880" />
+        <Texture Name="gDoActionNum2ESPTex" OutName="num_2_esp" Format="ia4" Width="48" Height="16" Offset="0x2A00" />
+        <Texture Name="gDoActionNum3ESPTex" OutName="num_3_esp" Format="ia4" Width="48" Height="16" Offset="0x2B80" />
+        <Texture Name="gDoActionNum4ESPTex" OutName="num_4_esp" Format="ia4" Width="48" Height="16" Offset="0x2D00" />
+        <Texture Name="gDoActionNum5ESPTex" OutName="num_5_esp" Format="ia4" Width="48" Height="16" Offset="0x2E80" />
+        <Texture Name="gDoActionNum6ESPTex" OutName="num_6_esp" Format="ia4" Width="48" Height="16" Offset="0x3000" />
+        <Texture Name="gDoActionNum7ESPTex" OutName="num_7_esp" Format="ia4" Width="48" Height="16" Offset="0x3180" />
+        <Texture Name="gDoActionNum8ESPTex" OutName="num_8_esp" Format="ia4" Width="48" Height="16" Offset="0x3300" />
+        <Texture Name="gDoActionCurlESPTex" OutName="curl_esp" Format="ia4" Width="48" Height="16" Offset="0x3480" />
+        <Texture Name="gDoActionSurfaceESPTex" OutName="surface_esp" Format="ia4" Width="48" Height="16" Offset="0x3600" />
+        <Texture Name="gDoActionSwimESPTex" OutName="swim_esp" Format="ia4" Width="48" Height="16" Offset="0x3780" />
+        <Texture Name="gDoActionPunchESPTex" OutName="punch_esp" Format="ia4" Width="48" Height="16" Offset="0x3900" />
+        <Texture Name="gDoActionPoundESPTex" OutName="pound_esp" Format="ia4" Width="48" Height="16" Offset="0x3A80" />
+        <Texture Name="gDoActionHookESPTex" OutName="hook_esp" Format="ia4" Width="48" Height="16" Offset="0x3C00" />
+        <Texture Name="gDoActionShootESPTex" OutName="shoot_esp" Format="ia4" Width="48" Height="16" Offset="0x3D80" />
+    </File>
+</Root>
