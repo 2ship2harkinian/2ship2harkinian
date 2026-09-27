@@ -99,6 +99,7 @@ uint16_t OTRGetPixelDepth(float x, float y);
 int32_t OTRGetLastScancode();
 uint32_t ResourceMgr_GetNumGameVersions();
 uint32_t ResourceMgr_GetGameVersion(int index);
+bool ResourceMgr_HasGameVersion(uint32_t version);
 uint32_t ResourceMgr_GetGamePlatform(int index);
 uint32_t ResourceMgr_GetGameRegion(int index);
 void ResourceMgr_LoadDirectory(const char* resName);

@@ -1068,9 +1068,16 @@ void TitleCard_Draw(GameState* gameState, TitleCardContext* titleCtx) {
         gDPSetPrimColor(OVERLAY_DISP++, 0, 0, (u8)titleCtx->intensity, (u8)titleCtx->intensity, (u8)titleCtx->intensity,
                         (u8)titleCtx->alpha);
 
-        gDPLoadTextureBlock(OVERLAY_DISP++, titleCtx->texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0,
-                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                            G_TX_NOLOD);
+        if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+            // PAL boss title cards are stored natively as IA4.
+            gDPLoadTextureBlock_4b(OVERLAY_DISP++, titleCtx->texture, G_IM_FMT_IA, width, height, 0,
+                                   G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
+                                   G_TX_NOLOD, G_TX_NOLOD);
+        } else {
+            gDPLoadTextureBlock(OVERLAY_DISP++, titleCtx->texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0,
+                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
+                                G_TX_NOLOD, G_TX_NOLOD);
+        }
 
         gSPTextureRectangle(OVERLAY_DISP++, titleX, titleY, ((doubleWidth * 2) + titleX) - 4, titleY + (height * 4) - 1,
                             G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);

@@ -1325,6 +1325,19 @@ extern "C" uint32_t ResourceMgr_GetGameVersion(int index) {
     return Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];
 }
 
+extern "C" bool ResourceMgr_HasGameVersion(uint32_t version) {
+    const auto versions =
+        Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions();
+
+    for (uint32_t gameVersion : versions) {
+        if (gameVersion == version) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 extern "C" uint32_t ResourceMgr_GetGamePlatform(int index) {
     uint32_t version =
         Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];

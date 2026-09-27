@@ -797,11 +797,14 @@ static Gfx sScreenFillSetupDL[] = {
 };
 
 s16 sBButtonDoActionTextureScale = 0;
-f32 sBButtonDoActionTextureScales[] = {
+// These tables are indexed directly by gSaveContext.options.language. PAL requires GER/FRE/SPA entries.
+f32 sBButtonDoActionTextureScales[LANGUAGE_MAX] = {
     // 100 is 1:1 scale, > 100 magnifies
     100.0f, // LANGUAGE_JPN
     109.0f, // LANGUAGE_ENG
-    // Data missing for other languages?
+    109.0f, // LANGUAGE_GER
+    109.0f, // LANGUAGE_FRE
+    109.0f, // LANGUAGE_SPA
 };
 s16 sItemIconTextureScales[] = {
     (s16)(1.074219f * (1 << 10)) >> 1, // EQUIP_SLOT_B
@@ -809,20 +812,26 @@ s16 sItemIconTextureScales[] = {
     (s16)(1.328125f * (1 << 10)) >> 1, // EQUIP_SLOT_C_DOWN
     (s16)(1.328125f * (1 << 10)) >> 1, // EQUIP_SLOT_C_RIGHT
 };
-s16 sBButtonDoActionXPositions[] = {
+s16 sBButtonDoActionXPositions[LANGUAGE_MAX] = {
     158, // LANGUAGE_JPN
     155, // LANGUAGE_ENG
-    // Data missing for other languages?
+    155, // LANGUAGE_GER
+    155, // LANGUAGE_FRE
+    155, // LANGUAGE_SPA
 };
-s16 sBButtonDoActionYPositions[] = {
+s16 sBButtonDoActionYPositions[LANGUAGE_MAX] = {
     23, // LANGUAGE_JPN
     22, // LANGUAGE_ENG
-    // Data missing for other languages?
+    22, // LANGUAGE_GER
+    22, // LANGUAGE_FRE
+    22, // LANGUAGE_SPA
 };
-f32 sAButtonDoActionTexScales[] = {
+f32 sAButtonDoActionTexScales[LANGUAGE_MAX] = {
     -380.0f, // LANGUAGE_JPN
     -350.0f, // LANGUAGE_ENG
-    // Data missing for other languages?
+    -350.0f, // LANGUAGE_GER
+    -350.0f, // LANGUAGE_FRE
+    -350.0f, // LANGUAGE_SPA
 };
 s16 sBCButtonXPositions[] = {
     167, // EQUIP_SLOT_B
