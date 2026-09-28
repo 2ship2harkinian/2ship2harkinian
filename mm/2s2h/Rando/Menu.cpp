@@ -73,6 +73,7 @@ std::unordered_map<int32_t, const char*> songShuffleOptions = {
 std::vector<int32_t> incompatibleWithVanilla = {
     RO_SHUFFLE_BOSS_SOULS,
     RO_SHUFFLE_SWIM,
+    RO_SHUFFLE_PICKUP,
     RO_SHUFFLE_ENEMY_SOULS,
     RO_SHUFFLE_OCARINA_BUTTONS,
     RO_PLENTIFUL_ITEMS,
@@ -138,6 +139,7 @@ void ClearIncompatibleSetting() {
             CVarClear(Rando::StaticData::Options[RO_PLENTIFUL_ITEMS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_BOSS_SOULS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_SWIM].cvar);
+            CVarClear(Rando::StaticData::Options[RO_SHUFFLE_PICKUP].cvar);
             CVarClear(Rando::StaticData::Options[RO_CLOCK_SHUFFLE].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_TYCOON_WALLET].cvar);
             break;
@@ -427,6 +429,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SARIA",
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SUN",
                                                                    "gRando.Options.RO_SHUFFLE_SWIM",
+                                                                   "gRando.Options.RO_SHUFFLE_PICKUP",
                                                                    "gRando.Options.RO_SHUFFLE_TINGLE_SHOPS",
                                                                    "gRando.Options.RO_SHUFFLE_TRAPS",
                                                                    "gRando.Options.RO_SHUFFLE_TREE_DROPS",
@@ -987,6 +990,9 @@ static void DrawItemPoolTab() {
     ItemPoolCheckbox("Swim", RO_SHUFFLE_SWIM,
                      "Shuffles the ability to Swim, entering the Swim state or submerging\n"
                      "into deep water will respawn Link.",
+                     1);
+    ItemPoolCheckbox("Power Bracelet", RO_SHUFFLE_PICKUP,
+                     "Shuffles the ability to pickup small things, like pots, grass and rocks.",
                      1);
     ItemPoolCheckbox("Ocarina Buttons", RO_SHUFFLE_OCARINA_BUTTONS,
                      "Shuffles the Buttons used to play Ocarina Notes.\n"

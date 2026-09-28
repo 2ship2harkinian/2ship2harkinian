@@ -30,18 +30,32 @@ void RespawnOnWaterTouch(Player* player) {
 void PreventPickups(Player* player) {
     // This prevents picking actors up like Bushes, Rocks, Pots, etc. if
     // The ability to pickup things has not yet been found.
-    // TODO: Figure out how to fetch the actor ID that the player wants to pickup to prevent a pickup from happening.
+
+    if (player->interactRangeActor != NULL) {
+        if (player->interactRangeActor->id == ACTOR_EN_KUSA || player->interactRangeActor->id == ACTOR_EN_KUSA2 ||
+            player->interactRangeActor->id == ACTOR_EN_ISHI || player->interactRangeActor->id == ACTOR_EN_BOMBF ||
+            player->interactRangeActor->id == ACTOR_OBJ_TSUBO || player->interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY ||
+            player->interactRangeActor->id == ACTOR_OBJ_KIBAKO) {
+            player->interactRangeActor = NULL;
+            player->stateFlags1 &= ~PLAYER_STATE1_CARRYING_ACTOR;
+            }
+    }
 }
 
 void PreventOpenChest(Player* player) {
     // This prevents opening chests if the ability to do so has not yet been found.
-    // TODO: Figure out how to prevent the "chest-open state" if the actor the player wants to interact with is a chest.
+    if (player->interactRangeActor->id == ACTOR_EN_BOX) {
+        // We have to force the player to not enter the opening chest state (if there is one)
+        // TODO: Figure out if there's a state that dictates whether the player is opening a chest or not
+    }
 }
 
 void PreventClimbing(Player* player) {
     // This prevents the player from climbing up Ladders or the wall at Mountain Village if
     // The ability to do so has not yet been found.
-    // TODO: Figure out how to prevent the "climbing state" if the player wants to interact with a climbable object/actor.
+    if (player->stateFlags1 & PLAYER_STATE1_4000000) { // Not sure if 4000000 is the correct state here. Guess there'll be a lot of trial and error.
+        Player_SetAction(gPlayState, player, reinterpret_cast<PlayerActionFunc>(Player_DoNothing), 0);
+    }
 }
 
 void Rando::ActorBehavior::InitPlayerBehavior() {

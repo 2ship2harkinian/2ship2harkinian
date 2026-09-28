@@ -459,6 +459,7 @@ void LoadAvailableWindows() {
         .items = {
             { TRACKER_ITEM_RANDO, RI_TRIFORCE_PIECE },
             { TRACKER_ITEM_RANDO, RI_ABILITY_SWIM },
+            { TRACKER_ITEM_RANDO, RI_ABILITY_PICKUP }
         },
     });
 }

@@ -516,6 +516,8 @@ const char* GetIconTexturePath(RandoItemId randoItemId) {
             return (const char*)gThreeDayClockMoonHourTex;
         case RI_TIME_PROGRESSIVE:
             return (const char*)gThreeDayClockSunHourTex;
+        case RI_ABILITY_PICKUP:
+            return (const char*)gBraceletTex;
         case RI_ABILITY_SWIM:
             return (const char*)gFlippersTex;
         case RI_SONG_DOUBLE_TIME:
@@ -556,6 +558,7 @@ bool ShouldShowGetItemCutscene(RandoItemId itemId) {
 
 const std::map<RandoItemId, std::vector<std::string>> fakeItemNames = {
     // Major and Mask items only
+    { RI_ABILITY_PICKUP, { "Dumbell", "Power Gloves" }},
     { RI_ABILITY_SWIM, { "Skinny Dipping", "Zora Flippers" } },
     { RI_ARROW_FIRE, { "Fire Rod", "Red Candle" } },
     { RI_ARROW_ICE, { "Ice Rod", "Ancient Arrow", "Ice Trap Arrow" } },

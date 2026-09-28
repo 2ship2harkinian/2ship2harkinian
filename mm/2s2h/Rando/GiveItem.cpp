@@ -380,6 +380,9 @@ void Rando::GiveItem(RandoItemId randoItemId) {
         case RI_FROG_WHITE:
             SET_WEEKEVENTREG(WEEKEVENTREG_33_02);
             break;
+        case RI_ABILITY_PICKUP:
+            Flags_SetRandoInf(RANDO_INF_OBTAINED_PICKUP);
+            break;
         case RI_ABILITY_SWIM:
             Flags_SetRandoInf(RANDO_INF_OBTAINED_SWIM);
             break;
