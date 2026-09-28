@@ -53,8 +53,8 @@ void PreventOpenChest(Player* player) {
 void PreventClimbing(Player* player) {
     // This prevents the player from climbing up Ladders or the wall at Mountain Village if
     // The ability to do so has not yet been found.
-    if (player->stateFlags1 & PLAYER_STATE1_4000000) { // Not sure if 4000000 is the correct state here. Guess there'll be a lot of trial and error.
-        Player_SetAction(gPlayState, player, reinterpret_cast<PlayerActionFunc>(Player_DoNothing), 0);
+    if (player->stateFlags1 & PLAYER_STATE1_4000000) { // Placeholder Flag
+        // TODO: Look around for a state that dictates whether the player is climbing or not
     }
 }
 
