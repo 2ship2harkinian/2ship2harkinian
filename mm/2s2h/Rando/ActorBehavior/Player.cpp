@@ -27,7 +27,7 @@ void RespawnOnWaterTouch(Player* player) {
     }
 }
 
-void PreventGrab(Player* player) {
+void PreventPickups(Player* player) {
     // This prevents picking actors up like Bushes, Rocks, Pots, etc. if
     // The ability to pickup things has not yet been found.
 
@@ -48,7 +48,7 @@ void Rando::ActorBehavior::InitPlayerBehavior() {
     COND_ID_HOOK(OnActorUpdate, ACTOR_PLAYER, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], [](Actor* actor) {
         Player* player = GET_PLAYER(gPlayState);
         if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
-            PreventGrab(player);
+            PreventPickups(player);
         }
     });
 
