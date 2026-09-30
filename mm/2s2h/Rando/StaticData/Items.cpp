@@ -26,9 +26,7 @@ namespace StaticData {
 // clang-format off
 std::map<RandoItemId, RandoStaticItem> Items = {
     RI(RI_UNKNOWN,                    "",     "Unknown",                    RITYPE_JUNK,            ITEM_NONE,                       GI_NONE,                     GID_NONE),
-    RI(RI_ABILITY_CLIMB,              "the",  "Ability to Climb",           RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_NONE),
-    RI(RI_ABILITY_OPEN_CHESTS,        "the",  "Ability to Open Chests",     RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_NONE),
-    RI(RI_ABILITY_PICKUP,             "the",  "Power Bracelet",             RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_NONE),
+    RI(RI_ABILITY_GRAB,               "the",  "Power Bracelet",             RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_ABILITY_SWIM,               "the",  "Ability to Swim",            RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_ARROW_FIRE,                 "",     "Fire Arrows",                RITYPE_MAJOR,           ITEM_ARROW_FIRE,                 GI_ARROW_FIRE,               GID_ARROW_FIRE),
     RI(RI_ARROW_ICE,                  "",     "Ice Arrows",                 RITYPE_MAJOR,           ITEM_ARROW_ICE,                  GI_ARROW_ICE,                GID_ARROW_ICE),
@@ -516,8 +514,8 @@ const char* GetIconTexturePath(RandoItemId randoItemId) {
             return (const char*)gThreeDayClockMoonHourTex;
         case RI_TIME_PROGRESSIVE:
             return (const char*)gThreeDayClockSunHourTex;
-        case RI_ABILITY_PICKUP:
-            return (const char*)gBraceletTex;
+        case RI_ABILITY_GRAB:
+            return (const char*)gGrabTex;
         case RI_ABILITY_SWIM:
             return (const char*)gFlippersTex;
         case RI_SONG_DOUBLE_TIME:
@@ -558,7 +556,7 @@ bool ShouldShowGetItemCutscene(RandoItemId itemId) {
 
 const std::map<RandoItemId, std::vector<std::string>> fakeItemNames = {
     // Major and Mask items only
-    { RI_ABILITY_PICKUP, { "Dumbell", "Power Gloves" }},
+    { RI_ABILITY_GRAB, { "Dumbell", "Power Gloves" } },
     { RI_ABILITY_SWIM, { "Skinny Dipping", "Zora Flippers" } },
     { RI_ARROW_FIRE, { "Fire Rod", "Red Candle" } },
     { RI_ARROW_ICE, { "Ice Rod", "Ancient Arrow", "Ice Trap Arrow" } },

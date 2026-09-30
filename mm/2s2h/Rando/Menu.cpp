@@ -73,7 +73,7 @@ std::unordered_map<int32_t, const char*> songShuffleOptions = {
 std::vector<int32_t> incompatibleWithVanilla = {
     RO_SHUFFLE_BOSS_SOULS,
     RO_SHUFFLE_SWIM,
-    RO_SHUFFLE_PICKUP,
+    RO_SHUFFLE_GRAB,
     RO_SHUFFLE_ENEMY_SOULS,
     RO_SHUFFLE_OCARINA_BUTTONS,
     RO_PLENTIFUL_ITEMS,
@@ -139,7 +139,7 @@ void ClearIncompatibleSetting() {
             CVarClear(Rando::StaticData::Options[RO_PLENTIFUL_ITEMS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_BOSS_SOULS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_SWIM].cvar);
-            CVarClear(Rando::StaticData::Options[RO_SHUFFLE_PICKUP].cvar);
+            CVarClear(Rando::StaticData::Options[RO_SHUFFLE_GRAB].cvar);
             CVarClear(Rando::StaticData::Options[RO_CLOCK_SHUFFLE].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_TYCOON_WALLET].cvar);
             break;
@@ -991,9 +991,8 @@ static void DrawItemPoolTab() {
                      "Shuffles the ability to Swim, entering the Swim state or submerging\n"
                      "into deep water will respawn Link.",
                      1);
-    ItemPoolCheckbox("Power Bracelet", RO_SHUFFLE_PICKUP,
-                     "Shuffles the ability to pickup small things, like pots, grass and rocks.",
-                     1);
+    ItemPoolCheckbox("Power Bracelet", RO_SHUFFLE_GRAB,
+                     "Shuffles the ability to pickup small things, like pots, grass and rocks.", 1);
     ItemPoolCheckbox("Ocarina Buttons", RO_SHUFFLE_OCARINA_BUTTONS,
                      "Shuffles the Buttons used to play Ocarina Notes.\n"
                      "You will be unable to play a song until you find all\n"

@@ -34,34 +34,20 @@ void PreventPickups(Player* player) {
     if (player->interactRangeActor != NULL) {
         if (player->interactRangeActor->id == ACTOR_EN_KUSA || player->interactRangeActor->id == ACTOR_EN_KUSA2 ||
             player->interactRangeActor->id == ACTOR_EN_ISHI || player->interactRangeActor->id == ACTOR_EN_BOMBF ||
-            player->interactRangeActor->id == ACTOR_OBJ_TSUBO || player->interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY ||
-            player->interactRangeActor->id == ACTOR_OBJ_KIBAKO) {
+            player->interactRangeActor->id == ACTOR_OBJ_TSUBO ||
+            player->interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY ||
+            player->interactRangeActor->id == ACTOR_OBJ_KIBAKO ||
+            player->interactRangeActor->id == ACTOR_OBJ_SNOWBALL2) {
             player->interactRangeActor = NULL;
             player->stateFlags1 &= ~PLAYER_STATE1_CARRYING_ACTOR;
-            }
-    }
-}
-
-void PreventOpenChest(Player* player) {
-    // This prevents opening chests if the ability to do so has not yet been found.
-    if (player->interactRangeActor->id == ACTOR_EN_BOX) {
-        // We have to force the player to not enter the opening chest state (if there is one)
-        // TODO: Figure out if there's a state that dictates whether the player is opening a chest or not
-    }
-}
-
-void PreventClimbing(Player* player) {
-    // This prevents the player from climbing up Ladders or the wall at Mountain Village if
-    // The ability to do so has not yet been found.
-    if (player->stateFlags1 & PLAYER_STATE1_4000000) { // Placeholder Flag
-        // TODO: Look around for a state that dictates whether the player is climbing or not
+        }
     }
 }
 
 void Rando::ActorBehavior::InitPlayerBehavior() {
-    COND_ID_HOOK(OnActorUpdate, ACTOR_PLAYER, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_PICKUP], [](Actor* actor) {
+    COND_ID_HOOK(OnActorUpdate, ACTOR_PLAYER, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], [](Actor* actor) {
         Player* player = GET_PLAYER(gPlayState);
-        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_PICKUP)) {
+        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
             PreventPickups(player);
         }
     });

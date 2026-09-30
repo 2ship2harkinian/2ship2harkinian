@@ -20,11 +20,11 @@ static const ALIGN_ASSET(2) char gArrowDownTex[] = dgArrowDown;
 #define dgTriforcePiece "__OTR__textures/parameter_static/gTriforcePiece"
 static const ALIGN_ASSET(2) char gTriforcePieceTex[] = dgTriforcePiece;
 
-#define dgBracelet "__OTR__textures/parameter_static/gGrabTex"
-static const ALIGN_ASSET(2) char gBraceletTex[] = dgBracelet;
-
 #define dgFlippers "__OTR__textures/parameter_static/gFlippers"
 static const ALIGN_ASSET(2) char gFlippersTex[] = dgFlippers;
+
+#define dgGrab "__OTR__textures/parameter_static/gGrabTex"
+static const ALIGN_ASSET(2) char gGrabTex[] = dgGrab;
 
 #define dgThreeDayClockHour13Tex "__OTR__textures/parameter_static/gThreeDayClockHour13Tex"
 static const ALIGN_ASSET(2) char gThreeDayClockHour13Tex[] = dgThreeDayClockHour13Tex;

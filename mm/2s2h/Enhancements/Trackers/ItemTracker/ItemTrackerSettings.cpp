@@ -452,15 +452,17 @@ void LoadAvailableWindows() {
         },
     });
 
+    itemTrackerGroupsAvailable.push_back(
+        TrackerGroup{ .name = "Abilities",
+                      .columns = 4,
+                      .scale = 1.0f,
+                      .items = { { TRACKER_ITEM_RANDO, RI_ABILITY_SWIM }, { TRACKER_ITEM_RANDO, RI_ABILITY_GRAB } } });
+
     itemTrackerGroupsAvailable.push_back(TrackerGroup{
         .name = "Misc",
         .columns = 6,
         .scale = 1.0f,
-        .items = {
-            { TRACKER_ITEM_RANDO, RI_TRIFORCE_PIECE },
-            { TRACKER_ITEM_RANDO, RI_ABILITY_SWIM },
-            { TRACKER_ITEM_RANDO, RI_ABILITY_PICKUP }
-        },
+        .items = { { TRACKER_ITEM_RANDO, RI_TRIFORCE_PIECE } },
     });
 }
 

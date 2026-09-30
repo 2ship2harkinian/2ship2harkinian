@@ -255,8 +255,8 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
         itemPool.push_back(RI_ABILITY_SWIM);
     }
 
-    if (saveInfo.randoSaveOptions[RO_SHUFFLE_PICKUP] == RO_GENERIC_YES) {
-        itemPool.push_back(RI_ABILITY_PICKUP);
+    if (saveInfo.randoSaveOptions[RO_SHUFFLE_GRAB] == RO_GENERIC_YES) {
+        itemPool.push_back(RI_ABILITY_GRAB);
     }
 
     // Ocarina Buttons

@@ -589,8 +589,8 @@ bool Rando::IsItemObtainable(RandoItemId randoItemId, RandoCheckId randoCheckId)
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_CLIMB);
         case RI_ABILITY_OPEN_CHESTS:
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_OPEN_CHESTS);
-        case RI_ABILITY_PICKUP:
-            return !Flags_GetRandoInf(RANDO_INF_OBTAINED_PICKUP);
+        case RI_ABILITY_GRAB:
+            return !Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB);
         case RI_ABILITY_SWIM:
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_SWIM);
         case RI_FROG_BLUE:
