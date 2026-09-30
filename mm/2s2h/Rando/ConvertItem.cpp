@@ -587,7 +587,8 @@ bool Rando::IsItemObtainable(RandoItemId randoItemId, RandoCheckId randoCheckId)
             return !Flags_GetRandoInf(SOUL_RI_TO_RANDO_INF(randoItemId));
         case RI_ABILITY_CLIMB: // Implemented in a following branch, removing this somehow causes an access violation
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_CLIMB);
-        case RI_ABILITY_OPEN_CHESTS: // Implemented in a following branch, removing this somehow causes an access violation
+        case RI_ABILITY_OPEN_CHESTS: // Implemented in a following branch, removing this somehow causes an access
+                                     // violation
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_OPEN_CHESTS);
         case RI_ABILITY_GRAB:
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB);

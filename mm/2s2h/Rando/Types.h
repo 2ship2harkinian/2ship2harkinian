@@ -2707,7 +2707,7 @@ typedef enum {
 
 typedef enum {
     RI_UNKNOWN,
-    RI_ABILITY_CLIMB, // Implemented in a following branch, removing this somehow causes an access violation
+    RI_ABILITY_CLIMB,       // Implemented in a following branch, removing this somehow causes an access violation
     RI_ABILITY_OPEN_CHESTS, // Implemented in a following branch, removing this somehow causes an access violation
     RI_ABILITY_GRAB,
     RI_ABILITY_SWIM,
@@ -3477,7 +3477,8 @@ typedef enum {
     RANDO_INF_OBTAINED_SWIM,
     RANDO_INF_OBTAINED_CLIMB, // Implemented in a following branch, removing this somehow causes an access violation
     RANDO_INF_OBTAINED_GRAB,
-    RANDO_INF_OBTAINED_OPEN_CHESTS, // Implemented in a following branch, removing this somehow causes an access violation
+    RANDO_INF_OBTAINED_OPEN_CHESTS, // Implemented in a following branch, removing this somehow causes an access
+                                    // violation
     RANDO_INF_OBTAINED_CLOCK_DAY_1,
     RANDO_INF_OBTAINED_CLOCK_NIGHT_1,
     RANDO_INF_OBTAINED_CLOCK_DAY_2,
