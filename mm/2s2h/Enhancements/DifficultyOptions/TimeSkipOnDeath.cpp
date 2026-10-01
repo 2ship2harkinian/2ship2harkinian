@@ -1,9 +1,12 @@
+#include <functional>
 #include <libultraship/bridge/consolevariablebridge.h>
 #include <ship/window/gui/ConsoleWindow.h>
 #include <ship/Context.h>
 #include <ship/window/Window.h>
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
+#include "libultraship/libultra/gbi.h"
+#include "macros.h"
 #include "z64interface.h"
 #include "z64save.h"
 
@@ -23,28 +26,25 @@ void RegisterTimeSkipOnDeath() {
         }
 
         if (!timeSkipped) {
-            if  (gPlayState->gameOverCtx.state == GAMEOVER_REVIVE_FADE_OUT) {
+            if  (gPlayState->gameOverCtx.state == GAMEOVER_DEATH_FADE_OUT) {
                 timeSkipped = true;
 
-                u16 skip_length = CLOCK_TIME(CVAR, 0);
-                u16 current_time = gSaveContext.save.time;
+                // Keep track of the overall time passed in ticks. Yes, this includes the full 72+ hours in clock ticks
+                s32 skip_length = CLOCK_TIME(CVAR, 0);
                 s32 current_day = gSaveContext.save.day;
+                u16 current_daytime = gSaveContext.save.time - CLOCK_TIME(6, 0);        // Subtract this 6-hour offset so this value could wrap at the dawn of the next day instead of midnight
+                s32 current_time = CLOCK_TIME(current_day * 24, 0) + current_daytime;   // How much time has currently passed overall
+                s32 current_daystart = current_time - (s32)current_daytime;             // The start of the day in overall ticks
 
-                u16 new_time = current_time + skip_length;
-                s32 new_day = current_day;
+                // The time after the time skip
+                s32 new_time = current_time + skip_length;
+                u16 new_daytime = new_time % CLOCK_TIME(24, 0);
+                s32 new_daystart = new_time - (s32)new_daytime;
+                s32 new_day = new_daystart / CLOCK_TIME(24, 0);
 
                 // Check for the next half-day
-                if ((current_time < CLOCK_TIME(6, 0) && new_time >= CLOCK_TIME(6, 0)) ||
-                    (current_time < CLOCK_TIME(18, 0) && new_time >= CLOCK_TIME(18, 0)) || 
-                    CVAR >= 12) {
-
-                    // Check for the next day
-                    if ((current_time < CLOCK_TIME(6, 0) && new_time >= CLOCK_TIME(6, 0)) ||
-                        CVAR >= 24) {
-                        new_day += (1 + CVAR / 24);
-                    }
-
-                    // Check for skip to 4th day (this logic should prevent dying in the 4th day glitch to cause the moon crash)
+                if (current_day != new_day || (current_daytime < CLOCK_TIME(12, 0) && new_daytime >= CLOCK_TIME(12, 0))) {
+                    // Check for skip to 4th day (this logic should prevent playing the moon crash cutscene upon dying during the 4th day glitch)
                     if (current_day <= 3 && new_day > 3) {
                         // Trigger the moon crash cutscene
                         Interface_StartMoonCrash(gPlayState);
@@ -55,7 +55,7 @@ void RegisterTimeSkipOnDeath() {
                     }
                 }
                 
-                gSaveContext.save.time = new_time;
+                gSaveContext.save.time = new_daytime + CLOCK_TIME(6, 0);    // Re-add the 6-hour offset
                 gSaveContext.save.day = new_day;
             }
         } else {

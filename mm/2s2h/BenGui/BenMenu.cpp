@@ -2038,7 +2038,7 @@ void BenMenu::AddEnhancements() {
         .Options(IntSliderOptions()
             .Tooltip("Dying will skip a specified number of hours of in-game time.")
             .Min(0)
-            .Max(12)
+            .Max(24)
             .DefaultValue(0));
     AddWidget(path, "Jinxed Timer: %d seconds", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.DifficultyOptions.JinxedTimer")
