@@ -18,7 +18,7 @@ static bool timeSkipped = false;
 
 void RegisterTimeSkipOnDeath() {
     COND_HOOK(OnGameStateUpdate, CVAR, []() {
-        if (!gPlayState) {
+        if (!gPlayState || CVAR == 0) {
             return;
         }
 
