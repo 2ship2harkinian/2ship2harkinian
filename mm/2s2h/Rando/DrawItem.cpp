@@ -397,10 +397,8 @@ void DrawTriforcePiece(RandoItemId randoItemId) {
 }
 
 void DrawAbilityItem(RandoItemId randoItemId, Actor* actor) {
-    Gfx* abilityItemModel[2] = {
-        (Gfx*)gGiGrabDL,
-        (Gfx*)gGiFlippersDL,
-    };
+    const Gfx* flippersDl = (Gfx*)gGiFlippersDL;
+    const Gfx* grabDl = (Gfx*)gGiGrabDL;
 
     OPEN_DISPS(gPlayState->state.gfxCtx);
 
@@ -409,11 +407,11 @@ void DrawAbilityItem(RandoItemId randoItemId, Actor* actor) {
     MATRIX_FINALIZE_AND_LOAD(POLY_XLU_DISP++, gPlayState->state.gfxCtx);
 
     switch (randoItemId) {
-        case RI_ABILITY_GRAB:
-            gSPDisplayList(POLY_XLU_DISP++, (Gfx*)abilityItemModel[randoItemId - RI_ABILITY_GRAB]);
-            break;
         case RI_ABILITY_SWIM:
-            gSPDisplayList(POLY_XLU_DISP++, (Gfx*)abilityItemModel[randoItemId - RI_ABILITY_SWIM]);
+            gSPDisplayList(POLY_XLU_DISP++, (Gfx*)flippersDl);
+            break;
+        case RI_ABILITY_GRAB:
+            gSPDisplayList(POLY_XLU_DISP++, (Gfx*)grabDl);
             break;
     }
 

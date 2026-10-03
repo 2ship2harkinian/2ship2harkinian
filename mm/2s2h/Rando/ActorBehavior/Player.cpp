@@ -31,12 +31,20 @@ void PreventGrab(Player* player) {
     // This prevents picking actors up like Bushes, Rocks, Pots, etc. if
     // The ability to pickup things has not yet been found.
 
+    /*
+     *  List of Actors that are being checked for:
+     *   - ACTOR_EN_KUSA        (Grass Bushes)
+     *   - ACTOR_EN_KUSA2       (Keaton Grass Bushes)
+     *   - ACTOR_EN_ISHI        (Small rocks)
+     *   - ACTOR_EN_BOMBF       (Bomb Flowers)
+     *   - ACTOR_OBJ_TSUBO      (Pots)
+     *   - ACTOR_OBJ_KIBAKO     (Small Crates)
+     *   - ACTOR_OBJ_SNOWBALL2  (Small Snowballs)
+     */
     if (player->interactRangeActor != NULL) {
         if (player->interactRangeActor->id == ACTOR_EN_KUSA || player->interactRangeActor->id == ACTOR_EN_KUSA2 ||
             player->interactRangeActor->id == ACTOR_EN_ISHI || player->interactRangeActor->id == ACTOR_EN_BOMBF ||
-            player->interactRangeActor->id == ACTOR_OBJ_TSUBO ||
-            player->interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY ||
-            player->interactRangeActor->id == ACTOR_OBJ_KIBAKO ||
+            player->interactRangeActor->id == ACTOR_OBJ_TSUBO || player->interactRangeActor->id == ACTOR_OBJ_KIBAKO ||
             player->interactRangeActor->id == ACTOR_OBJ_SNOWBALL2) {
             player->interactRangeActor = NULL;
             player->stateFlags1 &= ~PLAYER_STATE1_CARRYING_ACTOR;
