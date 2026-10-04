@@ -1486,6 +1486,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // (gSaveContext.save.day == 3) && gSaveContext.save.isNight
+    // ```
+    // #### `args`
+    // - None
+    VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
+
+    // #### `result`
+    // ```c
     // CHECK_QUEST_ITEM(QUEST_REMAINS_ODOLWA) && CHECK_QUEST_ITEM(QUEST_REMAINS_GOHT) &&
     // CHECK_QUEST_ITEM(QUEST_REMAINS_GYORG) && CHECK_QUEST_ITEM(QUEST_REMAINS_TWINMOLD)
     // ```
