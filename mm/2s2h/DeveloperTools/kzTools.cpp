@@ -13,5 +13,4 @@ extern PlayState* gPlayState;
 
 void KzToolsWindow::DrawElement() {
     UIWidgets::Checkbox("Enabled", "gKzViewer.Enabled");
-    ImGui::BeginDisabled(GetInteger("gKzViewer.Enabled", 0) == 0);
 };
