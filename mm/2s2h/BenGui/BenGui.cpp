@@ -36,7 +36,7 @@
 #include "DeveloperTools/EventLog.h"
 #include "DeveloperTools/DLViewer.h"
 #include "DeveloperTools/MessageViewer.h"
-#include "DeveloperTools/kzTools.h"
+#include "DeveloperTools/KzTools.h"
 
 namespace BenGui {
 // MARK: - Delegates
