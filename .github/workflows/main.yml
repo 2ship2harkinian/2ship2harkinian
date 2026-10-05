@@ -1,7 +1,6 @@
 name: generate-builds
 on:
-  workflow-dispatch:
-  push:
+  workflow_dispatch:
   pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
