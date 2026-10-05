@@ -472,8 +472,7 @@ void BenMenu::AddSettings() {
             std::dynamic_pointer_cast<Fast::Fast3dGui>(Ship::Context::GetRawInstance()->GetWindow()->GetGui())
                 ->GetTextureByName((const char*)gQuestIconHeartContainer2Tex);
         ImGui::Image(heartTextureId, ImVec2(25.0f, 25.0f));
-        ImGui::TextWrapped("Special thanks to our contributors, playtesters, artists, moderators, helpers, and "
-                           "everyone in the larger decomp & N64 communities who make this project possible.\n\n");
+        ImGui::TextWrapped("2ship2harkinian is great! I play this game to hide from my life's problems!\n\n");
 
         // Draw auto scrolling list of contributors in columns
         ImGui::SetNextWindowSize(ImVec2(0.0f, ImGui::GetMainViewport()->WorkSize.y / 3));
