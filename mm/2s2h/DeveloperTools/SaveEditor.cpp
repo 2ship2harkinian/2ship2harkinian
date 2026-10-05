@@ -1717,10 +1717,10 @@ void DrawPlayerTab() {
 
         UIWidgets::BeginCard("playerStates");
         ImGui::Text("Player States");
-        uint32_t states[5] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
-                               player->meleeWeaponState, player->getItemId };
+        uint32_t states[4] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
+                               player->meleeWeaponState};
 
-        if (ImGui::BeginTable("stateTable", 5)) {
+        if (ImGui::BeginTable("stateTable", 4)) {
             GetPlayerForm(GET_PLAYER_FORM);
             ImGui::PushStyleVar(ImGuiTableColumnFlags_WidthFixed, 15.0f);
             ImGui::PushStyleColor(ImGuiCol_TableHeaderBg, formColor);
@@ -1728,11 +1728,10 @@ void DrawPlayerTab() {
             ImGui::TableSetupColumn("State 2");
             ImGui::TableSetupColumn("State 3");
             ImGui::TableSetupColumn("Sword State");
-            ImGui::TableSetupColumn("Item ID?");
             ImGui::TableHeadersRow();
             ImGui::TableNextColumn();
 
-            for (int i = 0; i <= 4; i++) {
+            for (int i = 0; i <= 3; i++) {
                 ImGui::Text("%s", std::to_string(states[i]).c_str());
                 ImGui::TableNextColumn();
             }
