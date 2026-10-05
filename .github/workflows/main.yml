@@ -1,5 +1,6 @@
 name: generate-builds
 on:
+  workflow-dispatch:
   push:
   pull_request:
 concurrency:
