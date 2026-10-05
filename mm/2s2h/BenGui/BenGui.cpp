@@ -48,7 +48,7 @@ std::shared_ptr<Ship::GuiWindow> mStatsWindow;
 std::shared_ptr<Ship::GuiWindow> mGfxDebuggerWindow;
 std::shared_ptr<Ship::GuiWindow> mInputEditorWindow;
 
-std::shared_ptr<kzToolsWindow> mKzToolsWindow;
+std::shared_ptr<KzToolsWindow> mKzToolsWindow;
 std::shared_ptr<HookDebuggerWindow> mHookDebuggerWindow;
 std::shared_ptr<SaveEditorWindow> mSaveEditorWindow;
 std::shared_ptr<HudEditorWindow> mHudEditorWindow;
@@ -115,7 +115,7 @@ void SetupGuiElements() {
     }
     
     mKzToolsWindow =
-        std::make_shared<kzToolsWindow>("gWindows.kzTools", "kzTools", ImVec2(480, 600));
+        std::make_shared<KzToolsWindow>("gWindows.kzTools", "kzTools", ImVec2(480, 600));
     gui->AddGuiWindow(mKzToolsWindow);
 
     mHookDebuggerWindow =
