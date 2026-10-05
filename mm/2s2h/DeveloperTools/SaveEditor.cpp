@@ -1730,7 +1730,7 @@ void DrawPlayerTab() {
             ImGui::TableHeadersRow();
             ImGui::TableNextColumn();
 
-            for (int i = 0; i <= 3; i++) {
+            for (int i = 0; i <= 4; i++) {
                 ImGui::Text("%s", std::to_string(states[i]).c_str());
                 ImGui::TableNextColumn();
             }
