@@ -5,7 +5,10 @@
 #pragma comment(lib, "Shlwapi.lib")
 #endif
 #include "Extract.h"
+#include "ShipUtils.h"
+#include "TorchExtract.h"
 #include "portable-file-dialogs.h"
+#include "spdlog/spdlog.h"
 #include <ship/utils/binarytools/BitConverter.h>
 #include "build.h"
 
@@ -533,7 +536,7 @@ bool Extractor::IsMasterQuest() const {
     return false;
 }
 
-const char* Extractor::GetZapdVerStr() const {
+const char* Extractor::GetTorchVersionDir() const {
     switch (GetRomVerCrc()) {
         case MM_US_10:
             return "N64_US";
@@ -551,13 +554,10 @@ std::string Extractor::Mkdtemp() {
 
     // create 6 random alphanumeric characters
     static const char charset[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(0, sizeof(charset) - 1);
 
     char randchr[7];
     for (int i = 0; i < 6; i++) {
-        randchr[i] = charset[dist(gen)];
+        randchr[i] = charset[Ship_Random(0, sizeof(charset) - 1)];
     }
     randchr[6] = '\0';
 
@@ -566,70 +566,39 @@ std::string Extractor::Mkdtemp() {
     return tmppath;
 }
 
-extern "C" int zapd_report(int argc, char** argv, std::atomic<size_t>* extractCount, std::atomic<size_t>* totalExtract);
 static void MessageboxWorker();
 
-bool Extractor::CallZapd(std::string installPath, std::string exportdir, std::atomic<size_t>* extractCount,
-                         std::atomic<size_t>* totalExtract) {
-    constexpr int argc = 22;
-    char xmlPath[1024];
-    char confPath[1024];
+bool Extractor::CallTorch(std::string installPath, std::string exportdir, std::atomic<size_t>* extractCount,
+                          std::atomic<size_t>* totalExtract) {
     char portVersion[18]; // 5 digits for int16_max (x3) + separators + terminator
-    std::array<const char*, argc> argv;
-    const char* version = GetZapdVerStr();
-    const char* otrFile = "mm.o2r";
+    snprintf(portVersion, 18, "%d.%d.%d", gBuildVersionMajor, gBuildVersionMinor, gBuildVersionPatch);
 
     std::string romPath = std::filesystem::absolute(mCurrentRomPath).string();
-    installPath = std::filesystem::absolute(installPath).string();
+    std::string srcDir = std::filesystem::absolute(installPath).string() + "/assets";
     exportdir = std::filesystem::absolute(exportdir).string();
     // Work this out in the temporary folder
     std::string tempdir = Mkdtemp();
-    std::string curdir = std::filesystem::current_path().string();
-#ifdef _WIN32
-    std::filesystem::copy(installPath + "/assets", tempdir + "/assets",
-                          std::filesystem::copy_options::recursive | std::filesystem::copy_options::update_existing);
-#else
-    std::filesystem::create_symlink(installPath + "/assets", tempdir + "/assets");
-#endif
 
-    std::filesystem::current_path(tempdir);
+    *totalExtract = MMTorch::CountAssetFiles(srcDir + "/" + GetTorchVersionDir());
+    *extractCount = 0;
 
-    snprintf(xmlPath, 1024, "assets/xml/%s", version);
-    snprintf(confPath, 1024, "assets/Config_%s.xml", version);
-    snprintf(portVersion, 18, "%d.%d.%d", gBuildVersionMajor, gBuildVersionMinor, gBuildVersionPatch);
+    // config.yml decides whether this is oot.o2r or oot-mq.o2r.
+    std::string archiveName = MMTorch::Extract(romPath, srcDir, tempdir, portVersion, extractCount);
+    bool success = !archiveName.empty();
 
-    argv[0] = "ZAPD";
-    argv[1] = "ed";
-    argv[2] = "-i";
-    argv[3] = xmlPath;
-    argv[4] = "-b";
-    argv[5] = romPath.c_str();
-    argv[6] = "-fl";
-    argv[7] = "assets/filelists";
-    argv[8] = "-gsf";
-    argv[9] = "0";
-    argv[10] = "-rconf";
-    argv[11] = confPath;
-    argv[12] = "-se";
-    argv[13] = "OTR";
-    argv[14] = "--otrfile";
-    argv[15] = otrFile;
-    argv[16] = "--portVer";
-    argv[17] = portVersion;
-    argv[18] = "-o";
-    argv[19] = "placeholder";
-    argv[20] = "-osf";
-    argv[21] = "placeholder";
+    std::error_code ec;
+    if (success) {
+        std::filesystem::copy(tempdir + "/" + archiveName, exportdir + "/" + archiveName,
+                              std::filesystem::copy_options::overwrite_existing, ec);
+        if (ec) {
+            SPDLOG_ERROR("Failed to copy {} to {}: {}", archiveName, exportdir, ec.message());
+            success = false;
+        }
+    }
 
-    zapd_report(argc, (char**)argv.data(), extractCount, totalExtract);
+    std::filesystem::remove_all(tempdir, ec);
 
-    std::filesystem::copy(otrFile, exportdir + "/" + otrFile, std::filesystem::copy_options::overwrite_existing);
-
-    // Go back to where this game was executed from
-    std::filesystem::current_path(curdir);
-    std::filesystem::remove_all(tempdir);
-
-    return false;
+    return success;
 }
 
 static void MessageboxWorker() {
