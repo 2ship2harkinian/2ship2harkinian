@@ -9,6 +9,7 @@ extern "C" {
 #include "include/z64player.h"
 extern s32 Player_SetAction(PlayState* play, Player* player, PlayerActionFunc actionFunc, s32 arg3);
 extern void Player_Action_1(Player* player, PlayState* play);
+extern s32 Player_PutAwayHeldItem(PlayState* play, Player* player);
 }
 
 static u8 lastOcarinaButton = OCARINA_BTN_INVALID;
@@ -40,13 +41,31 @@ void PreventGrab(Player* player) {
      *   - ACTOR_OBJ_TSUBO      (Pots)
      *   - ACTOR_OBJ_KIBAKO     (Small Crates)
      *   - ACTOR_OBJ_SNOWBALL2  (Small Snowballs)
+     *
+     *  Due to many grass actors on Termina Field and other areas being a special one, ACTOR_OBJ_GRASS_CARRY is also
+     * included. Not including this makes the grass itself be grabbable again, which defeats the purpose of this
+     * addition.
      */
-    if (player->interactRangeActor != NULL) {
-        if (player->interactRangeActor->id == ACTOR_EN_KUSA || player->interactRangeActor->id == ACTOR_EN_KUSA2 ||
-            player->interactRangeActor->id == ACTOR_EN_ISHI || player->interactRangeActor->id == ACTOR_EN_BOMBF ||
-            player->interactRangeActor->id == ACTOR_OBJ_TSUBO || player->interactRangeActor->id == ACTOR_OBJ_KIBAKO ||
-            player->interactRangeActor->id == ACTOR_OBJ_SNOWBALL2) {
-            player->interactRangeActor = NULL;
+    ActorId actorsToRestrict[8] = { ACTOR_EN_KUSA,   ACTOR_EN_KUSA2,   ACTOR_EN_ISHI,       ACTOR_EN_BOMBF,
+                                    ACTOR_OBJ_TSUBO, ACTOR_OBJ_KIBAKO, ACTOR_OBJ_SNOWBALL2, ACTOR_OBJ_GRASS_CARRY };
+
+    // We allow bombs/powder kegs/bombchus to be grabbable since they don't appear naturally anywhere in the world
+    // but rather are actively used items instead.
+    if (player->interactRangeActor != NULL &&
+        !(player->interactRangeActor->id == ACTOR_EN_BOM || player->interactRangeActor->id == ACTOR_EN_BOM_CHU)) {
+        // Check if the player is already carrying something, like a sword or similar
+        if (player->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR) {
+            // Put the held item away, otherwise we bypass the grab restriction
+            // Also less elegant, because player has no visual or audio feedback that the held item
+            // has been put away.
+            Player_PutAwayHeldItem(gPlayState, player);
+        }
+
+        Actor* interactActor = player->interactRangeActor;
+
+        if (std::ranges::find(actorsToRestrict, interactActor->id) != std::end(actorsToRestrict)) {
+            interactActor = NULL;
+            player->interactRangeActor = interactActor;
             player->stateFlags1 &= ~PLAYER_STATE1_CARRYING_ACTOR;
         }
     }
