@@ -1718,7 +1718,7 @@ void DrawPlayerTab() {
         uint32_t states[5] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
                                player->meleeWeaponState, player->meleeWeaponState };
 
-        if (ImGui::BeginTable("stateTable", 4)) {
+        if (ImGui::BeginTable("stateTable", 5)) {
             GetPlayerForm(GET_PLAYER_FORM);
             ImGui::PushStyleVar(ImGuiTableColumnFlags_WidthFixed, 15.0f);
             ImGui::PushStyleColor(ImGuiCol_TableHeaderBg, formColor);
