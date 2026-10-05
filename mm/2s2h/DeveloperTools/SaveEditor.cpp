@@ -1716,7 +1716,7 @@ void DrawPlayerTab() {
         UIWidgets::BeginCard("playerStates");
         ImGui::Text("Player States");
         uint32_t states[5] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
-                               player->meleeWeaponState, player->meleeWeaponState };
+                               player->meleeWeaponState, player->getItemId };
 
         if (ImGui::BeginTable("stateTable", 5)) {
             GetPlayerForm(GET_PLAYER_FORM);
@@ -1726,7 +1726,7 @@ void DrawPlayerTab() {
             ImGui::TableSetupColumn("State 2");
             ImGui::TableSetupColumn("State 3");
             ImGui::TableSetupColumn("Sword State");
-            ImGui::TableSetupColumn("Test String");
+            ImGui::TableSetupColumn("Item ID?");
             ImGui::TableHeadersRow();
             ImGui::TableNextColumn();
 
