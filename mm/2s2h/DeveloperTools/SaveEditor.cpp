@@ -1715,7 +1715,7 @@ void DrawPlayerTab() {
 
         UIWidgets::BeginCard("playerStates");
         ImGui::Text("Player States");
-        uint32_t states[4] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
+        uint32_t states[5] = { player->stateFlags1, player->stateFlags2, player->stateFlags3,
                                player->meleeWeaponState, player->meleeWeaponState };
 
         if (ImGui::BeginTable("stateTable", 4)) {
