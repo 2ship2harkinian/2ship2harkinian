@@ -454,7 +454,7 @@ void LoadAvailableWindows() {
 
     itemTrackerGroupsAvailable.push_back(
         TrackerGroup{ .name = "Abilities",
-                      .columns = 4,
+                      .columns = 5,
                       .scale = 1.0f,
                       .items = { { TRACKER_ITEM_RANDO, RI_ABILITY_SWIM }, { TRACKER_ITEM_RANDO, RI_ABILITY_GRAB } } });
 
