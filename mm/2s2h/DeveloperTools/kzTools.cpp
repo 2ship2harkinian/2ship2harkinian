@@ -11,24 +11,24 @@ extern "C" {
 extern PlayState* gPlayState;
 }
 
-void DrawKzMenu(){
-    UIWidgets::BeginCardLayout({ .columnsPerRow = 3, .minColumnWidth = 420.0f });
-
+void DrawKzMenu() {
     if (gPlayState) {
         Player* player = GET_PLAYER(gPlayState);
 
         UIWidgets::BeginCardLayout({ .columnsPerRow = 2, .minColumnWidth = 420.0f });
-        
+        ImGui::Text("HELLO");
+
         ImGui::PushItemWidth(ImGui::GetFontSize() * 6);
         ImGui::InputScalar("Underwater Timer", ImGuiDataType_Float, &player->underwaterTimer);
         ImGui::InputScalar("Water Depth", ImGuiDataType_Float, &player->actor.depthInWater);
-    }
 
-} 
+        UIWidgets::EndCardLayout();
+    }
+}
 
 void KzToolsWindow::DrawElement() {
     DrawKzMenu();
-};
+}
 
 void KzToolsWindow::InitElement() {
-};
+}
