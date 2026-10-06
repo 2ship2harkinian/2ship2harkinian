@@ -8,6 +8,7 @@ extern "C" {
 #include "z64actor.h"
 #include "functions.h"
 #include "variables.h"
+
 extern PlayState* gPlayState;
 }
 
@@ -16,6 +17,7 @@ void DrawKzMenu() {
         Player* player = GET_PLAYER(gPlayState);
 
         UIWidgets::BeginCardLayout({ .columnsPerRow = 2, .minColumnWidth = 420.0f });
+
         ImGui::Text("HELLO");
 
         ImGui::PushItemWidth(ImGui::GetFontSize() * 6);
@@ -27,7 +29,7 @@ void DrawKzMenu() {
 }
 
 void KzToolsWindow::DrawElement() {
-    ImGui::Text("HELLO");
+    UIWidgets::CVarCheckbox("Enabled", "gKzTools.Enabled");
 }
 
 void KzToolsWindow::InitElement() {
