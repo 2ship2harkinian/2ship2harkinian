@@ -9,8 +9,6 @@ extern "C" {
 #include "variables.h"
 }
 
-extern PlayState* gPlayState;
-
 void KzToolsWindow::DrawElement() {
     ImGui::TableSetupColumn("jelp");
 };
