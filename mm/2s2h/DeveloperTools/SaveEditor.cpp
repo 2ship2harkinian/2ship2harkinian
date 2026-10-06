@@ -1583,8 +1583,6 @@ void DrawPlayerTab() {
         ImGui::InputScalar("Y Rot", ImGuiDataType_S16, &player->actor.world.rot.y);
         ImGui::SameLine();
         ImGui::InputScalar("Z Rot", ImGuiDataType_S16, &player->actor.world.rot.z);
-        ImGui::Text("Get Item Value:");
-        ImGui::InputScalar("Get Item Value", ImGuiDataType_S16, &player->getItemId);
         ImGui::PopItemWidth();
         UIWidgets::PopStyleCombobox();
         UIWidgets::EndCard();
