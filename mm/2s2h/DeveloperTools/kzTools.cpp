@@ -8,7 +8,12 @@ extern "C" {
 #include "functions.h"
 #include "variables.h"
 }
+extern PlayState* gPlayState;
+extern 
 
 void KzToolsWindow::DrawElement() {
     ImGui::TableSetupColumn("jelp");
+};
+
+void KzToolsWindow::InitElement() {
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ship/window/gui/GuiWindow.h>
-#include <vector>
 
 extern "C" {
 #include "z64save.h"
