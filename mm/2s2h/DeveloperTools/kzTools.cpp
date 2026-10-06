@@ -1,4 +1,4 @@
-#include "KzTools.h"
+#include "kzTools.h"
 #include "2s2h/BenGui/UIWidgets.hpp"
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipUtils.h"
