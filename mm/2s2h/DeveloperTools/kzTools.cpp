@@ -20,8 +20,8 @@ void DrawKzMenu(){
         UIWidgets::BeginCardLayout({ .columnsPerRow = 2, .minColumnWidth = 420.0f });
         
         ImGui::PushItemWidth(ImGui::GetFontSize() * 6);
-        ImGui::InputScalar("Underwater Timer", ImGuiDataType_Float, &player.underwaterTimer);
-        ImGui::InputScalar("Underwater Timer", ImGuiDataType_Float, &player->actor.depthInWater);
+        ImGui::InputScalar("Underwater Timer", ImGuiDataType_Float, &player->underwaterTimer);
+        ImGui::InputScalar("Water Depth", ImGuiDataType_Float, &player->actor.depthInWater);
     }
 
 } 
