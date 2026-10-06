@@ -27,7 +27,7 @@ void DrawKzMenu() {
 }
 
 void KzToolsWindow::DrawElement() {
-    DrawKzMenu();
+    ImGui::Text("HELLO");
 }
 
 void KzToolsWindow::InitElement() {
