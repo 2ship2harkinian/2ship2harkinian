@@ -2317,7 +2317,7 @@ void BenMenu::AddDevTools() {
     path = { "Dev Tools", "kz Tools", SECTION_COLUMN_1 };
     AddSidebarEntry("Dev Tools", "kz Tools", 1);
     AddWidget(path, "Popout kz Tools", WIDGET_WINDOW_BUTTON)
-        .CVar("gWindows.kzTools")
+        .CVar("gWindows.KzTools")
         .Options(ButtonOptions().Tooltip("Display debug values for testing.").Size(Sizes::Inline))
         .WindowName("kz Tools");
 }

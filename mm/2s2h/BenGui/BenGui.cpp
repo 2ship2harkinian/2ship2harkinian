@@ -115,7 +115,7 @@ void SetupGuiElements() {
     }
     
     mKzToolsWindow =
-        std::make_shared<KzToolsWindow>("gWindows.kzTools", "kzTools", ImVec2(480, 600));
+        std::make_shared<KzToolsWindow>("gWindows.KzTools", "KzTools", ImVec2(480, 600));
     gui->AddGuiWindow(mKzToolsWindow);
 
     mHookDebuggerWindow =
