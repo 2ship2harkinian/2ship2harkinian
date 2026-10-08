@@ -390,6 +390,7 @@ typedef struct RandoSaveInfo {
     u16 foundTriforcePieces;
     u8 sariaHintsAvailable;
     u16 sariaPriorityItems[16];
+    u16 additionalItemCounts[RI_MAX];
 } RandoSaveInfo;
 
 // These are values added by 2S2H that we need to be persisted to the save file

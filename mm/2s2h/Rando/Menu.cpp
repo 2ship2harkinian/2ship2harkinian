@@ -76,6 +76,7 @@ std::vector<int32_t> incompatibleWithVanilla = {
     RO_SHUFFLE_ENEMY_SOULS,
     RO_SHUFFLE_OCARINA_BUTTONS,
     RO_PLENTIFUL_ITEMS,
+    RO_ADDITIONAL_ITEMS,
     RO_CLOCK_SHUFFLE,
     RO_SHUFFLE_TYCOON_WALLET,
 };
@@ -136,6 +137,7 @@ void ClearIncompatibleSetting() {
         // Vanilla can't add items without corresponding checks
         case RO_LOGIC_VANILLA:
             CVarClear(Rando::StaticData::Options[RO_PLENTIFUL_ITEMS].cvar);
+            CVarClear(Rando::StaticData::Options[RO_ADDITIONAL_ITEMS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_BOSS_SOULS].cvar);
             CVarClear(Rando::StaticData::Options[RO_SHUFFLE_SWIM].cvar);
             CVarClear(Rando::StaticData::Options[RO_CLOCK_SHUFFLE].cvar);
@@ -324,10 +326,43 @@ static int junkInPool = 0;
 static int balanceStatus = 0; // 0 = Able to balance, 1 = Unlikely to balance, 2 = Unable to balance
 static std::set<RandoItemId> setOfItemsInPool;
 static std::set<RandoCheckId> setOfChecksInPool;
+static std::map<RandoItemId, int> itemCountsInPool;
+static std::vector<RandoItemId> additionalItemCandidates;
+static int additionalItemsInPool = 0;
 static uint32_t checkPoolGeneration = 0;
+
+static bool IsOfferedForAdditionalItems(RandoItemId randoItemId, const RandoSaveInfo& randoSaveInfo) {
+    if (!Rando::Logic::IsEligibleForAdditionalItems(randoItemId, randoSaveInfo)) {
+        return false;
+    }
+
+    // Triforce Pieces and Traps already have their own amount options
+    if (randoItemId == RI_TRIFORCE_PIECE || randoItemId == RI_TRIFORCE_PIECE_PREVIOUS || randoItemId == RI_TRAP) {
+        return false;
+    }
+
+    switch (Rando::StaticData::Items[randoItemId].randoItemType) {
+        case RITYPE_BOSS_KEY:
+        case RITYPE_SMALL_KEY:
+        case RITYPE_MASK:
+        case RITYPE_MAJOR:
+            return true;
+        case RITYPE_LESSER:
+            return Rando::StaticData::Items[randoItemId].itemId != ITEM_TINGLE_MAP &&
+                   Rando::StaticData::Items[randoItemId].itemId != ITEM_DUNGEON_MAP &&
+                   Rando::StaticData::Items[randoItemId].itemId != ITEM_COMPASS;
+        case RITYPE_HEALTH:
+        case RITYPE_JUNK:
+        default:
+            return false;
+    }
+}
+
 void RefreshMetrics() {
     setOfItemsInPool.clear();
     setOfChecksInPool.clear();
+    itemCountsInPool.clear();
+    additionalItemCandidates.clear();
     RandoSaveInfo randoSaveInfo{};
     std::vector<RandoCheckId> checkPool;
     std::vector<RandoItemId> itemPool;
@@ -339,8 +374,22 @@ void RefreshMetrics() {
     }
     auto startingItems = Rando::GetStartingItemsFromConfig();
     Rando::SetStartingItemsInSave(randoSaveInfo, startingItems);
+    auto additionalItems = Rando::GetAdditionalItemsFromConfig();
+    Rando::SetAdditionalItemsInSave(randoSaveInfo, additionalItems);
 
     Rando::Logic::GeneratePools(randoSaveInfo, checkPool, itemPool);
+
+    additionalItemsInPool = 0;
+    for (auto& [randoItemId, count] : additionalItems) {
+        if (Rando::Logic::IsEligibleForAdditionalItems(randoItemId, randoSaveInfo)) {
+            additionalItemsInPool += count;
+        }
+    }
+    for (auto& [randoItemId, randoStaticItem] : Rando::StaticData::Items) {
+        if (IsOfferedForAdditionalItems(randoItemId, randoSaveInfo)) {
+            additionalItemCandidates.push_back(randoItemId);
+        }
+    }
 
     checksInPool = checkPool.size();
     itemsInPool = itemPool.size();
@@ -350,6 +399,7 @@ void RefreshMetrics() {
     }
     for (auto& item : itemPool) {
         setOfItemsInPool.insert(item);
+        itemCountsInPool[item]++;
         if (Rando::StaticData::Items[item].randoItemType == RITYPE_JUNK) {
             junkInPool++;
         }
@@ -382,12 +432,14 @@ void RefreshMetrics() {
 static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    // I Don't love this, but it works...
                                                                    "gRando.ExcludedChecks",
+                                                                   "gRando.AdditionalItems",
                                                                    "gRando.Options.RO_ACCESS_DUNGEONS",
                                                                    "gRando.Options.RO_ACCESS_MAJORA_MASKS_COUNT",
                                                                    "gRando.Options.RO_ACCESS_MAJORA_REMAINS_COUNT",
                                                                    "gRando.Options.RO_ACCESS_MOON_MASKS_COUNT",
                                                                    "gRando.Options.RO_ACCESS_MOON_REMAINS_COUNT",
                                                                    "gRando.Options.RO_ACCESS_TRIALS",
+                                                                   "gRando.Options.RO_ADDITIONAL_ITEMS",
                                                                    "gRando.Options.RO_CLOCK_SHUFFLE_PROGRESSIVE",
                                                                    "gRando.Options.RO_CLOCK_SHUFFLE",
                                                                    "gRando.Options.RO_HINTS_BOSS_REMAINS",
@@ -964,6 +1016,142 @@ static void DrawPriorityItemsPopup() {
     ImGui::PopStyleVar(2);
 }
 
+static constexpr const char* ADDITIONAL_ITEMS_CVAR = "gRando.AdditionalItems";
+static constexpr int ADDITIONAL_ITEMS_MAX_PER_ITEM = 99;
+
+static void SaveAdditionalItems(std::map<RandoItemId, u16>& additionalItems) {
+    Rando::SetAdditionalItemsInConfig(additionalItems);
+    ShipInit::Init(ADDITIONAL_ITEMS_CVAR);
+}
+
+static ButtonOptions AdditionalItemCountButtonOptions(const char* tooltip, const char* disabledTooltip) {
+    return ButtonOptions({ { .disabled = disabledTooltip != nullptr, .disabledTooltip = disabledTooltip } })
+        .Size(ImVec2(PRIORITY_BUTTON_SIZE, PRIORITY_BUTTON_SIZE))
+        .Padding(ImVec2(4.0f, 4.0f))
+        .Tooltip(tooltip);
+}
+
+static void DrawAdditionalItemsPopup() {
+    static std::map<RandoItemId, u16> additionalItems;
+    if (ImGui::IsWindowAppearing()) {
+        additionalItems = Rando::GetAdditionalItemsFromConfig();
+    }
+
+    ImGui::SeparatorText("Additional Items");
+    ImGui::TextWrapped("Each item is added to the pool the selected number of extra times. The + next to an "
+                       "item shows its total pool count, including Plentiful Items when enabled.");
+    if (Button(
+            ICON_FA_UNDO " Clear All",
+            ButtonOptions({ { .tooltip = "Remove every item from the Additional Items list" } }).Size(ImVec2(0, 0)))) {
+        additionalItems.clear();
+        SaveAdditionalItems(additionalItems);
+    }
+
+    PushPriorityListChildStyle();
+    if (ImGui::BeginChild("additionalItemsCurrentList", ImVec2(0, 160.0f))) {
+        if (additionalItems.empty()) {
+            ImGui::TextColored(ColorValues.at(Colors::Gray), "No additional items configured.");
+        } else if (ImGui::BeginTable("additionalItemsTable", 4, ImGuiTableFlags_SizingFixedFit)) {
+            ImGui::TableSetupColumn("icon", ImGuiTableColumnFlags_WidthFixed, PRIORITY_BUTTON_SIZE);
+            ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthStretch);
+            ImGui::TableSetupColumn("minus", ImGuiTableColumnFlags_WidthFixed, 32.0f);
+            ImGui::TableSetupColumn("plus", ImGuiTableColumnFlags_WidthFixed, 32.0f);
+
+            std::vector<RandoItemId> additionalItemIds;
+            for (auto& [itemId, count] : additionalItems) {
+                additionalItemIds.push_back(itemId);
+            }
+
+            for (RandoItemId itemId : additionalItemIds) {
+                u16 count = additionalItems[itemId];
+                Rando::StaticData::RandoStaticItem randoStaticItem = Rando::StaticData::Items[itemId];
+                ImGui::PushID((int)itemId);
+                ImGui::TableNextRow();
+
+                ImGui::TableNextColumn();
+                const char* texturePath = Rando::StaticData::GetIconTexturePath(itemId);
+                ImTextureID textureId =
+                    std::dynamic_pointer_cast<Fast::Fast3dGui>(Ship::Context::GetRawInstance()->GetWindow()->GetGui())
+                        ->GetTextureByName(texturePath);
+                float iconOffsetY = (ImGui::GetFrameHeight() - PRIORITY_BUTTON_SIZE) * 0.5f;
+                if (iconOffsetY > 0.0f) {
+                    ImGui::SetCursorPosY(ImGui::GetCursorPosY() + iconOffsetY);
+                }
+                ImGui::Image(textureId, ImVec2(PRIORITY_BUTTON_SIZE, PRIORITY_BUTTON_SIZE), ImVec2(0, 0), ImVec2(1, 1),
+                             Ship_GetItemColorTint(randoStaticItem.itemId), ImVec4(0, 0, 0, 0));
+
+                ImGui::TableNextColumn();
+                ImGui::AlignTextToFramePadding();
+                ImGui::TextUnformatted(randoStaticItem.name);
+                auto totalInPool = itemCountsInPool.find(itemId);
+                PoolCountSuffix(totalInPool != itemCountsInPool.end() ? totalInPool->second : 0);
+
+                ImGui::TableNextColumn();
+                if (IconButton("##minus", ICON_FA_MINUS,
+                               AdditionalItemCountButtonOptions(count == 1 ? "Remove this item from the list"
+                                                                           : "Add one less copy of this item",
+                                                                nullptr))) {
+                    if (count <= 1) {
+                        additionalItems.erase(itemId);
+                    } else {
+                        additionalItems[itemId] = count - 1;
+                    }
+                    SaveAdditionalItems(additionalItems);
+                }
+
+                ImGui::TableNextColumn();
+                if (IconButton(
+                        "##plus", ICON_FA_PLUS,
+                        AdditionalItemCountButtonOptions("Add one more copy of this item",
+                                                         count >= ADDITIONAL_ITEMS_MAX_PER_ITEM
+                                                             ? "Cannot add more copies of a single item than this"
+                                                             : nullptr))) {
+                    additionalItems[itemId] = count + 1;
+                    SaveAdditionalItems(additionalItems);
+                }
+
+                ImGui::PopID();
+            }
+            ImGui::EndTable();
+        }
+    }
+    ImGui::EndChild();
+    ImGui::PopStyleVar(2);
+
+    ImGui::Spacing();
+    ImGui::SeparatorText("Add Item");
+
+    static ImGuiTextFilter addItemFilter;
+    DrawSearchFilter(addItemFilter, "##additionalItemFilter", "Search", UIWidgets::Colors::LightBlue);
+
+    PushPriorityListChildStyle();
+    if (ImGui::BeginChild("additionalItemsAddList", ImVec2(0, 0))) {
+
+        std::vector<RandoItemId> candidates = additionalItemCandidates;
+        for (RandoItemId candidateId : candidates) {
+            if (setOfItemsInPool.count(candidateId) == 0) {
+                continue;
+            }
+            auto existing = additionalItems.find(candidateId);
+            if (existing != additionalItems.end()) {
+                continue;
+            }
+
+            const char* name = Rando::StaticData::Items[candidateId].name;
+            if (!addItemFilter.PassFilter(name)) {
+                continue;
+            }
+
+            if (ImGui::Selectable(name)) {
+                additionalItems[candidateId] = 1;
+                SaveAdditionalItems(additionalItems);
+            }
+        }
+    }
+    ImGui::EndChild();
+    ImGui::PopStyleVar(2);
+}
+
 static bool ItemPoolCheckbox(const char* label, RandoOptionId optionId, const char* tooltip, int itemCount = 0,
                              const char* disabledReason = nullptr) {
     if (disabledReason == nullptr && IncompatibleWithLogicSetting(optionId)) {
@@ -1216,6 +1404,26 @@ static void DrawItemPoolTab() {
                      "Major items, masks, and keys will have an extra copy added to the item pool. \n"
                      "Lesser items, stray fairies, and skulltula tokens will have a chance for an "
                      "extra copy to be added to the item pool.");
+    ItemPoolCheckbox("Additional Items", RO_ADDITIONAL_ITEMS,
+                     "Add extra copies of any item to the item pool, on top of the extra copies Plentiful Items "
+                     "gives out when enabled.",
+                     additionalItemsInPool);
+    if (CVarGetInteger(Rando::StaticData::Options[RO_ADDITIONAL_ITEMS].cvar, 0)) {
+        ImGui::SameLine();
+        if (Button(ICON_FA_COG,
+                   ButtonOptions({ { .tooltip = "Pick which items get extra copies, and how many of each.\n\nSongs are "
+                                                "left out while songs are set to Song Locations." } })
+                       .Size(ImVec2(0, 0)))) {
+            ImGui::OpenPopup("AdditionalItemsPopup");
+        }
+        ImGui::SetNextWindowSize(ImVec2(460.0f, 570.0f), ImGuiCond_Always);
+        ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding, 6.0f);
+        if (ImGui::BeginPopup("AdditionalItemsPopup")) {
+            DrawAdditionalItemsPopup();
+            ImGui::EndPopup();
+        }
+        ImGui::PopStyleVar();
+    }
     CVarCheckbox("Traps", Rando::StaticData::Options[RO_SHUFFLE_TRAPS].cvar,
                  CheckboxOptions({ { .tooltip = "Add trapped items to the pool. Traps disguise themselves as items "
                                                 "you have not obtained yet." } }));
