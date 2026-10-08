@@ -2024,6 +2024,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // varies
+    // ```
+    // #### `args`
+    // - None
+    VB_PREVENT_GRAB,
+
+    // #### `result`
+    // ```c
     // false
     // ```
     // #### `args`

@@ -7409,9 +7409,16 @@ void func_808379C0(PlayState* play, Player* this) {
             (ENISHI_GET_SIZE_FLAG(interactRangeActor) != ISHI_SIZE_SMALL_ROCK)) {
             Player_SetAction(play, this, Player_Action_38, 0);
             anim = &gPlayerAnim_link_silver_carry;
-        } else if (((interactRangeActor->id == ACTOR_EN_BOMBF) || (interactRangeActor->id == ACTOR_EN_KUSA) ||
-                    (interactRangeActor->id == ACTOR_EN_KUSA2) || (interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY)) &&
-                   (Player_GetStrength() <= PLAYER_STRENGTH_DEKU)) {
+        } else if (GameInteractor_Should(
+                       VB_PREVENT_GRAB,
+                       (((interactRangeActor->id == ACTOR_EN_BOMBF) ||
+                         ((interactRangeActor->id == ACTOR_EN_ISHI) &&
+                          (ENISHI_GET_SIZE_FLAG(interactRangeActor) == ISHI_SIZE_SMALL_ROCK)) ||
+                         (interactRangeActor->id == ACTOR_OBJ_KIBAKO) || (interactRangeActor->id == ACTOR_EN_KUSA) ||
+                         (interactRangeActor->id == ACTOR_EN_KUSA2) ||
+                         (interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY) || (interactRangeActor->id == ACTOR_EN_MM) ||
+                         (interactRangeActor->id == ACTOR_OBJ_SNOWBALL2) || (interactRangeActor->id == ACTOR_EN_ZOG)) &&
+                        (Player_GetStrength() <= PLAYER_STRENGTH_DEKU)))) {
             Player_SetAction(play, this, Player_Action_40, 0);
             anim = &gPlayerAnim_link_normal_nocarry_free;
 
@@ -13789,7 +13796,7 @@ s32 func_80847994(PlayState* play, Player* this) {
 }
 
 void func_808479F4(PlayState* play, Player* this, f32 arg2) {
-    if (this->actor.wallBgId != BGCHECK_SCENE) {
+    if (!GameInteractor_Should(VB_PREVENT_GRAB, false) && this->actor.wallBgId != BGCHECK_SCENE) {
         DynaPolyActor* actor = DynaPoly_GetActor(&play->colCtx, this->actor.wallBgId);
 
         if (actor != NULL) {

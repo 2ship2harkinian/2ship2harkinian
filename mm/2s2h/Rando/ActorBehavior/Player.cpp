@@ -9,7 +9,6 @@ extern "C" {
 #include "include/z64player.h"
 extern s32 Player_SetAction(PlayState* play, Player* player, PlayerActionFunc actionFunc, s32 arg3);
 extern void Player_Action_1(Player* player, PlayState* play);
-extern s32 Player_PutAwayHeldItem(PlayState* play, Player* player);
 }
 
 static u8 lastOcarinaButton = OCARINA_BTN_INVALID;
@@ -28,57 +27,7 @@ void RespawnOnWaterTouch(Player* player) {
     }
 }
 
-void PreventGrab(Player* player) {
-    // This prevents picking actors up like Bushes, Rocks, Pots, etc. if
-    // The ability to pickup things has not yet been found.
-
-    /*
-     *  List of Actors that are being checked for:
-     *   - ACTOR_EN_KUSA        (Grass Bushes)
-     *   - ACTOR_EN_KUSA2       (Keaton Grass Bushes)
-     *   - ACTOR_EN_ISHI        (Small rocks)
-     *   - ACTOR_EN_BOMBF       (Bomb Flowers)
-     *   - ACTOR_OBJ_TSUBO      (Pots)
-     *   - ACTOR_OBJ_KIBAKO     (Small Crates)
-     *   - ACTOR_OBJ_SNOWBALL2  (Small Snowballs)
-     *
-     *  Due to many grass actors on Termina Field and other areas being a special one, ACTOR_OBJ_GRASS_CARRY is also
-     * included. Not including this makes the grass itself be grabbable again, which defeats the purpose of this
-     * addition.
-     */
-    ActorId actorsToRestrict[8] = { ACTOR_EN_KUSA,   ACTOR_EN_KUSA2,   ACTOR_EN_ISHI,       ACTOR_EN_BOMBF,
-                                    ACTOR_OBJ_TSUBO, ACTOR_OBJ_KIBAKO, ACTOR_OBJ_SNOWBALL2, ACTOR_OBJ_GRASS_CARRY };
-
-    // We allow bombs/powder kegs/bombchus to be grabbable since they don't appear naturally anywhere in the world
-    // but rather are actively used items instead.
-    if (player->interactRangeActor != NULL &&
-        !(player->interactRangeActor->id == ACTOR_EN_BOM || player->interactRangeActor->id == ACTOR_EN_BOM_CHU)) {
-        // Check if the player is already carrying something, like a sword or similar
-        if (player->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR) {
-            // Put the held item away, otherwise we bypass the grab restriction
-            // Also less elegant, because player has no visual or audio feedback that the held item
-            // has been put away.
-            Player_PutAwayHeldItem(gPlayState, player);
-        }
-
-        Actor* interactActor = player->interactRangeActor;
-
-        if (std::ranges::find(actorsToRestrict, interactActor->id) != std::end(actorsToRestrict)) {
-            interactActor = NULL;
-            player->interactRangeActor = interactActor;
-            player->stateFlags1 &= ~PLAYER_STATE1_CARRYING_ACTOR;
-        }
-    }
-}
-
 void Rando::ActorBehavior::InitPlayerBehavior() {
-    COND_ID_HOOK(OnActorUpdate, ACTOR_PLAYER, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], [](Actor* actor) {
-        Player* player = GET_PLAYER(gPlayState);
-        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
-            PreventGrab(player);
-        }
-    });
-
     COND_ID_HOOK(OnActorUpdate, ACTOR_PLAYER, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_SWIM], [](Actor* actor) {
         Player* player = GET_PLAYER(gPlayState);
         if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_SWIM)) {
@@ -100,6 +49,15 @@ void Rando::ActorBehavior::InitPlayerBehavior() {
                     Audio_PlaySfx(NA_SE_SY_OCARINA_ERROR);
                 }
             }
+        }
+    });
+
+    COND_VB_SHOULD(VB_PREVENT_GRAB, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], {
+        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
+            GET_PLAYER(gPlayState)->stateFlags2 &= ~PLAYER_STATE2_10;
+            *should = true;
+        } else {
+            *should = false;
         }
     });
 
