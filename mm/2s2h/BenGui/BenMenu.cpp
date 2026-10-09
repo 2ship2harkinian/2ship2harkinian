@@ -676,6 +676,22 @@ void BenMenu::AddSettings() {
         .WindowName("2S2H Input Editor")
         .Options(ButtonOptions().Tooltip("Enables the separate Bindings Window.").Size(Sizes::Inline));
 
+    AddWidget(path, "Mouse", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Mouse Enabled", WIDGET_CVAR_CHECKBOX)
+        .CVar("gSettings.EnableMouse")
+        .Options(CheckboxOptions().DefaultValue(false).Tooltip(
+            "Enables Mouse Control options, including Free Look and first-person aiming."));
+    AddWidget(path, "Auto Capture Mouse Input", WIDGET_CVAR_CHECKBOX)
+        .CVar("gSettings.AutoCaptureMouse")
+        .Options(CheckboxOptions().Tooltip(
+            "When Mouse Controls are enabled, this toggles whether the program will automatically "
+            "hide the cursor and capture mouse input when closing the menu."));
+    AddWidget(path, "Force Mouse Capture on Startup", WIDGET_CVAR_CHECKBOX)
+        .CVar("gSettings.ForceMouseCaptureOnStartup")
+        .Options(CheckboxOptions().DefaultValue(false).Tooltip(
+            "This toggles whether the program will automatically "
+            "hide the cursor and force capture mouse input when starting the game."));
+
     path.sidebarName = "Overlay";
     path.column = SECTION_COLUMN_1;
     AddSidebarEntry("Settings", "Overlay", 2);
@@ -825,7 +841,7 @@ void BenMenu::AddEnhancements() {
                      .IsPercentage()
                      .Min(0.01f)
                      .Max(2.0f));
-    AddWidget(path, "Gyro Aiming", WIDGET_CVAR_CHECKBOX)
+    AddWidget(path, "Gyro/Mouse Aiming", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Camera.FirstPerson.GyroEnabled")
         .Options(CheckboxOptions().Tooltip("Enables Gyro Aiming in First Person Mode."));
     AddWidget(path, "Invert Gyro X Axis", WIDGET_CVAR_CHECKBOX)
@@ -1001,6 +1017,12 @@ void BenMenu::AddEnhancements() {
                      .IsPercentage()
                      .Min(0.1f)
                      .Max(3.0f));
+    AddWidget(path, "Disable Third Person Mouse Camera", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Camera.Mouse.DisableThirdPerson")
+        .Options(CheckboxOptions().DefaultValue(false).Tooltip(
+            "Prevents the mouse from moving the third-person camera, so only first-person aiming "
+            "responds to the mouse."))
+        .PreFunc([](WidgetInfo& info) { info.isHidden = mBenMenu->disabledMap.at(DISABLE_FOR_MOUSE_OFF).active; });
 
     path = { "Enhancements", "Cheats", SECTION_COLUMN_1 };
     AddSidebarEntry("Enhancements", "Cheats", 2);
@@ -1152,10 +1174,30 @@ void BenMenu::AddEnhancements() {
         .CVar("gEnhancements.PlayerActions.ArrowCycle")
         .Options(CheckboxOptions().Tooltip(
             "While aiming the bow, use R to cycle between Normal, Fire, Ice and Light arrows."));
+    AddWidget(path, "Invert Shield X Axis", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.InvertShieldX")
+        .Options(CheckboxOptions().Tooltip("Invert the X axis while holding the shield."));
     AddWidget(path, "Invert Shield Y Axis", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Equipment.InvertShieldY")
         .Options(CheckboxOptions().Tooltip(
             "Invert the Y axis while holding the shield so that it moves up with the left stick."));
+    AddWidget(path, "Mouse Shielding Enabled", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.MouseShielding.Enable")
+        .PreFunc([](WidgetInfo& info) { info.isHidden = mBenMenu->disabledMap.at(DISABLE_FOR_MOUSE_OFF).active; })
+        .Options(CheckboxOptions().DefaultValue(false).Tooltip("Enables Shield Control with Mouse."));
+    AddWidget(path, "Mouse Shielding Rotates Camera", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.MouseShielding.CameraControl")
+        .PreFunc([](WidgetInfo& info) {
+            info.isHidden = mBenMenu->disabledMap.at(DISABLE_FOR_MOUSE_OFF).active ||
+                            !CVarGetInteger("gEnhancements.Equipment.MouseShielding.Enable", 0);
+        })
+        .Options(CheckboxOptions().DefaultValue(true).Tooltip(
+            "Enables camera movement in Shield Control when controlling with Mouse."));
+    AddWidget(path, "Mouse Quickspin", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.MouseQuickspin.Enable")
+        .PreFunc([](WidgetInfo& info) { info.isHidden = mBenMenu->disabledMap.at(DISABLE_FOR_MOUSE_OFF).active; })
+        .Options(CheckboxOptions().DefaultValue(false).Tooltip("Allows to perform Spin Attack with Mouse."
+                                                               "Requires precise enough circular movement."));
     AddWidget(path, "Great Fairy Sword B-Button Attack", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Equipment.GreatFairySwordBButton")
         .Options(CheckboxOptions().Tooltip(
@@ -1165,6 +1207,11 @@ void BenMenu::AddEnhancements() {
         .CVar("gEnhancements.Player.InvertZoraSwimY")
         .Options(CheckboxOptions().DefaultValue(true).Tooltip(
             "Invert the Y axis while swimming as Zora with the left stick."));
+    AddWidget(path, "Active Item on B", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.ActiveItemOnB")
+        .Options(CheckboxOptions().Tooltip(
+            "Press B to use the item currently held by Link (Bow, Hookshot, Great Fairy's Sword and Deku Stick). "
+            "Second press on item unequips it."));
 
     path.column = SECTION_COLUMN_2;
     AddWidget(path, "Modes", WIDGET_SEPARATOR_TEXT);
@@ -2351,6 +2398,12 @@ void BenMenu::InitElement() {
         { DISABLE_FOR_FREE_LOOK_OFF,
           { [](disabledInfo& info) -> bool { return !CVarGetInteger("gEnhancements.Camera.FreeLook.Enable", 0); },
             "Free Look is Disabled" } },
+        { DISABLE_FOR_MOUSE_ON,
+          { [](disabledInfo& info) -> bool { return CVarGetInteger("gSettings.EnableMouse", 0); },
+            "Mouse is Enabled" } },
+        { DISABLE_FOR_MOUSE_OFF,
+          { [](disabledInfo& info) -> bool { return !CVarGetInteger("gSettings.EnableMouse", 0); },
+            "Mouse is Disabled" } },
         { DISABLE_FOR_GYRO_OFF,
           { [](disabledInfo& info) -> bool {
                return !CVarGetInteger("gEnhancements.Camera.FirstPerson.GyroEnabled", 0);
@@ -2463,4 +2516,21 @@ void BenMenu::Draw() {
 void BenMenu::DrawElement() {
     Ship::Menu::DrawElement();
 }
+
+void BenMenu::SetVisibility(bool visible) {
+    bool wasVisible = IsVisible();
+    Ship::Menu::SetVisibility(visible);
+
+    static bool captureBuffer = false;
+    if (wasVisible == visible) {
+        return;
+    }
+    std::shared_ptr<Ship::Window> window = Ship::Context::GetRawInstance()->GetWindow();
+    if (visible) {
+        captureBuffer = window->IsMouseCaptured();
+        window->SetMouseCapture(false);
+    } else {
+        window->SetMouseCapture(captureBuffer);
+    }
+};
 } // namespace BenGui
