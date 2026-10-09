@@ -397,6 +397,7 @@ void EnAttackNiw_Update(Actor* thisx, PlayState* play) {
 
         if (this->actor.xyzDistToPlayerSq < SQ(viewOffset)) {
             parent = (EnNiw*)this->actor.parent;
+            // 2S2H [Port] Changed order of null checks to fix nullptr crash
             if ((this->actor.parent != NULL) && (this->actor.parent->update != NULL) && (parent != NULL) &&
                 (parent->unkAttackNiwTimer == 0) && (player->invincibilityTimer == 0)) {
                 // this updates some player values based on what we pass, need player decomp to know what this is doing
