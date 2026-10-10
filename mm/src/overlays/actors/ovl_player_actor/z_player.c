@@ -6503,6 +6503,7 @@ void func_808354A4(PlayState* play, s32 exitIndex, s32 arg2) {
             sReturnEntranceGroupData[sReturnEntranceGroupIndices[play->nextEntrance - 0xFE00] + play->curSpawn];
 
         Scene_SetExitFade(play);
+        GameInteractor_ExecuteOnPlayerSceneExit(play->nextEntrance);
     } else {
         if (arg2) {
             gSaveContext.respawn[RESPAWN_MODE_DOWN].entrance = play->nextEntrance;
@@ -6512,6 +6513,7 @@ void func_808354A4(PlayState* play, s32 exitIndex, s32 arg2) {
 
         gSaveContext.retainWeatherMode = true;
         Scene_SetExitFade(play);
+        GameInteractor_ExecuteOnPlayerSceneExit(play->nextEntrance);
     }
 
     play->transitionTrigger = TRANS_TRIGGER_START;

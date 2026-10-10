@@ -515,6 +515,7 @@ void GameInteractor_ExecuteAfterRoomSceneCommands(s16 sceneId, s8 roomNum);
 void GameInteractor_ExecuteOnPlayDrawWorldStart();
 void GameInteractor_ExecuteOnPlayDrawWorldEnd();
 void GameInteractor_ExecuteOnPlayDestroy();
+void GameInteractor_ExecuteOnPlayerSceneExit(s32 nextEntrance);
 
 bool GameInteractor_ShouldActorInit(Actor* actor);
 void GameInteractor_ExecuteOnActorInit(Actor* actor);

@@ -2,6 +2,7 @@
 #include "Rando/Rando.h"
 #include "Rando/Spoiler/Spoiler.h"
 #include "Rando/Logic/Logic.h"
+#include "Rando/Logic/EntranceShuffle.h"
 #include "2s2h/ShipUtils.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "ClockShuffle.h"
@@ -155,6 +156,8 @@ void Rando::MiscBehavior::OnFileCreate(s16 fileNum) {
                         throw std::runtime_error("Shuffle Time is enabled but no starting time was given");
                     }
                 }
+
+                Rando::EntranceShuffle::ShuffleEntrances();
 
                 if (RANDO_SAVE_OPTIONS[RO_LOGIC] == RO_LOGIC_VANILLA) {
                     GiveItem(RI_SWORD_KOKIRI);
