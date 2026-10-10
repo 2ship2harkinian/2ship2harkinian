@@ -780,7 +780,7 @@ static void OnBombArrowInit(Actor* actor) {
             return;
         }
     } else {
-        if (player->heldItemButton == EQUIP_SLOT_B || !IsBombArrowButton(player->heldItemButton, false)) {
+        if (!IsBombArrowButton(player->heldItemButton, false)) {
             return;
         }
     }
