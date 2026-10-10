@@ -356,7 +356,7 @@ inline bool canPlaySong(u8 songId) {
         case OCARINA_SONG_SCARECROW_SPAWN:
             return FoundOcarinaButtons() >= 2;
         case OCARINA_SONG_TERMINA_WALL:
-            return (Flags_GetRandoInf(RANDO_INF_OBTAINED_OCARINA_BUTTON_A) &&
+            return (HAS_ITEM(ITEM_OCARINA_OF_TIME) && Flags_GetRandoInf(RANDO_INF_OBTAINED_OCARINA_BUTTON_A) &&
                     Flags_GetRandoInf(RANDO_INF_OBTAINED_OCARINA_BUTTON_C_DOWN) &&
                     Flags_GetRandoInf(RANDO_INF_OBTAINED_OCARINA_BUTTON_C_RIGHT) &&
                     Flags_GetRandoInf(RANDO_INF_OBTAINED_OCARINA_BUTTON_C_LEFT) &&
