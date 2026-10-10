@@ -85,7 +85,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows|Linux")
     endif()
 endif()
 
-# Enable the Gfx debugger in LUS to use libgfxd from ZAPDTR
+# Enable the Gfx debugger in LUS, which fetches its own libgfxd
 set(GFX_DEBUG_DISASSEMBLER ON)
 
 # Tell LUS we're using F3DEX_GBI_2 (in a way that doesn't break libgfxd)
@@ -181,8 +181,110 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_compile_definitions(CONTROLLERBUTTONS_T=uint32_t)
 
 ################################################################################
-# Sub-projects
+# Torch (ROM asset extraction)
 ################################################################################
+find_package(ZLIB REQUIRED)
+
+include(FetchContent)
+
+# Workaround: torch declares spdlog without OVERRIDE_FIND_PACKAGE and the first declaration
+# wins, which leaves libultraship's find_package(spdlog REQUIRED) with no config to find.
+# Declaring it here first keeps that working. See HarbourMasters/Torch#233.
+find_package(spdlog QUIET)
+if(NOT spdlog_FOUND)
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG v1.16.0
+        OVERRIDE_FIND_PACKAGE
+    )
+    FetchContent_MakeAvailable(spdlog)
+endif()
+
+set(USE_STANDALONE OFF CACHE BOOL "" FORCE)
+set(BUILD_STORMLIB OFF CACHE BOOL "" FORCE)
+set(BUILD_SM64 OFF CACHE BOOL "" FORCE)
+set(BUILD_MK64 OFF CACHE BOOL "" FORCE)
+set(BUILD_SF64 OFF CACHE BOOL "" FORCE)
+set(BUILD_PM64 OFF CACHE BOOL "" FORCE)
+set(BUILD_FZERO OFF CACHE BOOL "" FORCE)
+set(BUILD_BK64 OFF CACHE BOOL "" FORCE)
+set(BUILD_MARIO_ARTIST OFF CACHE BOOL "" FORCE)
+set(BUILD_NAUDIO OFF CACHE BOOL "" FORCE)
+set(BUILD_OOT ON CACHE BOOL "" FORCE)
+set(BUILD_MM ON CACHE BOOL "" FORCE)
+set(BUILD_UI OFF CACHE BOOL "" FORCE)
+set(PORT_VERSION_ENDIANNESS ON CACHE BOOL "" FORCE)
+add_subdirectory(torch SYSTEM)
+target_compile_definitions(torch INTERFACE YAML_CPP_STATIC_DEFINE)
+
+add_compile_definitions(YAML_CPP_STATIC_DEFINE)
+
+add_executable(2ship-o2r-packer EXCLUDE_FROM_ALL
+    ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/tools/2ship-o2r-packer/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/tools/2ship-o2r-packer/PngTexture.cpp
+)
+target_link_libraries(2ship-o2r-packer PRIVATE torch)
+
+add_executable(2ship-torch EXCLUDE_FROM_ALL
+    ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/tools/torch-cli/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/mm/2s2h/Extractor/TorchExtract.cpp
+)
+target_include_directories(2ship-torch PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/mm/2s2h/Extractor)
+target_link_libraries(2ship-torch PRIVATE torch)
+
+if(MSVC)
+    set_target_properties(2ship-o2r-packer 2ship-torch PROPERTIES
+        MSVC_RUNTIME_LIBRARY "$<IF:$<CONFIG:Debug>,MultiThreadedDebug,MultiThreaded>"
+    )
+endif()
+
+add_custom_target(
+    Generate2ShipOtr
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/mm
+    COMMAND $<TARGET_FILE:2ship-o2r-packer>
+        ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/custom
+        ${CMAKE_BINARY_DIR}/mm/2ship.o2r
+        ${CMAKE_PROJECT_VERSION}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_BINARY_DIR}/mm/2ship.o2r
+        ${CMAKE_CURRENT_SOURCE_DIR}/2ship.o2r
+    COMMENT "Generating 2ship.o2r..."
+    DEPENDS 2ship-o2r-packer
+    BYPRODUCTS ${CMAKE_BINARY_DIR}/mm/2ship.o2r ${CMAKE_SOURCE_DIR}/2ship.o2r
+)
+
+set(MM_ROM_PATH "${CMAKE_SOURCE_DIR}/roms" CACHE STRING "A Majora's Mask ROM, or a directory containing one ROM")
+
+add_custom_target(
+    ExtractAssets
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/mm
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/mm/mm.o2r
+    COMMAND $<TARGET_FILE:2ship-torch>
+        --src ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/yml
+        --dest ${CMAKE_BINARY_DIR}/mm
+        --version ${CMAKE_PROJECT_VERSION}
+        ${MM_ROM_PATH}
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/mm/torch.hash.yml
+    COMMENT "Running asset extraction..."
+    DEPENDS 2ship-torch Generate2ShipOtr
+    BYPRODUCTS ${CMAKE_BINARY_DIR}/mm/mm.o2r
+)
+
+add_custom_target(
+    ExtractAssetHeaders
+    COMMAND ${CMAKE_COMMAND} -E echo "ExtractAssetHeaders is unavailable: Torch does not emit 2Ship asset headers."
+    COMMAND ${CMAKE_COMMAND} -E echo "The checked-in headers under mm/assets remain in use."
+    COMMAND ${CMAKE_COMMAND} -E false
+)
+
+option(2SHIP_TOOLS_ONLY "Configure only the Torch asset tools" OFF)
+
+if(2SHIP_TOOLS_ONLY)
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/mm)
+    return()
+endif()
+
 add_subdirectory(libultraship ${CMAKE_BINARY_DIR}/libultraship)
 target_compile_definitions(libultraship PUBLIC INCLUDE_MPQ_SUPPORT)
 
@@ -204,8 +306,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU|MSVC")
     endif()
 endif()
 
-add_subdirectory(ZAPDTR/ZAPD ${CMAKE_BINARY_DIR}/ZAPD)
-add_subdirectory(OTRExporter)
 add_subdirectory(mm)
 
 set_property(TARGET 2ship PROPERTY APPIMAGE_DESKTOP_FILE_TERMINAL YES)
@@ -214,51 +314,12 @@ set_property(TARGET 2ship PROPERTY APPIMAGE_ICON_FILE "${CMAKE_BINARY_DIR}/2s2hI
 
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 install(FILES "${CMAKE_BINARY_DIR}/mm/2ship.o2r" DESTINATION . COMPONENT ship)
-install(TARGETS ZAPD DESTINATION ./assets/extractor COMPONENT extractor)
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/extractor/" DESTINATION ./assets/ COMPONENT extractor)
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/xml/" DESTINATION ./assets/xml COMPONENT extractor)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/yml/" DESTINATION assets COMPONENT ship)
 endif()
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/extractor/" DESTINATION ./assets/ COMPONENT 2s2h)
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/xml/" DESTINATION ./assets/xml COMPONENT 2s2h)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/yml/" DESTINATION assets COMPONENT 2s2h)
 endif()
-
-find_package(Python3 COMPONENTS Interpreter)
-
-# Target to generate OTRs
-add_custom_target(
-    ExtractAssets
-    # CMake versions prior to 3.17 do not have the rm command, use remove instead for older versions
-    COMMAND ${CMAKE_COMMAND} -E $<IF:$<VERSION_LESS:${CMAKE_VERSION},3.17>,remove,rm> -f mm.zip 2ship.o2r
-    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/OTRExporter/extract_assets.py -z "$<TARGET_FILE:ZAPD>" --non-interactive --xml-root ../mm/assets/xml --custom-otr-file 2ship.o2r "--custom-assets-path" ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/custom --port-ver "${CMAKE_PROJECT_VERSION}"
-    COMMAND ${CMAKE_COMMAND} -DSYSTEM_NAME=${CMAKE_SYSTEM_NAME} -DTARGET_DIR="$<TARGET_FILE_DIR:ZAPD>" -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -DBINARY_DIR=${CMAKE_BINARY_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/CMake/copy-existing-otrs.cmake
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/mm
-    COMMENT "Running asset extraction..."
-    DEPENDS ZAPD
-    BYPRODUCTS mm.o2r ${CMAKE_SOURCE_DIR}/mm.o2r ${CMAKE_SOURCE_DIR}/2ship.o2r
-)
-
-# Target to generate headers
-add_custom_target(
-    ExtractAssetHeaders
-    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/OTRExporter/extract_assets.py -z "$<TARGET_FILE:ZAPD>" --non-interactive --xml-root ../mm/assets/xml --gen-headers
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/mm
-    COMMENT "Generating asset headers..."
-    DEPENDS ZAPD
-)
-
-# Target to generate only 2ship.o2r
-add_custom_target(
-    Generate2ShipOtr
-    # CMake versions prior to 3.17 do not have the rm command, use remove instead for older versions
-    COMMAND ${CMAKE_COMMAND} -E $<IF:$<VERSION_LESS:${CMAKE_VERSION},3.17>,remove,rm> -f 2ship.o2r
-    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/OTRExporter/extract_assets.py -z "$<TARGET_FILE:ZAPD>" --norom --custom-otr-file 2ship.o2r "--custom-assets-path" ${CMAKE_CURRENT_SOURCE_DIR}/mm/assets/custom --port-ver "${CMAKE_PROJECT_VERSION}"
-    COMMAND ${CMAKE_COMMAND} -DSYSTEM_NAME=${CMAKE_SYSTEM_NAME} -DTARGET_DIR="$<TARGET_FILE_DIR:ZAPD>" -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -DBINARY_DIR=${CMAKE_BINARY_DIR} -DONLY2SHIPOTR=On -P ${CMAKE_CURRENT_SOURCE_DIR}/CMake/copy-existing-otrs.cmake
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/mm
-    COMMENT "Generating 2ship.o2r..."
-    DEPENDS ZAPD
-)
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 file(COPY ${CMAKE_SOURCE_DIR}/mm/linux/2s2hIcon.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -283,12 +344,9 @@ add_custom_target(CreateOSXIcons
    )
 add_dependencies(2ship CreateOSXIcons)
 
-install(TARGETS ZAPD DESTINATION ${CMAKE_BINARY_DIR}/assets/extractor)
-
 set(PROGRAM_PERMISSIONS_EXECUTE OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ)
 
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/extractor/" DESTINATION ./assets/)
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/xml/" DESTINATION ./assets/xml)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/mm/assets/yml/" DESTINATION assets)
 
 # Rename the installed soh binary to drop the macos suffix
 INSTALL(CODE "FILE(RENAME \${CMAKE_INSTALL_PREFIX}/../MacOS/2s2h-macos \${CMAKE_INSTALL_PREFIX}/../MacOS/2s2h)")

@@ -8,3 +8,4 @@
 # Unignore our custom assets and header file
 !custom/**/*
 !2s2h_assets.h
+!tools/**/*.h
