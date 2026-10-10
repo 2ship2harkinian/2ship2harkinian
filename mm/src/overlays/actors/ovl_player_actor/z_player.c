@@ -13498,6 +13498,8 @@ void Player_Draw(Actor* thisx, PlayState* play) {
 void Player_Destroy(Actor* thisx, PlayState* play) {
     Player* this = (Player*)thisx;
 
+    ResourceMgr_UnregisterSkeleton(&this->skelAnime);
+    ResourceMgr_UnregisterSkeleton(&this->skelAnimeUpper);
     Effect_Destroy(play, this->meleeWeaponEffectIndex[0]);
     Effect_Destroy(play, this->meleeWeaponEffectIndex[1]);
     Effect_Destroy(play, this->meleeWeaponEffectIndex[2]);
