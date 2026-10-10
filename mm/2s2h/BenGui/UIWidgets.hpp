@@ -111,7 +111,7 @@ struct WidgetOptions {
     Colors color = Colors::NoColor;
 
     WidgetOptions& Color(Colors color_) {
-        color = color = color_;
+        color = color_;
         return *this;
     }
 
@@ -206,8 +206,8 @@ struct WindowButtonOptions : WidgetOptions {
 
 struct CheckboxOptions : WidgetOptions {
     bool defaultValue = false; // Only applicable to CVarCheckbox
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Near;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Near;
     ImVec2 padding = ImVec2(10.0f, 8.0f);
     Colors color = WidgetOptions::color = Colors::LightBlue;
 
@@ -216,12 +216,12 @@ struct CheckboxOptions : WidgetOptions {
         return *this;
     }
 
-    CheckboxOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    CheckboxOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }
 
-    CheckboxOptions& LabelPosition(LabelPosition labelPosition_) {
+    CheckboxOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -252,8 +252,8 @@ using ComboVec_t = std::vector<const char*>*;
 struct ComboboxOptions : WidgetOptions {
     std::variant<ComboMap_t, ComboVec_t> comboVariant;
     uint32_t defaultIndex = 0; // Only applicable to CVarCombobox
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Above;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Above;
     ImGuiComboFlags flags = 0;
     Colors color = Colors::LightBlue;
     std::optional<float> width = std::nullopt; // Override width, -FLT_MIN to stretch
@@ -273,12 +273,12 @@ struct ComboboxOptions : WidgetOptions {
         return *this;
     }
 
-    ComboboxOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    ComboboxOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }
 
-    ComboboxOptions& LabelPosition(LabelPosition labelPosition_) {
+    ComboboxOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -308,8 +308,8 @@ struct IntSliderOptions : WidgetOptions {
     int32_t max = 10;
     int32_t defaultValue = 1;
     bool clamp = true;
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Above;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Above;
     Colors color = Colors::Gray;
     ImGuiSliderFlags flags = 0;
     ImVec2 size = { 0, 0 };
@@ -349,12 +349,12 @@ struct IntSliderOptions : WidgetOptions {
         return *this;
     }
 
-    IntSliderOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    IntSliderOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }
 
-    IntSliderOptions& LabelPosition(LabelPosition labelPosition_) {
+    IntSliderOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -390,8 +390,8 @@ struct FloatSliderOptions : WidgetOptions {
     float defaultValue = 1.0f;
     bool clamp = true;
     bool isPercentage = false; // Multiplies visual value by 100
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Above;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Above;
     Colors color = Colors::Gray;
     ImGuiSliderFlags flags = 0;
     ImVec2 size = { 0, 0 };
@@ -430,12 +430,12 @@ struct FloatSliderOptions : WidgetOptions {
         return *this;
     }
 
-    FloatSliderOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    FloatSliderOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }
 
-    FloatSliderOptions& LabelPosition(LabelPosition labelPosition_) {
+    FloatSliderOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -471,8 +471,8 @@ struct FloatSliderOptions : WidgetOptions {
 
 struct BtnSelectorOptions : WidgetOptions {
     s32 defaultValue = 0;
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Above;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Above;
     Colors color = Colors::Gray;
 
     BtnSelectorOptions& DefaultValue(float defaultValue_) {
@@ -480,12 +480,12 @@ struct BtnSelectorOptions : WidgetOptions {
         return *this;
     }
 
-    BtnSelectorOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    BtnSelectorOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }
 
-    BtnSelectorOptions& LabelPosition(LabelPosition labelPosition_) {
+    BtnSelectorOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -528,8 +528,8 @@ struct RadioButtonsOptions : WidgetOptions {
 };
 
 struct InputOptions : WidgetOptions {
-    ComponentAlignment alignment = ComponentAlignment::Left;
-    LabelPosition labelPosition = LabelPosition::Above;
+    UIWidgets::ComponentAlignment alignment = UIWidgets::ComponentAlignment::Left;
+    UIWidgets::LabelPosition labelPosition = UIWidgets::LabelPosition::Above;
     Colors color = Colors::Gray;
     ImVec2 size = { 0, 0 };
     std::string placeholder = "";
@@ -555,7 +555,7 @@ struct InputOptions : WidgetOptions {
         return *this;
     }
 
-    InputOptions& LabelPosition(LabelPosition labelPosition_) {
+    InputOptions& LabelPosition(UIWidgets::LabelPosition labelPosition_) {
         labelPosition = labelPosition_;
         return *this;
     }
@@ -575,7 +575,7 @@ struct InputOptions : WidgetOptions {
         return *this;
     }
 
-    InputOptions& ComponentAlignment(ComponentAlignment alignment_) {
+    InputOptions& ComponentAlignment(UIWidgets::ComponentAlignment alignment_) {
         alignment = alignment_;
         return *this;
     }

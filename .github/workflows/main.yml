@@ -24,8 +24,8 @@ jobs:
           ${{ runner.os }}-otr-ccache
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y $(cat .github/workflows/apt-deps.txt) libzip-dev zipcmp zipmerge ziptool
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq $(cat .github/workflows/apt-deps.txt) libzip-dev zipcmp zipmerge ziptool
     - name: Restore Cached deps folder
       uses: actions/cache/restore@v5
       with:
@@ -44,10 +44,10 @@ jobs:
           tar -xzf SDL2-2.30.3.tar.gz -C deps
         fi
         cd deps/SDL2-2.30.3
-        ./configure --enable-hidapi-libusb
+        ./configure --quiet --enable-hidapi-libusb
         make -j 10
         sudo make install
-        sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
+        sudo cp -a /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
     - name: Install latest tinyxml2
       run: |
         sudo apt-get remove libtinyxml2-dev
@@ -59,7 +59,7 @@ jobs:
         cd deps/tinyxml2-10.0.0
         mkdir -p build
         cd build
-        cmake ..
+        cmake .. --log-level=WARNING -DCMAKE_INSTALL_MESSAGE=NEVER
         make
         sudo make install
     - name: Generate 2ship.o2r
@@ -126,8 +126,8 @@ jobs:
         submodules: true
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y $(cat .github/workflows/apt-deps.txt)
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq $(cat .github/workflows/apt-deps.txt)
     - name: Configure ccache
       uses: hendrikmuhs/ccache-action@v1.2.22
       with:
@@ -155,10 +155,10 @@ jobs:
           tar -xzf SDL2-2.30.3.tar.gz -C deps
         fi
         cd deps/SDL2-2.30.3
-        ./configure --enable-hidapi-libusb
+        ./configure --quiet --enable-hidapi-libusb
         make -j 10
         sudo make install
-        sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
+        sudo cp -a /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
     - name: Install latest tinyxml2
       run: |
         sudo apt-get remove libtinyxml2-dev
@@ -170,7 +170,7 @@ jobs:
         cd deps/tinyxml2-10.0.0
         mkdir -p build
         cd build
-        cmake ..
+        cmake .. --log-level=WARNING -DCMAKE_INSTALL_MESSAGE=NEVER
         make
         sudo make install
     - name: Install libzip without crypto
@@ -183,10 +183,10 @@ jobs:
         cd deps/libzip-1.10.1
         mkdir -p build
         cd build
-        cmake .. -DENABLE_COMMONCRYPTO=OFF -DENABLE_GNUTLS=OFF -DENABLE_MBEDTLS=OFF -DENABLE_OPENSSL=OFF
+        cmake .. --log-level=WARNING -DCMAKE_INSTALL_MESSAGE=NEVER -DENABLE_COMMONCRYPTO=OFF -DENABLE_GNUTLS=OFF -DENABLE_MBEDTLS=OFF -DENABLE_OPENSSL=OFF
         make
         sudo make install
-        sudo cp -av /usr/local/lib/libzip* /lib/x86_64-linux-gnu/
+        sudo cp -a /usr/local/lib/libzip* /lib/x86_64-linux-gnu/
     - name: Download 2ship.o2r
       uses: actions/download-artifact@v8
       with:
