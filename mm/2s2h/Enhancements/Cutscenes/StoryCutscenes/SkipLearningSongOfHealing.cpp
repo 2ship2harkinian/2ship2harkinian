@@ -4,6 +4,7 @@
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 #include <spdlog/spdlog.h>
 
 extern "C" {
@@ -77,25 +78,25 @@ void RegisterSkipLearningSongOfHealing() {
 
         if (GameInteractor_Should(VB_GIVE_ITEM_FROM_OSN, true, enOsn)) {
             // Queue up the item gives
-            GameInteractor::Instance->events.emplace_back(
-                GIEventGiveItem{ .showGetItemCutscene = true,
-                                 .giveItem =
-                                     [](Actor* actor, PlayState* play) {
-                                         if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                                             CustomMessage::SetActiveCustomMessage("You received the Song of Healing!",
-                                                                                   { .textboxType = 2 });
-                                         } else {
-                                             CustomMessage::StartTextbox(
-                                                 "You received the Song of Healing!\x1C\x02\x10", { .textboxType = 2 });
-                                         }
-                                         Item_Give(gPlayState, ITEM_SONG_HEALING);
-                                     },
-                                 .drawItem =
-                                     [](Actor* actor, PlayState* play) {
-                                         Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                                         Rando::DrawItem(RI_SONG_HEALING);
-                                     } });
-            GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+            GameInteractor::Instance->Queue(GIActions::GiveItem(
+                { .showGetItemCutscene = true,
+                  .giveItem =
+                      [](Actor* actor, PlayState* play) {
+                          if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                              CustomMessage::SetActiveCustomMessage("You received the Song of Healing!",
+                                                                    { .textboxType = 2 });
+                          } else {
+                              CustomMessage::StartTextbox("You received the Song of Healing!\x1C\x02\x10",
+                                                          { .textboxType = 2 });
+                          }
+                          Item_Give(gPlayState, ITEM_SONG_HEALING);
+                      },
+                  .drawItem =
+                      [](Actor* actor, PlayState* play) {
+                          Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                          Rando::DrawItem(RI_SONG_HEALING);
+                      } }));
+            GameInteractor::Instance->Queue(GIActions::GiveItem({
                 .showGetItemCutscene = true,
                 .param = GID_MASK_DEKU,
                 .giveItem =
@@ -108,7 +109,7 @@ void RegisterSkipLearningSongOfHealing() {
                         }
                         Item_Give(gPlayState, ITEM_MASK_DEKU);
                     },
-            });
+            }));
         }
     });
 }

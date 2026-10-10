@@ -6,6 +6,7 @@
 #include "2s2h/BenGui/Notification.h"
 #include "2s2h/Rando/StaticData/StaticData.h"
 #include "2s2h/ShipUtils.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 #include "Traps.h"
 
 extern "C" {
@@ -32,92 +33,99 @@ void Rando::MiscBehavior::CheckQueue() {
     }
 
     for (auto& [randoCheckId, randoStaticCheck] : Rando::StaticData::Checks) {
-        auto randoSaveCheck = RANDO_SAVE_CHECKS[randoCheckId];
+        auto& randoSaveCheck = RANDO_SAVE_CHECKS[randoCheckId];
 
         if (randoSaveCheck.eligible) {
             queued = true;
 
-            GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                .showGetItemCutscene =
-                    Rando::StaticData::ShouldShowGetItemCutscene(ConvertItem(randoSaveCheck.randoItemId, randoCheckId)),
-                .param = (int16_t)randoCheckId,
-                .giveItem =
-                    [](Actor* actor, PlayState* play) {
-                        auto& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
-                        RandoItemId randoItemId =
-                            Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM);
-                        std::string prefix = "You found";
-                        std::string message =
-                            Rando::StaticData::GetItemName(randoItemId, true, (RandoCheckId)CUSTOM_ITEM_PARAM);
+            GameInteractor::Instance->Queue(
+                GIActions::GiveItem(
+                    { .showGetItemCutscene = Rando::StaticData::ShouldShowGetItemCutscene(
+                          ConvertItem(randoSaveCheck.randoItemId, randoCheckId)),
+                      .param = (int16_t)randoCheckId,
+                      .giveItem =
+                          [](Actor* actor, PlayState* play) {
+                              auto& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
+                              RandoItemId randoItemId =
+                                  Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM);
+                              std::string prefix = "You found";
+                              std::string message =
+                                  Rando::StaticData::GetItemName(randoItemId, true, (RandoCheckId)CUSTOM_ITEM_PARAM);
 
-                        if (randoItemId == RI_JUNK) {
-                            randoItemId = Rando::CurrentJunkItem((RandoCheckId)CUSTOM_ITEM_PARAM);
-                        }
-                        if (randoItemId == RI_TRIFORCE_PIECE) {
-                            if (gSaveContext.save.shipSaveInfo.rando.foundTriforcePieces + 1 >=
-                                RANDO_SAVE_OPTIONS[RO_TRIFORCE_PIECES_REQUIRED]) {
-                                prefix = "You";
-                                message = "completed the Triforce";
-                            }
-                            randoItemId = RI_TRIFORCE_PIECE_PREVIOUS;
-                        }
+                              if (randoItemId == RI_JUNK) {
+                                  randoItemId = Rando::CurrentJunkItem((RandoCheckId)CUSTOM_ITEM_PARAM);
+                              }
+                              if (randoItemId == RI_TRIFORCE_PIECE) {
+                                  if (gSaveContext.save.shipSaveInfo.rando.foundTriforcePieces + 1 >=
+                                      RANDO_SAVE_OPTIONS[RO_TRIFORCE_PIECES_REQUIRED]) {
+                                      prefix = "You";
+                                      message = "completed the Triforce";
+                                  }
+                                  randoItemId = RI_TRIFORCE_PIECE_PREVIOUS;
+                              }
 
-                        if (randoItemId == RI_TRAP) {
-                            prefix = "";
-                            message = GetTrapMessage();
-                            // We need to remove the Color Codes if the player is skipping Item Get Cutscenes as the
-                            // Notification Emit doesnt support it.
-                            if (CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0) >= 2) {
-                                message = CustomMessage::RemoveColorCodes(message);
-                            }
-                        }
+                              if (randoItemId == RI_TRAP) {
+                                  // Roll first, then describe what was rolled. Rando::GiveItem(RI_TRAP)
+                                  // below queues whatever this landed on, so both have to agree.
+                                  RollTrapType();
+                                  prefix = "";
+                                  message = GetTrapMessage();
+                                  // We need to remove the Color Codes if the player is skipping Item Get Cutscenes as
+                                  // the Notification Emit doesnt support it.
+                                  if (CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0) >= 2) {
+                                      message = CustomMessage::RemoveColorCodes(message);
+                                  }
+                              }
 
-                        CustomMessage::Entry entry = {
-                            .textboxType = 2,
-                            .icon = Rando::StaticData::GetIconForZMessage(randoItemId),
-                            .msg = (prefix == "" ? "" : prefix + " ") + message + (randoItemId == RI_TRAP ? "" : "!"),
-                        };
+                              CustomMessage::Entry entry = {
+                                  .textboxType = 2,
+                                  .icon = Rando::StaticData::GetIconForZMessage(randoItemId),
+                                  .msg = (prefix == "" ? "" : prefix + " ") + message +
+                                         (randoItemId == RI_TRAP ? "" : "!"),
+                              };
 
-                        if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                            CustomMessage::SetActiveCustomMessage(entry.msg, entry);
-                        } else if (Rando::StaticData::ShouldShowGetItemCutscene(randoItemId)) {
-                            CustomMessage::StartTextbox(entry.msg + "\x1C\x02\x10", entry);
-                        } else {
-                            if (Rando::StaticData::Items[randoItemId].randoItemType != RITYPE_JUNK) {
-                                Notification::Emit({
-                                    .itemIcon = Rando::StaticData::GetIconTexturePath(randoItemId),
-                                    .message = prefix,
-                                    .suffix = message,
-                                });
-                            }
-                        }
-                        Rando::GiveItem(randoItemId);
-                        randoSaveCheck.cycleObtained = true;
-                        randoSaveCheck.obtained = true;
-                        randoSaveCheck.eligible = false;
-                        queued = false;
-                        CUSTOM_ITEM_PARAM = randoItemId;
-                    },
-                .drawItem =
-                    [](Actor* actor, PlayState* play) {
-                        RandoItemId randoItemId;
+                              if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                                  CustomMessage::SetActiveCustomMessage(entry.msg, entry);
+                              } else if (Rando::StaticData::ShouldShowGetItemCutscene(randoItemId)) {
+                                  CustomMessage::StartTextbox(entry.msg + "\x1C\x02\x10", entry);
+                              } else {
+                                  if (Rando::StaticData::Items[randoItemId].randoItemType != RITYPE_JUNK) {
+                                      Notification::Emit({
+                                          .itemIcon = Rando::StaticData::GetIconTexturePath(randoItemId),
+                                          .message = prefix,
+                                          .suffix = message,
+                                      });
+                                  }
+                              }
+                              Rando::GiveItem(randoItemId);
+                              randoSaveCheck.cycleObtained = true;
+                              randoSaveCheck.obtained = true;
+                              randoSaveCheck.eligible = false;
+                              CUSTOM_ITEM_PARAM = randoItemId;
+                          },
+                      .drawItem =
+                          [](Actor* actor, PlayState* play) {
+                              RandoItemId randoItemId;
 
-                        // If the item has been given, the CUSTOM_ITEM_PARAM is set to the RI, prior to that it's the RC
-                        if (CUSTOM_ITEM_FLAGS & CustomItem::CALLED_ACTION) {
-                            if ((RandoItemId)CUSTOM_ITEM_PARAM == RI_TRAP) {
-                                randoItemId = RI_MAX_TRAP;
-                            } else {
-                                randoItemId = (RandoItemId)CUSTOM_ITEM_PARAM;
-                            }
-                        } else {
-                            auto& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
-                            randoItemId =
-                                Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM);
-                        }
+                              // If the item has been given, the CUSTOM_ITEM_PARAM is set to the RI, prior to that it's
+                              // the RC
+                              if (CUSTOM_ITEM_FLAGS & CustomItem::CALLED_ACTION) {
+                                  if ((RandoItemId)CUSTOM_ITEM_PARAM == RI_TRAP) {
+                                      randoItemId = RI_MAX_TRAP;
+                                  } else {
+                                      randoItemId = (RandoItemId)CUSTOM_ITEM_PARAM;
+                                  }
+                              } else {
+                                  auto& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
+                                  randoItemId =
+                                      Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM);
+                              }
 
-                        Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                        Rando::DrawItem(randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM, actor);
-                    } });
+                              Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                              Rando::DrawItem(randoItemId, (RandoCheckId)CUSTOM_ITEM_PARAM, actor);
+                          } })
+                    // Delivered or dropped, this is the one place the latch comes off.
+                    .OnComplete([](GIActionStatus status) { queued = false; }));
             return;
         }
     }
@@ -125,6 +133,4 @@ void Rando::MiscBehavior::CheckQueue() {
 
 void Rando::MiscBehavior::CheckQueueReset() {
     queued = false;
-    GameInteractor::Instance->currentEvent = GIEventNone{};
-    GameInteractor::Instance->events.clear();
 }

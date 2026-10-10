@@ -4,6 +4,7 @@
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "overlays/actors/ovl_En_Syateki_Man/z_en_syateki_man.h"
@@ -37,7 +38,7 @@ void RegisterGalleryTwofer() {
         }
 
         if (!IS_RANDO && queueHeartPiece) {
-            GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
+            GameInteractor::Instance->Queue(GIActions::GiveItem({
                 .showGetItemCutscene = true,
                 .param = GID_HEART_PIECE,
                 .giveItem =
@@ -51,7 +52,7 @@ void RegisterGalleryTwofer() {
                         }
                         Item_Give(gPlayState, ITEM_HEART_PIECE);
                     },
-            });
+            }));
         }
     });
 }

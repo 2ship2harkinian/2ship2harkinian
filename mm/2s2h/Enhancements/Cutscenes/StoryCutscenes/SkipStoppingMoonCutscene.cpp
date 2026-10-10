@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -23,12 +24,12 @@ void RegisterSkipStoppingMoon() {
                                                                          CHECK_QUEST_ITEM(QUEST_REMAINS_GYORG) &&
                                                                          CHECK_QUEST_ITEM(QUEST_REMAINS_TWINMOLD))) {
                     *should = false;
-                    GameInteractor::Instance->events.emplace_back(GIEventTransition{
+                    GameInteractor::Instance->Queue(GIActions::Transition({
                         .entrance = ENTRANCE(THE_MOON, 0),
                         .cutsceneIndex = 0,
                         .transitionTrigger = TRANS_TRIGGER_START,
                         .transitionType = TRANS_TYPE_INSTANT,
-                    });
+                    }));
                     SET_WEEKEVENTREG(WEEKEVENTREG_25_02); // giants called to tower
                     SET_WEEKEVENTREG(WEEKEVENTREG_93_04); // watched giants stopping moon cs (persistant)
                 }

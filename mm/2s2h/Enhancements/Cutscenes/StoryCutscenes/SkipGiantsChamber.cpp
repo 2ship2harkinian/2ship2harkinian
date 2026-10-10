@@ -1,9 +1,11 @@
+#include <optional>
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -14,11 +16,29 @@ extern "C" {
 #define CVAR CVarGetInteger(CVAR_NAME, 0)
 
 /*
+ * Where the player was warping from, stashed by HandleGiantsCutsceneSkip() and read back by the
+ * VB_PLAY_TRANSITION_CS hook below once we've landed in the Giants' Chamber.
+ *
+ * This is a private channel between two hooks in this file, so it's a file static rather than a
+ * queued request. It used to ride the GameInteractor queue as a transition that was never meant to
+ * execute, with the scene id smuggled through its transitionType field -- which only worked because
+ * nothing else could put a transition on the queue. That stopped being true: Sail can now queue a
+ * transition by name, and the find_if that fished this back out took whatever transition was in
+ * front, params and all.
+ */
+struct PendingGiantsWarp {
+    u16 entrance;
+    u16 cutsceneIndex;
+    SceneId fromScene;
+};
+static std::optional<PendingGiantsWarp> pendingGiantsWarp = std::nullopt;
+
+/*
  * Utility function made common so that rando actor behavior can access it while also doing other things. Mimics the
  * flags and transitions set by func_808BA10C in z_door_warp1.c.
  */
 void HandleGiantsCutsceneSkip() {
-    GIEventTransition transition;
+    PendingGiantsWarp transition = {};
     switch (gPlayState->sceneId) {
         case SCENE_MITURIN_BS: // Odolwa's Lair
             SET_WEEKEVENTREG(WEEKEVENTREG_CLEARED_WOODFALL_TEMPLE);
@@ -46,11 +66,9 @@ void HandleGiantsCutsceneSkip() {
     /*
      * At the point of transition, the previous scene's information is lost, but we need it to set the proper Giants
      * flags. Here, we store the target transition information so that we can circumvent the Giants' Chamber cutscene.
-     * We're not actually using the queued transition normally, but using its values to alter a Giants' Chamber
-     * transition.
      */
-    transition.transitionType = gPlayState->sceneId;
-    GameInteractor::Instance->events.emplace_back(transition);
+    transition.fromScene = (SceneId)gPlayState->sceneId;
+    pendingGiantsWarp = transition;
 }
 
 // Only reached if the cutscene is skipped
@@ -101,22 +119,23 @@ void handleGiantsCheck(SceneId sceneId) {
             RANDO_SAVE_CHECKS[RC_GIANTS_CHAMBER_OATH_TO_ORDER].eligible = true;
         }
     } else if (gSaveContext.save.saveInfo.unk_EA8[1] == 1) {
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-            .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
-            .giveItem =
-                [](Actor* actor, PlayState* play) {
-                    if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                        CustomMessage::SetActiveCustomMessage("You learned the Oath to Order!", { .textboxType = 2 });
-                    } else {
-                        CustomMessage::StartTextbox("You learned the Oath to Order!\x1C\x02\x10", { .textboxType = 2 });
-                    }
-                    Item_Give(gPlayState, ITEM_SONG_OATH);
-                },
-            .drawItem =
-                [](Actor* actor, PlayState* play) {
-                    Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                    Rando::DrawItem(RI_SONG_OATH);
-                } });
+        GameInteractor::Instance->Queue(GIActions::GiveItem(
+            { .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
+              .giveItem =
+                  [](Actor* actor, PlayState* play) {
+                      if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                          CustomMessage::SetActiveCustomMessage("You learned the Oath to Order!", { .textboxType = 2 });
+                      } else {
+                          CustomMessage::StartTextbox("You learned the Oath to Order!\x1C\x02\x10",
+                                                      { .textboxType = 2 });
+                      }
+                      Item_Give(gPlayState, ITEM_SONG_OATH);
+                  },
+              .drawItem =
+                  [](Actor* actor, PlayState* play) {
+                      Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                      Rando::DrawItem(RI_SONG_OATH);
+                  } }));
     }
 }
 
@@ -129,20 +148,16 @@ void RegisterSkipGiantsChamber() {
     COND_VB_SHOULD(VB_PLAY_TRANSITION_CS, CVAR || IS_RANDO, {
         if (gSaveContext.save.entrance == ENTRANCE(GIANTS_CHAMBER, 0)) {
             /*
-             * The warp gate processing silently queues up an event transition with information for the particular
-             * area the player is in (Woodfall, Great Bay, etc.). This is necessary because the previous scene's
-             * information is lost during a transition, and we want to skip the Giants' Chamber that we are otherwise
-             * about to go to. We quietly use the queued transition to modify the transition in progress. The queued
-             * transition must then be erased from the event queue, otherwise it will repeat once.
+             * The warp gate processing stashed where we came from, because the previous scene's information is lost
+             * during a transition and we need it to skip the Giants' Chamber we're otherwise about to walk into. Take
+             * it (leaving nothing behind for a later warp to pick up) and redirect the transition in progress.
              */
-            auto it = std::find_if(GameInteractor::Instance->events.begin(), GameInteractor::Instance->events.end(),
-                                   [](const GIEvent& v) { return std::holds_alternative<GIEventTransition>(v); });
-            if (it != GameInteractor::Instance->events.end()) {
-                GIEventTransition transition = std::get<GIEventTransition>(*it);
-                gSaveContext.save.entrance = transition.entrance;
-                gSaveContext.save.cutsceneIndex = transition.cutsceneIndex;
-                GameInteractor::Instance->events.erase(it);
-                handleGiantsCheck((SceneId)transition.transitionType);
+            if (pendingGiantsWarp.has_value()) {
+                PendingGiantsWarp warp = *pendingGiantsWarp;
+                pendingGiantsWarp.reset();
+                gSaveContext.save.entrance = warp.entrance;
+                gSaveContext.save.cutsceneIndex = warp.cutsceneIndex;
+                handleGiantsCheck(warp.fromScene);
             }
         } else if (gSaveContext.save.entrance == ENTRANCE(WOODFALL, 0) && gSaveContext.save.cutsceneIndex == 0xFFF0) {
             // Odolwa's Lair repeat warps go straight to the Woodfall clear cutscene. Skip that too.

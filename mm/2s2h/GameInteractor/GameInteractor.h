@@ -62,21 +62,17 @@ typedef enum {
     GI_DPAD_EQUIP,
 } GIDpadType;
 
-typedef enum {
-    GI_EVENT_NONE,
-    GI_EVENT_GIVE_ITEM,
-    GI_EVENT_SPAWN_ACTOR,
-    GI_EVENT_TRANSITION,
-} GIEventType;
-
 #ifdef __cplusplus
 
 #include <vector>
 #include <functional>
 #include <map>
+#include <optional>
 #include <unordered_map>
 #include <cstdint>
 #include <algorithm>
+
+#include "GameInteractorAction.h"
 
 #include <version>
 #ifdef __cpp_lib_source_location
@@ -129,56 +125,33 @@ struct HookInfo {
 #define GET_CURRENT_REGISTERING_INFO(type) (HookRegisteringInfo{})
 #endif
 
-struct GIEventNone {};
-
-struct GIEventGiveItem {
-    // Whether or not to show the get item cutscene. If true and the player is in the air, the
-    // player will instead be frozen for a few seconds. If this is true you _must_ call
-    // CustomMessage::SetActiveCustomMessage in the giveItem function otherwise you'll just see a blank message.
-    bool showGetItemCutscene;
-    // Arbitrary s16 that can be accessed from within the give/draw functions with CUSTOM_ITEM_PARAM
-    s16 param;
-    // These are run in the context of an item00 actor. This isn't super important but can be useful in some cases
-    ActorFunc giveItem;
-    ActorFunc drawItem;
-};
-
-struct GIEventSpawnActor {
-    s16 actorId;
-    f32 posX;
-    f32 posY;
-    f32 posZ;
-    s16 rotX;
-    s16 rotY;
-    s16 rotZ;
-    s32 params;
-    // if true, the coordinates are made relative to the player's position and rotation, 0 rotation is facing the same
-    // direction as the player, x+ is to the players right, y+ is up, z+ is in front of the player
-    bool relativeCoords;
-};
-
-struct GIEventTransition {
-    u16 entrance;
-    u16 cutsceneIndex;
-    s8 transitionTrigger;
-    u8 transitionType;
-};
-
-struct GIEventTrap {
-    std::function<void()> action;
-};
-
-typedef std::variant<GIEventNone, GIEventGiveItem, GIEventSpawnActor, GIEventTransition, GIEventTrap> GIEvent;
-
 class GameInteractor {
   public:
     static GameInteractor* Instance;
 
     void RegisterOwnHooks();
 
-    // Game State
-    std::vector<GIEvent> events = {};
-    GIEvent currentEvent = GIEventNone();
+    void Queue(GIAction action);
+    GIActionAvailability CanProcessActions();
+    void FinishBlocking(GIActionStatus status);
+    void RequeueBlocking();
+    void ClearSaveScopedActions();
+    int CancelAction(GIActionId id);
+    void CancelAllActions();
+    const GIAction* FindActive(GIActionId id);
+    bool IsActionActive(GIActionId id) {
+        return FindActive(id) != nullptr;
+    }
+
+    // Read-only views, for the Action Debugger. Nothing else should need them.
+    const std::vector<GIAction>& PendingActions() const {
+        return actions;
+    }
+    const std::vector<GIAction>& ActiveActions() const {
+        return activeActions;
+    }
+    // The active action holding the queue, if any.
+    const GIAction* BlockingAction() const;
 
     // Game Hooks
     HOOK_ID nextHookId = 1;
@@ -485,6 +458,19 @@ class GameInteractor {
 #include "GameInteractor_HookTable.h"
 
 #undef DEFINE_HOOK
+
+  private:
+    friend void ProcessActions(Actor* actor);
+
+    void ProcessQueue(bool canApply);
+    void TickActiveActions();
+    GIActionAvailability GetAvailability(const GIAction& action);
+    void Dispatch(GIAction action);
+
+    // Waiting to be applied.
+    std::vector<GIAction> actions = {};
+    // Everything currently in progress.
+    std::vector<GIAction> activeActions = {};
 };
 
 extern "C" {

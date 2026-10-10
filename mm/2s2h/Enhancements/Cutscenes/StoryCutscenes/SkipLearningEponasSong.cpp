@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "overlays/actors/ovl_En_Ma4/z_en_ma4.h"
@@ -32,22 +33,23 @@ void RegisterSkipLearningEponasSong() {
         }
 
         if (GameInteractor_Should(VB_GIVE_ITEM_FROM_ROMANI, true, enMa4)) {
-            GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                .showGetItemCutscene = true,
-                .giveItem =
-                    [](Actor* actor, PlayState* play) {
-                        if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                            CustomMessage::SetActiveCustomMessage("You received Epona's Song!", { .textboxType = 2 });
-                        } else {
-                            CustomMessage::StartTextbox("You received Epona's Song!\x1C\x02\x10", { .textboxType = 2 });
-                        }
-                        Item_Give(gPlayState, ITEM_SONG_EPONA);
-                    },
-                .drawItem =
-                    [](Actor* actor, PlayState* play) {
-                        Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                        Rando::DrawItem(RI_SONG_EPONA);
-                    } });
+            GameInteractor::Instance->Queue(GIActions::GiveItem(
+                { .showGetItemCutscene = true,
+                  .giveItem =
+                      [](Actor* actor, PlayState* play) {
+                          if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                              CustomMessage::SetActiveCustomMessage("You received Epona's Song!", { .textboxType = 2 });
+                          } else {
+                              CustomMessage::StartTextbox("You received Epona's Song!\x1C\x02\x10",
+                                                          { .textboxType = 2 });
+                          }
+                          Item_Give(gPlayState, ITEM_SONG_EPONA);
+                      },
+                  .drawItem =
+                      [](Actor* actor, PlayState* play) {
+                          Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                          Rando::DrawItem(RI_SONG_EPONA);
+                      } }));
         }
 
         *should = false;
