@@ -1,4 +1,5 @@
 #include "ActorBehavior.h"
+#include "CSMC.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/ObjectExtension/ActorListIndex.h"
 #include "2s2h/CustomItem/CustomItem.h"
@@ -7,6 +8,8 @@
 extern "C" {
 #include "variables.h"
 #include "src/overlays/actors/ovl_Obj_Taru/z_obj_taru.h"
+
+void ObjTaru_Draw(Actor* thisx, PlayState* play);
 }
 
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> barrelMap = {
@@ -59,10 +62,9 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> barrelMap = {
     { { SCENE_PIRATE, 11, 13 }, RC_PIRATE_FORTRESS_SEWERS_HEART_PIECE_ROOM_BARREL_16 },
 };
 
-void ObjTaru_RandoDraw(Actor* actor, PlayState* play) {
+static const char* GetBarrelDList(Actor* actor) {
     if (!CVarGetInteger("gRando.CSMC", 0)) {
-        Gfx_DrawDListOpa(play, (Gfx*)gBarrelJunkDL);
-        return;
+        return gBarrelJunkDL;
     }
 
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
@@ -71,33 +73,28 @@ void ObjTaru_RandoDraw(Actor* actor, PlayState* play) {
 
     switch (randoItemType) {
         case RITYPE_BOSS_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelBossKeyDL);
-            break;
+            return gBarrelBossKeyDL;
         case RITYPE_HEALTH:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelHeartDL);
-            break;
+            return gBarrelHeartDL;
         case RITYPE_LESSER:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelMinorDL);
-            break;
+            return gBarrelMinorDL;
         case RITYPE_MAJOR:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelMajorDL);
-            break;
+            return gBarrelMajorDL;
         case RITYPE_MASK:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelMaskDL);
-            break;
+            return gBarrelMaskDL;
         case RITYPE_SKULLTULA_TOKEN:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelTokenDL);
-            break;
+            return gBarrelTokenDL;
         case RITYPE_SMALL_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelSmallKeyDL);
-            break;
+            return gBarrelSmallKeyDL;
         case RITYPE_STRAY_FAIRY:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelFairyDL);
-            break;
+            return gBarrelFairyDL;
         default:
-            Gfx_DrawDListOpa(play, (Gfx*)gBarrelJunkDL);
-            break;
+            return gBarrelJunkDL;
     }
+}
+
+void ObjTaru_RandoDraw(Actor* actor, PlayState* play) {
+    CSMC_DrawActorOpa(actor, play, GetBarrelDList(actor), ObjTaru_Draw);
 }
 
 void Rando::ActorBehavior::InitObjTaruBehavior() {

@@ -1,4 +1,5 @@
 #include "ActorBehavior.h"
+#include "CSMC.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/Enhancements/FrameInterpolation/FrameInterpolation.h"
 #include "2s2h/Rando/StaticData/StaticData.h"
@@ -61,46 +62,57 @@ void EnBox_RandoPostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s*
         randoItemType = (RandoItemType)(actor->home.rot.z - 1);
     }
 
+    const char* cornerTex;
+    const char* lockTex;
     switch (randoItemType) {
         case RITYPE_BOSS_KEY:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerOrnateTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockOrnateTex);
+            cornerTex = gBoxChestCornerOrnateTex;
+            lockTex = gBoxChestLockOrnateTex;
             break;
         case RITYPE_HEALTH:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerHealthTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockHealthTex);
+            cornerTex = gBoxChestCornerHealthTex;
+            lockTex = gBoxChestLockHealthTex;
             break;
         case RITYPE_LESSER:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerLesserTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockLesserTex);
+            cornerTex = gBoxChestCornerLesserTex;
+            lockTex = gBoxChestLockLesserTex;
             break;
         case RITYPE_MAJOR:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerMajorTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockMajorTex);
+            cornerTex = gBoxChestCornerMajorTex;
+            lockTex = gBoxChestLockMajorTex;
             break;
         case RITYPE_MASK:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerMaskTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockMaskTex);
+            cornerTex = gBoxChestCornerMaskTex;
+            lockTex = gBoxChestLockMaskTex;
             break;
         case RITYPE_SKULLTULA_TOKEN:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerSkullTokenTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockSkullTokenTex);
+            cornerTex = gBoxChestCornerSkullTokenTex;
+            lockTex = gBoxChestLockSkullTokenTex;
             break;
         case RITYPE_SMALL_KEY:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerSmallKeyTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockSmallKeyTex);
+            cornerTex = gBoxChestCornerSmallKeyTex;
+            lockTex = gBoxChestLockSmallKeyTex;
             break;
         case RITYPE_STRAY_FAIRY:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerStrayFairyTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockStrayFairyTex);
+            cornerTex = gBoxChestCornerStrayFairyTex;
+            lockTex = gBoxChestLockStrayFairyTex;
             break;
         default:
-            gSPSegment((*gfx)++, 0x09, (uintptr_t)gBoxChestCornerTex);
-            gSPSegment((*gfx)++, 0x0A, (uintptr_t)gBoxChestLockTex);
+            cornerTex = gBoxChestCornerTex;
+            lockTex = gBoxChestLockTex;
             break;
     }
 
+    bool isAssetMissing = IS_MISSING_ASSET(cornerTex) || IS_MISSING_ASSET(lockTex);
+    if (!isAssetMissing) {
+        gSPSegment((*gfx)++, 0x09, (uintptr_t)cornerTex);
+        gSPSegment((*gfx)++, 0x0A, (uintptr_t)lockTex);
+    }
+
     MATRIX_FINALIZE_AND_LOAD((*gfx)++, play->state.gfxCtx);
+    if (isAssetMissing) {
+        CSMC_BeginTint(gfx, randoItemType);
+    }
     switch (randoItemType) {
         case RITYPE_BOSS_KEY:
         case RITYPE_HEALTH:
@@ -109,18 +121,22 @@ void EnBox_RandoPostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s*
         case RITYPE_SMALL_KEY:
         case RITYPE_STRAY_FAIRY:
             if (limbIndex == OBJECT_BOX_CHEST_LIMB_01) {
-                gSPDisplayList((*gfx)++, (Gfx*)gBoxChestBaseOrnateCopyDL);
+                gSPDisplayList((*gfx)++,
+                               isAssetMissing ? (Gfx*)gBoxChestBaseOrnateDL : (Gfx*)gBoxChestBaseOrnateCopyDL);
             } else if (limbIndex == OBJECT_BOX_CHEST_LIMB_03) {
-                gSPDisplayList((*gfx)++, (Gfx*)gBoxChestLidOrnateCopyDL);
+                gSPDisplayList((*gfx)++, isAssetMissing ? (Gfx*)gBoxChestLidOrnateDL : (Gfx*)gBoxChestLidOrnateCopyDL);
             }
             break;
         default:
             if (limbIndex == OBJECT_BOX_CHEST_LIMB_01) {
-                gSPDisplayList((*gfx)++, (Gfx*)gBoxChestBaseCopyDL);
+                gSPDisplayList((*gfx)++, isAssetMissing ? (Gfx*)gBoxChestBaseDL : (Gfx*)gBoxChestBaseCopyDL);
             } else if (limbIndex == OBJECT_BOX_CHEST_LIMB_03) {
-                gSPDisplayList((*gfx)++, (Gfx*)gBoxChestLidCopyDL);
+                gSPDisplayList((*gfx)++, isAssetMissing ? (Gfx*)gBoxChestLidDL : (Gfx*)gBoxChestLidCopyDL);
             }
             break;
+    }
+    if (isAssetMissing) {
+        CSMC_EndTint(gfx);
     }
 }
 
