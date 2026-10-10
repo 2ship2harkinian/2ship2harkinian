@@ -3,20 +3,20 @@
 
 #include "align_asset_macro.h"
 
-#define dobject_js_Anim_00016C "__OTR__objects/object_js/object_js_Anim_00016C"
-static const ALIGN_ASSET(2) char object_js_Anim_00016C[] = dobject_js_Anim_00016C;
+#define dgSwordmasterFlailingAnim "__OTR__objects/object_js/gSwordmasterFlailingAnim"
+static const ALIGN_ASSET(2) char gSwordmasterFlailingAnim[] = dgSwordmasterFlailingAnim;
 
-#define dobject_js_Anim_0003DC "__OTR__objects/object_js/object_js_Anim_0003DC"
-static const ALIGN_ASSET(2) char object_js_Anim_0003DC[] = dobject_js_Anim_0003DC;
+#define dgSwordmasterStopFlailingAnim "__OTR__objects/object_js/gSwordmasterStopFlailingAnim"
+static const ALIGN_ASSET(2) char gSwordmasterStopFlailingAnim[] = dgSwordmasterStopFlailingAnim;
 
-#define dobject_js_Anim_000AD4 "__OTR__objects/object_js/object_js_Anim_000AD4"
-static const ALIGN_ASSET(2) char object_js_Anim_000AD4[] = dobject_js_Anim_000AD4;
+#define dgSwordmasterCoweringAnim "__OTR__objects/object_js/gSwordmasterCoweringAnim"
+static const ALIGN_ASSET(2) char gSwordmasterCoweringAnim[] = dgSwordmasterCoweringAnim;
 
-#define dobject_js_Anim_000C7C "__OTR__objects/object_js/object_js_Anim_000C7C"
-static const ALIGN_ASSET(2) char object_js_Anim_000C7C[] = dobject_js_Anim_000C7C;
+#define dgSwordmasterSlappingKneeAnim "__OTR__objects/object_js/gSwordmasterSlappingKneeAnim"
+static const ALIGN_ASSET(2) char gSwordmasterSlappingKneeAnim[] = dgSwordmasterSlappingKneeAnim;
 
-#define dobject_js_Anim_000F4C "__OTR__objects/object_js/object_js_Anim_000F4C"
-static const ALIGN_ASSET(2) char object_js_Anim_000F4C[] = dobject_js_Anim_000F4C;
+#define dgSwordmasterDefaultAnim "__OTR__objects/object_js/gSwordmasterDefaultAnim"
+static const ALIGN_ASSET(2) char gSwordmasterDefaultAnim[] = dgSwordmasterDefaultAnim;
 
 #define dobject_js_DL_003F30 "__OTR__objects/object_js/object_js_DL_003F30"
 static const ALIGN_ASSET(2) char object_js_DL_003F30[] = dobject_js_DL_003F30;
@@ -84,8 +84,8 @@ static const ALIGN_ASSET(2) char object_js_Tex_0065D0[] = dobject_js_Tex_0065D0;
 #define dobject_js_Tex_0067D0 "__OTR__objects/object_js/object_js_Tex_0067D0"
 static const ALIGN_ASSET(2) char object_js_Tex_0067D0[] = dobject_js_Tex_0067D0;
 
-#define dobject_js_Skel_006990 "__OTR__objects/object_js/object_js_Skel_006990"
-static const ALIGN_ASSET(2) char object_js_Skel_006990[] = dobject_js_Skel_006990;
+#define dgSwordmasterSkel "__OTR__objects/object_js/gSwordmasterSkel"
+static const ALIGN_ASSET(2) char gSwordmasterSkel[] = dgSwordmasterSkel;
 
 #define dobject_js_Colheader_0069E8 "__OTR__objects/object_js/object_js_Colheader_0069E8"
 static const ALIGN_ASSET(2) char object_js_Colheader_0069E8[] = dobject_js_Colheader_0069E8;

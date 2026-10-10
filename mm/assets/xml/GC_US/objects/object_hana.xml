@@ -1,5 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="objects/gameplay_field_keep.xml" OutPath="assets/objects/gameplay_field_keep/"/>
+
     <!-- Assets for the orange graveyard flowers -->
     <File Name="object_hana" Segment="6">
         <!-- Each of these is a single flower out of the 3 -->

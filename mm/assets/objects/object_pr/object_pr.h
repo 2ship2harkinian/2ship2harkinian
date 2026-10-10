@@ -99,44 +99,44 @@ static const ALIGN_ASSET(2) char object_pr_Tex_0037A8[] = dobject_pr_Tex_0037A8;
 #define dobject_pr_Skel_0038B8 "__OTR__objects/object_pr/object_pr_Skel_0038B8"
 static const ALIGN_ASSET(2) char object_pr_Skel_0038B8[] = dobject_pr_Skel_0038B8;
 
-#define dobject_pr_Anim_003904 "__OTR__objects/object_pr/object_pr_Anim_003904"
-static const ALIGN_ASSET(2) char object_pr_Anim_003904[] = dobject_pr_Anim_003904;
+#define dgSkullFishDieAnim "__OTR__objects/object_pr/gSkullFishDieAnim"
+static const ALIGN_ASSET(2) char gSkullFishDieAnim[] = dgSkullFishDieAnim;
 
-#define dobject_pr_DL_003AB0 "__OTR__objects/object_pr/object_pr_DL_003AB0"
-static const ALIGN_ASSET(2) char object_pr_DL_003AB0[] = dobject_pr_DL_003AB0;
+#define dgSkullFishBodyDL "__OTR__objects/object_pr/gSkullFishBodyDL"
+static const ALIGN_ASSET(2) char gSkullFishBodyDL[] = dgSkullFishBodyDL;
 
-#define dobject_pr_DL_003B50 "__OTR__objects/object_pr/object_pr_DL_003B50"
-static const ALIGN_ASSET(2) char object_pr_DL_003B50[] = dobject_pr_DL_003B50;
+#define dgSkullFishTailDL "__OTR__objects/object_pr/gSkullFishTailDL"
+static const ALIGN_ASSET(2) char gSkullFishTailDL[] = dgSkullFishTailDL;
 
-#define dobject_pr_DL_003C08 "__OTR__objects/object_pr/object_pr_DL_003C08"
-static const ALIGN_ASSET(2) char object_pr_DL_003C08[] = dobject_pr_DL_003C08;
+#define dgSkullFishSkullDL "__OTR__objects/object_pr/gSkullFishSkullDL"
+static const ALIGN_ASSET(2) char gSkullFishSkullDL[] = dgSkullFishSkullDL;
 
-#define dobject_pr_DL_003D10 "__OTR__objects/object_pr/object_pr_DL_003D10"
-static const ALIGN_ASSET(2) char object_pr_DL_003D10[] = dobject_pr_DL_003D10;
+#define dgSkullFishJawDL "__OTR__objects/object_pr/gSkullFishJawDL"
+static const ALIGN_ASSET(2) char gSkullFishJawDL[] = dgSkullFishJawDL;
 
-#define dobject_pr_Tex_003DA8 "__OTR__objects/object_pr/object_pr_Tex_003DA8"
-static const ALIGN_ASSET(2) char object_pr_Tex_003DA8[] = dobject_pr_Tex_003DA8;
+#define dgSkullFishBodyRibTex "__OTR__objects/object_pr/gSkullFishBodyRibTex"
+static const ALIGN_ASSET(2) char gSkullFishBodyRibTex[] = dgSkullFishBodyRibTex;
 
-#define dobject_pr_Tex_003EA8 "__OTR__objects/object_pr/object_pr_Tex_003EA8"
-static const ALIGN_ASSET(2) char object_pr_Tex_003EA8[] = dobject_pr_Tex_003EA8;
+#define dgSkullFishTailTex "__OTR__objects/object_pr/gSkullFishTailTex"
+static const ALIGN_ASSET(2) char gSkullFishTailTex[] = dgSkullFishTailTex;
 
-#define dobject_pr_Tex_003FA8 "__OTR__objects/object_pr/object_pr_Tex_003FA8"
-static const ALIGN_ASSET(2) char object_pr_Tex_003FA8[] = dobject_pr_Tex_003FA8;
+#define dgSkullFishEyeSocketTex "__OTR__objects/object_pr/gSkullFishEyeSocketTex"
+static const ALIGN_ASSET(2) char gSkullFishEyeSocketTex[] = dgSkullFishEyeSocketTex;
 
-#define dobject_pr_Tex_004028 "__OTR__objects/object_pr/object_pr_Tex_004028"
-static const ALIGN_ASSET(2) char object_pr_Tex_004028[] = dobject_pr_Tex_004028;
+#define dgSkullFishJawTex "__OTR__objects/object_pr/gSkullFishJawTex"
+static const ALIGN_ASSET(2) char gSkullFishJawTex[] = dgSkullFishJawTex;
 
-#define dobject_pr_Tex_004128 "__OTR__objects/object_pr/object_pr_Tex_004128"
-static const ALIGN_ASSET(2) char object_pr_Tex_004128[] = dobject_pr_Tex_004128;
+#define dgSkullFishGlowingEyesTex "__OTR__objects/object_pr/gSkullFishGlowingEyesTex"
+static const ALIGN_ASSET(2) char gSkullFishGlowingEyesTex[] = dgSkullFishGlowingEyesTex;
 
-#define dobject_pr_Skel_004188 "__OTR__objects/object_pr/object_pr_Skel_004188"
-static const ALIGN_ASSET(2) char object_pr_Skel_004188[] = dobject_pr_Skel_004188;
+#define dgSkullFishSkel "__OTR__objects/object_pr/gSkullFishSkel"
+static const ALIGN_ASSET(2) char gSkullFishSkel[] = dgSkullFishSkel;
 
-#define dobject_pr_Anim_004274 "__OTR__objects/object_pr/object_pr_Anim_004274"
-static const ALIGN_ASSET(2) char object_pr_Anim_004274[] = dobject_pr_Anim_004274;
+#define dgSkullFishAttackAnim "__OTR__objects/object_pr/gSkullFishAttackAnim"
+static const ALIGN_ASSET(2) char gSkullFishAttackAnim[] = dgSkullFishAttackAnim;
 
-#define dobject_pr_Anim_004340 "__OTR__objects/object_pr/object_pr_Anim_004340"
-static const ALIGN_ASSET(2) char object_pr_Anim_004340[] = dobject_pr_Anim_004340;
+#define dgSkullFishSwimAnim "__OTR__objects/object_pr/gSkullFishSwimAnim"
+static const ALIGN_ASSET(2) char gSkullFishSwimAnim[] = dgSkullFishSwimAnim;
 
 typedef enum ObjectPr1Limb {
     /* 0x00 */ OBJECT_PR_1_LIMB_NONE,
@@ -153,13 +153,13 @@ typedef enum ObjectPr1Limb {
 } ObjectPr1Limb;
 
 
-typedef enum ObjectPr2Limb {
-    /* 0x00 */ OBJECT_PR_2_LIMB_NONE,
-    /* 0x01 */ OBJECT_PR_2_LIMB_01,
-    /* 0x02 */ OBJECT_PR_2_LIMB_02,
-    /* 0x03 */ OBJECT_PR_2_LIMB_03,
-    /* 0x04 */ OBJECT_PR_2_LIMB_04,
-    /* 0x05 */ OBJECT_PR_2_LIMB_MAX
-} ObjectPr2Limb;
+typedef enum Pr2Limb {
+    /* 0x00 */ PR_2_LIMB_NONE,
+    /* 0x01 */ PR_2_LIMB_BODY,
+    /* 0x02 */ PR_2_LIMB_SKULL,
+    /* 0x03 */ PR_2_LIMB_JAW,
+    /* 0x04 */ PR_2_LIMB_TAIL,
+    /* 0x05 */ PR_2_LIMB_MAX
+} Pr2Limb;
 
 #endif // OBJECTS_OBJECT_PR_H

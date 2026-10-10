@@ -8,8 +8,8 @@
         <Texture Name="gOpenMouthMoonFarSideTLUT" OutName="open_mouth_moon_far_side_tlut" Format="rgba16" Width="4" Height="4" Offset="0x34A8" />
         <Texture Name="gOpenMouthMoonFaceTLUT" OutName="open_mouth_moon_face_tlut" Format="rgba16" Width="4" Height="4" Offset="0x34C8" />
         <Texture Name="gOpenMouthMoonEyesTex" OutName="open_mouth_moon_eyes" Format="rgba16" Width="32" Height="32" Offset="0x34E8" />
-        <Texture Name="gOpenMouthMoonFarSideTex" OutName="open_mouth_moon_far_side" Format="ci4" Width="64" Height="64" Offset="0x3CE8" />
-        <Texture Name="gOpenMouthMoonFaceTex" OutName="open_mouth_moon_face" Format="ci4" Width="64" Height="64" Offset="0x44E8" />
+        <Texture Name="gOpenMouthMoonFarSideTex" OutName="open_mouth_moon_far_side" Format="ci4" Width="64" Height="64" Offset="0x3CE8" TlutOffset="0x34A8"/>
+        <Texture Name="gOpenMouthMoonFaceTex" OutName="open_mouth_moon_face" Format="ci4" Width="64" Height="64" Offset="0x44E8" TlutOffset="0x34C8"/>
         <Texture Name="gOpenMouthMoonTeethTex" OutName="open_mouth_moon_teeth" Format="rgba16" Width="64" Height="32" Offset="0x4CE8" />
         
         <KeyFrameAnimation Name="gFall2FKAnim_5EF4" Skel="0x8898" Offset="0x5EF4"/>

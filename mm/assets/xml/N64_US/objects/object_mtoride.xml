@@ -5,7 +5,7 @@
         <Texture Name="gWoodfallSceneryUnusedTLUT" OutName="woodfall_scenery_unused_tlut" Format="rgba16" Width="16" Height="16" Offset="0x0" />
         <Texture Name="gWoodfallSceneryBranchAndLeavesTLUT" OutName="woodfall_scenery_branch_and_leaves_tlut" Format="rgba16" Width="4" Height="4" Offset="0x200" />
         <Texture Name="gWoodfallSceneryTreeRingTex" OutName="woodfall_scenery_tree_ring" Format="rgba16" Width="16" Height="16" Offset="0x220" />
-        <Texture Name="gWoodfallSceneryBranchAndLeavesTex" OutName="woodfall_scenery_branch_and_leaves" Format="ci4" Width="32" Height="128" Offset="0x420" />
+        <Texture Name="gWoodfallSceneryBranchAndLeavesTex" OutName="woodfall_scenery_branch_and_leaves" Format="ci4" Width="32" Height="128" Offset="0x420" TlutOffset="0x200"/>
         <Texture Name="gWoodfallSceneryEntranceGradientTex" OutName="woodfall_scenery_entrance_gradient" Format="ia8" Width="32" Height="8" Offset="0xC20" />
         <Texture Name="gWoodfallSceneryTempleEdgeAndRampAndPlatformTopTex" OutName="woodfall_scenery_temple_edges_and_ramp_and_platform_top" Format="rgba16" Width="32" Height="32" Offset="0xD20" />
         <Texture Name="gWoodfallSceneryTempleEntranceAndRampSidesTex" OutName="woodfall_scenery_temple_entrance_and_ramp_sides" Format="rgba16" Width="32" Height="64" Offset="0x1520" />

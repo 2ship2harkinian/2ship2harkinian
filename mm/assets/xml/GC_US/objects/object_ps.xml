@@ -15,13 +15,13 @@
         <!-- <Blob Name="object_ps_Blob_002E80" Size="0x1080" Offset="0x2E80" /> -->
         <Texture Name="object_ps_Tex_003F00" OutName="tex_003F00" Format="rgba16" Width="16" Height="16" Offset="0x3F00" />
         <!-- <Blob Name="object_ps_Blob_004100" Size="0x21C0" Offset="0x4100" /> -->
-        <Texture Name="object_ps_Tex_0062C0" OutName="tex_0062C0" Format="ci8" Width="8" Height="8" Offset="0x62C0" />
-        <Texture Name="object_ps_Tex_006300" OutName="tex_006300" Format="ci8" Width="32" Height="32" Offset="0x6300" />
-        <Texture Name="object_ps_Tex_006700" OutName="tex_006700" Format="ci8" Width="8" Height="8" Offset="0x6700" />
-        <Texture Name="object_ps_Tex_006740" OutName="tex_006740" Format="ci8" Width="8" Height="8" Offset="0x6740" />
-        <Texture Name="object_ps_Tex_006780" OutName="tex_006780" Format="ci8" Width="32" Height="32" Offset="0x6780" />
+        <Texture Name="object_ps_Tex_0062C0" OutName="tex_0062C0" Format="ci8" Width="8" Height="8" Offset="0x62C0" TlutOffset="0x2C80"/>
+        <Texture Name="object_ps_Tex_006300" OutName="tex_006300" Format="ci8" Width="32" Height="32" Offset="0x6300" TlutOffset="0x2C80"/>
+        <Texture Name="object_ps_Tex_006700" OutName="tex_006700" Format="ci8" Width="8" Height="8" Offset="0x6700" TlutOffset="0x2C80"/>
+        <Texture Name="object_ps_Tex_006740" OutName="tex_006740" Format="ci8" Width="8" Height="8" Offset="0x6740" TlutOffset="0x2C80"/>
+        <Texture Name="object_ps_Tex_006780" OutName="tex_006780" Format="ci8" Width="32" Height="32" Offset="0x6780" TlutOffset="0x2C80"/>
         <Texture Name="object_ps_Tex_006B80" OutName="tex_006B80" Format="rgba16" Width="16" Height="16" Offset="0x6B80" />
-        <Texture Name="object_ps_Tex_006D80" OutName="tex_006D80" Format="ci8" Width="32" Height="32" Offset="0x6D80" />
+        <Texture Name="object_ps_Tex_006D80" OutName="tex_006D80" Format="ci8" Width="32" Height="32" Offset="0x6D80" TlutOffset="0x2C80"/>
         <Limb Name="object_ps_Standardlimb_007180" Type="Standard" EnumName="OBJECT_PS_LIMB_01" Offset="0x7180" />
         <Limb Name="object_ps_Standardlimb_00718C" Type="Standard" EnumName="OBJECT_PS_LIMB_02" Offset="0x718C" />
         <Limb Name="object_ps_Standardlimb_007198" Type="Standard" EnumName="OBJECT_PS_LIMB_03" Offset="0x7198" />

@@ -9,9 +9,9 @@
         <Texture Name="object_tanron5_TLUT_000A38" OutName="tlut_000A38" Format="rgba16" Width="4" Height="4" Offset="0xA38" />
         <Texture Name="object_tanron5_TLUT_000A58" OutName="tlut_000A58" Format="rgba16" Width="4" Height="4" Offset="0xA58" />
         <Texture Name="object_tanron5_TLUT_000A78" OutName="tlut_000A78" Format="rgba16" Width="4" Height="4" Offset="0xA78" />
-        <Texture Name="object_tanron5_Tex_000A98" OutName="tex_000A98" Format="ci4" Width="32" Height="32" Offset="0xA98" />
-        <Texture Name="object_tanron5_Tex_000C98" OutName="tex_000C98" Format="ci4" Width="32" Height="32" Offset="0xC98" />
-        <Texture Name="object_tanron5_Tex_000E98" OutName="tex_000E98" Format="ci4" Width="32" Height="32" Offset="0xE98" />
-        <Texture Name="object_tanron5_Tex_001098" OutName="tex_001098" Format="ci4" Width="32" Height="32" Offset="0x1098" />
+        <Texture Name="object_tanron5_Tex_000A98" OutName="tex_000A98" Format="ci4" Width="32" Height="32" Offset="0xA98" TlutOffset="0xA18"/>
+        <Texture Name="object_tanron5_Tex_000C98" OutName="tex_000C98" Format="ci4" Width="32" Height="32" Offset="0xC98" TlutOffset="0xA38"/>
+        <Texture Name="object_tanron5_Tex_000E98" OutName="tex_000E98" Format="ci4" Width="32" Height="32" Offset="0xE98" TlutOffset="0xA58"/>
+        <Texture Name="object_tanron5_Tex_001098" OutName="tex_001098" Format="ci4" Width="32" Height="32" Offset="0x1098" TlutOffset="0xA78"/>
     </File>
 </Root>

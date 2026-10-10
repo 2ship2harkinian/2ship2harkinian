@@ -20,21 +20,21 @@
         <DList Name="gBartenRightFootDL" Offset="0x5B60" />
         <Texture Name="gBartenTLUT" OutName="barten_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5CA8" />
         <Texture Name="gBartenEyeTLUT" OutName="barten_eye_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5EA8" />
-        <Texture Name="gBartenBeardTex" OutName="barten_beard" Format="ci8" Width="8" Height="16" Offset="0x60A8" />
-        <Texture Name="gBartenArmTex" OutName="barten_arm" Format="ci8" Width="16" Height="32" Offset="0x6128" />
-        <Texture Name="gBartenMouthTex" OutName="barten_mouth" Format="ci8" Width="8" Height="8" Offset="0x6328" />
-        <Texture Name="gBartenHairTex" OutName="barten_hair" Format="ci8" Width="8" Height="16" Offset="0x6368" />
-        <Texture Name="gBartenEarTex" OutName="barten_ear" Format="ci8" Width="8" Height="8" Offset="0x63E8" />
-        <Texture Name="gBartenEyeOpenTex" OutName="barten_eye_open" Format="ci8" Width="32" Height="32" Offset="0x6428" />
-        <Texture Name="gBartenHandTex" OutName="barten_hand" Format="ci8" Width="16" Height="16" Offset="0x6828" />
-        <Texture Name="gBartenEyeHalfOpenTex" OutName="barten_eye_half_open" Format="ci8" Width="32" Height="32" Offset="0x6928" />
-        <Texture Name="gBartenEyeClosedTex" OutName="barten_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x6D28" />
-        <Texture Name="gBartenBroomTex" OutName="barten_broom" Format="ci8" Width="16" Height="16" Offset="0x7128" />
-        <Texture Name="gBartenBroomHeadTex" OutName="barten_broom_head" Format="ci8" Width="16" Height="16" Offset="0x7228" />
+        <Texture Name="gBartenBeardTex" OutName="barten_beard" Format="ci8" Width="8" Height="16" Offset="0x60A8" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenArmTex" OutName="barten_arm" Format="ci8" Width="16" Height="32" Offset="0x6128" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenMouthTex" OutName="barten_mouth" Format="ci8" Width="8" Height="8" Offset="0x6328" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenHairTex" OutName="barten_hair" Format="ci8" Width="8" Height="16" Offset="0x6368" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenEarTex" OutName="barten_ear" Format="ci8" Width="8" Height="8" Offset="0x63E8" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenEyeOpenTex" OutName="barten_eye_open" Format="ci8" Width="32" Height="32" Offset="0x6428" TlutOffset="0x5EA8"/>
+        <Texture Name="gBartenHandTex" OutName="barten_hand" Format="ci8" Width="16" Height="16" Offset="0x6828" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenEyeHalfOpenTex" OutName="barten_eye_half_open" Format="ci8" Width="32" Height="32" Offset="0x6928" TlutOffset="0x5EA8"/>
+        <Texture Name="gBartenEyeClosedTex" OutName="barten_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x6D28" TlutOffset="0x5EA8"/>
+        <Texture Name="gBartenBroomTex" OutName="barten_broom" Format="ci8" Width="16" Height="16" Offset="0x7128" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenBroomHeadTex" OutName="barten_broom_head" Format="ci8" Width="16" Height="16" Offset="0x7228" TlutOffset="0x5CA8"/>
         <Texture Name="gBartenPantsTex" OutName="barten_pants" Format="i8" Width="32" Height="32" Offset="0x7328" />
         <Texture Name="gBartenBowtieTex" OutName="barten_bowtie" Format="rgba16" Width="8" Height="16" Offset="0x7728" />
-        <Texture Name="gBartenSkinTex" OutName="barten_skin" Format="ci8" Width="8" Height="8" Offset="0x7828" />
-        <Texture Name="gBartenCollarTex" OutName="barten_collar" Format="ci8" Width="8" Height="16" Offset="0x7868" />
+        <Texture Name="gBartenSkinTex" OutName="barten_skin" Format="ci8" Width="8" Height="8" Offset="0x7828" TlutOffset="0x5CA8"/>
+        <Texture Name="gBartenCollarTex" OutName="barten_collar" Format="ci8" Width="8" Height="16" Offset="0x7868" TlutOffset="0x5CA8"/>
         <Texture Name="gBartenSleeveTex" OutName="barten_sleeve" Format="i8" Width="16" Height="16" Offset="0x78E8" />
         <Texture Name="gBartenJacketTex" OutName="barten_jacket" Format="i8" Width="8" Height="8" Offset="0x79E8" />
         <Texture Name="gBartenFootTex" OutName="barten_foot" Format="rgba16" Width="16" Height="16" Offset="0x7A28" />

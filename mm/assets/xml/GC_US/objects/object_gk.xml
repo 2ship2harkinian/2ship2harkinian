@@ -66,15 +66,15 @@
         <Texture Name="object_gk_Tex_00D720" OutName="tex_00D720" Format="ci8" Width="16" Height="16" Offset="0xD720" TlutOffset="00C320" />
         <Texture Name="object_gk_Tex_00D820" OutName="tex_00D820" Format="ci8" Width="16" Height="32" Offset="0xD820" TlutOffset="00C320" />
         <Texture Name="object_gk_Tex_00DA20" OutName="tex_00DA20" Format="ci8" Width="32" Height="32" Offset="0xDA20" TlutOffset="00C320" />
-        <Texture Name="object_gk_Tex_00DE20" OutName="tex_00DE20" Format="ci8" Width="8" Height="8" Offset="0xDE20" />
-        <Texture Name="object_gk_Tex_00DE60" OutName="tex_00DE60" Format="ci8" Width="16" Height="16" Offset="0xDE60" />
-        <Texture Name="object_gk_Tex_00DF60" OutName="tex_00DF60" Format="ci8" Width="16" Height="32" Offset="0xDF60" />
-        <Texture Name="object_gk_Tex_00E160" OutName="tex_00E160" Format="ci8" Width="32" Height="16" Offset="0xE160" />
-        <Texture Name="object_gk_Tex_00E360" OutName="tex_00E360" Format="ci8" Width="32" Height="32" Offset="0xE360" />
-        <Texture Name="object_gk_Tex_00E760" OutName="tex_00E760" Format="ci8" Width="8" Height="8" Offset="0xE760" />
-        <Texture Name="object_gk_Tex_00E7A0" OutName="tex_00E7A0" Format="ci8" Width="32" Height="64" Offset="0xE7A0" />
-        <Texture Name="object_gk_Tex_00EFA0" OutName="tex_00EFA0" Format="ci8" Width="16" Height="16" Offset="0xEFA0" />
-        <Texture Name="object_gk_Tex_00F0A0" OutName="tex_00F0A0" Format="ci8" Width="32" Height="32" Offset="0xF0A0" />
+        <Texture Name="object_gk_Tex_00DE20" OutName="tex_00DE20" Format="ci8" Width="8" Height="8" Offset="0xDE20" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00DE60" OutName="tex_00DE60" Format="ci8" Width="16" Height="16" Offset="0xDE60" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00DF60" OutName="tex_00DF60" Format="ci8" Width="16" Height="32" Offset="0xDF60" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00E160" OutName="tex_00E160" Format="ci8" Width="32" Height="16" Offset="0xE160" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00E360" OutName="tex_00E360" Format="ci8" Width="32" Height="32" Offset="0xE360" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00E760" OutName="tex_00E760" Format="ci8" Width="8" Height="8" Offset="0xE760" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00E7A0" OutName="tex_00E7A0" Format="ci8" Width="32" Height="64" Offset="0xE7A0" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00EFA0" OutName="tex_00EFA0" Format="ci8" Width="16" Height="16" Offset="0xEFA0" TlutOffset="0xC320"/>
+        <Texture Name="object_gk_Tex_00F0A0" OutName="tex_00F0A0" Format="ci8" Width="32" Height="32" Offset="0xF0A0" TlutOffset="0xC320"/>
         <Texture Name="object_gk_Tex_00F4A0" OutName="tex_00F4A0" Format="rgba16" Width="8" Height="8" Offset="0xF4A0" />
         <Texture Name="object_gk_Tex_00F520" OutName="tex_00F520" Format="rgba16" Width="16" Height="16" Offset="0xF520" />
         <Texture Name="object_gk_Tex_00F720" OutName="tex_00F720" Format="rgba16" Width="32" Height="32" Offset="0xF720" />

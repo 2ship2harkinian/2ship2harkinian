@@ -20,17 +20,17 @@
         <DList Name="object_ah_DL_006090" Offset="0x6090" />
         <DList Name="object_ah_DL_0061B8" Offset="0x61B8" />
         <Texture Name="object_ah_TLUT_0064B0" OutName="tlut_0064B0" Format="rgba16" Width="16" Height="16" Offset="0x64B0" />
-        <Texture Name="object_ah_Tex_0066B0" OutName="tex_0066B0" Format="ci8" Width="16" Height="16" Offset="0x66B0" />
-        <Texture Name="object_ah_Tex_0067B0" OutName="tex_0067B0" Format="ci8" Width="16" Height="16" Offset="0x67B0" />
-        <Texture Name="object_ah_Tex_0068B0" OutName="tex_0068B0" Format="ci8" Width="8" Height="8" Offset="0x68B0" />
-        <Texture Name="object_ah_Tex_0068F0" OutName="tex_0068F0" Format="ci8" Width="8" Height="8" Offset="0x68F0" />
-        <Texture Name="object_ah_Tex_006930" OutName="tex_006930" Format="ci8" Width="8" Height="8" Offset="0x6930" />
-        <Texture Name="object_ah_Tex_006970" OutName="tex_006970" Format="ci8" Width="16" Height="16" Offset="0x6970" />
-        <Texture Name="object_ah_Tex_006A70" OutName="tex_006A70" Format="ci8" Width="8" Height="8" Offset="0x6A70" />
-        <Texture Name="object_ah_Tex_006AB0" OutName="tex_006AB0" Format="ci8" Width="16" Height="16" Offset="0x6AB0" />
-        <Texture Name="object_ah_Tex_006BB0" OutName="tex_006BB0" Format="ci8" Width="8" Height="16" Offset="0x6BB0" />
+        <Texture Name="object_ah_Tex_0066B0" OutName="tex_0066B0" Format="ci8" Width="16" Height="16" Offset="0x66B0" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_0067B0" OutName="tex_0067B0" Format="ci8" Width="16" Height="16" Offset="0x67B0" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_0068B0" OutName="tex_0068B0" Format="ci8" Width="8" Height="8" Offset="0x68B0" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_0068F0" OutName="tex_0068F0" Format="ci8" Width="8" Height="8" Offset="0x68F0" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_006930" OutName="tex_006930" Format="ci8" Width="8" Height="8" Offset="0x6930" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_006970" OutName="tex_006970" Format="ci8" Width="16" Height="16" Offset="0x6970" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_006A70" OutName="tex_006A70" Format="ci8" Width="8" Height="8" Offset="0x6A70" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_006AB0" OutName="tex_006AB0" Format="ci8" Width="16" Height="16" Offset="0x6AB0" TlutOffset="0x64B0"/>
+        <Texture Name="object_ah_Tex_006BB0" OutName="tex_006BB0" Format="ci8" Width="8" Height="16" Offset="0x6BB0" TlutOffset="0x64B0"/>
         <Texture Name="object_ah_Tex_006C30" OutName="tex_006C30" Format="i8" Width="8" Height="8" Offset="0x6C30" />
-        <Texture Name="object_ah_Tex_006C70" OutName="tex_006C70" Format="ci8" Width="16" Height="16" Offset="0x6C70" />
+        <Texture Name="object_ah_Tex_006C70" OutName="tex_006C70" Format="ci8" Width="16" Height="16" Offset="0x6C70" TlutOffset="0x64B0"/>
         <Texture Name="object_ah_Tex_006D70" OutName="tex_006D70" Format="rgba16" Width="32" Height="32" Offset="0x6D70" />
         <Texture Name="object_ah_Tex_007570" OutName="tex_007570" Format="rgba16" Width="32" Height="32" Offset="0x7570" />
         <Texture Name="object_ah_Tex_007D70" OutName="tex_007D70" Format="rgba16" Width="32" Height="32" Offset="0x7D70" />

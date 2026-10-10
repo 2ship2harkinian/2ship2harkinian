@@ -31,7 +31,7 @@
         <Texture Name="gGerudoPurpleSkinEdgeTex" OutName="gerudo_purple_skin_edge" Format="ci8" Width="8" Height="8" Offset="0x5328" TlutOffset="0x5178" />
         <Texture Name="gGerudoPurpleEarTex" OutName="gerudo_purple_ear" Format="ci8" Width="8" Height="16" Offset="0x5368" TlutOffset="0x5178" />
         <Texture Name="gGerudoPurpleEyeOpenTex" OutName="gerudo_purple_eye_open" Format="ci8" Width="32" Height="32" Offset="0x53E8" TlutOffset="0x5178" />
-        <Texture Name="gGerudoPurpleGlaiveGuardTex" OutName="gerudo_purple_glaive_guard" Format="i8" Width="8" Height="8" Offset="0x57E8" />
+        <Texture Name="gGerudoPurpleGlaiveGuardTex" OutName="gerudo_purple_glaive_guard" Format="ci8" Width="8" Height="8" Offset="0x57E8" TlutOffset="0x5178"/>
         <Texture Name="gGerudoPurpleGlaiveBladeFabricPatternTex" OutName="gerudo_purple_fabric_pattern" Format="i8" Width="16" Height="16" Offset="0x5828" />
         <Texture Name="gGerudoPurpleShoeUpperTex" OutName="gerudo_purple_shoe_upper" Format="ci8" Width="8" Height="16" Offset="0x5928" TlutOffset="0x5178" />
         <Texture Name="gGerudoPurpleGlaiveHaftShoeSoleTex" OutName="gerudo_purple_glaive_haft_shoe_sole" Format="ci8" Width="8" Height="8" Offset="0x59A8" TlutOffset="0x5178" />

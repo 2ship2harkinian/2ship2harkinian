@@ -221,8 +221,8 @@ s32 func_80A324E0(EnPr* this, PlayState* play) {
         return 1;
     }
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_2B4,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &this->unk_2B4, &waterBox)) {
         if ((this->unk_2B4 - 30.0f) < this->actor.world.pos.y) {
             this->unk_2B8 = this->unk_2B4 - 30.0f;
             return 2;
@@ -341,8 +341,8 @@ void func_80A32A40(EnPr* this, PlayState* play) {
     Math_Vec3f_Copy(&sp34, &this->actor.world.pos);
     sp34.y = Rand_CenteredFloat(50.0f) + this->actor.home.pos.y;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_2B4,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &this->unk_2B4, &waterBox)) {
         if (sp34.y < (this->unk_2B4 - 30.0f)) {
             this->unk_2B8 = sp34.y;
         } else {
@@ -448,8 +448,8 @@ void func_80A32F48(EnPr* this, PlayState* play) {
         this->unk_208 = 0;
     }
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_2B4,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &this->unk_2B4, &waterBox)) {
         if ((this->unk_2B4 - 100.0f) < this->actor.world.pos.y) {
             this->unk_212 += 0xBB8;
             this->unk_2C4 = 2.0f * Math_SinS(this->unk_212);

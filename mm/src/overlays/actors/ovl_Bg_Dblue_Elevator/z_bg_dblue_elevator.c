@@ -63,7 +63,7 @@ void BgDblueElevator_CheckWaterBoxInfo(BgDblueElevator* this, PlayState* play2) 
     s32 bgId;
 
     this->isWithinWaterBoxXZ =
-        WaterBox_GetSurfaceImpl(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
+        BgCheck_GetWaterSurface(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
                                 &this->waterSurfacePosY, &waterBox, &bgId);
 }
 

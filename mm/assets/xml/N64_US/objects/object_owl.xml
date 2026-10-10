@@ -43,9 +43,9 @@
         <Texture Name="gOwlChinMarking1Tex" OutName="owl_chin_marking1" Format="rgba16" Width="32" Height="32" Offset="0x76B8" />
         <Texture Name="gOwlForeheadMarkingTex" OutName="owl_forehead_marking" Format="rgba16" Width="32" Height="32" Offset="0x7EB8" />
         <Texture Name="gOwlBeakTex" OutName="owl_beak" Format="rgba16" Width="32" Height="32" Offset="0x86B8" />
-        <Texture Name="gOwlEyeOpenTex" OutName="owl_eye_open" Format="ci8" Width="32" Height="32" Offset="0x8EB8" />
-        <Texture Name="gOwlEyeHalfTex" OutName="owl_eye_half" Format="ci8" Width="32" Height="32" Offset="0x92B8" />
-        <Texture Name="gOwlEyeClosedTex" OutName="owl_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x96B8" />
+        <Texture Name="gOwlEyeOpenTex" OutName="owl_eye_open" Format="ci8" Width="32" Height="32" Offset="0x8EB8" TlutOffset="0x72B8"/>
+        <Texture Name="gOwlEyeHalfTex" OutName="owl_eye_half" Format="ci8" Width="32" Height="32" Offset="0x92B8" TlutOffset="0x72B8"/>
+        <Texture Name="gOwlEyeClosedTex" OutName="owl_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x96B8" TlutOffset="0x74B8"/>
         <Texture Name="gOwlChinMarking2Tex" OutName="owl_chin_marking2" Format="rgba16" Width="32" Height="32" Offset="0x9AB8" />
         <Texture Name="gOwlFeathersTex" OutName="owl_feathers" Format="rgba16" Width="16" Height="16" Offset="0xA2B8" />
         <Texture Name="gOwlEyebrowTex" OutName="owl_eyebrow" Format="rgba16" Width="64" Height="32" Offset="0xA4B8" />

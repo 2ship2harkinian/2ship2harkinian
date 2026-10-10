@@ -213,7 +213,8 @@ void EnKitan_Talk(EnKitan* this, PlayState* play) {
                 break;
             }
 
-            if ((play->msgCtx.choiceIndex + 1) == play->msgCtx.unk1206C) {
+            // The "first choice price" field is used as the index of the correct answer for the quiz
+            if ((play->msgCtx.choiceIndex + 1) == play->msgCtx.firstChoicePrice) {
                 // Correct answer, continue quiz or end if enough questions have been answered correctly
                 Audio_PlaySfx(NA_SE_SY_QUIZ_CORRECT);
 

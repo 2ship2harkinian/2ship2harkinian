@@ -32,16 +32,16 @@
 
         <!-- Giant Textures -->
         <Texture Name="gGiantTLUT" OutName="giant_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5380" />
-        <Texture Name="gGiantFootTex" OutName="giant_foot" Format="ci8" Width="16" Height="16" Offset="0x5580" />
-        <Texture Name="gGiantShinTex" OutName="giant_shin" Format="ci8" Width="16" Height="16" Offset="0x5680" />
-        <Texture Name="gGiantForearmAndKneeTex" OutName="giant_forearm_and_knee" Format="ci8" Width="16" Height="16" Offset="0x5780" />
-        <Texture Name="gGiantUpperArmAndThighTex" OutName="giant_upper_arm_and_thigh" Format="ci8" Width="16" Height="16" Offset="0x5880" />
-        <Texture Name="gGiantHandTex" OutName="giant_hand" Format="ci8" Width="16" Height="16" Offset="0x5980" />
+        <Texture Name="gGiantFootTex" OutName="giant_foot" Format="ci8" Width="16" Height="16" Offset="0x5580" TlutOffset="0x5380"/>
+        <Texture Name="gGiantShinTex" OutName="giant_shin" Format="ci8" Width="16" Height="16" Offset="0x5680" TlutOffset="0x5380"/>
+        <Texture Name="gGiantForearmAndKneeTex" OutName="giant_forearm_and_knee" Format="ci8" Width="16" Height="16" Offset="0x5780" TlutOffset="0x5380"/>
+        <Texture Name="gGiantUpperArmAndThighTex" OutName="giant_upper_arm_and_thigh" Format="ci8" Width="16" Height="16" Offset="0x5880" TlutOffset="0x5380"/>
+        <Texture Name="gGiantHandTex" OutName="giant_hand" Format="ci8" Width="16" Height="16" Offset="0x5980" TlutOffset="0x5380"/>
         <Texture Name="gGiantFaceEyeOpenTex" OutName="giant_face_eye_open" Format="ci8" Width="32" Height="64" Offset="0x5A80" TlutOffset="0x5380" />
         <Texture Name="gGiantFaceEyeHalfTex" OutName="giant_face_eye_half" Format="ci8" Width="32" Height="64" Offset="0x6280" TlutOffset="0x5380" />
         <Texture Name="gGiantFaceEyeClosedTex" OutName="giant_face_eye_closed" Format="ci8" Width="32" Height="64" Offset="0x6A80" TlutOffset="0x5380" />
-        <Texture Name="gGiantGroinTex" OutName="giant_groin" Format="ci8" Width="16" Height="16" Offset="0x7280" />
-        <Texture Name="gGiantHairTex" OutName="giant_hair" Format="ci8" Width="16" Height="32" Offset="0x7380" />
+        <Texture Name="gGiantGroinTex" OutName="giant_groin" Format="ci8" Width="16" Height="16" Offset="0x7280" TlutOffset="0x5380"/>
+        <Texture Name="gGiantHairTex" OutName="giant_hair" Format="ci8" Width="16" Height="32" Offset="0x7380" TlutOffset="0x5380"/>
 
         <!-- Giant Beard Vertices, DisplayList, and Texture -->
         <Array Name="gGiantBeardVtx" Count="9" Offset="0x7580">

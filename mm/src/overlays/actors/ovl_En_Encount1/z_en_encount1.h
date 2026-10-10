@@ -8,19 +8,19 @@
 #define ENENCOUNT1_GET_TYPE(thisx) (((thisx)->params >> 11) & 0x1F)
 #define ENENCOUNT1_GET_SPAWN_ACTIVE_MAX(thisx) (((thisx)->params >> 6) & 0x1F)
 #define ENENCOUNT1_GET_SPAWN_TOTAL_MAX(thisx) ((thisx)->params & 0x3F)
-#define ENENCOUNT1_GET_PATH_INDEX(thisx) ((thisx)->params & 0x3F) // Used only by EN_ENCOUNT1_SKULLFISH_2 which doesn't use SpawnTotalMax
+#define ENENCOUNT1_GET_PATH_INDEX(thisx) ((thisx)->params & 0x3F) // Used only by EN_ENCOUNT1_SKULLFISH_PATHING which doesn't use SpawnTotalMax
 
 #define ENENCOUNT1_PATH_INDEX_NONE 0x3F
 
 #define ENENCOUNT1_GET_SPAWN_TIME_MIN(thisx) ((thisx)->world.rot.x) // Time to wait between spawning
-#define ENENCOUNT1_GET_SPAWN_UNUSED_PROP(thisx) ((thisx)->world.rot.y) // Unused spawn property
+#define ENENCOUNT1_GET_SPAWN_DROP_ID(thisx) ((thisx)->world.rot.y) // Read from EnPr2, index to drop table array
 #define ENENCOUNT1_GET_SPAWN_DISTANCE_MAX(thisx) ((thisx)->world.rot.z) // Negative means infinite distance
 
 typedef enum EnEncount1Enemy {
     /* 0 */ EN_ENCOUNT1_GRASSHOPPER,
     /* 1 */ EN_ENCOUNT1_WALLMASTER,
-    /* 2 */ EN_ENCOUNT1_SKULLFISH,
-    /* 3 */ EN_ENCOUNT1_SKULLFISH_2
+    /* 2 */ EN_ENCOUNT1_SKULLFISH_RESPAWNING,
+    /* 3 */ EN_ENCOUNT1_SKULLFISH_PATHING // path required
 } EnEncount1Enemy;
 
 struct EnEncount1;
@@ -39,7 +39,7 @@ typedef struct EnEncount1 {
     /* 0x156 */ s16 timer;
     /* 0x158 */ s16 spawnTimeMin;
     /* 0x15A */ s16 pathIndex;
-    /* 0x15C */ s32 spawnUnusedProp;
+    /* 0x15C */ s32 spawnDropTable; // unused by us, passed to EnPr2
     /* 0x160 */ f32 spawnDistanceMax;
 } EnEncount1; // size = 0x164
 

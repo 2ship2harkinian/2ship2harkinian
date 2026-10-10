@@ -323,7 +323,7 @@ void EnGinkoMan_DepositDialogue(EnGinkoMan* this, PlayState* play) {
         case 0x477:
             Message_StartTextbox(play, 0x471, &this->actor);
             this->curTextId = 0x471;
-            this->serviceFee = play->msgCtx.unk1206C;
+            this->serviceFee = play->msgCtx.firstChoicePrice;
             break;
 
         case 0x479:

@@ -356,7 +356,7 @@ s32 EnRat_IsOnCollisionPoly(PlayState* play, Vec3f* posA, Vec3f* posB, Vec3f* po
     s32 isOnWater;
     f32 waterSurface;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, posB->x, posB->z, &waterSurface, &waterBox) &&
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, posB->x, posB->z, &waterSurface, &waterBox) &&
         (waterSurface <= posA->y) && (posB->y <= waterSurface)) {
         isOnWater = true;
     } else {

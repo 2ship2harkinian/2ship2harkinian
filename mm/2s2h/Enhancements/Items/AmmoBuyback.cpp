@@ -107,7 +107,7 @@ static bool IsItemAvailable(ItemId itemId) {
 }
 
 static void UpdateDigits(PlayState* play, s16 value) {
-    if (play->msgCtx.unk120C0 == 0)
+    if (play->msgCtx.codeBufOffset == 0)
         return;
 
     char digits[3];
@@ -118,10 +118,10 @@ static void UpdateDigits(PlayState* play, s16 value) {
     digits[2] = '0';
 
     // Writes digits and extra space to decodedBuffer
-    play->msgCtx.decodedBuffer.schar[play->msgCtx.unk120C0] = digits[0];
-    play->msgCtx.decodedBuffer.schar[play->msgCtx.unk120C0 + 1] = digits[1];
-    play->msgCtx.decodedBuffer.schar[play->msgCtx.unk120C0 + 2] = digits[2];
-    play->msgCtx.decodedBuffer.schar[play->msgCtx.unk120C0 + 3] = ' ';
+    play->msgCtx.decodedBuffer.schar[play->msgCtx.codeBufOffset] = digits[0];
+    play->msgCtx.decodedBuffer.schar[play->msgCtx.codeBufOffset + 1] = digits[1];
+    play->msgCtx.decodedBuffer.schar[play->msgCtx.codeBufOffset + 2] = digits[2];
+    play->msgCtx.decodedBuffer.schar[play->msgCtx.codeBufOffset + 3] = ' ';
 
     // Render: [Tens] [Units] [Space]
     Font_LoadCharNES(play, digits[0], play->msgCtx.unk120C4);
@@ -191,7 +191,7 @@ static void HandleInput(EnFsn* enFsn, PlayState* play) {
     Input* input = &play->state.input[0];
 
     // Prevent input processing if the message system hasn't loaded our text yet
-    if (msgCtx->currentTextId != TEXT_ID_FSN_OFFER || msgCtx->unk120C0 == 0 || msgCtx->rupeesSelected < 10 ||
+    if (msgCtx->currentTextId != TEXT_ID_FSN_OFFER || msgCtx->codeBufOffset == 0 || msgCtx->rupeesSelected < 10 ||
         msgCtx->msgMode == MSGMODE_NONE || msgCtx->msgMode == MSGMODE_TEXT_START ||
         msgCtx->msgMode == MSGMODE_TEXT_BOX_GROWING || msgCtx->msgMode == MSGMODE_TEXT_STARTING) {
         return;
@@ -202,13 +202,13 @@ static void HandleInput(EnFsn* enFsn, PlayState* play) {
     s16 maxAllowed = (sAmmoSale.itemId == ITEM_SEAHORSE) ? 1 : MIN(AMMO(sAmmoSale.itemId), MAX_AMMO_SELL_QUANTITY);
 
     // Enforce cursor on visible digits (0=Tens, 1=Units)
-    if (msgCtx->unk120C2 > 1)
-        msgCtx->unk120C2 = 1;
+    if (msgCtx->inputDigitIndex > 1)
+        msgCtx->inputDigitIndex = 1;
 
     // Vertical Input (Quantity)
     bool inputUp = CHECK_BTN_ALL(input->cur.button, BTN_DUP) || input->rel.stick_y >= STICK_THRESHOLD;
     bool inputDown = CHECK_BTN_ALL(input->cur.button, BTN_DDOWN) || input->rel.stick_y <= -STICK_THRESHOLD;
-    s16 delta = (msgCtx->unk120C2 == 0) ? 10 : 1;
+    s16 delta = (msgCtx->inputDigitIndex == 0) ? 10 : 1;
 
     if (inputUp) {
         if (UpdateInputState(true, &sStickHeldY, &sRepeatTimerY))
@@ -226,12 +226,12 @@ static void HandleInput(EnFsn* enFsn, PlayState* play) {
 
     if (inputRight) {
         if (UpdateInputState(true, &sStickHeldX, &sRepeatTimerX)) {
-            msgCtx->unk120C2 = (msgCtx->unk120C2 >= 1) ? 1 : msgCtx->unk120C2 + 1;
+            msgCtx->inputDigitIndex = (msgCtx->inputDigitIndex >= 1) ? 1 : msgCtx->inputDigitIndex + 1;
             Audio_PlaySfx(NA_SE_SY_CURSOR);
         }
     } else if (inputLeft) {
         if (UpdateInputState(true, &sStickHeldX, &sRepeatTimerX)) {
-            msgCtx->unk120C2 = (msgCtx->unk120C2 <= 0) ? 0 : msgCtx->unk120C2 - 1;
+            msgCtx->inputDigitIndex = (msgCtx->inputDigitIndex <= 0) ? 0 : msgCtx->inputDigitIndex - 1;
             Audio_PlaySfx(NA_SE_SY_CURSOR);
         }
     } else {

@@ -111,8 +111,8 @@ void EnPrz_Init(Actor* thisx, PlayState* play) {
     this->actor.colChkInfo.damageTable = &sDamageTable;
     this->actor.colChkInfo.health = 1;
 
-    SkelAnime_InitFlex(play, &this->skelAnime, &object_pr_Skel_004188, &object_pr_Anim_004340, this->jointTable,
-                       this->morphTable, OBJECT_PR_2_LIMB_MAX);
+    SkelAnime_InitFlex(play, &this->skelAnime, &gSkullFishSkel, &gSkullFishSwimAnim, this->jointTable, this->morphTable,
+                       PR_2_LIMB_MAX);
 
     this->unk_1E6 = ENPRZ_GET(&this->actor);
     this->actor.shape.yOffset = 500.0f;
@@ -139,8 +139,8 @@ typedef enum EnPrzAnimation {
 } EnPrzAnimation;
 
 static AnimationHeader* sAnimations[ENPRZ_ANIM_MAX] = {
-    &object_pr_Anim_004340, // ENPRZ_ANIM_0
-    &object_pr_Anim_004274, // ENPRZ_ANIM_1
+    &gSkullFishSwimAnim,   // ENPRZ_ANIM_0
+    &gSkullFishAttackAnim, // ENPRZ_ANIM_1
 };
 
 static u8 sAnimationModes[ENPRZ_ANIM_MAX] = {
@@ -158,8 +158,8 @@ s32 func_80A75FA4(EnPrz* this, PlayState* play) {
     WaterBox* waterBox;
     f32 temp_f0;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_210,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &this->unk_210, &waterBox)) {
         temp_f0 = BREG(10) + (this->unk_210 - 10.0f);
         if (temp_f0 < this->actor.world.pos.y) {
             this->unk_1D8.y = temp_f0;
@@ -407,8 +407,8 @@ void func_80A76B14(EnPrz* this, PlayState* play) {
     Math_SmoothStepToS(&this->actor.shape.rot.z, this->unk_1FC, 5, 0x2710, 0x3E8);
     Math_SmoothStepToS(&this->actor.shape.rot.y, this->unk_1FE, 5, 0x2710, 0x3E8);
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_210,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &this->unk_210, &waterBox)) {
         if ((this->unk_210 - 15.0f) <= this->actor.world.pos.y) {
             phi_s0 = true;
         } else {
@@ -499,7 +499,7 @@ void EnPrz_Update(Actor* thisx, PlayState* play) {
 s32 EnPrz_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {
     EnPrz* this = (EnPrz*)thisx;
 
-    if (limbIndex == OBJECT_PR_2_LIMB_02) {
+    if (limbIndex == PR_2_LIMB_SKULL) {
         rot->y += TRUNCF_BINANG(this->unk_218) * -100;
     }
     return false;
@@ -509,7 +509,7 @@ void EnPrz_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
     Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
     EnPrz* this = (EnPrz*)thisx;
 
-    if (limbIndex == OBJECT_PR_2_LIMB_02) {
+    if (limbIndex == PR_2_LIMB_SKULL) {
         Matrix_Translate(0.0f, 0.0f, 0.0f, MTXMODE_APPLY);
         Matrix_MultVec3f(&sZeroVec, &this->unk_1CC);
     }

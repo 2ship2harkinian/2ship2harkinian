@@ -99,73 +99,73 @@ u16 D_80C00A8C[] = { 0x736, 0x737, 0x738, 0x74E }; // text IDs after hide and se
 
 typedef enum {
     /*   -1 */ ENBOMJIMA_ANIM_NONE = -1,
-    /* 0x00 */ ENBOMJIMA_ANIM_0,
-    /* 0x01 */ ENBOMJIMA_ANIM_1,
-    /* 0x02 */ ENBOMJIMA_ANIM_2,
-    /* 0x03 */ ENBOMJIMA_ANIM_3,
-    /* 0x04 */ ENBOMJIMA_ANIM_4,
-    /* 0x05 */ ENBOMJIMA_ANIM_5,
-    /* 0x06 */ ENBOMJIMA_ANIM_6,
-    /* 0x07 */ ENBOMJIMA_ANIM_7,
-    /* 0x08 */ ENBOMJIMA_ANIM_8,
-    /* 0x09 */ ENBOMJIMA_ANIM_9,
-    /* 0x0A */ ENBOMJIMA_ANIM_10,
-    /* 0x0B */ ENBOMJIMA_ANIM_11,
-    /* 0x0C */ ENBOMJIMA_ANIM_12,
-    /* 0x0D */ ENBOMJIMA_ANIM_13,
-    /* 0x0E */ ENBOMJIMA_ANIM_14,
-    /* 0x0F */ ENBOMJIMA_ANIM_15,
-    /* 0x10 */ ENBOMJIMA_ANIM_16,
-    /* 0x11 */ ENBOMJIMA_ANIM_17,
-    /* 0x12 */ ENBOMJIMA_ANIM_18,
-    /* 0x13 */ ENBOMJIMA_ANIM_19,
+    /* 0x00 */ ENBOMJIMA_ANIM_IDLE,
+    /* 0x01 */ ENBOMJIMA_ANIM_HANDS_ON_HIPS,
+    /* 0x02 */ ENBOMJIMA_ANIM_TALK_NORMAL,
+    /* 0x03 */ ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS,
+    /* 0x04 */ ENBOMJIMA_ANIM_BLOWGUN,
+    /* 0x05 */ ENBOMJIMA_ANIM_WALK,
+    /* 0x06 */ ENBOMJIMA_ANIM_SURPRISE,
+    /* 0x07 */ ENBOMJIMA_ANIM_HIDE_UNDER_BOX,
+    /* 0x08 */ ENBOMJIMA_ANIM_DAZED,
+    /* 0x09 */ ENBOMJIMA_ANIM_SIT,
+    /* 0x0A */ ENBOMJIMA_ANIM_HOLD_CUCCO,
+    /* 0x0B */ ENBOMJIMA_ANIM_TURN_AROUND,
+    /* 0x0C */ ENBOMJIMA_ANIM_SHOW_NUMBER,
+    /* 0x0D */ ENBOMJIMA_ANIM_TALK_SHOWING_NUMBER,
+    /* 0x0E */ ENBOMJIMA_ANIM_TAUNT,
+    /* 0x0F */ ENBOMJIMA_ANIM_JUMP,
+    /* 0x10 */ ENBOMJIMA_ANIM_ARM_SWIPE,
+    /* 0x11 */ ENBOMJIMA_ANIM_SALUTE,
+    /* 0x12 */ ENBOMJIMA_ANIM_RUN,
+    /* 0x13 */ ENBOMJIMA_ANIM_LOOK_AROUND,
     /* 0x16 */ ENBOMJIMA_ANIM_MAX
 } EnBomjimaAnimation;
 
 static AnimationHeader* sAnimations[ENBOMJIMA_ANIM_MAX] = {
-    &gBomberIdleAnim,       // ENBOMJIMA_ANIM_0
-    &object_cs_Anim_00FAF4, // ENBOMJIMA_ANIM_1
-    &object_cs_Anim_0057C8, // ENBOMJIMA_ANIM_2
-    &object_cs_Anim_0053F4, // ENBOMJIMA_ANIM_3
-    &object_cs_Anim_002044, // ENBOMJIMA_ANIM_4
-    &object_cs_Anim_01007C, // ENBOMJIMA_ANIM_5
-    &object_cs_Anim_00349C, // ENBOMJIMA_ANIM_6
-    &object_cs_Anim_004960, // ENBOMJIMA_ANIM_7
-    &object_cs_Anim_005128, // ENBOMJIMA_ANIM_8
-    &object_cs_Anim_004C1C, // ENBOMJIMA_ANIM_9
-    &object_cs_Anim_001A1C, // ENBOMJIMA_ANIM_10
-    &object_cs_Anim_003EE4, // ENBOMJIMA_ANIM_11
-    &object_cs_Anim_00478C, // ENBOMJIMA_ANIM_12
-    &object_cs_Anim_00433C, // ENBOMJIMA_ANIM_13
-    &object_cs_Anim_0060E8, // ENBOMJIMA_ANIM_14
-    &object_cs_Anim_001708, // ENBOMJIMA_ANIM_15
-    &object_cs_Anim_005DC4, // ENBOMJIMA_ANIM_16
-    &object_cs_Anim_0026B0, // ENBOMJIMA_ANIM_17
-    &object_cs_Anim_0036B0, // ENBOMJIMA_ANIM_18
-    &object_cs_Anim_0031C4, // ENBOMJIMA_ANIM_19
+    &gBomberIdleAnim,              // ENBOMJIMA_ANIM_IDLE
+    &gBomberHandsOnHipsAnim,       // ENBOMJIMA_ANIM_HANDS_ON_HIPS
+    &gBomberTalkNormalAnim,        // ENBOMJIMA_ANIM_TALK_NORMAL
+    &gBomberTalkHandsOnHipsAnim,   // ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS
+    &gBomberBlowgunAnim,           // ENBOMJIMA_ANIM_BLOWGUN
+    &gBomberWalkAnim,              // ENBOMJIMA_ANIM_WALK
+    &gBomberSurpriseAnim,          // ENBOMJIMA_ANIM_SURPRISE
+    &gBomberHideUnderBoxAnim,      // ENBOMJIMA_ANIM_HIDE_UNDER_BOX
+    &gBomberDazedAnim,             // ENBOMJIMA_ANIM_DAZED
+    &gBomberSitAnim,               // ENBOMJIMA_ANIM_SIT
+    &gBomberHoldCuccoAnim,         // ENBOMJIMA_ANIM_HOLD_CUCCO
+    &gBomberTurnAroundAnim,        // ENBOMJIMA_ANIM_TURN_AROUND
+    &gBomberShowNumberAnim,        // ENBOMJIMA_ANIM_SHOW_NUMBER
+    &gBomberTalkShowingNumberAnim, // ENBOMJIMA_ANIM_TALK_SHOWING_NUMBER
+    &gBomberTauntAnim,             // ENBOMJIMA_ANIM_TAUNT
+    &gBomberJumpAnim,              // ENBOMJIMA_ANIM_JUMP
+    &gBomberArmSwipeAnim,          // ENBOMJIMA_ANIM_ARM_SWIPE
+    &gBomberSaluteAnim,            // ENBOMJIMA_ANIM_SALUTE
+    &gBomberRunAnim,               // ENBOMJIMA_ANIM_RUN
+    &gBomberLookAroundAnim,        // ENBOMJIMA_ANIM_LOOK_AROUND
 };
 
 static u8 sAnimationModes[ENBOMJIMA_ANIM_MAX] = {
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_0
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_1
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_2
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_3
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_4
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_5
-    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_6
-    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_7
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_8
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_9
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_10
-    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_11
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_12
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_13
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_14
-    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_15
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_16
-    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_17
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_18
-    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_19
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_IDLE
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_HANDS_ON_HIPS
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_TALK_NORMAL
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_BLOWGUN
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_WALK
+    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_SURPRISE
+    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_HIDE_UNDER_BOX
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_DAZED
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_SIT
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_HOLD_CUCCO
+    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_TURN_AROUND
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_SHOW_NUMBER
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_TALK_SHOWING_NUMBER
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_TAUNT
+    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_JUMP
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_ARM_SWIPE
+    ANIMMODE_ONCE, // ENBOMJIMA_ANIM_SALUTE
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_RUN
+    ANIMMODE_LOOP, // ENBOMJIMA_ANIM_LOOK_AROUND
 };
 
 s16 D_80C00AF8[] = {
@@ -180,8 +180,8 @@ void EnBomjima_Init(Actor* thisx, PlayState* play) {
     this->actor.colChkInfo.mass = MASS_IMMOVABLE;
     ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 19.0f);
     this->actor.gravity = -3.0f;
-    SkelAnime_InitFlex(play, &this->skelAnime, &object_cs_Skel_00F82C, &gBomberIdleAnim, this->jointTable,
-                       this->morphTable, OBJECT_CS_LIMB_MAX);
+    SkelAnime_InitFlex(play, &this->skelAnime, &gBomberSkel, &gBomberIdleAnim, this->jointTable, this->morphTable,
+                       OBJECT_CS_LIMB_MAX);
     Collider_InitAndSetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
     CLEAR_WEEKEVENTREG(WEEKEVENTREG_83_04);
     this->actor.attentionRangeType = ATTENTION_RANGE_0;
@@ -276,23 +276,23 @@ void EnBomjima_ChangeAnim(EnBomjima* this, s32 animIndex, f32 playSpeed) {
 }
 
 void func_80BFE524(EnBomjima* this) {
-    if ((this->animIndex == ENBOMJIMA_ANIM_5) &&
+    if ((this->animIndex == ENBOMJIMA_ANIM_WALK) &&
         (Animation_OnFrame(&this->skelAnime, 9.0f) || Animation_OnFrame(&this->skelAnime, 10.0f) ||
          Animation_OnFrame(&this->skelAnime, 17.0f) || Animation_OnFrame(&this->skelAnime, 18.0f))) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_WALK);
     }
 
-    if ((this->animIndex == ENBOMJIMA_ANIM_18) &&
+    if ((this->animIndex == ENBOMJIMA_ANIM_RUN) &&
         (Animation_OnFrame(&this->skelAnime, 0.0f) || Animation_OnFrame(&this->skelAnime, 2.0f) ||
          Animation_OnFrame(&this->skelAnime, 4.0f) || Animation_OnFrame(&this->skelAnime, 6.0f))) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_WALK);
     }
 
-    if ((this->animIndex == ENBOMJIMA_ANIM_15) && Animation_OnFrame(&this->skelAnime, 15.0f)) {
+    if ((this->animIndex == ENBOMJIMA_ANIM_JUMP) && Animation_OnFrame(&this->skelAnime, 15.0f)) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_LAND);
     }
 
-    if ((this->animIndex == ENBOMJIMA_ANIM_6) && Animation_OnFrame(&this->skelAnime, 8.0f)) {
+    if ((this->animIndex == ENBOMJIMA_ANIM_SURPRISE) && Animation_OnFrame(&this->skelAnime, 8.0f)) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_LAND);
     }
 }
@@ -332,7 +332,7 @@ void func_80BFE67C(EnBomjima* this, PlayState* play) {
                 abs = ABS_ALT(BINANG_SUB(this->actor.world.rot.y, Math_Vec3f_Yaw(&this->actor.world.pos, &sp54)));
                 if ((abs < 0x4000) && !BgCheck_EntityLineTest1(&play->colCtx, &this->actor.world.pos, &sp54, &sp6C,
                                                                &sp50, true, false, false, true, &bgId)) {
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_5, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_WALK, 1.0f);
                     Math_Vec3f_Copy(&this->unk_2A4, &sp54);
                     this->unk_2BE = Rand_S16Offset(30, 50);
                     this->unk_2A2++;
@@ -357,9 +357,9 @@ void func_80BFE67C(EnBomjima* this, PlayState* play) {
                                             false, true, &bgId)) {
                     this->unk_2C0 = 0;
                     if (Rand_ZeroOne() < 0.5f) {
-                        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_19, 1.0f);
+                        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_LOOK_AROUND, 1.0f);
                     } else {
-                        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_0, 1.0f);
+                        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_IDLE, 1.0f);
                     }
                     this->unk_2A2 = 0;
                     this->unk_2D0 = 0.0f;
@@ -373,9 +373,9 @@ void func_80BFE67C(EnBomjima* this, PlayState* play) {
             if ((this->unk_2BE == 0) || (sqrtf(SQ(x) + SQ(z)) < 4.0f)) {
                 this->unk_2C0 = Rand_S16Offset(20, 20);
                 if (!(this->unk_2C0 & 1)) {
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_19, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_LOOK_AROUND, 1.0f);
                 } else {
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_0, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_IDLE, 1.0f);
                 }
                 this->unk_2A2 = 0;
                 this->unk_2D0 = 0.0f;
@@ -409,7 +409,7 @@ void func_80BFEA94(EnBomjima* this, PlayState* play) {
 }
 
 void func_80BFEB1C(EnBomjima* this) {
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_1, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_HANDS_ON_HIPS, 1.0f);
     func_80BFE65C(this);
     this->action = EN_BOMJIMA_ACTION_0;
     this->actionFunc = func_80BFEB64;
@@ -460,7 +460,7 @@ void func_80BFEB64(EnBomjima* this, PlayState* play) {
 
     switch (this->unk_2A2) {
         case 0:
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_4, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_BLOWGUN, 1.0f);
             this->unk_29A = -7000;
             this->unk_2A2++;
             break;
@@ -490,7 +490,7 @@ void func_80BFEB64(EnBomjima* this, PlayState* play) {
                 this->unk_2BC++;
 
                 if ((TRUNCF_BINANG(Rand_ZeroFloat(2.0f)) + 3) < this->unk_2BC) {
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_5, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_WALK, 1.0f);
                     this->unk_29A = 0;
                     Math_Vec3f_Copy(&this->unk_2A4, &this->actor.home.pos);
                     this->unk_2A4.x += Rand_CenteredFloat(150.0f);
@@ -516,7 +516,7 @@ void func_80BFEB64(EnBomjima* this, PlayState* play) {
 
 void func_80BFEFF0(EnBomjima* this) {
     this->bombal = NULL;
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_19, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_LOOK_AROUND, 1.0f);
     func_80BFE65C(this);
     this->action = EN_BOMJIMA_ACTION_1;
     this->actionFunc = func_80BFF03C;
@@ -543,7 +543,7 @@ void func_80BFF03C(EnBomjima* this, PlayState* play) {
 void func_80BFF120(EnBomjima* this) {
     func_80BFE65C(this);
     this->cutsceneTimer = 30;
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_6, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_SURPRISE, 1.0f);
     this->cutsceneEnded = false;
     this->action = EN_BOMJIMA_ACTION_2;
     this->actionFunc = func_80BFF174;
@@ -572,8 +572,8 @@ void func_80BFF174(EnBomjima* this, PlayState* play) {
 
     if ((curFrame >= this->animEndFrame) && (this->unk_2BC < 5)) {
         this->unk_2BC++;
-        if (this->animIndex != ENBOMJIMA_ANIM_19) {
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_19, 1.0f);
+        if (this->animIndex != ENBOMJIMA_ANIM_LOOK_AROUND) {
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_LOOK_AROUND, 1.0f);
         }
     }
 
@@ -622,7 +622,7 @@ void func_80BFF174(EnBomjima* this, PlayState* play) {
 }
 
 void func_80BFF3F0(EnBomjima* this) {
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_15, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_JUMP, 1.0f);
     this->action = EN_BOMJIMA_ACTION_3;
     this->actionFunc = func_80BFF430;
 }
@@ -670,7 +670,7 @@ void func_80BFF52C(EnBomjima* this, PlayState* play) {
             }
             Message_ContinueTextbox(play, this->actor.textId);
             Audio_PlaySfx(NA_SE_SY_FOUND);
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_15, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_JUMP, 1.0f);
             this->action = EN_BOMJIMA_ACTION_5;
             this->actionFunc = func_80BFF6CC;
         } else {
@@ -698,7 +698,7 @@ void func_80BFF6CC(EnBomjima* this, PlayState* play) {
     if (curFrame >= this->animEndFrame) {
         if ((Message_GetState(&play->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(play)) {
             Message_CloseTextbox(play);
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_1, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_HANDS_ON_HIPS, 1.0f);
             this->actionFunc = func_80BFF754;
         }
     }
@@ -787,7 +787,7 @@ void func_80BFF9B0(EnBomjima* this, PlayState* play) {
         gSaveContext.save.saveInfo.bombersCaughtOrder[3] = 0;
         gSaveContext.save.saveInfo.bombersCaughtOrder[4] = 0;
 
-        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_3, 1.0f);
+        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS, 1.0f);
         this->unk_2C8 = 9;
 
         if (player->transformation == PLAYER_FORM_DEKU) {
@@ -803,7 +803,7 @@ void func_80BFF9B0(EnBomjima* this, PlayState* play) {
 void func_80BFFB40(EnBomjima* this, PlayState* play) {
     if ((Message_GetState(&play->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(play)) {
         Message_CloseTextbox(play);
-        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_15, 1.0f);
+        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_JUMP, 1.0f);
         D_80C009F0 = 100;
         this->unk_2DC = 0;
         this->actionFunc = func_80BFFBC4;
@@ -813,8 +813,8 @@ void func_80BFFB40(EnBomjima* this, PlayState* play) {
 void func_80BFFBC4(EnBomjima* this, PlayState* play) {
     f32 curFrame = this->skelAnime.curFrame;
 
-    if ((this->animIndex != ENBOMJIMA_ANIM_1) && (curFrame >= this->animEndFrame)) {
-        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_1, 1.0f);
+    if ((this->animIndex != ENBOMJIMA_ANIM_HANDS_ON_HIPS) && (curFrame >= this->animEndFrame)) {
+        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_HANDS_ON_HIPS, 1.0f);
     }
 
     if ((D_80C009F4 != 0) && (this->unk_2C2 == 0)) {
@@ -840,7 +840,7 @@ void func_80BFFBC4(EnBomjima* this, PlayState* play) {
 
 void func_80BFFCFC(EnBomjima* this) {
     func_80BFE65C(this);
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_18, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_RUN, 1.0f);
     this->action = EN_BOMJIMA_ACTION_6;
     this->actionFunc = func_80BFFD48;
 }
@@ -855,7 +855,7 @@ void func_80BFFD48(EnBomjima* this, PlayState* play) {
     if (sqrtf(SQ(this->actor.world.pos.x - this->unk_2A4.x) + SQ(this->actor.world.pos.z - this->unk_2A4.z)) < 4.0f) {
         D_80C009F0++;
         this->unk_2DC = this->actor.parent->world.rot.y;
-        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_0, 1.0f);
+        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_IDLE, 1.0f);
         this->actionFunc = func_80BFFE48;
     }
 }
@@ -867,7 +867,7 @@ void func_80BFFE48(EnBomjima* this, PlayState* play) {
 
     if (D_80C009F0 >= 100) {
         if (this->unk_2E4 != 4) {
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_15, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_JUMP, 1.0f);
             this->unk_2DC = 0;
             func_80BFE65C(this);
             this->actionFunc = func_80BFFF54;
@@ -875,7 +875,7 @@ void func_80BFFE48(EnBomjima* this, PlayState* play) {
             Math_SmoothStepToS(&this->unk_290, 10000, 1, 0x1388, 0);
             if (D_80C009F0 >= 103) {
                 this->unk_2DC = 0;
-                EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_15, 1.0f);
+                EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_JUMP, 1.0f);
                 func_80BFE65C(this);
                 this->actionFunc = func_80BFFF54;
             }
@@ -897,16 +897,16 @@ void func_80BFFF54(EnBomjima* this, PlayState* play) {
     }
 
     if (this->unk_2E4 != 4) {
-        if ((this->animIndex != ENBOMJIMA_ANIM_0) && (curFrame >= this->animEndFrame)) {
+        if ((this->animIndex != ENBOMJIMA_ANIM_IDLE) && (curFrame >= this->animEndFrame)) {
             D_80C009F0++;
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_0, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_IDLE, 1.0f);
         }
-    } else if ((this->animIndex != ENBOMJIMA_ANIM_8) && (curFrame >= this->animEndFrame)) {
-        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_8, 1.0f);
+    } else if ((this->animIndex != ENBOMJIMA_ANIM_DAZED) && (curFrame >= this->animEndFrame)) {
+        EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_DAZED, 1.0f);
         D_80C009F4 = 1;
     }
 
-    if (this->animIndex == ENBOMJIMA_ANIM_8) {
+    if (this->animIndex == ENBOMJIMA_ANIM_DAZED) {
         if ((D_80C009F4 == 1) && Animation_OnFrame(&this->skelAnime, 7.0f)) {
             Actor_PlaySfx(&this->actor, NA_SE_EV_HUMAN_BOUND);
             D_80C009F4 = 2;
@@ -924,7 +924,7 @@ void func_80BFFF54(EnBomjima* this, PlayState* play) {
 
 void func_80C0011C(EnBomjima* this) {
     func_80BFE65C(this);
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_0, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_IDLE, 1.0f);
     this->action = EN_BOMJIMA_ACTION_7;
     this->actionFunc = func_80C00168;
 }
@@ -954,7 +954,7 @@ void func_80C00168(EnBomjima* this, PlayState* play) {
 }
 
 void func_80C00234(EnBomjima* this) {
-    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_3, 1.0f);
+    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS, 1.0f);
     this->collider.dim.radius = 15;
     this->collider.dim.height = 40;
     func_80BFE65C(this);
@@ -970,9 +970,9 @@ void func_80C00284(EnBomjima* this, PlayState* play) {
          (this->unk_2CA == 1)) &&
         (curFrame >= this->animEndFrame)) {
         if (!(this->unk_2BC & 1)) {
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_3, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_TALK_HANDS_ON_HIPS, 1.0f);
         } else {
-            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_16, 1.0f);
+            EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_ARM_SWIPE, 1.0f);
         }
         this->unk_2BC++;
         this->unk_2BC &= 1;
@@ -1029,7 +1029,7 @@ void func_80C00284(EnBomjima* this, PlayState* play) {
                 if (this->unk_2C8 == 10) {
                     func_80BFE65C(this);
                     this->unk_28E = 0;
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_1, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_HANDS_ON_HIPS, 1.0f);
                     this->action = EN_BOMJIMA_ACTION_2;
                     this->actionFunc = func_80BFF174;
                     break;
@@ -1058,7 +1058,7 @@ void func_80C00284(EnBomjima* this, PlayState* play) {
                 this->actor.textId = D_80C00A8C[this->unk_2C8];
                 Message_ContinueTextbox(play, this->actor.textId);
                 if (this->unk_2C8 >= 2) {
-                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_17, 1.0f);
+                    EnBomjima_ChangeAnim(this, ENBOMJIMA_ANIM_SALUTE, 1.0f);
                 }
                 break;
 
@@ -1149,16 +1149,16 @@ s32 EnBomjima_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3
 
 void EnBomjima_Draw(Actor* thisx, PlayState* play) {
     static Gfx* D_80C00B28[] = {
-        gEnBomjima_D_80C00B08, gEnBomjima_D_80C00B18, gEnBomjima_D_80C00B18,
-        gEnBomjima_D_80C00B18, gEnBomjima_D_80C00B18,
+        gBomberJimRedBandanaDL,  gBomberJimBlueBandanaDL, gBomberJimBlueBandanaDL,
+        gBomberJimBlueBandanaDL, gBomberJimBlueBandanaDL,
     };
     static TexturePtr D_80C00B3C[] = {
-        object_cs_Tex_00C520,
-        object_cs_Tex_00CD20,
-        object_cs_Tex_00D520,
+        gBomberEyeOpenTex,
+        gBomberEyeHalfTex,
+        gBomberEyeClosedTex,
     };
     static TexturePtr D_80C00B48[] = {
-        object_cs_Tex_00E620, object_cs_Tex_00EA20, object_cs_Tex_00EE20, object_cs_Tex_00DD20, object_cs_Tex_00F220,
+        gBomberNumber1Tex, gBomberNumber2Tex, gBomberNumber3Tex, gBomberNumber4Tex, gBomberNumber5Tex,
     };
     EnBomjima* this = (EnBomjima*)thisx;
 

@@ -11,7 +11,7 @@
         <Texture Name="gSunsSongGraveGoronTriforceTLUT" OutName="suns_song_grave_goron_triforce_tlut" Format="rgba16" Width="4" Height="4" Offset="0x640" />
         <Texture Name="gSunsSongGraveGoronGraniteTex" OutName="sun_song_grave_goron_granite" Format="rgba16" Width="32" Height="32" Offset="0x660" />
         <Texture Name="gSunsSongGraveGoronMarbleTex" OutName="sun_song_grave_goron_marble" Format="rgba16" Width="32" Height="64" Offset="0xE60" />
-        <Texture Name="gSunsSongGraveGoronSymbolTex" OutName="sun_song_grave_goron_symbol" Format="ci4" Width="64" Height="64" Offset="0x1E60" />
+        <Texture Name="gSunsSongGraveGoronSymbolTex" OutName="sun_song_grave_goron_symbol" Format="ci4" Width="64" Height="64" Offset="0x1E60" TlutOffset="0x5E0"/>
         <Texture Name="gSunsSongGraveGoronStoneInscriptionTex" OutName="sun_song_grave_goron_stone_inscription" Format="ia4" Width="128" Height="16" Offset="0x2660" />
         <Texture Name="gSunsSongGraveGoronStaffNotesTex" OutName="sun_song_grave_goron_staff_notes" Format="ia4" Width="128" Height="32" Offset="0x2A60" />
         <Collision Name="gSunsSongGraveGoronCol" Offset="0x33D8" />

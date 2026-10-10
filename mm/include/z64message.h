@@ -12,24 +12,33 @@ struct OcarinaStaff;
 struct PlayState;
 
 typedef enum TextBoxType {
-    /* 0x00 */ TEXTBOX_TYPE_0,
-    /* 0x01 */ TEXTBOX_TYPE_1,
-    /* 0x02 */ TEXTBOX_TYPE_2,
-    /* 0x03 */ TEXTBOX_TYPE_3,
+    /* 0x00 */ TEXTBOX_TYPE_BLACK,
+    /* 0x01 */ TEXTBOX_TYPE_WOODEN,
+    /* 0x02 */ TEXTBOX_TYPE_BLUE_FADED,
+    /* 0x03 */ TEXTBOX_TYPE_OCARINA,
     /* 0x04 */ TEXTBOX_TYPE_4,
-    /* 0x05 */ TEXTBOX_TYPE_5,
-    /* 0x06 */ TEXTBOX_TYPE_6,
-    /* 0x07 */ TEXTBOX_TYPE_7,
-    /* 0x08 */ TEXTBOX_TYPE_8,
-    /* 0x09 */ TEXTBOX_TYPE_9,
+    /* 0x05 */ TEXTBOX_TYPE_CLEAR,
+    /* 0x06 */ TEXTBOX_TYPE_DISPLAY_ALL,
+    /* 0x07 */ TEXTBOX_TYPE_CLEAR_DISPLAY_ALL,
+    /* 0x08 */ TEXTBOX_TYPE_BLUE,
+    /* 0x09 */ TEXTBOX_TYPE_PAUSE_INFO,
     /* 0x0A */ TEXTBOX_TYPE_A,
     /* 0x0B */ TEXTBOX_TYPE_B,
-    /* 0x0C */ TEXTBOX_TYPE_C,
-    /* 0x0D */ TEXTBOX_TYPE_D,
-    /* 0x0E */ TEXTBOX_TYPE_E,
+    /* 0x0C */ TEXTBOX_TYPE_TITLE_CARD,
+    /* 0x0D */ TEXTBOX_TYPE_NOTEBOOK_NOTIFICATION,
+    /* 0x0E */ TEXTBOX_TYPE_OCARINA_FREE_PLAY,
     /* 0x0F */ TEXTBOX_TYPE_F,
     /* 0x10 */ TEXTBOX_TYPE_MAX
 } TextBoxType;
+
+typedef enum TextBoxBackground {
+    /* 0x0 */ TEXTBOX_BG_DEFAULT,
+    /* 0x1 */ TEXTBOX_BG_WOODEN,
+    /* 0x2 */ TEXTBOX_BG_OCARINA,
+    /* 0x3 */ TEXTBOX_BG_FADED,
+    /* 0x4 */ TEXTBOX_BG_NOTEBOOK,
+    /* 0xE */ TEXTBOX_BG_NONE = 14,
+} TextBoxBackground;
 
 #define TEXTBOX_ENDTYPE_DEFAULT    0x00
 
@@ -221,15 +230,15 @@ typedef struct MessageContext {
     /* 0x11F00 */ struct OcarinaStaff* ocarinaStaff;
     /* 0x11F04 */ u16 currentTextId;
     /* 0x11F06 */ u16 choiceTextId; // s16?
-    /* 0x11F08 */ u16 unk11F08;
+    /* 0x11F08 */ u16 textBoxProperties;
     /* 0x11F0A */ u8 textBoxType;
     /* 0x11F0B */ u8 textBoxPos;
     /* 0x11F0C */ u8 unk11F0C;
     /* 0x11F10 */ s32 msgLength;
     /* 0x11F14 */ u16 nextTextId;
     /* 0x11F16 */ u16 itemId;
-    /* 0x11F18 */ u8 unk11F18;
-    /* 0x11F1A */ s16 unk11F1A[3];
+    /* 0x11F18 */ u8 hasChoices;
+    /* 0x11F1A */ s16 lineIndent[3];
     /* 0x11F20 */ UNK_TYPE1 unk11F20[0x2];
     /* 0x11F22 */ u8 msgMode;
     /* 0x11F23 */ UNK_TYPE1 unk11F23;
@@ -243,10 +252,10 @@ typedef struct MessageContext {
     /* 0x11FF2 */ u16 textUnskippable;
     /* 0x11FF4 */ s16 textPosX;
     /* 0x11FF6 */ s16 textPosY;
-    /* 0x11FF8 */ s16 unk11FF8;
-    /* 0x11FFA */ s16 unk11FFA;
-    /* 0x11FFC */ s16 unk11FFC;
-    /* 0x11FFE */ s16 unk11FFE[0x3];
+    /* 0x11FF8 */ s16 textPosXTarget;
+    /* 0x11FFA */ s16 textPosYTarget;
+    /* 0x11FFC */ s16 lineHeight;
+    /* 0x11FFE */ s16 choicePosY[0x3];
     /* 0x12004 */ s16 textboxXTarget;
     /* 0x12006 */ s16 textboxYTarget;
     /* 0x12008 */ s16 unk12008;
@@ -284,12 +293,12 @@ typedef struct MessageContext {
     /* 0x12046 */ s16 blockSunsSong;
     /* 0x12048 */ u8 ocarinaButtonIndex;
     /* 0x1204A */ s16 ocarinaButtonsPosY[5];
-    /* 0x12054 */ s16 unk12054[6]; // First, second and third digits in lottery code guess
+    /* 0x12054 */ s16 codeGuessDigits[6];
     /* 0x1205A */ UNK_TYPE1 unk12060[0x8];
     /* 0x12068 */ s16 textboxX;
     /* 0x1206A */ s16 textboxY;
-    /* 0x1206C */ s32 unk1206C;
-    /* 0x12070 */ s32 unk12070;
+    /* 0x1206C */ s32 firstChoicePrice;
+    /* 0x12070 */ s32 secondChoicePrice;
     /* 0x12074 */ s32 unk12074;
     /* 0x12078 */ s32 rupeesSelected; // Used for bank and doggy racetrack bet
     /* 0x1207C */ s32 rupeesTotal; // Used for bank and doggy racetrack bet
@@ -313,9 +322,9 @@ typedef struct MessageContext {
     /* 0x120B1 */ u8 bombersNotebookEventQueueCount;
     /* 0x120B2 */ u8 bombersNotebookEventQueue[10];
     /* 0x120BC */ u16 hudVisibility;
-    /* 0x120BE */ s16 unk120BE;
-    /* 0x120C0 */ s16 unk120C0;
-    /* 0x120C2 */ s16 unk120C2;
+    /* 0x120BE */ s16 inputLineNumber;
+    /* 0x120C0 */ s16 codeBufOffset;
+    /* 0x120C2 */ s16 inputDigitIndex;
     /* 0x120C4 */ s32 unk120C4;
     /* 0x120C8 */ s16 unk120C8;
     /* 0x120CA */ s16 unk120CA;
@@ -325,7 +334,7 @@ typedef struct MessageContext {
     /* 0x120D2 */ s16 unk120D2;
     /* 0x120D4 */ s16 unk120D4;
     /* 0x120D6 */ s16 unk120D6;
-    /* 0x120D8 */ s16 unk120D8;
+    /* 0x120D8 */ s16 lineCount;
     /* 0x120DA */ UNK_TYPE1 unk_120DA[0x6];
 } MessageContext; // size = 0x120E0
 
@@ -336,8 +345,8 @@ void Message_DrawItemIcon(struct PlayState* play, Gfx** gfxP);
 void Message_HandleOcarina(struct PlayState* play);
 void Message_LoadItemIcon(struct PlayState* play, u16 itemId, s16 arg2);
 void Message_DecodeHeader(struct PlayState* play);
-void func_801514B0(struct PlayState* play, u16 arg1, u8 arg2);
-void Message_StartTextbox(struct PlayState* play, u16 textId, Actor* actor);
+void Message_PauseMenu_ShowDescription(struct PlayState* play, u16 textId, u8 textBoxPos);
+void Message_StartTextbox(struct PlayState* play, u16 textId, struct Actor* actor);
 void Message_ContinueTextbox(struct PlayState* play, u16 textId);
 void Message_DisplaySceneTitleCard(struct PlayState* play, u16 textId);
 void Message_BombersNotebookQueueEvent(struct PlayState* play, u8 event);

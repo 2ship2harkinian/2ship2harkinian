@@ -5,7 +5,7 @@
 extern "C" {
 #include "overlays/actors/ovl_En_Kendo_Js/z_en_kendo_js.h"
 
-void func_80B274BC(EnKendoJs* thisx, PlayState* play);
+void EnKendoJs_ExpertCourse(EnKendoJs* thisx, PlayState* play);
 }
 
 #define CVAR_NAME "gEnhancements.Minigames.SwordsmanSchoolScore"
@@ -15,18 +15,18 @@ void RegisterSwordsmanSchool() {
     COND_ID_HOOK(ShouldActorUpdate, ACTOR_EN_KENDO_JS, CVAR != 30, [](Actor* actor, bool* should) {
         EnKendoJs* kendo = (EnKendoJs*)actor;
 
-        if (kendo->actionFunc != func_80B274BC) {
+        if (kendo->actionFunc != EnKendoJs_ExpertCourse) {
             return;
         }
 
         // Finishes the game early, as soon as the player reaches the required score
         if (gSaveContext.minigameScore >= CVAR) {
-            kendo->unk_290 = 140;
-            kendo->unk_284 = 5;
+            kendo->timer = 140;
+            kendo->minigameRound.expertRound = 5;
         }
 
         // Each time player chops a log, check if they've reached the required score
-        if (kendo->unk_290 >= 140 && kendo->unk_284 == 5 && gSaveContext.minigameScore >= CVAR) {
+        if (kendo->timer >= 140 && kendo->minigameRound.expertRound == 5 && gSaveContext.minigameScore >= CVAR) {
             gSaveContext.minigameScore = 30;
         }
     });

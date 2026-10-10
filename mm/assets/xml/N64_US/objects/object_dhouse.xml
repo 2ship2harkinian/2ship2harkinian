@@ -2,10 +2,10 @@
     <File Name="object_dhouse" Segment="6">
         <Texture Name="object_dhouse_TLUT_000000" OutName="tlut_000000" Format="rgba16" Width="4" Height="4" Offset="0x0" />
         <Texture Name="object_dhouse_TLUT_000020" OutName="tlut_000020" Format="rgba16" Width="4" Height="4" Offset="0x20" />
-        <Texture Name="object_dhouse_Tex_000040" OutName="tex_000040" Format="ci4" Width="64" Height="64" Offset="0x40" />
+        <Texture Name="object_dhouse_Tex_000040" OutName="tex_000040" Format="ci4" Width="64" Height="64" Offset="0x40" TlutOffset="0x0"/>
         <Texture Name="object_dhouse_Tex_000840" OutName="tex_000840" Format="rgba16" Width="32" Height="32" Offset="0x840" />
         <Texture Name="object_dhouse_Tex_001040" OutName="tex_001040" Format="rgba16" Width="64" Height="32" Offset="0x1040" />
-        <Texture Name="object_dhouse_Tex_002040" OutName="tex_002040" Format="ci4" Width="64" Height="64" Offset="0x2040" />
+        <Texture Name="object_dhouse_Tex_002040" OutName="tex_002040" Format="ci4" Width="64" Height="64" Offset="0x2040" TlutOffset="0x20"/>
         <Texture Name="object_dhouse_Tex_002840" OutName="tex_002840" Format="rgba16" Width="32" Height="32" Offset="0x2840" />
         <Texture Name="object_dhouse_Tex_003040" OutName="tex_003040" Format="i4" Width="64" Height="64" Offset="0x3040" />
         <DList Name="object_dhouse_DL_004920" Offset="0x4920" />

@@ -652,13 +652,13 @@ void func_80B41E18(EnKgy* this, PlayState* play) {
                         case 0xC3B:
                             switch (play->msgCtx.choiceIndex) {
                                 case 0:
-                                    if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.unk1206C) {
+                                    if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.firstChoicePrice) {
                                         Audio_PlaySfx(NA_SE_SY_ERROR);
                                         func_80B40E74(this, play, 0xC3F);
                                     } else {
                                         Audio_PlaySfx_MessageDecide();
                                         func_80B40E74(this, play, 0xC42);
-                                        Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                                        Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                                     }
                                     break;
 
@@ -792,7 +792,7 @@ void func_80B41E18(EnKgy* this, PlayState* play) {
                             func_80B41368(this, play, 4);
                             if (this->unk_29C & 0x10) {
                                 this->actor.textId = 0xC56;
-                                Rupees_ChangeBy(play->msgCtx.unk1206C);
+                                Rupees_ChangeBy(play->msgCtx.firstChoicePrice);
                             } else {
                                 this->actor.textId = 0xC42;
                             }

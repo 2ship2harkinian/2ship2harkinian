@@ -66,17 +66,17 @@
         <Texture Name="gBombShopLadySkirt2Tex" OutName="bomb_shop_lady_skirt_2" Format="ci8" Width="16" Height="16" Offset="0x85E0" TlutOffset="0x6B20" />
 
         <!-- Textures -->
-        <Texture Name="gBombShopLadySkinTex" OutName="bomb_shop_lady_skin" Format="ci8" Width="8" Height="8" Offset="0x86E0" />
-        <Texture Name="gBombShopLadyWrinklesTex" OutName="bomb_shop_lady_wrinkles" Format="ci8" Width="32" Height="32" Offset="0x8720" />
-        <Texture Name="gBombShopLadyHairSkinTex" OutName="bomb_shop_lady_hair_skin" Format="ci8" Width="32" Height="32" Offset="0x8B20" />
-        <Texture Name="gBombShopLadyNostrilTex" OutName="bomb_shop_lady_nostril" Format="ci8" Width="8" Height="8" Offset="0x8F20" />
-        <Texture Name="gBombShopLadyEarTex" OutName="bomb_shop_lady_ear" Format="ci8" Width="8" Height="8" Offset="0x8F60" />
-        <Texture Name="gBombShopLadyFingersTex" OutName="bomb_shop_lady_fingers" Format="ci8" Width="16" Height="16" Offset="0x8FA0" />
-        <Texture Name="gBombShopLadyBagTex" OutName="bomb_shop_lady_bag" Format="ci8" Width="16" Height="16" Offset="0x90A0" />
-        <Texture Name="gBombShopLadySkirtTex" OutName="bomb_shop_lady_skirt" Format="ci8" Width="16" Height="16" Offset="0x91A0" />
+        <Texture Name="gBombShopLadySkinTex" OutName="bomb_shop_lady_skin" Format="ci8" Width="8" Height="8" Offset="0x86E0" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyWrinklesTex" OutName="bomb_shop_lady_wrinkles" Format="ci8" Width="32" Height="32" Offset="0x8720" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyHairSkinTex" OutName="bomb_shop_lady_hair_skin" Format="ci8" Width="32" Height="32" Offset="0x8B20" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyNostrilTex" OutName="bomb_shop_lady_nostril" Format="ci8" Width="8" Height="8" Offset="0x8F20" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyEarTex" OutName="bomb_shop_lady_ear" Format="ci8" Width="8" Height="8" Offset="0x8F60" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyFingersTex" OutName="bomb_shop_lady_fingers" Format="ci8" Width="16" Height="16" Offset="0x8FA0" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyBagTex" OutName="bomb_shop_lady_bag" Format="ci8" Width="16" Height="16" Offset="0x90A0" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadySkirtTex" OutName="bomb_shop_lady_skirt" Format="ci8" Width="16" Height="16" Offset="0x91A0" TlutOffset="0x6B20"/>
         <Texture Name="gBombShopLadyEyeTex" OutName="bomb_shop_lady_eye" Format="rgba16" Width="32" Height="32" Offset="0x92A0" />
-        <Texture Name="gBombShopLadyCheekTex" OutName="bomb_shop_lady_cheek" Format="ci8" Width="16" Height="16" Offset="0x9AA0" />
-        <Texture Name="gBombShopLadyForeheadTex" OutName="bomb_shop_lady_forehead" Format="ci8" Width="32" Height="32" Offset="0x9BA0" />
-        <Texture Name="gBombShopLadyShirtTex" OutName="bomb_shop_lady_shirt" Format="ci8" Width="16" Height="16" Offset="0x9FA0" />
+        <Texture Name="gBombShopLadyCheekTex" OutName="bomb_shop_lady_cheek" Format="ci8" Width="16" Height="16" Offset="0x9AA0" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyForeheadTex" OutName="bomb_shop_lady_forehead" Format="ci8" Width="32" Height="32" Offset="0x9BA0" TlutOffset="0x6B20"/>
+        <Texture Name="gBombShopLadyShirtTex" OutName="bomb_shop_lady_shirt" Format="ci8" Width="16" Height="16" Offset="0x9FA0" TlutOffset="0x6B20"/>
     </File>
 </Root>

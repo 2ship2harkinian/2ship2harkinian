@@ -5,16 +5,16 @@
         <Texture Name="object_ssh_Tex_000190" OutName="tex_000190" Format="rgba16" Width="32" Height="64" Offset="0x190" />
         <Animation Name="object_ssh_Anim_001494" Offset="0x1494" /> <!-- Original name is "st_matsu" -->
         <Texture Name="object_ssh_TLUT_0014B0" OutName="tlut_0014B0" Format="rgba16" Width="16" Height="16" Offset="0x14B0" />
-        <Texture Name="object_ssh_Tex_0016B0" OutName="tex_0016B0" Format="ci8" Width="8" Height="8" Offset="0x16B0" />
-        <Texture Name="object_ssh_Tex_0016F0" OutName="tex_0016F0" Format="ci8" Width="16" Height="8" Offset="0x16F0" />
-        <Texture Name="object_ssh_Tex_001770" OutName="tex_001770" Format="ci8" Width="8" Height="8" Offset="0x1770" />
+        <Texture Name="object_ssh_Tex_0016B0" OutName="tex_0016B0" Format="ci8" Width="8" Height="8" Offset="0x16B0" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_0016F0" OutName="tex_0016F0" Format="ci8" Width="16" Height="8" Offset="0x16F0" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_001770" OutName="tex_001770" Format="ci8" Width="8" Height="8" Offset="0x1770" TlutOffset="0x14B0"/>
         <Texture Name="object_ssh_Tex_0017B0" OutName="tex_0017B0" Format="i8" Width="16" Height="16" Offset="0x17B0" />
-        <Texture Name="object_ssh_Tex_0018B0" OutName="tex_0018B0" Format="ci8" Width="8" Height="16" Offset="0x18B0" />
-        <Texture Name="object_ssh_Tex_001930" OutName="tex_001930" Format="ci8" Width="8" Height="8" Offset="0x1930" />
-        <Texture Name="object_ssh_Tex_001970" OutName="tex_001970" Format="ci8" Width="32" Height="32" Offset="0x1970" />
-        <Texture Name="object_ssh_Tex_001D70" OutName="tex_001D70" Format="ci8" Width="8" Height="16" Offset="0x1D70" />
-        <Texture Name="object_ssh_Tex_001DF0" OutName="tex_001DF0" Format="ci8" Width="32" Height="32" Offset="0x1DF0" />
-        <Texture Name="object_ssh_Tex_0021F0" OutName="tex_0021F0" Format="ci8" Width="32" Height="32" Offset="0x21F0" />
+        <Texture Name="object_ssh_Tex_0018B0" OutName="tex_0018B0" Format="ci8" Width="8" Height="16" Offset="0x18B0" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_001930" OutName="tex_001930" Format="ci8" Width="8" Height="8" Offset="0x1930" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_001970" OutName="tex_001970" Format="ci8" Width="32" Height="32" Offset="0x1970" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_001D70" OutName="tex_001D70" Format="ci8" Width="8" Height="16" Offset="0x1D70" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_001DF0" OutName="tex_001DF0" Format="ci8" Width="32" Height="32" Offset="0x1DF0" TlutOffset="0x14B0"/>
+        <Texture Name="object_ssh_Tex_0021F0" OutName="tex_0021F0" Format="ci8" Width="32" Height="32" Offset="0x21F0" TlutOffset="0x14B0"/>
         <DList Name="object_ssh_DL_004E60" Offset="0x4E60" />
         <DList Name="object_ssh_DL_005210" Offset="0x5210" />
         <DList Name="object_ssh_DL_0056A0" Offset="0x56A0" />

@@ -14,8 +14,8 @@
         <DList Name="object_goroiwa_DL_005C20" Offset="0x5C20" /> <!-- Original name is "Z2_newgoroiwa_model" -->
         <Texture Name="object_goroiwa_TLUT_005EE0" OutName="tlut_005EE0" Format="rgba16" Width="4" Height="4" Offset="0x5EE0" />
         <Texture Name="object_goroiwa_TLUT_005F00" OutName="tlut_005F00" Format="rgba16" Width="4" Height="4" Offset="0x5F00" />
-        <Texture Name="object_goroiwa_Tex_005F20" OutName="tex_005F20" Format="ci4" Width="64" Height="64" Offset="0x5F20" />
-        <Texture Name="object_goroiwa_Tex_006720" OutName="tex_006720" Format="ci4" Width="64" Height="64" Offset="0x6720" />
+        <Texture Name="object_goroiwa_Tex_005F20" OutName="tex_005F20" Format="ci4" Width="64" Height="64" Offset="0x5F20" TlutOffset="0x5EE0"/>
+        <Texture Name="object_goroiwa_Tex_006720" OutName="tex_006720" Format="ci4" Width="64" Height="64" Offset="0x6720" TlutOffset="0x5F00"/>
         <DList Name="object_goroiwa_DL_0072F0" Offset="0x72F0" /> <!-- Original name is "Z2_snow_hahenA_model" -->
         <DList Name="object_goroiwa_DL_0077D0" Offset="0x77D0" /> <!-- Original name is "Z2_snow_hahenB_model" -->
         <DList Name="object_goroiwa_DL_007C60" Offset="0x7C60" /> <!-- Original name is "Z2_snow_hahenC_model" -->

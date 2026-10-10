@@ -348,7 +348,7 @@ s32 func_80A23D08(ObjIceblock* this, PlayState* play) {
             }
         }
 
-        if (WaterBox_GetSurface1_2(play, &play->colCtx, spA4.x, spA4.z, &ptr->unk_0C, &waterBox)) {
+        if (BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, spA4.x, spA4.z, &ptr->unk_0C, &waterBox)) {
             if (phi_f20 < ptr->unk_0C) {
                 spB8 = i;
                 phi_f20 = ptr->unk_0C;

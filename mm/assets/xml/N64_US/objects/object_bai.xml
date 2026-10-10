@@ -19,14 +19,14 @@
         <DList Name="object_bai_DL_006518" Offset="0x6518" />
         <DList Name="object_bai_DL_006740" Offset="0x6740" />
         <Texture Name="object_bai_TLUT_006858" OutName="tlut_006858" Format="rgba16" Width="16" Height="16" Offset="0x6858" />
-        <Texture Name="object_bai_Tex_006A58" OutName="tex_006A58" Format="ci8" Width="32" Height="64" Offset="0x6A58" />
-        <Texture Name="object_bai_Tex_007258" OutName="tex_007258" Format="ci8" Width="8" Height="8" Offset="0x7258" />
-        <Texture Name="object_bai_Tex_007298" OutName="tex_007298" Format="ci8" Width="8" Height="8" Offset="0x7298" />
-        <Texture Name="object_bai_Tex_0072D8" OutName="tex_0072D8" Format="ci8" Width="8" Height="8" Offset="0x72D8" />
-        <Texture Name="object_bai_Tex_007318" OutName="tex_007318" Format="ci8" Width="8" Height="16" Offset="0x7318" />
-        <Texture Name="object_bai_Tex_007398" OutName="tex_007398" Format="ci8" Width="8" Height="8" Offset="0x7398" />
-        <Texture Name="object_bai_Tex_0073D8" OutName="tex_0073D8" Format="ci8" Width="16" Height="16" Offset="0x73D8" />
-        <Texture Name="object_bai_Tex_0074D8" OutName="tex_0074D8" Format="ci8" Width="16" Height="16" Offset="0x74D8" />
+        <Texture Name="object_bai_Tex_006A58" OutName="tex_006A58" Format="ci8" Width="32" Height="64" Offset="0x6A58" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_007258" OutName="tex_007258" Format="ci8" Width="8" Height="8" Offset="0x7258" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_007298" OutName="tex_007298" Format="ci8" Width="8" Height="8" Offset="0x7298" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_0072D8" OutName="tex_0072D8" Format="ci8" Width="8" Height="8" Offset="0x72D8" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_007318" OutName="tex_007318" Format="ci8" Width="8" Height="16" Offset="0x7318" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_007398" OutName="tex_007398" Format="ci8" Width="8" Height="8" Offset="0x7398" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_0073D8" OutName="tex_0073D8" Format="ci8" Width="16" Height="16" Offset="0x73D8" TlutOffset="0x6858"/>
+        <Texture Name="object_bai_Tex_0074D8" OutName="tex_0074D8" Format="ci8" Width="16" Height="16" Offset="0x74D8" TlutOffset="0x6858"/>
         <Texture Name="object_bai_Tex_0075D8" OutName="tex_0075D8" Format="rgba16" Width="16" Height="16" Offset="0x75D8" />
         <Limb Name="object_bai_Standardlimb_0077D8" Type="Standard" EnumName="OBJECT_BAI_LIMB_01" Offset="0x77D8" />
         <Limb Name="object_bai_Standardlimb_0077E4" Type="Standard" EnumName="OBJECT_BAI_LIMB_02" Offset="0x77E4" />

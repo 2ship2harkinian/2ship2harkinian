@@ -15,24 +15,24 @@ void EnMaruta_Destroy(Actor* thisx, PlayState* play);
 void EnMaruta_Update(Actor* thisx, PlayState* play);
 void EnMaruta_Draw(Actor* thisx, PlayState* play);
 
-void func_80B372B8(EnMaruta* this);
-void func_80B372CC(EnMaruta* this, PlayState* play);
-void func_80B37364(EnMaruta* this);
-void func_80B3738C(EnMaruta* this, PlayState* play);
-void func_80B373F4(EnMaruta* this);
-void func_80B37428(EnMaruta* this, PlayState* play);
-void func_80B374FC(EnMaruta* this, PlayState* play);
-void func_80B37590(EnMaruta* this, PlayState* play);
-void func_80B37950(EnMaruta* this, PlayState* play);
-void func_80B379C0(EnMaruta* this, PlayState* play);
-void func_80B37A14(EnMaruta* this);
-void func_80B37A64(EnMaruta* this, PlayState* play);
-void func_80B37AA0(EnMaruta* this, PlayState* play);
-void func_80B37C04(s16* arg0);
-void func_80B37EC0(EnMaruta* this, PlayState* play);
-void func_80B38060(EnMaruta* this, Vec3f* arg1);
-void func_80B3828C(Vec3f* arg0, Vec3f* arg1, s16 arg2, s16 arg3, s32 arg4);
-void func_80B382E4(PlayState* play, Vec3f arg1);
+void EnMaruta_SetInPositionWhole(EnMaruta* this);
+void EnMaruta_SittingWhole(EnMaruta* this, PlayState* play);
+void EnMaruta_SetupRiseThroughFloor(EnMaruta* this);
+void EnMaruta_RiseThroughFloor(EnMaruta* this, PlayState* play);
+void EnMaruta_StartRetracting(EnMaruta* this);
+void EnMaruta_RetractWhole(EnMaruta* this, PlayState* play);
+void EnMaruta_RetractAfterCut(EnMaruta* this, PlayState* play);
+void EnMaruta_SetupRecoilAfterCut(EnMaruta* this, PlayState* play);
+void EnMaruta_Recoil(EnMaruta* this, PlayState* play);
+void EnMaruta_FindRestingOrientation(EnMaruta* this, PlayState* play);
+void EnMaruta_SetupWaitToFlatten(EnMaruta* this);
+void EnMaruta_WaitToFlatten(EnMaruta* this, PlayState* play);
+void EnMaruta_Flatten(EnMaruta* this, PlayState* play);
+void EnMaruta_LerpSpinAngleToFlat(s16* curSpinAngle);
+void EnMaruta_Bounce(EnMaruta* this, PlayState* play);
+void EnMaruta_AdjustBounceAngle(EnMaruta* this, Vec3f* lowestPoint);
+void EnMaruta_RotateVector(Vec3f* src, Vec3f* dest, s16 rotX, s16 rotY, s32 rotZ);
+void EnMaruta_SpawnDustClouds(PlayState* play, Vec3f srcPoint);
 
 ActorProfile En_Maruta_Profile = {
     /**/ ACTOR_EN_MARUTA,
@@ -46,102 +46,130 @@ ActorProfile En_Maruta_Profile = {
     /**/ EnMaruta_Draw,
 };
 
-Gfx* D_80B386A0[] = {
-    object_maruta_DL_002220, object_maruta_DL_0023D0, object_maruta_DL_002568, object_maruta_DL_002660,
-    object_maruta_DL_002758, object_maruta_DL_002850, object_maruta_DL_002948, object_maruta_DL_002AE0,
+/**
+ * These chunks of log are arranged like so (indices in array included):
+ *
+ * -------
+ * |6 | 7|
+ * |  |  |
+ * |\ | /|
+ * |4\|/5|
+ * -------
+ * |2/|\3|
+ * |/ | \|
+ * |  |  |
+ * |0 | 1|
+ * -------
+ */
+Gfx* sDisplayLists[] = {
+    gPracticeLogBottomLeftBigChunkDL,     gPracticeLogBottomRightBigChunkDL, gPracticeLogBottomLeftCornerChunkDL,
+    gPracticeLogBottomRightCornerChunkDL, gPracticeLogTopLeftCornerChunkDL,  gPracticeLogTopRightCornerChunkDL,
+    gPracticeLogTopLeftBigChunkDL,        gPracticeLogTopRightBigChunkDL,
 };
 
-u8 D_80B386C0[] = {
+u8 sFragmentsByShape[] = {
     0xFF, 0x2B, 0xD4, 0x17, 0xE8, 0x55, 0xAA, 0x0F, 0xF0,
 };
 
-s32 D_80B386CC[] = {
-    5, // PLAYER_MWA_FORWARD_SLASH_1H
-    5, // PLAYER_MWA_FORWARD_SLASH_2H
-    3, // PLAYER_MWA_FORWARD_COMBO_1H
-    3, // PLAYER_MWA_FORWARD_COMBO_2H
-    7, // PLAYER_MWA_RIGHT_SLASH_1H
-    7, // PLAYER_MWA_RIGHT_SLASH_2H
-    7, // PLAYER_MWA_RIGHT_COMBO_1H
-    7, // PLAYER_MWA_RIGHT_COMBO_2H
-    3, // PLAYER_MWA_LEFT_SLASH_1H
-    3, // PLAYER_MWA_LEFT_SLASH_2H
-    3, // PLAYER_MWA_LEFT_COMBO_1H
-    3, // PLAYER_MWA_LEFT_COMBO_2H
-    7, // PLAYER_MWA_STAB_1H
-    7, // PLAYER_MWA_STAB_2H
-    3, // PLAYER_MWA_STAB_COMBO_1H
-    3, // PLAYER_MWA_STAB_COMBO_2H
-    0, // PLAYER_MWA_FLIPSLASH_START
-    0, // PLAYER_MWA_JUMPSLASH_START
-    0, // PLAYER_MWA_ZORA_JUMPKICK_START
-    0, // PLAYER_MWA_FLIPSLASH_FINISH
-    5, // PLAYER_MWA_JUMPSLASH_FINISH
-    0, // PLAYER_MWA_ZORA_JUMPKICK_FINISH
-    0, // PLAYER_MWA_BACKSLASH_RIGHT
-    0, // PLAYER_MWA_BACKSLASH_LEFT
-    0, // PLAYER_MWA_GORON_PUNCH_LEFT
-    0, // PLAYER_MWA_GORON_PUNCH_RIGHT
-    0, // PLAYER_MWA_GORON_PUNCH_BUTT
-    0, // PLAYER_MWA_ZORA_PUNCH_LEFT
-    0, // PLAYER_MWA_ZORA_PUNCH_COMBO
-    0, // PLAYER_MWA_ZORA_PUNCH_KICK
-    7, // PLAYER_MWA_SPIN_ATTACK_1H
-    7, // PLAYER_MWA_SPIN_ATTACK_2H
-    7, // PLAYER_MWA_BIG_SPIN_1H
-    7  // PLAYER_MWA_BIG_SPIN_2H
+typedef enum EnMarutaShape {
+    /* 0 */ ENMARUTA_SHAPE_WHOLE,
+    /* 1 */ ENMARUTA_SHAPE_DIAGONAL_LEFT_CUT_BOTTOM_HALF,
+    /* 2 */ ENMARUTA_SHAPE_DIAGONAL_LEFT_CUT_TOP_HALF,
+    /* 3 */ ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF,
+    /* 4 */ ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_TOP_HALF,
+    /* 5 */ ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF,
+    /* 6 */ ENMARUTA_SHAPE_VERTICAL_CUT_RIGHT_HALF,
+    /* 7 */ ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,
+    /* 8 */ ENMARUTA_SHAPE_HORIZONTAL_CUT_TOP_HALF,
+} EnMarutaShape;
+
+s32 sShapesAfterMeleeWeaponAnimations[] = {
+    ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF,         // PLAYER_MWA_FORWARD_SLASH_1H
+    ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF,         // PLAYER_MWA_FORWARD_SLASH_2H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_FORWARD_COMBO_1H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_FORWARD_COMBO_2H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_RIGHT_SLASH_1H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_RIGHT_SLASH_2H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_RIGHT_COMBO_1H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_RIGHT_COMBO_2H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_LEFT_SLASH_1H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_LEFT_SLASH_2H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_LEFT_COMBO_1H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_LEFT_COMBO_2H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_STAB_1H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_STAB_2H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_STAB_COMBO_1H
+    ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_BOTTOM_HALF, // PLAYER_MWA_STAB_COMBO_2H
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_FLIPSLASH_START
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_JUMPSLASH_START
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_ZORA_JUMPKICK_START
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_FLIPSLASH_FINISH
+    ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF,         // PLAYER_MWA_JUMPSLASH_FINISH
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_ZORA_JUMPKICK_FINISH
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_BACKSLASH_RIGHT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_BACKSLASH_LEFT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_GORON_PUNCH_LEFT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_GORON_PUNCH_RIGHT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_GORON_PUNCH_BUTT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_ZORA_PUNCH_LEFT
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_ZORA_PUNCH_COMBO
+    ENMARUTA_SHAPE_WHOLE,                          // PLAYER_MWA_ZORA_PUNCH_KICK
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_SPIN_ATTACK_1H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_SPIN_ATTACK_2H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF,     // PLAYER_MWA_BIG_SPIN_1H
+    ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF      // PLAYER_MWA_BIG_SPIN_2H
 };
 
-Vec3f D_80B38754 = { -2.0f, 3.0f, 0.0f };
-Vec3f D_80B38760 = { -2.0f, 3.0f, 0.0f };
-Vec3f D_80B3876C = { 2.0f, 3.0f, 0.0f };
-Vec3f D_80B38778 = { -2.0f, 10.0f, 0.0f };
-Vec3f D_80B38784 = { -2.5f, 5.0f, 0.0f };
-Vec3f D_80B38790 = { -3.0f, 10.0f, 0.0f };
-Vec3f D_80B3879C = { 2.5f, 5.0f, 0.0f };
-Vec3f D_80B387A8 = { 3.0f, 10.0f, 0.0f };
-Vec3f D_80B387B4 = { -1.0f, 7.0f, -1.0f };
-Vec3f D_80B387C0 = { 1.0f, 7.0f, -1.0f };
-Vec3f D_80B387CC = { 0.0f, 8.0f, -1.5f };
-Vec3f D_80B387D8 = { 0.0f, 8.0f, -1.5f };
+Vec3f sDiagonalLeftCutTopHalfVelocity = { -2.0f, 3.0f, 0.0f };
+UNUSED Vec3f sDiagonalLeftCutBottomHalfVelocity = { -2.0f, 3.0f, 0.0f };
+Vec3f sDiagonalRightCutTopHalfVelocitySlideOff = { 2.0f, 3.0f, 0.0f };
+Vec3f sDiagonalRightCutTopHalfVelocityUpAndOver = { -2.0f, 10.0f, 0.0f };
+Vec3f sVerticalCutLeftHalfVelocityForwardSlash = { -2.5f, 5.0f, 0.0f };
+Vec3f sVerticalCutLeftHalfVelocityJumpSlash = { -3.0f, 10.0f, 0.0f };
+Vec3f sVerticalCutRightHalfVelocityForwardSlash = { 2.5f, 5.0f, 0.0f };
+Vec3f sVerticalCutRightHalfVelocityJumpSlash = { 3.0f, 10.0f, 0.0f };
+Vec3f sHorizontalCutTopHalfVelocityLeft = { -1.0f, 7.0f, -1.0f };
+Vec3f sHorizontalCutTopHalfVelocityRight = { 1.0f, 7.0f, -1.0f };
+Vec3f sHorizontalCutBottomHalfVelocityLeft = { 0.0f, 8.0f, -1.5f };
+UNUSED Vec3f sHorizontalCutBottomHalfVelocityRight = { 0.0f, 8.0f, -1.5f };
 
-Vec3f D_80B387E4[] = {
+Vec3f sTranslationVectorsToRecoilAxis[] = {
     { 0.0f, 0.0f, 0.0f },    { 0.0f, 0.0f, 0.0f },    { -10.0f, 460.0f, 0.0f },
     { 0.0f, 0.0f, 0.0f },    { 10.0f, 460.0f, 0.0f }, { -40.0f, 315.0f, 0.0f },
     { 40.0f, 315.0f, 0.0f }, { 0.0f, 140.0f, 0.0f },  { 0.0f, 445.0f, 0.0f },
 };
 
-Vec3f D_80B38850[] = {
+Vec3f sRecoilSpinAxesForShapes[] = {
     { 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f },
     { 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f }, { -1.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 1.0f },
 };
 
-Vec3f D_80B388BC[] = {
+Vec3f sDiagonalLeftCutTopHalfHitboxPoints[] = {
     { 90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, 78.0f }, { 90.0f, 630.0f, 78.0f },
     { 90.0f, 350.0f, -78.0f }, { -90.0f, 170.0f, -78.0f }, { -90.0f, 170.0f, 78.0f }, { 90.0f, 350.0f, 78.0f },
 };
 
-Vec3f D_80B3891C[] = {
+Vec3f sDiagonalRightCutTopHalfHitboxPoints[] = {
     { 90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, 78.0f }, { 90.0f, 630.0f, 78.0f },
     { 90.0f, 170.0f, -78.0f }, { -90.0f, 350.0f, -78.0f }, { -90.0f, 350.0f, 78.0f }, { 90.0f, 170.0f, 78.0f },
 };
 
-Vec3f D_80B3897C[] = {
+Vec3f sVerticalCutLeftHalfHitboxPoints[] = {
     { 0.0f, 630.0f, -104.0f }, { -90.0f, 630.0f, -52.0f }, { -90.0f, 630.0f, 52.0f }, { 0.0f, 630.0f, 104.0f },
     { 0.0f, 0.0f, -104.0f },   { -90.0f, 0.0f, -52.0f },   { -90.0f, 0.0f, 52.0f },   { 0.0f, 0.0f, 104.0f },
 };
 
-Vec3f D_80B389DC[] = {
+Vec3f sVerticalCutRightHalfHitboxPoints[] = {
     { 0.0f, 630.0f, -104.0f }, { 90.0f, 630.0f, -52.0f }, { 90.0f, 630.0f, 52.0f }, { 0.0f, 630.0f, 104.0f },
     { 0.0f, 0.0f, -104.0f },   { 90.0f, 0.0f, -52.0f },   { 90.0f, 0.0f, 52.0f },   { 0.0f, 0.0f, 104.0f },
 };
 
-Vec3f D_80B38A3C[] = {
+Vec3f sHorizontalCutTopHalfHitboxPoints[] = {
     { 90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, -78.0f }, { -90.0f, 630.0f, 78.0f }, { 90.0f, 630.0f, 78.0f },
     { 90.0f, 260.0f, -78.0f }, { -90.0f, 260.0f, -78.0f }, { -90.0f, 260.0f, 78.0f }, { 90.0f, 260.0f, 78.0f },
 };
 
-Vec3f D_80B38A9C[] = {
+Vec3f sHorizontalCutBottomHalfHitboxPoints[] = {
     { 90.0f, 260.0f, -78.0f }, { -90.0f, 260.0f, -78.0f }, { -90.0f, 260.0f, 78.0f }, { 90.0f, 260.0f, 78.0f },
     { 90.0f, 20.0f, -78.0f },  { -90.0f, 20.0f, -78.0f },  { -90.0f, 20.0f, 78.0f },  { 90.0f, 20.0f, 78.0f },
 };
@@ -203,7 +231,7 @@ static DamageTable sDamageTable = {
 
 static CollisionCheckInfoInit2 sColChkInfoInit = { 8, 0, 0, 0, MASS_HEAVY };
 
-Vec3f D_80B38B54 = { 0.0f, 0.0f, 0.0f };
+Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
 
 void EnMaruta_Init(Actor* thisx, PlayState* play) {
     s32 pad;
@@ -221,91 +249,92 @@ void EnMaruta_Init(Actor* thisx, PlayState* play) {
     this->actor.world.pos.y -= 4.0f;
     this->actor.home.pos.y -= 4.0f;
 
-    this->unk_210 = ENMARUTA_GET_FF00(&this->actor);
-    this->unk_218 = 0;
-    this->unk_21A = 0;
-    this->unk_1A0 = NULL;
-    this->unk_21C = 0;
+    this->shape = ENMARUTA_GET_SHAPE(&this->actor);
+    this->recoilSpinAngle = 0;
+    this->recoilSpinRate = 0;
+    this->relativeHitboxPoints = NULL;
+    this->endingBounces = 0;
 
-    this->unk_194.x = 0.0f;
-    this->unk_194.y = 0.0f;
-    this->unk_194.z = 1.0f;
+    this->recoilSpinAxis.x = 0.0f;
+    this->recoilSpinAxis.y = 0.0f;
+    this->recoilSpinAxis.z = 1.0f;
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_1A4); i++) {
-        this->unk_1A4[i] = D_80B38B54;
+    for (i = 0; i < ARRAY_COUNT(this->hitboxPoints); i++) {
+        this->hitboxPoints[i] = sZeroVec;
     }
 
-    this->unk_214 = -1;
-    this->unk_220 = 0;
+    this->lowestPointIndex = -1;
+    this->isRetracting = false;
 
-    if (this->unk_210 == 0) {
+    if (this->shape == ENMARUTA_SHAPE_WHOLE) {
         Collider_InitCylinder(play, &this->collider);
         Collider_SetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
         CollisionCheck_SetInfo2(&this->actor.colChkInfo, &sDamageTable, &sColChkInfoInit);
     }
 
-    if (this->unk_210 == 0) {
-        if (ENMARUTA_GET_FF(&this->actor) == 0xFF) {
-            func_80B372B8(this);
+    if (this->shape == ENMARUTA_SHAPE_WHOLE) {
+        if (ENMARUTA_GET_TYPE(&this->actor) == ENMARUTA_INIT_ON_FLOOR) {
+            // Happens in theory, never seen in practice
+            EnMaruta_SetInPositionWhole(this);
         } else {
-            func_80B37364(this);
+            EnMaruta_SetupRiseThroughFloor(this);
         }
     } else {
-        func_80B37590(this, play);
+        EnMaruta_SetupRecoilAfterCut(this, play);
     }
 }
 
 void EnMaruta_Destroy(Actor* thisx, PlayState* play) {
     EnMaruta* this = (EnMaruta*)thisx;
 
-    if (this->unk_210 == 0) {
+    if (this->shape == ENMARUTA_SHAPE_WHOLE) {
         Collider_DestroyCylinder(play, &this->collider);
     }
 }
 
-void func_80B372B8(EnMaruta* this) {
-    this->actionFunc = func_80B372CC;
+void EnMaruta_SetInPositionWhole(EnMaruta* this) {
+    this->actionFunc = EnMaruta_SittingWhole;
 }
 
-void func_80B372CC(EnMaruta* this, PlayState* play) {
-    s16 temp_v1 = BINANG_SUB(this->actor.yawTowardsPlayer, this->actor.shape.rot.y);
+void EnMaruta_SittingWhole(EnMaruta* this, PlayState* play) {
+    s16 yawDiff = BINANG_SUB(this->actor.yawTowardsPlayer, this->actor.shape.rot.y);
 
-    if (temp_v1 > 0x1555) {
+    if (yawDiff > 0x1555) {
         this->actor.shape.rot.y += 0x2AAA;
-    } else if (temp_v1 < -0x1555) {
+    } else if (yawDiff < -0x1555) {
         this->actor.shape.rot.y -= 0x2AAA;
     }
 
-    if (this->unk_220 == 1) {
-        func_80B373F4(this);
+    if (this->isRetracting == true) {
+        EnMaruta_StartRetracting(this);
     }
 
     if ((this->actor.parent != NULL) && (this->actor.parent->id == ACTOR_EN_KENDO_JS)) {
         EnKendoJs* kendoJs = (EnKendoJs*)this->actor.parent;
 
-        kendoJs->unk_292 = this->actor.isLockedOn;
+        kendoJs->isPlayerLockedOn = this->actor.isLockedOn;
     }
 }
 
-void func_80B37364(EnMaruta* this) {
+void EnMaruta_SetupRiseThroughFloor(EnMaruta* this) {
     this->actor.world.pos.y = this->actor.home.pos.y - 630.0f;
-    this->actionFunc = func_80B3738C;
+    this->actionFunc = EnMaruta_RiseThroughFloor;
 }
 
-void func_80B3738C(EnMaruta* this, PlayState* play) {
+void EnMaruta_RiseThroughFloor(EnMaruta* this, PlayState* play) {
     if (Math_SmoothStepToF(&this->actor.world.pos.y, this->actor.home.pos.y, 0.4f, 100.0f, 10.0f) == 0.0f) {
-        func_80B372B8(this);
+        EnMaruta_SetInPositionWhole(this);
     }
 }
 
-void func_80B373F4(EnMaruta* this) {
+void EnMaruta_StartRetracting(EnMaruta* this) {
     this->collider.base.acFlags |= AC_HIT;
     this->actor.velocity.y = 0.0f;
     this->actor.gravity = -2.0f;
-    this->actionFunc = func_80B37428;
+    this->actionFunc = EnMaruta_RetractWhole;
 }
 
-void func_80B37428(EnMaruta* this, PlayState* play) {
+void EnMaruta_RetractWhole(EnMaruta* this, PlayState* play) {
     if ((this->actor.floorHeight - 630.0f) < this->actor.world.pos.y) {
         this->actor.velocity.y += this->actor.gravity;
         this->actor.world.pos.y += this->actor.velocity.y;
@@ -313,165 +342,168 @@ void func_80B37428(EnMaruta* this, PlayState* play) {
         if ((this->actor.parent != NULL) && (this->actor.parent->id == ACTOR_EN_KENDO_JS)) {
             EnKendoJs* kendoJs = (EnKendoJs*)this->actor.parent;
 
-            kendoJs->unk_28C--;
+            kendoJs->numLogs--;
         }
         Actor_Kill(&this->actor);
     }
 }
 
-void func_80B374B8(EnMaruta* this) {
+void EnMaruta_BottomHalfSittingOnFloor(EnMaruta* this) {
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
-    if (this->actionFunc != func_80B37428) {
-        this->unk_21E = 0;
+    if (this->actionFunc != EnMaruta_RetractWhole) {
+        this->timer = 0;
         this->actor.gravity = -2.0f;
-        this->actionFunc = func_80B374FC;
+        this->actionFunc = EnMaruta_RetractAfterCut;
     }
 }
 
-void func_80B374FC(EnMaruta* this, PlayState* play) {
-    if (this->unk_21E == 40) {
+void EnMaruta_RetractAfterCut(EnMaruta* this, PlayState* play) {
+    if (this->timer == 40) {
         Actor_Kill(&this->actor);
         return;
     }
 
-    if (((this->actor.floorHeight - 630.0f) < this->actor.world.pos.y) && (this->unk_21E > 30)) {
+    if (((this->actor.floorHeight - 630.0f) < this->actor.world.pos.y) && (this->timer > 30)) {
         this->actor.velocity.y += this->actor.gravity;
         this->actor.world.pos.y += this->actor.velocity.y;
     }
 
-    this->unk_21E++;
+    this->timer++;
 }
 
-void func_80B37590(EnMaruta* this, PlayState* play) {
+void EnMaruta_SetupRecoilAfterCut(EnMaruta* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
-    Vec3f sp48;
-    s16 sp46;
-    Vec3f sp38;
+    Vec3f initialVelocity;
+    s16 rotY;
+    Vec3f spinAxis;
 
-    this->unk_21E = 0;
-    this->unk_21C = 0;
+    this->timer = 0;
+    this->endingBounces = 0;
     this->actor.gravity = -2.0f;
 
-    switch (this->unk_210) {
-        case 2:
-            sp48 = D_80B38754;
-            this->unk_1A0 = D_80B388BC;
+    switch (this->shape) {
+        case ENMARUTA_SHAPE_DIAGONAL_LEFT_CUT_TOP_HALF:
+            initialVelocity = sDiagonalLeftCutTopHalfVelocity;
+            this->relativeHitboxPoints = sDiagonalLeftCutTopHalfHitboxPoints;
             break;
 
-        case 4:
+        case ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_TOP_HALF:
             if (player->meleeWeaponAnimation == PLAYER_MWA_LEFT_SLASH_1H) {
-                sp48 = D_80B3876C;
+                initialVelocity = sDiagonalRightCutTopHalfVelocitySlideOff;
             } else {
-                sp48 = D_80B38778;
+                initialVelocity = sDiagonalRightCutTopHalfVelocityUpAndOver;
             }
-            this->unk_1A0 = D_80B3891C;
+            this->relativeHitboxPoints = sDiagonalRightCutTopHalfHitboxPoints;
             break;
 
-        case 5:
+        case ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF:
             if (player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_SLASH_1H) {
-                sp48 = D_80B38784;
+                initialVelocity = sVerticalCutLeftHalfVelocityForwardSlash;
             } else {
-                sp48 = D_80B38790;
+                initialVelocity = sVerticalCutLeftHalfVelocityJumpSlash;
             }
-            this->unk_1A0 = D_80B3897C;
+            this->relativeHitboxPoints = sVerticalCutLeftHalfHitboxPoints;
             break;
 
-        case 6:
+        case ENMARUTA_SHAPE_VERTICAL_CUT_RIGHT_HALF:
             if (player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_SLASH_1H) {
-                sp48 = D_80B3879C;
+                initialVelocity = sVerticalCutRightHalfVelocityForwardSlash;
             } else {
-                sp48 = D_80B387A8;
+                initialVelocity = sVerticalCutRightHalfVelocityJumpSlash;
             }
-            this->unk_1A0 = D_80B389DC;
+            this->relativeHitboxPoints = sVerticalCutRightHalfHitboxPoints;
             break;
 
-        case 8:
+        case ENMARUTA_SHAPE_HORIZONTAL_CUT_TOP_HALF:
             if (player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_SLASH_1H) {
-                sp48 = D_80B387B4;
+                initialVelocity = sHorizontalCutTopHalfVelocityLeft;
             } else {
-                sp48 = D_80B387C0;
+                initialVelocity = sHorizontalCutTopHalfVelocityRight;
             }
-            this->unk_1A0 = D_80B38A3C;
+            this->relativeHitboxPoints = sHorizontalCutTopHalfHitboxPoints;
             break;
 
-        case 7:
-            sp48 = D_80B387CC;
-            this->unk_1A0 = D_80B38A9C;
+        case ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF:
+            initialVelocity = sHorizontalCutBottomHalfVelocityLeft;
+            this->relativeHitboxPoints = sHorizontalCutBottomHalfHitboxPoints;
             break;
 
         default:
-            sp48 = D_80B38B54;
+            initialVelocity = sZeroVec;
             break;
     }
 
-    sp46 = this->actor.shape.rot.y;
-    this->actor.velocity.x = (sp48.x * Math_CosS(sp46) + (Math_SinS(sp46) * sp48.z));
-    this->actor.velocity.y = sp48.y;
-    this->actor.velocity.z = (-sp48.x * Math_SinS(sp46) + (Math_CosS(sp46) * sp48.z));
+    rotY = this->actor.shape.rot.y;
+    this->actor.velocity.x = (initialVelocity.x * Math_CosS(rotY) + (Math_SinS(rotY) * initialVelocity.z));
+    this->actor.velocity.y = initialVelocity.y;
+    this->actor.velocity.z = (-initialVelocity.x * Math_SinS(rotY) + (Math_CosS(rotY) * initialVelocity.z));
 
-    sp38 = D_80B38850[this->unk_210];
+    spinAxis = sRecoilSpinAxesForShapes[this->shape];
 
-    func_80B3828C(&sp38, &this->unk_194, Rand_Next() & 0xFFF, Rand_Next() & 0xFFF, 0);
-    this->unk_21A = Rand_Next() & 0x7FF;
+    EnMaruta_RotateVector(&spinAxis, &this->recoilSpinAxis, Rand_Next() & 0xFFF, Rand_Next() & 0xFFF, 0);
+    this->recoilSpinRate = Rand_Next() & 0x7FF;
 
-    if (this->unk_210 == 7) {
-        this->unk_21A |= 0x3F;
+    if (this->shape == ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF) {
+        this->recoilSpinRate |= 0x3F;
     } else {
-        this->unk_21A |= 0xFF;
+        this->recoilSpinRate |= 0xFF;
     }
 
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
-    this->actionFunc = func_80B37950;
+    this->actionFunc = EnMaruta_Recoil;
 }
 
-void func_80B37950(EnMaruta* this, PlayState* play) {
-    this->unk_218 += this->unk_21A;
+void EnMaruta_Recoil(EnMaruta* this, PlayState* play) {
+    this->recoilSpinAngle += this->recoilSpinRate;
     this->actor.velocity.y += this->actor.gravity;
-    func_80B37EC0(this, play);
+    EnMaruta_Bounce(this, play);
     Actor_UpdatePos(&this->actor);
 }
 
-void func_80B37998(EnMaruta* this) {
-    this->unk_21E = 0;
+void EnMaruta_StopBouncing(EnMaruta* this) {
+    this->timer = 0;
     this->actor.gravity = 0.0f;
     this->actor.velocity.y = 0.0f;
-    this->unk_21A = 0;
-    this->actionFunc = func_80B379C0;
+    this->recoilSpinRate = 0;
+    this->actionFunc = EnMaruta_FindRestingOrientation;
 }
 
-void func_80B379C0(EnMaruta* this, PlayState* play) {
-    if (this->unk_21E == 40) {
-        func_80B37A14(this);
+void EnMaruta_FindRestingOrientation(EnMaruta* this, PlayState* play) {
+    if (this->timer == 40) {
+        EnMaruta_SetupWaitToFlatten(this);
     } else {
-        this->unk_21E++;
+        this->timer++;
     }
-    func_80B37C04(&this->unk_218);
+    EnMaruta_LerpSpinAngleToFlat(&this->recoilSpinAngle);
 }
 
-void func_80B37A14(EnMaruta* this) {
-    s16 temp = this->unk_218 & 0x7FFF;
+void EnMaruta_SetupWaitToFlatten(EnMaruta* this) {
+    s16 isRestingOnSide = this->recoilSpinAngle & 0x7FFF;
 
-    if (((this->unk_210 == 5) || (this->unk_210 == 6)) && !temp) {
-        this->unk_21E = 100;
+    if (((this->shape == ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF) ||
+         (this->shape == ENMARUTA_SHAPE_VERTICAL_CUT_RIGHT_HALF)) &&
+        !isRestingOnSide) {
+        this->timer = 100;
     } else {
-        this->unk_21E = 0;
+        this->timer = 0;
     }
-    this->actionFunc = func_80B37A64;
+    this->actionFunc = EnMaruta_WaitToFlatten;
 }
 
-void func_80B37A64(EnMaruta* this, PlayState* play) {
-    if (this->unk_21E > 100) {
+void EnMaruta_WaitToFlatten(EnMaruta* this, PlayState* play) {
+    if (this->timer > 100) {
         this->actor.colChkInfo.health = 0;
     } else {
-        this->unk_21E++;
+        this->timer++;
     }
 }
 
-void func_80B37A8C(EnMaruta* this) {
-    this->actionFunc = func_80B37AA0;
+void EnMaruta_ShouldFlatten(EnMaruta* this) {
+    this->actionFunc = EnMaruta_Flatten;
 }
 
-void func_80B37AA0(EnMaruta* this, PlayState* play) {
+/** After this log has rested long enough, flatten and eventually destroy it. */
+void EnMaruta_Flatten(EnMaruta* this, PlayState* play) {
     if (this->actor.scale.y == 0.0f) {
         if (this->actor.scale.x == 0.0f) {
             Actor_Kill(&this->actor);
@@ -484,12 +516,12 @@ void func_80B37AA0(EnMaruta* this, PlayState* play) {
     }
 }
 
-s32 func_80B37B78(EnMaruta* this, PlayState* play) {
+s32 EnMaruta_IsHittable(EnMaruta* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
-    s16 temp_v1 = BINANG_SUB(this->actor.yawTowardsPlayer, 0x8000);
+    s16 yawDiff = BINANG_SUB(this->actor.yawTowardsPlayer, 0x8000);
 
-    temp_v1 = BINANG_SUB(temp_v1, player->actor.shape.rot.y);
-    if ((ABS_ALT(temp_v1) < 0x1555) || ((player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) &&
+    yawDiff = BINANG_SUB(yawDiff, player->actor.shape.rot.y);
+    if ((ABS_ALT(yawDiff) < 0x1555) || ((player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) &&
                                         ((player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_SLASH_1H) ||
                                          (player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_COMBO_1H) ||
                                          (player->meleeWeaponAnimation == PLAYER_MWA_SPIN_ATTACK_1H) ||
@@ -499,53 +531,56 @@ s32 func_80B37B78(EnMaruta* this, PlayState* play) {
     return false;
 }
 
-void func_80B37C04(s16* arg0) {
-    s16 temp_a1 = *arg0 & 0xC000;
-    s16 temp = *arg0 & 0x3FFF;
+void EnMaruta_LerpSpinAngleToFlat(s16* curSpinAngle) {
+    s16 flatAngle = *curSpinAngle & 0xC000;
+    s16 mod = *curSpinAngle & 0x3FFF;
 
-    if (temp > 0x2000) {
-        temp_a1 += 0x4000;
+    if (mod > 0x2000) {
+        flatAngle += 0x4000;
     }
-    Math_SmoothStepToS(arg0, temp_a1, 1, 0xAAA, 0xB6);
+    Math_SmoothStepToS(curSpinAngle, flatAngle, 1, 0xAAA, 0xB6);
 }
 
-void func_80B37C60(EnMaruta* this) {
-    if ((this->actionFunc != func_80B37AA0) && (this->actor.colChkInfo.health == 0)) {
-        func_80B37A8C(this);
+/** Checks whether it's time to remove this broken piece of log. */
+void EnMaruta_CheckShouldFlatten(EnMaruta* this) {
+    if ((this->actionFunc != EnMaruta_Flatten) && (this->actor.colChkInfo.health == 0)) {
+        EnMaruta_ShouldFlatten(this);
     }
 }
 
-void func_80B37CA0(EnMaruta* this, PlayState* play) {
+void EnMaruta_UpdateCollider(EnMaruta* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
-    if ((this->actionFunc == func_80B372CC) || (this->actionFunc == func_80B3738C) ||
-        (this->actionFunc == func_80B374FC) || (this->actionFunc == func_80B37AA0) ||
-        ((this->actionFunc == func_80B37428) && !(this->actor.world.pos.y < (this->actor.floorHeight - 20.0f)))) {
-        if ((this->collider.base.acFlags & AC_HIT) && (this->actionFunc == func_80B372CC)) {
+    if ((this->actionFunc == EnMaruta_SittingWhole) || (this->actionFunc == EnMaruta_RiseThroughFloor) ||
+        (this->actionFunc == EnMaruta_RetractAfterCut) || (this->actionFunc == EnMaruta_Flatten) ||
+        ((this->actionFunc == EnMaruta_RetractWhole) &&
+         !(this->actor.world.pos.y < (this->actor.floorHeight - 20.0f)))) {
+        if ((this->collider.base.acFlags & AC_HIT) && (this->actionFunc == EnMaruta_SittingWhole)) {
             this->collider.base.acFlags &= ~AC_HIT;
             Actor_PlaySfx(&this->actor, NA_SE_IT_SWORD_STRIKE);
 
-            if (D_80B386CC[player->meleeWeaponAnimation] != 0) {
-                s32 temp = D_80B386CC[player->meleeWeaponAnimation] + 1;
+            if (sShapesAfterMeleeWeaponAnimations[player->meleeWeaponAnimation] != 0) {
+                s32 spawnParams = sShapesAfterMeleeWeaponAnimations[player->meleeWeaponAnimation] + 1;
 
-                temp = (temp << 8) & 0xFF00;
-                this->unk_210 = D_80B386CC[player->meleeWeaponAnimation];
+                spawnParams = (spawnParams << 8) & 0xFF00;
+                this->shape = sShapesAfterMeleeWeaponAnimations[player->meleeWeaponAnimation];
                 Actor_SpawnAsChild(&play->actorCtx, &this->actor, play, ACTOR_EN_MARUTA, this->actor.world.pos.x,
                                    this->actor.world.pos.y, this->actor.world.pos.z, 0, this->actor.shape.rot.y, 0,
-                                   temp);
+                                   spawnParams);
                 this->actor.world.rot.y = this->actor.shape.rot.y;
-                if ((this->unk_210 == 5) ||
-                    ((this->unk_210 == 7) && (player->meleeWeaponAnimation == PLAYER_MWA_STAB_1H))) {
-                    func_80B37590(this, play);
+                if ((this->shape == ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF) ||
+                    ((this->shape == ENMARUTA_SHAPE_HORIZONTAL_CUT_BOTTOM_HALF) &&
+                     (player->meleeWeaponAnimation == PLAYER_MWA_STAB_1H))) {
+                    EnMaruta_SetupRecoilAfterCut(this, play);
                 } else {
-                    func_80B374B8(this);
+                    EnMaruta_BottomHalfSittingOnFloor(this);
                 }
 
                 if ((this->actor.parent != NULL) && (this->actor.parent->id == ACTOR_EN_KENDO_JS)) {
                     EnKendoJs* kendoJs = (EnKendoJs*)this->actor.parent;
 
-                    kendoJs->unk_28E = 1;
-                    kendoJs->unk_28C--;
+                    kendoJs->isSlashingLog = true;
+                    kendoJs->numLogs--;
                 }
                 return;
             }
@@ -554,115 +589,116 @@ void func_80B37CA0(EnMaruta* this, PlayState* play) {
         Collider_UpdateCylinder(&this->actor, &this->collider);
         CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
 
-        if (func_80B37B78(this, play) && (this->actionFunc == func_80B372CC)) {
+        if (EnMaruta_IsHittable(this, play) && (this->actionFunc == EnMaruta_SittingWhole)) {
             CollisionCheck_SetAC(play, &play->colChkCtx, &this->collider.base);
         }
     }
 }
 
-void func_80B37EC0(EnMaruta* this, PlayState* play) {
-    Vec3f sp34 = this->unk_204;
-    s32 phi_a2 = -1;
+void EnMaruta_Bounce(EnMaruta* this, PlayState* play) {
+    Vec3f lowestPoint = this->centerPos;
+    s32 lowestPointIndex = -1;
     s32 i;
-    f32 temp;
+    f32 distanceBelowFloor;
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_1A4); i++) {
-        if (this->unk_1A4[i].y < sp34.y) {
-            sp34 = this->unk_1A4[i];
-            phi_a2 = i;
+    for (i = 0; i < ARRAY_COUNT(this->hitboxPoints); i++) {
+        if (this->hitboxPoints[i].y < lowestPoint.y) {
+            lowestPoint = this->hitboxPoints[i];
+            lowestPointIndex = i;
         }
-        this->unk_214 = phi_a2;
+        this->lowestPointIndex = lowestPointIndex;
     }
 
-    if (sp34.y < this->actor.floorHeight) {
-        this->unk_218 -= this->unk_21A;
+    if (lowestPoint.y < this->actor.floorHeight) {
+        this->recoilSpinAngle -= this->recoilSpinRate;
 
-        temp = this->actor.floorHeight - sp34.y;
+        distanceBelowFloor = this->actor.floorHeight - lowestPoint.y;
         this->actor.velocity.y -= this->actor.gravity;
         this->actor.velocity.x *= 0.6f;
         this->actor.velocity.z *= 0.6f;
-        this->actor.world.pos.y += temp;
+        this->actor.world.pos.y += distanceBelowFloor;
 
         if (this->actor.velocity.y < -this->actor.gravity) {
-            func_80B382E4(play, sp34);
+            EnMaruta_SpawnDustClouds(play, lowestPoint);
             Actor_PlaySfx(&this->actor, NA_SE_EV_LOG_BOUND);
             this->actor.velocity.y *= -0.6f;
-            func_80B38060(this, &sp34);
+            EnMaruta_AdjustBounceAngle(this, &lowestPoint);
         }
     }
 }
 
-f32 func_80B38028(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2) {
-    f32 x0 = arg0->x;
-    f32 z0 = arg0->z;
-    f32 dx = arg2->x - arg1->x;
-    f32 dz = arg2->z - arg1->z;
+f32 EnMaruta_CalculateSpinDeterminantOnBounce(Vec3f* axis, Vec3f* centerPoint, Vec3f* outerPoint) {
+    f32 x0 = axis->x;
+    f32 z0 = axis->z;
+    f32 dx = outerPoint->x - centerPoint->x;
+    f32 dz = outerPoint->z - centerPoint->z;
 
     return z0 * dx - x0 * dz;
 }
 
-void func_80B38060(EnMaruta* this, Vec3f* arg1) {
-    Vec3f sp44;
+void EnMaruta_AdjustBounceAngle(EnMaruta* this, Vec3f* lowestPoint) {
+    Vec3f spinAxis;
     s32 pad;
-    f32 temp_f0;
-    f32 phi_f2;
+    f32 det;
+    f32 bound;
 
-    func_80B3828C(&this->unk_194, &sp44, 0, this->actor.shape.rot.y, 0);
-    temp_f0 = func_80B38028(&sp44, &this->unk_204, arg1);
+    EnMaruta_RotateVector(&this->recoilSpinAxis, &spinAxis, 0, this->actor.shape.rot.y, 0);
+    det = EnMaruta_CalculateSpinDeterminantOnBounce(&spinAxis, &this->centerPos, lowestPoint);
 
-    if ((this->unk_210 == 5) || (this->unk_210 == 6)) {
-        phi_f2 = 8.0f;
-    } else if (this->unk_210 == 4) {
-        phi_f2 = 5.0f;
+    if ((this->shape == ENMARUTA_SHAPE_VERTICAL_CUT_LEFT_HALF) ||
+        (this->shape == ENMARUTA_SHAPE_VERTICAL_CUT_RIGHT_HALF)) {
+        bound = 8.0f;
+    } else if (this->shape == ENMARUTA_SHAPE_DIAGONAL_RIGHT_CUT_TOP_HALF) {
+        bound = 5.0f;
     } else {
-        phi_f2 = 2.0f;
+        bound = 2.0f;
     }
 
-    if ((temp_f0 < phi_f2) && (-phi_f2 < temp_f0)) {
-        phi_f2 = 3.0f;
+    if ((det < bound) && (-bound < det)) {
+        bound = 3.0f;
     } else {
-        phi_f2 = 1.2f;
+        bound = 1.2f;
     }
 
-    if (temp_f0 > 0.0f) {
-        if (this->unk_21A > 0) {
-            this->unk_21A *= phi_f2;
+    if (det > 0.0f) {
+        if (this->recoilSpinRate > 0) {
+            this->recoilSpinRate *= bound;
         } else {
-            this->unk_21A *= -0.8f;
+            this->recoilSpinRate *= -0.8f;
         }
     } else {
-        if (this->unk_21A > 0) {
-            this->unk_21A *= -0.8f;
+        if (this->recoilSpinRate > 0) {
+            this->recoilSpinRate *= -0.8f;
         } else {
-            this->unk_21A *= phi_f2;
+            this->recoilSpinRate *= bound;
         }
     }
 
-    if ((ABS_ALT(this->unk_21A) < 0x38E) &&
-        (((this->unk_218 & 0x3FFF) < 0x71C) || ((this->unk_218 & 0x3FFF) >= 0x38E4))) {
+    if ((ABS_ALT(this->recoilSpinRate) < 0x38E) &&
+        (((this->recoilSpinAngle & 0x3FFF) < 0x71C) || ((this->recoilSpinAngle & 0x3FFF) >= 0x38E4))) {
         this->actor.gravity *= 0.8f;
-        this->unk_21C++;
-        if (this->unk_21C == 2) {
-            func_80B37998(this);
+        this->endingBounces++;
+        if (this->endingBounces == 2) {
+            EnMaruta_StopBouncing(this);
         }
-    } else if (ABS_ALT(this->unk_21A) > 0x38E) {
-        if (this->unk_21A < 0) {
-            this->unk_21A = -0x38E;
+    } else if (ABS_ALT(this->recoilSpinRate) > 0x38E) {
+        if (this->recoilSpinRate < 0) {
+            this->recoilSpinRate = -0x38E;
         } else {
-            this->unk_21A = 0x38E;
+            this->recoilSpinRate = 0x38E;
         }
     }
 }
 
-void func_80B3828C(Vec3f* arg0, Vec3f* arg1, s16 arg2, s16 arg3, s32 arg4) {
+void EnMaruta_RotateVector(Vec3f* src, Vec3f* dest, s16 rotX, s16 rotY, s32 rotZ) {
     Matrix_Push();
-    Matrix_RotateZYX(arg2, arg3, arg4, MTXMODE_NEW);
-    Matrix_MultVec3f(arg0, arg1);
+    Matrix_RotateZYX(rotX, rotY, rotZ, MTXMODE_NEW);
+    Matrix_MultVec3f(src, dest);
     Matrix_Pop();
 }
 
-void func_80B382E4(PlayState* play, Vec3f arg1) {
-    Vec3f pos = arg1;
+void EnMaruta_SpawnDustClouds(PlayState* play, Vec3f srcPoint) {
+    Vec3f pos = srcPoint;
     Vec3f velocity;
     Vec3f accel;
     Color_RGBA8 primColor = { 170, 130, 90, 255 };
@@ -687,43 +723,43 @@ void EnMaruta_Update(Actor* thisx, PlayState* play) {
 
     this->actionFunc(this, play);
 
-    func_80B37CA0(this, play);
-    func_80B37C60(this);
+    EnMaruta_UpdateCollider(this, play);
+    EnMaruta_CheckShouldFlatten(this);
 }
 
 void EnMaruta_Draw(Actor* thisx, PlayState* play) {
     EnMaruta* this = (EnMaruta*)thisx;
-    Vec3f sp50;
+    Vec3f translate;
     s32 i;
 
     OPEN_DISPS(play->state.gfxCtx);
 
     Gfx_SetupDL25_Opa(play->state.gfxCtx);
 
-    if (this->unk_210 == 0) {
+    if (this->shape == ENMARUTA_SHAPE_WHOLE) {
         MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
-        gSPDisplayList(POLY_OPA_DISP++, object_maruta_DL_002EC0);
+        gSPDisplayList(POLY_OPA_DISP++, gPracticeLogWholeDL);
     } else {
-        sp50 = D_80B387E4[this->unk_210];
+        translate = sTranslationVectorsToRecoilAxis[this->shape];
 
         Matrix_Push();
-        Matrix_Translate(sp50.x, sp50.y, sp50.z, MTXMODE_APPLY);
-        Matrix_RotateAxisS(this->unk_218, &this->unk_194, MTXMODE_APPLY);
-        Matrix_Translate(-sp50.x, -sp50.y, -sp50.z, MTXMODE_APPLY);
+        Matrix_Translate(translate.x, translate.y, translate.z, MTXMODE_APPLY);
+        Matrix_RotateAxisS(this->recoilSpinAngle, &this->recoilSpinAxis, MTXMODE_APPLY);
+        Matrix_Translate(-translate.x, -translate.y, -translate.z, MTXMODE_APPLY);
 
         MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
 
         for (i = 0; i < 8; i++) {
-            if (D_80B386C0[this->unk_210] & (1 << i)) {
-                gSPDisplayList(POLY_OPA_DISP++, D_80B386A0[i]);
+            if (sFragmentsByShape[this->shape] & (1 << i)) {
+                gSPDisplayList(POLY_OPA_DISP++, sDisplayLists[i]);
             }
         }
 
-        if (this->unk_1A0 != NULL) {
-            for (i = 0; i < ARRAY_COUNT(this->unk_1A4); i++) {
-                Matrix_MultVec3f(&this->unk_1A0[i], &this->unk_1A4[i]);
+        if (this->relativeHitboxPoints != NULL) {
+            for (i = 0; i < ARRAY_COUNT(this->hitboxPoints); i++) {
+                Matrix_MultVec3f(&this->relativeHitboxPoints[i], &this->hitboxPoints[i]);
             }
-            Matrix_MultVec3f(&sp50, &this->unk_204);
+            Matrix_MultVec3f(&translate, &this->centerPos);
         }
 
         Matrix_Pop();

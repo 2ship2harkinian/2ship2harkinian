@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- Object for the Zoras -->
     <File Name="object_zo" Segment="6">
         <!-- Animations -->
@@ -23,15 +26,15 @@
 
         <!-- Textures -->
         <Texture Name="gZoraTLUT" OutName="zora_tlut" Format="rgba16" Width="16" Height="16" Offset="0x4260" />
-        <Texture Name="gZoraFinTex" OutName="zora_fin" Format="ci8" Width="32" Height="32" Offset="0x4460" />
-        <Texture Name="gZoraBackAndHeadTailTex" OutName="zora_back_head_tail" Format="ci8" Width="32" Height="64" Offset="0x4860" />
-        <Texture Name="gZoraSkinTex" OutName="zora_skin" Format="ci8" Width="8" Height="8" Offset="0x5060" />
+        <Texture Name="gZoraFinTex" OutName="zora_fin" Format="ci8" Width="32" Height="32" Offset="0x4460" TlutOffset="0x4260"/>
+        <Texture Name="gZoraBackAndHeadTailTex" OutName="zora_back_head_tail" Format="ci8" Width="32" Height="64" Offset="0x4860" TlutOffset="0x4260"/>
+        <Texture Name="gZoraSkinTex" OutName="zora_skin" Format="ci8" Width="8" Height="8" Offset="0x5060" TlutOffset="0x4260"/>
         <Texture Name="gZoraEyeOpenTex" OutName="zora_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x50A0" />
         <Texture Name="gZoraEyeHalfTex" OutName="zora_eye_half" Format="rgba16" Width="32" Height="32" Offset="0x58A0" />
         <Texture Name="gZoraEyeClosedTex" OutName="zora_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x60A0" />
         <Texture Name="gZoraMouthTex" OutName="zora_mouth" Format="rgba16" Width="32" Height="32" Offset="0x68A0" />
-        <Texture Name="gZoraHandTex" OutName="zora_hand" Format="ci8" Width="16" Height="16" Offset="0x70A0" />
-        <Texture Name="gZoraKneeTex" OutName="zora_knee" Format="ci8" Width="8" Height="8" Offset="0x71A0" />
+        <Texture Name="gZoraHandTex" OutName="zora_hand" Format="ci8" Width="16" Height="16" Offset="0x70A0" TlutOffset="0x4260"/>
+        <Texture Name="gZoraKneeTex" OutName="zora_knee" Format="ci8" Width="8" Height="8" Offset="0x71A0" TlutOffset="0x4260"/>
 
         <!-- DLists -->
         <DList Name="gZoraPelvisDL" Offset="0xA2A0" />

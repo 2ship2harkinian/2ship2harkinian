@@ -8,16 +8,16 @@
         <Animation Name="gHoneyAndDarlingIdleAnim" Offset="0x53E0" /> <!-- Original name is "tg_matsu" -->
         <Texture Name="gHoneyAndDarlingTLUT" OutName="honey_and_darling_tlut" Format="rgba16" Width="16" Height="16" Offset="0x53F0" />
         <Texture Name="gHoneyAndDarlingShirtsAndShoesTex" OutName="honey_and_darling_shirts_and_shoes" Format="i8" Width="16" Height="16" Offset="0x55F0" />
-        <Texture Name="gHoneyAndDarlingWomanDressTex" OutName="honey_and_darling_woman_dress" Format="ci8" Width="16" Height="16" Offset="0x56F0" />
+        <Texture Name="gHoneyAndDarlingWomanDressTex" OutName="honey_and_darling_woman_dress" Format="ci8" Width="16" Height="16" Offset="0x56F0" TlutOffset="0x53F0"/>
         <Texture Name="gHoneyAndDarlingJointShadeTex" OutName="honey_and_darling_joint_shade" Format="i8" Width="8" Height="8" Offset="0x57F0" /> <!-- For the man's shoulders, elbows, and knees, and the woman's elbows -->
-        <Texture Name="gHoneyAndDarlingHeadSkinTex" OutName="honey_and_darling_head_skin" Format="ci8" Width="8" Height="8" Offset="0x5830" /> <!-- For their necks, under chin, noses, cheeks, and foreheads -->
-        <Texture Name="gHoneyAndDarlingManHairTex" OutName="honey_and_darling_man_hair" Format="ci8" Width="16" Height="16" Offset="0x5870" /> 
-        <Texture Name="gHoneyAndDarlingEarTex" OutName="honey_and_darling_ear" Format="ci8" Width="8" Height="8" Offset="0x5970" />
-        <Texture Name="gHoneyAndDarlingMouthTex" OutName="honey_and_darling_mouth" Format="ci8" Width="32" Height="16" Offset="0x59B0" />
-        <Texture Name="gHoneyAndDarlingManEyeTex" OutName="honey_and_darling_man_eye" Format="ci8" Width="32" Height="32" Offset="0x5BB0" />
-        <Texture Name="gHoneyAndDarlingHandTex" OutName="honey_and_darling_hand" Format="ci8" Width="8" Height="8" Offset="0x5FB0" />
-        <Texture Name="gHoneyAndDarlingWomanHairTex" OutName="honey_and_darling_woman_hair" Format="ci8" Width="8" Height="16" Offset="0x5FF0" />
-        <Texture Name="gHoneyAndDarlingWomanEyeTex" OutName="honey_and_darling_woman_eye" Format="ci8" Width="32" Height="32" Offset="0x6070" />
+        <Texture Name="gHoneyAndDarlingHeadSkinTex" OutName="honey_and_darling_head_skin" Format="ci8" Width="8" Height="8" Offset="0x5830" TlutOffset="0x53F0"/> <!-- For their necks, under chin, noses, cheeks, and foreheads -->
+        <Texture Name="gHoneyAndDarlingManHairTex" OutName="honey_and_darling_man_hair" Format="ci8" Width="16" Height="16" Offset="0x5870" TlutOffset="0x53F0"/> 
+        <Texture Name="gHoneyAndDarlingEarTex" OutName="honey_and_darling_ear" Format="ci8" Width="8" Height="8" Offset="0x5970" TlutOffset="0x53F0"/>
+        <Texture Name="gHoneyAndDarlingMouthTex" OutName="honey_and_darling_mouth" Format="ci8" Width="32" Height="16" Offset="0x59B0" TlutOffset="0x53F0"/>
+        <Texture Name="gHoneyAndDarlingManEyeTex" OutName="honey_and_darling_man_eye" Format="ci8" Width="32" Height="32" Offset="0x5BB0" TlutOffset="0x53F0"/>
+        <Texture Name="gHoneyAndDarlingHandTex" OutName="honey_and_darling_hand" Format="ci8" Width="8" Height="8" Offset="0x5FB0" TlutOffset="0x53F0"/>
+        <Texture Name="gHoneyAndDarlingWomanHairTex" OutName="honey_and_darling_woman_hair" Format="ci8" Width="8" Height="16" Offset="0x5FF0" TlutOffset="0x53F0"/>
+        <Texture Name="gHoneyAndDarlingWomanEyeTex" OutName="honey_and_darling_woman_eye" Format="ci8" Width="32" Height="32" Offset="0x6070" TlutOffset="0x53F0"/>
         <DList Name="gHoneyAndDarlingLegsDL" Offset="0x9370" />
         <DList Name="gHoneyAndDarlingWomanHeadDL" Offset="0x96C8" />
         <DList Name="gHoneyAndDarlingWomanRightHandDL" Offset="0x9BC8" />

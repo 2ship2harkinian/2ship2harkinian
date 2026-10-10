@@ -22,19 +22,19 @@
         <Texture Name="object_dt_TLUT_006A50" OutName="tlut_006A50" Format="rgba16" Width="16" Height="16" Offset="0x6A50" />
         <Texture Name="object_dt_TLUT_006C50" OutName="tlut_006C50" Format="rgba16" Width="16" Height="16" Offset="0x6C50" />
         <Texture Name="object_dt_TLUT_006E50" OutName="tlut_006E50" Format="rgba16" Width="16" Height="16" Offset="0x6E50" />
-        <Texture Name="object_dt_Tex_007050" OutName="tex_007050" Format="ci8" Width="8" Height="8" Offset="0x7050" />
-        <Texture Name="object_dt_Tex_007090" OutName="tex_007090" Format="ci8" Width="16" Height="16" Offset="0x7090" />
-        <Texture Name="object_dt_Tex_007190" OutName="tex_007190" Format="ci8" Width="8" Height="8" Offset="0x7190" />
-        <Texture Name="object_dt_Tex_0071D0" OutName="tex_0071D0" Format="ci8" Width="8" Height="8" Offset="0x71D0" />
+        <Texture Name="object_dt_Tex_007050" OutName="tex_007050" Format="ci8" Width="8" Height="8" Offset="0x7050" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_007090" OutName="tex_007090" Format="ci8" Width="16" Height="16" Offset="0x7090" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_007190" OutName="tex_007190" Format="ci8" Width="8" Height="8" Offset="0x7190" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_0071D0" OutName="tex_0071D0" Format="ci8" Width="8" Height="8" Offset="0x71D0" TlutOffset="0x6A50"/>
         <Texture Name="object_dt_Tex_007210" OutName="tex_007210" Format="rgba16" Width="8" Height="16" Offset="0x7210" />
-        <Texture Name="object_dt_Tex_007310" OutName="tex_007310" Format="ci8" Width="8" Height="8" Offset="0x7310" />
+        <Texture Name="object_dt_Tex_007310" OutName="tex_007310" Format="ci8" Width="8" Height="8" Offset="0x7310" TlutOffset="0x6A50"/>
         <Texture Name="gDotourEyeShockTex" OutName="dotour_eye_shock" Format="ci8" Width="32" Height="32" Offset="0x7350" TlutOffset="0x6C50" /> 
         <Texture Name="gDotourEyebrowHighTex" OutName="dotour_eyebrow_high" Format="ci8" Width="16" Height="16" Offset="0x7750" TlutOffset="0x6E50" />
-        <Texture Name="object_dt_Tex_007850" OutName="tex_007850" Format="ci8" Width="32" Height="32" Offset="0x7850" />
-        <Texture Name="object_dt_Tex_007C50" OutName="tex_007C50" Format="ci8" Width="16" Height="16" Offset="0x7C50" />
-        <Texture Name="object_dt_Tex_007D50" OutName="tex_007D50" Format="ci8" Width="32" Height="32" Offset="0x7D50" />
-        <Texture Name="object_dt_Tex_008150" OutName="tex_008150" Format="ci8" Width="8" Height="8" Offset="0x8150" />
-        <Texture Name="object_dt_Tex_008190" OutName="tex_008190" Format="ci8" Width="32" Height="16" Offset="0x8190" />
+        <Texture Name="object_dt_Tex_007850" OutName="tex_007850" Format="ci8" Width="32" Height="32" Offset="0x7850" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_007C50" OutName="tex_007C50" Format="ci8" Width="16" Height="16" Offset="0x7C50" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_007D50" OutName="tex_007D50" Format="ci8" Width="32" Height="32" Offset="0x7D50" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_008150" OutName="tex_008150" Format="ci8" Width="8" Height="8" Offset="0x8150" TlutOffset="0x6A50"/>
+        <Texture Name="object_dt_Tex_008190" OutName="tex_008190" Format="ci8" Width="32" Height="16" Offset="0x8190" TlutOffset="0x6A50"/>
         <Texture Name="object_dt_Tex_008390" OutName="tex_008390" Format="rgba16" Width="32" Height="64" Offset="0x8390" />
         <Texture Name="object_dt_Tex_009390" OutName="tex_009390" Format="rgba16" Width="16" Height="16" Offset="0x9390" />
         <Texture Name="gDotourEyeOpenTex" OutName="dotour_eye_open" Format="ci8" Width="32" Height="32" Offset="0x9590" TlutOffset="0x6C50" />

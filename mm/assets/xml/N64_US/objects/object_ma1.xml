@@ -4,8 +4,8 @@
         <!-- Romani's Bow DisplayList and Textures -->
         <DList Name="gRomaniBowDL" Offset="0x3B0" />
         <Texture Name="gRomaniBowTLUT" OutName="romani_bow_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5E0" />
-        <Texture Name="gRomaniBowHandleTex" OutName="romani_bow_handle" Format="ci8" Width="16" Height="16" Offset="0x7E0" />
-        <Texture Name="gRomaniBowLimbTex" OutName="romani_bow_limb" Format="ci8" Width="8" Height="8" Offset="0x8E0" />
+        <Texture Name="gRomaniBowHandleTex" OutName="romani_bow_handle" Format="ci8" Width="16" Height="16" Offset="0x7E0" TlutOffset="0x5E0"/>
+        <Texture Name="gRomaniBowLimbTex" OutName="romani_bow_limb" Format="ci8" Width="8" Height="8" Offset="0x8E0" TlutOffset="0x5E0"/>
         
         <!-- Romani's Wooden Box DisplayList and Textures. She sits on it after being abducted by the aliens. -->
         <DList Name="gRomaniWoodenBoxDL" Offset="0xA20" />
@@ -17,12 +17,12 @@
         <!-- Romani Sleeping DisplayList and Textures -->
         <DList Name="gRomaniSleepingDL" Offset="0x43A0" />
         <Texture Name="gRomaniSleepingTLUT" OutName="romani_sleeping_tlut" Format="rgba16" Width="16" Height="16" Offset="0x4CF8" />
-        <Texture Name="gRomaniSleepingDressTex" OutName="romani_sleeping_dress" Format="ci8" Width="16" Height="16" Offset="0x4EF8" />
-        <Texture Name="gRomaniSleepingSkinTex" OutName="romani_sleeping_skin" Format="ci8" Width="8" Height="8" Offset="0x4FF8" />
-        <Texture Name="gRomaniSleepingEarTex" OutName="romani_sleeping_ear" Format="ci8" Width="8" Height="8" Offset="0x5038" />
-        <Texture Name="gRomaniSleepingHairTex" OutName="romani_sleeping_hair" Format="ci8" Width="16" Height="16" Offset="0x5078" />
-        <Texture Name="gRomaniSleepingHandTex" OutName="romani_sleeping_hand" Format="ci8" Width="16" Height="16" Offset="0x5178" />
-        <Texture Name="gRomaniSleepingDressPatternAndPillowTex" OutName="romani_sleeping_dress_pattern_and_pillow" Format="ci8" Width="8" Height="16" Offset="0x5278" />
+        <Texture Name="gRomaniSleepingDressTex" OutName="romani_sleeping_dress" Format="ci8" Width="16" Height="16" Offset="0x4EF8" TlutOffset="0x4CF8"/>
+        <Texture Name="gRomaniSleepingSkinTex" OutName="romani_sleeping_skin" Format="ci8" Width="8" Height="8" Offset="0x4FF8" TlutOffset="0x4CF8"/>
+        <Texture Name="gRomaniSleepingEarTex" OutName="romani_sleeping_ear" Format="ci8" Width="8" Height="8" Offset="0x5038" TlutOffset="0x4CF8"/>
+        <Texture Name="gRomaniSleepingHairTex" OutName="romani_sleeping_hair" Format="ci8" Width="16" Height="16" Offset="0x5078" TlutOffset="0x4CF8"/>
+        <Texture Name="gRomaniSleepingHandTex" OutName="romani_sleeping_hand" Format="ci8" Width="16" Height="16" Offset="0x5178" TlutOffset="0x4CF8"/>
+        <Texture Name="gRomaniSleepingDressPatternAndPillowTex" OutName="romani_sleeping_dress_pattern_and_pillow" Format="ci8" Width="8" Height="16" Offset="0x5278" TlutOffset="0x4CF8"/>
         <Texture Name="gRomaniSleepingEyeTex" OutName="romani_sleeping_eye" Format="rgba16" Width="32" Height="32" Offset="0x52F8" />
         <Texture Name="gRomaniSleepingBlanketTex" OutName="romani_sleeping_blanket" Format="rgba16" Width="16" Height="128" Offset="0x5AF8" />
         <Texture Name="gRomaniSleepingMouthTex" OutName="romani_sleeping_mouth" Format="rgba16" Width="32" Height="16" Offset="0x6AF8" />
@@ -59,15 +59,15 @@
         
         <!-- Romani Textures -->
         <Texture Name="gRomaniTLUT" OutName="romani_tlut" Format="rgba16" Width="16" Height="16" Offset="0xF188" />
-        <Texture Name="gRomaniDressTex" OutName="romani_dress" Format="ci8" Width="16" Height="16" Offset="0xF388" />
-        <Texture Name="gRomaniSkinTex" OutName="romani_skin" Format="ci8" Width="8" Height="8" Offset="0xF488" />
-        <Texture Name="gRomaniEarTex" OutName="romani_ear" Format="ci8" Width="8" Height="8" Offset="0xF4C8" />
-        <Texture Name="gRomaniHairTex" OutName="romani_hair" Format="ci8" Width="16" Height="16" Offset="0xF508" />
-        <Texture Name="gRomaniShawlTex" OutName="romani_shawl" Format="ci8" Width="8" Height="8" Offset="0xF608" />
+        <Texture Name="gRomaniDressTex" OutName="romani_dress" Format="ci8" Width="16" Height="16" Offset="0xF388" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniSkinTex" OutName="romani_skin" Format="ci8" Width="8" Height="8" Offset="0xF488" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniEarTex" OutName="romani_ear" Format="ci8" Width="8" Height="8" Offset="0xF4C8" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniHairTex" OutName="romani_hair" Format="ci8" Width="16" Height="16" Offset="0xF508" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniShawlTex" OutName="romani_shawl" Format="ci8" Width="8" Height="8" Offset="0xF608" TlutOffset="0xF188"/>
         <Texture Name="gRomaniBroochTex" OutName="romani_brooch" Format="rgba16" Width="16" Height="32" Offset="0xF648" />
-        <Texture Name="gRomaniHandTex" OutName="romani_hand" Format="ci8" Width="16" Height="16" Offset="0xFA48" />
-        <Texture Name="gRomaniBootTex" OutName="romani_boot" Format="ci8" Width="64" Height="16" Offset="0xFB48" />
-        <Texture Name="gRomaniDressPatternTex" OutName="romani_dress_pattern" Format="ci8" Width="8" Height="16" Offset="0xFF48" />
+        <Texture Name="gRomaniHandTex" OutName="romani_hand" Format="ci8" Width="16" Height="16" Offset="0xFA48" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniBootTex" OutName="romani_boot" Format="ci8" Width="64" Height="16" Offset="0xFB48" TlutOffset="0xF188"/>
+        <Texture Name="gRomaniDressPatternTex" OutName="romani_dress_pattern" Format="ci8" Width="8" Height="16" Offset="0xFF48" TlutOffset="0xF188"/>
         <Texture Name="gRomaniEyeOpenTex" OutName="romani_eye_open" Format="rgba16" Width="32" Height="32" Offset="0xFFC8" />
         <Texture Name="gRomaniEyeHalfTex" OutName="romani_eye_half" Format="rgba16" Width="32" Height="32" Offset="0x107C8" />
         <Texture Name="gRomaniEyeClosedTex" OutName="romani_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x10FC8" />

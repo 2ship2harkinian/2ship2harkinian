@@ -2,18 +2,18 @@
     <!-- Assets for the bearded man from OOT, body is reused in MM for Cured Swamp Spider House Man (head substituted from overlay data). -->
     <File Name="object_ahg" Segment="6">
         <Texture Name="gAhgTLUT" OutName="tlut" Format="rgba16" Width="16" Height="16" Offset="0x0" />
-        <Texture Name="gAhgHairLineTex" OutName="hair_line" Format="ci8" Width="16" Height="16" Offset="0x200" />
-        <Texture Name="gAhgHairTex" OutName="hair" Format="ci8" Width="16" Height="16" Offset="0x300" />
-        <Texture Name="gAhgEarTex" OutName="ear" Format="ci8" Width="8" Height="8" Offset="0x400" />
-        <Texture Name="gAhgSkinGradientTex" OutName="skin" Format="ci8" Width="8" Height="8" Offset="0x440"/>
+        <Texture Name="gAhgHairLineTex" OutName="hair_line" Format="ci8" Width="16" Height="16" Offset="0x200" TlutOffset="0x0"/>
+        <Texture Name="gAhgHairTex" OutName="hair" Format="ci8" Width="16" Height="16" Offset="0x300" TlutOffset="0x0"/>
+        <Texture Name="gAhgEarTex" OutName="ear" Format="ci8" Width="8" Height="8" Offset="0x400" TlutOffset="0x0"/>
+        <Texture Name="gAhgSkinGradientTex" OutName="skin" Format="ci8" Width="8" Height="8" Offset="0x440" TlutOffset="0x0"/>
         <Texture Name="gAhgEyeOpenTex" OutName="eye_open" Format="ci8" Width="16" Height="16" Offset="0x480" TlutOffset="0x0"/>
         <Texture Name="gAhgEyeHalfTex" OutName="eye_half" Format="ci8" Width="16" Height="16" Offset="0x580" TlutOffset="0x0"/>
         <Texture Name="gAhgEyeClosedTex" OutName="eye_closed" Format="ci8" Width="16" Height="16" Offset="0x680" TlutOffset="0x0"/>
-        <Texture Name="gAhgFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x780" />
+        <Texture Name="gAhgFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x780" TlutOffset="0x0"/>
         <Texture Name="gAhgShirtTex" OutName="shirt" Format="i8" Width="8" Height="8" Offset="0x880" />
         <Texture Name="gAhgShoesTex" OutName="shoes" Format="i8" Width="8" Height="8" Offset="0x8C0" />
-        <Texture Name="gAhgBeltBuckleTex" OutName="belt_buckle" Format="ci8" Width="32" Height="16" Offset="0x900" />
-        <Texture Name="gAhgBeltLoopTex" OutName="belt_loop" Format="ci8" Width="16" Height="16" Offset="0xB00" />
+        <Texture Name="gAhgBeltBuckleTex" OutName="belt_buckle" Format="ci8" Width="32" Height="16" Offset="0x900" TlutOffset="0x0"/>
+        <Texture Name="gAhgBeltLoopTex" OutName="belt_loop" Format="ci8" Width="16" Height="16" Offset="0xB00" TlutOffset="0x0"/>
 
         <!-- This head is overwritten in EnSth draw. -->
         <DList Name="gAhgBeardedHeadDL" Offset="0x2FF0" />

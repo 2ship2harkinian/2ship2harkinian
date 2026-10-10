@@ -204,14 +204,14 @@ static const ALIGN_ASSET(2) char gFierceDeityMaskEarTex[] = dgFierceDeityMaskEar
 #define dgFierceDeityMaskHatTex "__OTR__objects/gameplay_keep/gFierceDeityMaskHatTex"
 static const ALIGN_ASSET(2) char gFierceDeityMaskHatTex[] = dgFierceDeityMaskHatTex;
 
-#define dgameplay_keep_Tex_00C830 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_00C830"
-static const ALIGN_ASSET(2) char gameplay_keep_Tex_00C830[] = dgameplay_keep_Tex_00C830;
+#define dgHilite1Tex "__OTR__objects/gameplay_keep/gHilite1Tex"
+static const ALIGN_ASSET(2) char gHilite1Tex[] = dgHilite1Tex;
 
-#define dgameplay_keep_Tex_00CA30 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_00CA30"
-static const ALIGN_ASSET(2) char gameplay_keep_Tex_00CA30[] = dgameplay_keep_Tex_00CA30;
+#define dgHilite2Tex "__OTR__objects/gameplay_keep/gHilite2Tex"
+static const ALIGN_ASSET(2) char gHilite2Tex[] = dgHilite2Tex;
 
-#define dgameplay_keep_Tex_00CA30_Overflow "__OTR__objects/gameplay_keep/gameplay_keep_Tex_00CA30_Overflow"
-static const ALIGN_ASSET(2) char gameplay_keep_Tex_00CA30_Overflow[] = dgameplay_keep_Tex_00CA30_Overflow;
+#define dgHilite2Tex_Overflow "__OTR__objects/gameplay_keep/gHilite2Tex_Overflow"
+static const ALIGN_ASSET(2) char gHilite2Tex_Overflow[] = dgHilite2Tex_Overflow;
 
 #define dgDekuStickTex "__OTR__objects/gameplay_keep/gDekuStickTex"
 static const ALIGN_ASSET(2) char gDekuStickTex[] = dgDekuStickTex;
@@ -2802,8 +2802,8 @@ static const ALIGN_ASSET(2) char gStrayFairySkel[] = dgStrayFairySkel;
 #define dgameplay_keep_Tex_02CAB0 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_02CAB0"
 static const ALIGN_ASSET(2) char gameplay_keep_Tex_02CAB0[] = dgameplay_keep_Tex_02CAB0;
 
-#define dgameplay_keep_Tex_02CB30 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_02CB30"
-static const ALIGN_ASSET(2) char gameplay_keep_Tex_02CB30[] = dgameplay_keep_Tex_02CB30;
+#define dgUnknownCircle4Tex "__OTR__objects/gameplay_keep/gUnknownCircle4Tex"
+static const ALIGN_ASSET(2) char gUnknownCircle4Tex[] = dgUnknownCircle4Tex;
 
 #define dgameplay_keep_Tex_02CC30 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_02CC30"
 static const ALIGN_ASSET(2) char gameplay_keep_Tex_02CC30[] = dgameplay_keep_Tex_02CC30;
@@ -2961,8 +2961,8 @@ static const ALIGN_ASSET(2) char gEffHitmarkDL[] = dgEffHitmarkDL;
 #define dgameplay_keep_Tex_0357B0 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_0357B0"
 static const ALIGN_ASSET(2) char gameplay_keep_Tex_0357B0[] = dgameplay_keep_Tex_0357B0;
 
-#define dgameplay_keep_Tex_035FB0 "__OTR__objects/gameplay_keep/gameplay_keep_Tex_035FB0"
-static const ALIGN_ASSET(2) char gameplay_keep_Tex_035FB0[] = dgameplay_keep_Tex_035FB0;
+#define dgEffFleckTex "__OTR__objects/gameplay_keep/gEffFleckTex"
+static const ALIGN_ASSET(2) char gEffFleckTex[] = dgEffFleckTex;
 
 #define dgEffWaterRippleTex "__OTR__objects/gameplay_keep/gEffWaterRippleTex"
 static const ALIGN_ASSET(2) char gEffWaterRippleTex[] = dgEffWaterRippleTex;

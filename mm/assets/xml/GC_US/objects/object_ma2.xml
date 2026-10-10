@@ -46,16 +46,16 @@
         <Texture Name="gCremiaTLUT" OutName="cremia_tlut" Format="rgba16" Width="16" Height="16" Offset="0x10018" />
         <Texture Name="gCremiaSkinArmsTex" OutName="cremia_skin_arms" Format="rgba16" Width="8" Height="8" Offset="0x10218" />
         <Texture Name="gCremiaSkinHeadTex" OutName="cremia_skin_head" Format="rgba16" Width="8" Height="8" Offset="0x10298" />
-        <Texture Name="gCremiaBootTex" OutName="cremia_boot" Format="ci8" Width="64" Height="16" Offset="0x10318" />
+        <Texture Name="gCremiaBootTex" OutName="cremia_boot" Format="ci8" Width="64" Height="16" Offset="0x10318" TlutOffset="0x10018"/>
         <Texture Name="gCremiaEarTex" OutName="cremia_ear" Format="rgba16" Width="16" Height="16" Offset="0x10718" />
-        <Texture Name="gCremiaHairTex" OutName="cremia_hair" Format="ci8" Width="16" Height="16" Offset="0x10918" />
-        <Texture Name="gCremiaShawlTex" OutName="cremia_shawl" Format="ci8" Width="8" Height="8" Offset="0x10A18" />
+        <Texture Name="gCremiaHairTex" OutName="cremia_hair" Format="ci8" Width="16" Height="16" Offset="0x10918" TlutOffset="0x10018"/>
+        <Texture Name="gCremiaShawlTex" OutName="cremia_shawl" Format="ci8" Width="8" Height="8" Offset="0x10A18" TlutOffset="0x10018"/>
         <Texture Name="gCremiaBroochTex" OutName="cremia_brooch" Format="rgba16" Width="16" Height="32" Offset="0x10A58" />
-        <Texture Name="gCremiaShirtTex" OutName="cremia_shirt" Format="ci8" Width="16" Height="16" Offset="0x10E58" />
-        <Texture Name="gCremiaSleevesTex" OutName="cremia_sleeves" Format="ci8" Width="8" Height="16" Offset="0x10F58" />
-        <Texture Name="gCremiaBeltTex" OutName="cremia_belt" Format="ci8" Width="32" Height="16" Offset="0x10FD8" />
-        <Texture Name="gCremiaDressPatternTex" OutName="cremia_dress_pattern" Format="ci8" Width="16" Height="32" Offset="0x111D8" />
-        <Texture Name="gCremiaDressTex" OutName="cremia_dress" Format="ci8" Width="16" Height="16" Offset="0x113D8" />
+        <Texture Name="gCremiaShirtTex" OutName="cremia_shirt" Format="ci8" Width="16" Height="16" Offset="0x10E58" TlutOffset="0x10018"/>
+        <Texture Name="gCremiaSleevesTex" OutName="cremia_sleeves" Format="ci8" Width="8" Height="16" Offset="0x10F58" TlutOffset="0x10018"/>
+        <Texture Name="gCremiaBeltTex" OutName="cremia_belt" Format="ci8" Width="32" Height="16" Offset="0x10FD8" TlutOffset="0x10018"/>
+        <Texture Name="gCremiaDressPatternTex" OutName="cremia_dress_pattern" Format="ci8" Width="16" Height="32" Offset="0x111D8" TlutOffset="0x10018"/>
+        <Texture Name="gCremiaDressTex" OutName="cremia_dress" Format="ci8" Width="16" Height="16" Offset="0x113D8" TlutOffset="0x10018"/>
         <Texture Name="gCremiaApronTex" OutName="cremia_apron" Format="rgba16" Width="16" Height="32" Offset="0x114D8" />
         <Texture Name="gCremiaHandTex" OutName="cremia_hand" Format="rgba16" Width="16" Height="16" Offset="0x118D8" />
         <Texture Name="gCremiaEyeOpenTex" OutName="cremia_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x11AD8" />

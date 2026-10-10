@@ -72,8 +72,8 @@
         <DList Name="gWarpBossWarpPlatformDL" Offset="0x76C0" /> <!-- Original name is "m2_BossWarp_model" -->
         <Texture Name="gWarpBossWarpPlatformBottomTLUT" OutName="warp_boss_warp_platform_bottom_tlut" Format="rgba16" Width="4" Height="4" Offset="0x78A0" />
         <Texture Name="gWarpBossWarpPlatformTopTLUT" OutName="warp_boss_warp_platform_top_tlut" Format="rgba16" Width="4" Height="4" Offset="0x78C0" />
-        <Texture Name="gWarpBossWarpPlatformBottomTex" OutName="warp_boss_warp_platform_bottom" Format="ci4" Width="64" Height="64" Offset="0x78E0" />
-        <Texture Name="gWarpBossWarpPlatformTopTex" OutName="warp_boss_warp_platform_top" Format="ci4" Width="64" Height="64" Offset="0x80E0" />
+        <Texture Name="gWarpBossWarpPlatformBottomTex" OutName="warp_boss_warp_platform_bottom" Format="ci4" Width="64" Height="64" Offset="0x78E0" TlutOffset="0x78A0"/>
+        <Texture Name="gWarpBossWarpPlatformTopTex" OutName="warp_boss_warp_platform_top" Format="ci4" Width="64" Height="64" Offset="0x80E0" TlutOffset="0x78C0"/>
         <Collision Name="gWarpBossWarpPlatformCol" Offset="0x8BD4" />
     </File>
 </Root>

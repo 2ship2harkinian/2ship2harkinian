@@ -2,6 +2,9 @@
  * File: z_en_dnk.c
  * Overlay: ovl_En_Dnk
  * Description: Hallucinatory Mad Scrubs (Deku curse and healing cutscenes)
+ *   This actor has two alternate objects that would use alternate models, unfinished
+ *   Variant 0x2 (encircling link) and 0x6 (big, chases link, cutscene) both use object_dekunuts,
+ *     instead of object_dnk and object_hintnuts
  */
 
 #include "z_en_dnk.h"
@@ -15,10 +18,10 @@ void EnDnk_Reset(void);
 
 void EnDnk_HandleCutscene(EnDnk* this, PlayState* play);
 void EnDnk_DoNothing(EnDnk* this, PlayState* play);
-void func_80A52018(Actor* thisx, PlayState* play);
-void func_80A52134(EnDnk* this, PlayState* play);
+void EnDnk_Draw(Actor* thisx, PlayState* play);
+void EnDnk_UpdateCutscene(EnDnk* this, PlayState* play);
 
-static s16 D_80A521A0 = 0;
+static s16 sScrubCount = 0;
 
 ActorProfile En_Dnk_Profile = {
     /**/ ACTOR_EN_DNK,
@@ -55,6 +58,8 @@ static ColliderCylinderInit sCylinderInit = {
 
 static CollisionCheckInfoInit2 sColChkInfoInit = { 1, 0, 0, 0, MASS_IMMOVABLE };
 
+// unfinished
+// if spawned out of cutscene, you can indeed attack them and it results in blood but no interaction
 static DamageTable sDamageTable = {
     /* Deku Nut       */ DMG_ENTRY(1, 0x0),
     /* Deku Stick     */ DMG_ENTRY(1, 0x0),
@@ -127,10 +132,11 @@ typedef enum {
     /* 32 */ ENDNK_ANIM_32,
     /* 33 */ ENDNK_ANIM_33,
     /* 34 */ ENDNK_ANIM_34,
-    /* 35 */ ENDNK_ANIM_35,
+    /* 35 */ ENDNK_ANIM_IDLE,
     /* 36 */ ENDNK_ANIM_MAX
 } EnDnkAnimation;
 
+// almost none of these animations get used
 static AnimationInfoS sAnimationInfo[ENDNK_ANIM_MAX] = {
     { &gDekuPalaceGuardStartAnim, 1.0f, 0, -1, ANIMMODE_ONCE, 0 },    // ENDNK_ANIM_0
     { &gDekuPalaceGuardStartAnim, 1.0f, 0, -1, ANIMMODE_ONCE, -4 },   // ENDNK_ANIM_1
@@ -167,7 +173,7 @@ static AnimationInfoS sAnimationInfo[ENDNK_ANIM_MAX] = {
     { &gDekuScrubPantingAnim, 1.0f, 0, -1, ANIMMODE_LOOP, -4 },       // ENDNK_ANIM_32
     { &gDekuScrubRunAnim, 1.0f, 0, -1, ANIMMODE_LOOP, 0 },            // ENDNK_ANIM_33
     { &gDekuScrubRunAnim, 1.0f, 0, -1, ANIMMODE_LOOP, -4 },           // ENDNK_ANIM_34
-    { &gDekuScrubStandingIdleAnim, 1.0f, 0, -1, ANIMMODE_LOOP, 0 },   // ENDNK_ANIM_35
+    { &gDekuScrubStandingIdleAnim, 1.0f, 0, -1, ANIMMODE_LOOP, 0 },   // ENDNK_ANIM_IDLE
 };
 
 s32 EnDnk_ChangeAnim(SkelAnime* skelAnime, s16 animIndex) {
@@ -194,51 +200,51 @@ s32 EnDnk_ChangeAnim(SkelAnime* skelAnime, s16 animIndex) {
     return didAnimChange;
 }
 
-s32 func_80A515C4(EnDnk* this) {
+s32 EnDnk_Blink(EnDnk* this) {
     s32 ret = false;
 
-    if (DECR(this->unk_29E) == 0) {
-        this->unk_2A0++;
-        if (this->unk_2A0 >= 3) {
-            this->unk_29E = Rand_S16Offset(20, 20);
-            this->unk_2A0 = 0;
+    if (DECR(this->blinkTimer) == 0) {
+        this->eyeTexIndex++;
+        if (this->eyeTexIndex >= 3) {
+            this->blinkTimer = Rand_S16Offset(20, 20);
+            this->eyeTexIndex = 0;
         }
         ret = true;
     }
     return ret;
 }
 
-void func_80A51648(EnDnk* this, PlayState* play) {
+void EnDnk_WaitForObject(EnDnk* this, PlayState* play) {
     if (SubS_IsObjectLoaded(this->objectSlot, play) == true) {
         gSegments[0x06] = OS_K0_TO_PHYSICAL(play->objectCtx.slots[this->objectSlot].segment);
-        this->actor.draw = func_80A52018;
+        this->actor.draw = EnDnk_Draw;
         this->actor.objectSlot = this->objectSlot;
         ActorShape_Init(&this->actor.shape, 0.0f, NULL, 18.0f);
 
-        switch (ENDNK_GET_3(&this->actor)) {
-            case ENDNK_GET_3_0:
+        switch (ENDNK_GET_TYPE(&this->actor)) {
+            case ENDNK_TYPE_GUARD: // unused
                 SkelAnime_Init(play, &this->skelAnime, &gDekuPalaceGuardSkel, NULL, this->jointTable, this->morphTable,
                                DEKU_PALACE_GUARD_LIMB_MAX);
                 EnDnk_ChangeAnim(&this->skelAnime, ENDNK_ANIM_7);
                 break;
 
-            case ENDNK_GET_3_1:
+            case ENDNK_TYPE_HINT: // unused
                 SkelAnime_Init(play, &this->skelAnime, &object_hintnuts_Skel_0023B8, NULL, this->jointTable,
                                this->morphTable, OBJECT_HINTNUTS_LIMB_MAX);
                 EnDnk_ChangeAnim(&this->skelAnime, ENDNK_ANIM_18);
                 break;
 
-            case ENDNK_GET_3_2:
+            case ENDNK_TYPE_ATTACK:
                 SkelAnime_Init(play, &this->skelAnime, &gDekuScrubSkel, NULL, this->jointTable, this->morphTable,
                                DEKU_SCRUB_LIMB_MAX);
-                EnDnk_ChangeAnim(&this->skelAnime, ENDNK_ANIM_35);
+                EnDnk_ChangeAnim(&this->skelAnime, ENDNK_ANIM_IDLE);
                 break;
         }
 
         Collider_InitCylinder(play, &this->collider);
         Collider_SetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
         CollisionCheck_SetInfo2(&this->actor.colChkInfo, &sDamageTable, &sColChkInfoInit);
-        if (ENDNK_GET_3C(&this->actor) == 4) {
+        if (ENDNK_GET_CUTSCENE_BEHAVIOR(&this->actor) == ENDNK_CUTSCENE_CONTROL) {
             this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
             this->actor.flags |= (ACTOR_FLAG_UPDATE_CULLING_DISABLED | ACTOR_FLAG_DRAW_CULLING_DISABLED);
             this->actionFunc = EnDnk_HandleCutscene;
@@ -257,6 +263,7 @@ void EnDnk_HandleCutscene(EnDnk* this, PlayState* play) {
     }
 }
 
+// Regular scrubs in the cutscene have no job but to animate on the spot
 void EnDnk_DoNothing(EnDnk* this, PlayState* play) {
 }
 
@@ -265,28 +272,28 @@ void EnDnk_Init(Actor* thisx, PlayState* play) {
 
     this->objectSlot = OBJECT_SLOT_NONE;
 
-    switch (ENDNK_GET_3(&this->actor)) {
-        case ENDNK_GET_3_1:
+    switch (ENDNK_GET_TYPE(&this->actor)) {
+        case ENDNK_TYPE_HINT:
             this->objectSlot = SubS_GetObjectSlot(OBJECT_HINTNUTS, play);
             break;
 
-        case ENDNK_GET_3_0:
+        case ENDNK_TYPE_GUARD:
             this->objectSlot = SubS_GetObjectSlot(OBJECT_DNK, play);
             break;
 
-        case ENDNK_GET_3_2:
+        case ENDNK_TYPE_ATTACK:
             this->objectSlot = SubS_GetObjectSlot(OBJECT_DEKUNUTS, play);
             break;
     }
 
     if (this->objectSlot > OBJECT_SLOT_NONE) {
-        this->actionFunc = func_80A51648;
+        this->actionFunc = EnDnk_WaitForObject;
     } else {
         Actor_Kill(&this->actor);
     }
 
-    this->unk_2A2 = D_80A521A0;
-    D_80A521A0++;
+    this->scrubId = sScrubCount;
+    sScrubCount++;
 }
 
 void EnDnk_Destroy(Actor* thisx, PlayState* play) {
@@ -301,71 +308,74 @@ void EnDnk_Update(Actor* thisx, PlayState* play) {
 
     this->actionFunc(this, play);
     SkelAnime_Update(&this->skelAnime);
-    func_80A515C4(this);
+    EnDnk_Blink(this);
     Actor_SetFocus(&this->actor, 34.0f);
     Collider_UpdateCylinder(&this->actor, &this->collider);
     CollisionCheck_SetAC(play, &play->colChkCtx, &this->collider.base);
     CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
-    func_80A52134(this, play);
+    EnDnk_UpdateCutscene(this, play);
 }
 
-s32 EnDnk_OverrideLimbDraw2(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {
+// Guard functions are unused
+
+s32 EnDnk_Guard_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {
     EnDnk* this = (EnDnk*)thisx;
 
-    this->unk_260[limbIndex] = *dList;
+    this->limbGfx[limbIndex] = *dList;
     *dList = NULL;
     return false;
 }
 
-void EnDnk_PostLimbDraw2(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* thisx) {
+void EnDnk_Guard_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* thisx) {
     EnDnk* this = (EnDnk*)thisx;
-    MtxF sp5C;
-    Vec3f sp50 = gZeroVec3f;
-    Vec3f sp44;
-    Vec3s sp3C;
+    MtxF mtxFCopy;
+    Vec3f zeroVec = gZeroVec3f;
+    Vec3f headPos;
+    Vec3s headRot;
 
     if (limbIndex == DEKU_PALACE_GUARD_LIMB_HEAD) {
-        Matrix_MultVec3f(&sp50, &sp44);
-        Matrix_Get(&sp5C);
-        Matrix_MtxFToYXZRot(&sp5C, &sp3C, false);
-        Matrix_Translate(sp44.x, sp44.y, sp44.z, MTXMODE_NEW);
+        Matrix_MultVec3f(&zeroVec, &headPos);
+        Matrix_Get(&mtxFCopy);
+        Matrix_MtxFToYXZRot(&mtxFCopy, &headRot, false);
+        Matrix_Translate(headPos.x, headPos.y, headPos.z, MTXMODE_NEW);
         Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
-        if (this->unk_28C & 0x10) {
-            if (this->unk_28C & 0x20) {
-                sp3C.x = this->unk_296;
-                sp3C.y = this->unk_298;
-                sp3C.y += this->actor.shape.rot.y;
-                sp3C.z = 0;
-                Math_SmoothStepToS(&this->unk_290, sp3C.x, 4, 0x1FFE, 1);
-                Math_SmoothStepToS(&this->unk_292, sp3C.y, 4, 0x1FFE, 1);
-                Math_SmoothStepToS(&this->unk_294, sp3C.z, 4, 0x1FFE, 1);
+
+        if (this->flags & DNK_FLAG_10) {
+            if (this->flags & DNK_FLAG_20) {
+                headRot.x = this->unk_296;
+                headRot.y = this->unk_298;
+                headRot.y += this->actor.shape.rot.y;
+                headRot.z = 0;
+                Math_SmoothStepToS(&this->currentHeadRot.x, headRot.x, 4, 0x1FFE, 1);
+                Math_SmoothStepToS(&this->currentHeadRot.y, headRot.y, 4, 0x1FFE, 1);
+                Math_SmoothStepToS(&this->currentHeadRot.z, headRot.z, 4, 0x1FFE, 1);
             } else {
-                this->unk_290 = sp3C.x;
-                this->unk_292 = sp3C.y;
-                this->unk_294 = sp3C.z;
+                this->currentHeadRot.x = headRot.x;
+                this->currentHeadRot.y = headRot.y;
+                this->currentHeadRot.z = headRot.z;
             }
         } else {
-            this->unk_28C |= 0x10;
-            this->unk_290 = sp3C.x;
-            this->unk_292 = sp3C.y;
-            this->unk_294 = sp3C.z;
+            this->flags |= DNK_FLAG_10;
+            this->currentHeadRot.x = headRot.x;
+            this->currentHeadRot.y = headRot.y;
+            this->currentHeadRot.z = headRot.z;
         }
 
-        Matrix_RotateYS(this->unk_292, MTXMODE_APPLY);
-        Matrix_RotateXS(this->unk_290, MTXMODE_APPLY);
-        Matrix_RotateZS(this->unk_294, MTXMODE_APPLY);
+        Matrix_RotateYS(this->currentHeadRot.y, MTXMODE_APPLY);
+        Matrix_RotateXS(this->currentHeadRot.x, MTXMODE_APPLY);
+        Matrix_RotateZS(this->currentHeadRot.z, MTXMODE_APPLY);
     }
 
     OPEN_DISPS(play->state.gfxCtx);
 
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, this->unk_260[limbIndex]);
+    gSPDisplayList(POLY_OPA_DISP++, this->limbGfx[limbIndex]);
 
     CLOSE_DISPS(play->state.gfxCtx);
 }
 
-void func_80A51CB8(EnDnk* this, PlayState* play) {
-    static TexturePtr D_80A5245C[] = {
+void EnDnk_Guard_Draw(EnDnk* this, PlayState* play) {
+    static TexturePtr sDnkEyes[] = {
         gDekuPalaceGuardEyeOpenTex,
         gDekuPalaceGuardEyeHalfTex,
         gDekuPalaceGuardEyeClosedTex,
@@ -376,90 +386,93 @@ void func_80A51CB8(EnDnk* this, PlayState* play) {
 
     Gfx_SetupDL25_Opa(play->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, Lib_SegmentedToVirtual(D_80A5245C[this->unk_2A0]));
+    gSPSegment(POLY_OPA_DISP++, 0x08, Lib_SegmentedToVirtual(sDnkEyes[this->eyeTexIndex]));
     gDPPipeSync(POLY_OPA_DISP++);
 
-    SkelAnime_DrawOpa(play, this->skelAnime.skeleton, this->skelAnime.jointTable, EnDnk_OverrideLimbDraw2,
-                      EnDnk_PostLimbDraw2, &this->actor);
+    SkelAnime_DrawOpa(play, this->skelAnime.skeleton, this->skelAnime.jointTable, EnDnk_Guard_OverrideLimbDraw,
+                      EnDnk_Guard_PostLimbDraw, &this->actor);
 
     CLOSE_DISPS(play->state.gfxCtx);
 }
 
-s32 EnDnk_OverrideLimbDraw1(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {
+s32 EnDnk_Nuts_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {
     EnDnk* this = (EnDnk*)thisx;
 
-    this->unk_260[limbIndex] = *dList;
+    this->limbGfx[limbIndex] = *dList;
     *dList = NULL;
     return false;
 }
 
-void EnDnk_PostLimbDraw1(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* thisx) {
+void EnDnk_Nuts_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, Actor* thisx) {
     EnDnk* this = (EnDnk*)thisx;
-    MtxF sp5C;
-    Vec3f sp50 = gZeroVec3f;
-    Vec3f sp44;
-    Vec3s sp3C;
+    MtxF mtxFCopy;
+    Vec3f zeroVec = gZeroVec3f;
+    Vec3f headPos;
+    Vec3s headRot;
 
     // Note: Also for `limbIndex == OBJECT_HINTNUTS_LIMB_02`
     // Assumes `OBJECT_HINTNUTS_LIMB_02` is the same value as `DEKU_SCRUB_LIMB_HEAD`
+    // this is not head tracking, this is hair shaking with the animation to make his movement look more dynamic
     if (limbIndex == DEKU_SCRUB_LIMB_HEAD) {
-        Matrix_MultVec3f(&sp50, &sp44);
-        Matrix_Get(&sp5C);
-        Matrix_MtxFToYXZRot(&sp5C, &sp3C, false);
-        Matrix_Translate(sp44.x, sp44.y, sp44.z, MTXMODE_NEW);
+        Matrix_MultVec3f(&zeroVec, &headPos);
+        Matrix_Get(&mtxFCopy);
+        Matrix_MtxFToYXZRot(&mtxFCopy, &headRot, false);
+        Matrix_Translate(headPos.x, headPos.y, headPos.z, MTXMODE_NEW);
         Matrix_Scale(this->actor.scale.x, this->actor.scale.y, this->actor.scale.z, MTXMODE_APPLY);
 
-        if (this->unk_28C & 0x10) {
-            if (this->unk_28C & 0x20) {
-                sp3C.z = this->unk_296 + 0x4000;
-                sp3C.y = this->unk_298 + 0x4000;
-                sp3C.y += this->actor.shape.rot.y;
-                sp3C.x = 0;
-                Math_SmoothStepToS(&this->unk_290, sp3C.x, 4, 0x1FFE, 1);
-                Math_SmoothStepToS(&this->unk_292, sp3C.y, 4, 0x1FFE, 1);
-                Math_SmoothStepToS(&this->unk_294, sp3C.z, 4, 0x1FFE, 1);
+        if (this->flags & DNK_FLAG_10) {
+            if (this->flags & DNK_FLAG_20) {
+                headRot.z = this->unk_296 + 0x4000;
+                headRot.y = this->unk_298 + 0x4000;
+                headRot.y += this->actor.shape.rot.y;
+                headRot.x = 0;
+                Math_SmoothStepToS(&this->currentHeadRot.x, headRot.x, 4, 0x1FFE, 1);
+                Math_SmoothStepToS(&this->currentHeadRot.y, headRot.y, 4, 0x1FFE, 1);
+                Math_SmoothStepToS(&this->currentHeadRot.z, headRot.z, 4, 0x1FFE, 1);
             } else {
-                this->unk_290 = sp3C.x;
-                this->unk_292 = sp3C.y;
-                this->unk_294 = sp3C.z;
+                this->currentHeadRot.x = headRot.x;
+                this->currentHeadRot.y = headRot.y;
+                this->currentHeadRot.z = headRot.z;
             }
         } else {
-            this->unk_28C |= 0x10;
-            this->unk_290 = sp3C.x;
-            this->unk_292 = sp3C.y;
-            this->unk_294 = sp3C.z;
+            this->flags |= DNK_FLAG_10;
+            this->currentHeadRot.x = headRot.x;
+            this->currentHeadRot.y = headRot.y;
+            this->currentHeadRot.z = headRot.z;
         }
 
-        Matrix_RotateYS(this->unk_292, MTXMODE_APPLY);
-        Matrix_RotateXS(this->unk_290, MTXMODE_APPLY);
-        Matrix_RotateZS(this->unk_294, MTXMODE_APPLY);
+        Matrix_RotateYS(this->currentHeadRot.y, MTXMODE_APPLY);
+        Matrix_RotateXS(this->currentHeadRot.x, MTXMODE_APPLY);
+        Matrix_RotateZS(this->currentHeadRot.z, MTXMODE_APPLY);
     }
 
     OPEN_DISPS(play->state.gfxCtx);
 
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, this->unk_260[limbIndex]);
+    gSPDisplayList(POLY_OPA_DISP++, this->limbGfx[limbIndex]);
 
     CLOSE_DISPS(play->state.gfxCtx);
 }
 
-void func_80A51FC0(EnDnk* this, PlayState* play) {
+void EnDnk_Nuts_Draw(EnDnk* this, PlayState* play) {
     Gfx_SetupDL25_Opa(play->state.gfxCtx);
-    SkelAnime_DrawOpa(play, this->skelAnime.skeleton, this->skelAnime.jointTable, EnDnk_OverrideLimbDraw1,
-                      EnDnk_PostLimbDraw1, &this->actor);
+    SkelAnime_DrawOpa(play, this->skelAnime.skeleton, this->skelAnime.jointTable, EnDnk_Nuts_OverrideLimbDraw,
+                      EnDnk_Nuts_PostLimbDraw, &this->actor);
 }
 
-void func_80A52018(Actor* thisx, PlayState* play) {
+void EnDnk_Draw(Actor* thisx, PlayState* play) {
     EnDnk* this = (EnDnk*)thisx;
 
-    switch (ENDNK_GET_3(thisx)) {
-        case ENDNK_GET_3_0:
-            func_80A51CB8(this, play);
+    switch (ENDNK_GET_TYPE(thisx)) {
+        // palace guard type skeleton
+        case ENDNK_TYPE_GUARD:
+            EnDnk_Guard_Draw(this, play);
             break;
 
-        case ENDNK_GET_3_1:
-        case ENDNK_GET_3_2:
-            func_80A51FC0(this, play);
+        // deku nuts type skeleton
+        case ENDNK_TYPE_HINT:
+        case ENDNK_TYPE_ATTACK:
+            EnDnk_Nuts_Draw(this, play);
             break;
 
         default:
@@ -467,21 +480,21 @@ void func_80A52018(Actor* thisx, PlayState* play) {
     }
 }
 
-void func_80A52074(EnDnk* this, PlayState* play) {
+void EnDnk_HandleCSAudio(EnDnk* this, PlayState* play) {
     switch (play->csCtx.curFrame) {
-        case 80:
+        case 4 * 20:
             Audio_PlaySfx_2(NA_SE_EN_DEKNUTS_DANCE1);
             break;
 
-        case 123:
+        case 6 * 20 + 3:
             Audio_PlaySfx_2(NA_SE_EN_DEKNUTS_DANCE2);
             break;
 
-        case 438:
+        case 21 * 20 + 18:
             Actor_PlaySfx(&this->actor, NA_SE_EN_DEKNUTS_DANCE_BIG);
             break;
 
-        case 493:
+        case 24 * 20 + 13:
             Actor_PlaySfx(&this->actor, NA_SE_EN_STALKIDS_APPEAR);
             break;
 
@@ -489,18 +502,20 @@ void func_80A52074(EnDnk* this, PlayState* play) {
             break;
     }
 
+    // (200 - 2) and (440 - 2)? pre-delay the sfx?
     if ((play->csCtx.curFrame >= 198) && (play->csCtx.curFrame < 438)) {
         Audio_PlaySfx_2(NA_SE_EN_DEKNUTS_DANCE - SFX_FLAG);
     }
 }
 
-void func_80A52134(EnDnk* this, PlayState* play) {
-    if ((play->csCtx.state != CS_STATE_IDLE) && (ENDNK_GET_3C(&this->actor) == 4) && (play->sceneId == SCENE_SPOT00) &&
-        (gSaveContext.sceneLayer == 2)) {
-        func_80A52074(this, play);
+void EnDnk_UpdateCutscene(EnDnk* this, PlayState* play) {
+    // only play the sounds during the curse cutscene, not the healing cutscene
+    if ((play->csCtx.state != CS_STATE_IDLE) && (ENDNK_GET_CUTSCENE_BEHAVIOR(&this->actor) == ENDNK_CUTSCENE_CONTROL) &&
+        (play->sceneId == SCENE_SPOT00) && (gSaveContext.sceneLayer == 2)) {
+        EnDnk_HandleCSAudio(this, play);
     }
 }
 
 void EnDnk_Reset(void) {
-    D_80A521A0 = 0;
+    sScrubCount = 0;
 }

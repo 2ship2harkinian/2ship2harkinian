@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <File Name="object_syoten" Segment="6">
         <KeyFrameAnimation Name="gSyotenKFAnim_023C" Skel="0x1328" Offset="0x023C"/>
         <DList Name="object_syoten_DL_000450" Offset="0x450" />

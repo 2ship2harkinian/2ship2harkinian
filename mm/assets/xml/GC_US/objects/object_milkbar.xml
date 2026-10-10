@@ -51,7 +51,7 @@
         <Texture Name="object_milkbar_Tex_00E3A0" OutName="tex_00E3A0" Format="i8" Width="8" Height="8" Offset="0xE3A0" />
         <Texture Name="object_milkbar_TLUT_00E3E0" OutName="tlut_00E3E0" Format="rgba16" Width="16" Height="16" Offset="0xE3E0" />
         <Texture Name="object_milkbar_Tex_00E5E0" OutName="tex_00E5E0" Format="rgba16" Width="32" Height="32" Offset="0xE5E0" />
-        <Texture Name="object_milkbar_Tex_00EDE0" OutName="tex_00EDE0" Format="ci8" Width="32" Height="32" Offset="0xEDE0" />
+        <Texture Name="object_milkbar_Tex_00EDE0" OutName="tex_00EDE0" Format="ci8" Width="32" Height="32" Offset="0xEDE0" TlutOffset="0xE3E0"/>
         <Texture Name="object_milkbar_Tex_00F1E0" OutName="tex_00F1E0" Format="ia16" Width="32" Height="32" Offset="0xF1E0" />
         <Texture Name="object_milkbar_Tex_00F9E0" OutName="tex_00F9E0" Format="i4" Width="64" Height="64" Offset="0xF9E0" />
         <Texture Name="object_milkbar_Tex_0101E0" OutName="tex_0101E0" Format="i8" Width="32" Height="32" Offset="0x101E0" />

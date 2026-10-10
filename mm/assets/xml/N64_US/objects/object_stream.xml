@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- Used for the unused water vortex actor. -->
     <File Name="object_stream" Segment="6">
         <Texture Name="gWaterVortexTex" OutName="water_vortex" Format="i4" Width="64" Height="64" Offset="0x0" />

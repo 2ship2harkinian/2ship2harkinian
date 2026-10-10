@@ -71,79 +71,79 @@ static ColliderCylinderInit sCylinderInit = {
 
 typedef enum {
     /*   -1 */ ENBOMJIMB_ANIM_NONE = -1,
-    /* 0x00 */ ENBOMJIMB_ANIM_0,
-    /* 0x01 */ ENBOMJIMB_ANIM_1,
-    /* 0x02 */ ENBOMJIMB_ANIM_2,
-    /* 0x03 */ ENBOMJIMB_ANIM_3,
-    /* 0x04 */ ENBOMJIMB_ANIM_4,
-    /* 0x05 */ ENBOMJIMB_ANIM_5,
-    /* 0x06 */ ENBOMJIMB_ANIM_6,
-    /* 0x07 */ ENBOMJIMB_ANIM_7,
-    /* 0x08 */ ENBOMJIMB_ANIM_8,
-    /* 0x09 */ ENBOMJIMB_ANIM_9,
-    /* 0x0A */ ENBOMJIMB_ANIM_10,
-    /* 0x0B */ ENBOMJIMB_ANIM_11,
-    /* 0x0C */ ENBOMJIMB_ANIM_12,
-    /* 0x0D */ ENBOMJIMB_ANIM_13,
-    /* 0x0E */ ENBOMJIMB_ANIM_14,
-    /* 0x0F */ ENBOMJIMB_ANIM_15,
-    /* 0x10 */ ENBOMJIMB_ANIM_16,
-    /* 0x11 */ ENBOMJIMB_ANIM_17,
-    /* 0x12 */ ENBOMJIMB_ANIM_18,
-    /* 0x13 */ ENBOMJIMB_ANIM_19,
-    /* 0x14 */ ENBOMJIMB_ANIM_20,
-    /* 0x15 */ ENBOMJIMB_ANIM_21,
+    /* 0x00 */ ENBOMJIMB_ANIM_IDLE,
+    /* 0x01 */ ENBOMJIMB_ANIM_HANDS_ON_HIPS,
+    /* 0x02 */ ENBOMJIMB_ANIM_TALK_NORMAL,
+    /* 0x03 */ ENBOMJIMB_ANIM_TALK_HANDS_ON_HIPS,
+    /* 0x04 */ ENBOMJIMB_ANIM_BLOWGUN,
+    /* 0x05 */ ENBOMJIMB_ANIM_WALK,
+    /* 0x06 */ ENBOMJIMB_ANIM_SURPRISE,
+    /* 0x07 */ ENBOMJIMB_ANIM_HIDE_UNDER_BOX,
+    /* 0x08 */ ENBOMJIMB_ANIM_DAZED,
+    /* 0x09 */ ENBOMJIMB_ANIM_SIT,
+    /* 0x0A */ ENBOMJIMB_ANIM_CLIMB,
+    /* 0x0B */ ENBOMJIMB_ANIM_HOLD_CUCCO,
+    /* 0x0C */ ENBOMJIMB_ANIM_TURN_AROUND,
+    /* 0x0D */ ENBOMJIMB_ANIM_SHOW_NUMBER,
+    /* 0x0E */ ENBOMJIMB_ANIM_TALK_SHOWING_NUMBER,
+    /* 0x0F */ ENBOMJIMB_ANIM_TAUNT,
+    /* 0x10 */ ENBOMJIMB_ANIM_JUMP,
+    /* 0x11 */ ENBOMJIMB_ANIM_ARM_SWIPE,
+    /* 0x12 */ ENBOMJIMB_ANIM_SALUTE,
+    /* 0x13 */ ENBOMJIMB_ANIM_RUN,
+    /* 0x14 */ ENBOMJIMB_ANIM_LOOK_AROUND,
+    /* 0x15 */ ENBOMJIMB_ANIM_CAUGHT,
     /* 0x16 */ ENBOMJIMB_ANIM_MAX
 } EnBomjimbAnimation;
 
 static AnimationHeader* sAnimations[ENBOMJIMB_ANIM_MAX] = {
-    &gBomberIdleAnim,       // ENBOMJIMB_ANIM_0
-    &object_cs_Anim_00FAF4, // ENBOMJIMB_ANIM_1
-    &object_cs_Anim_0057C8, // ENBOMJIMB_ANIM_2
-    &object_cs_Anim_0053F4, // ENBOMJIMB_ANIM_3
-    &object_cs_Anim_002044, // ENBOMJIMB_ANIM_4
-    &object_cs_Anim_01007C, // ENBOMJIMB_ANIM_5
-    &object_cs_Anim_00349C, // ENBOMJIMB_ANIM_6
-    &object_cs_Anim_004960, // ENBOMJIMB_ANIM_7
-    &object_cs_Anim_005128, // ENBOMJIMB_ANIM_8
-    &object_cs_Anim_004C1C, // ENBOMJIMB_ANIM_9
-    &object_cs_Anim_002930, // ENBOMJIMB_ANIM_10
-    &object_cs_Anim_001A1C, // ENBOMJIMB_ANIM_11
-    &object_cs_Anim_003EE4, // ENBOMJIMB_ANIM_12
-    &object_cs_Anim_00478C, // ENBOMJIMB_ANIM_13
-    &object_cs_Anim_00433C, // ENBOMJIMB_ANIM_14
-    &object_cs_Anim_0060E8, // ENBOMJIMB_ANIM_15
-    &object_cs_Anim_001708, // ENBOMJIMB_ANIM_16
-    &object_cs_Anim_005DC4, // ENBOMJIMB_ANIM_17
-    &object_cs_Anim_0026B0, // ENBOMJIMB_ANIM_18
-    &object_cs_Anim_0036B0, // ENBOMJIMB_ANIM_19
-    &object_cs_Anim_0031C4, // ENBOMJIMB_ANIM_20
-    &object_cs_Anim_010B68, // ENBOMJIMB_ANIM_21
+    &gBomberIdleAnim,              // ENBOMJIMB_ANIM_IDLE
+    &gBomberHandsOnHipsAnim,       // ENBOMJIMB_ANIM_HANDS_ON_HIPS
+    &gBomberTalkNormalAnim,        // ENBOMJIMB_ANIM_TALK_NORMAL
+    &gBomberTalkHandsOnHipsAnim,   // ENBOMJIMB_ANIM_TALK_HANDS_ON_HIPS
+    &gBomberBlowgunAnim,           // ENBOMJIMB_ANIM_BLOWGUN
+    &gBomberWalkAnim,              // ENBOMJIMB_ANIM_WALK
+    &gBomberSurpriseAnim,          // ENBOMJIMB_ANIM_SURPRISE
+    &gBomberHideUnderBoxAnim,      // ENBOMJIMB_ANIM_HIDE_UNDER_BOX
+    &gBomberDazedAnim,             // ENBOMJIMB_ANIM_DAZED
+    &gBomberSitAnim,               // ENBOMJIMB_ANIM_SIT
+    &gBomberClimbAnim,             // ENBOMJIMB_ANIM_CLIMB
+    &gBomberHoldCuccoAnim,         // ENBOMJIMB_ANIM_HOLD_CUCCO
+    &gBomberTurnAroundAnim,        // ENBOMJIMB_ANIM_TURN_AROUND
+    &gBomberShowNumberAnim,        // ENBOMJIMB_ANIM_SHOW_NUMBER
+    &gBomberTalkShowingNumberAnim, // ENBOMJIMB_ANIM_TALK_SHOWING_NUMBER
+    &gBomberTauntAnim,             // ENBOMJIMB_ANIM_TAUNT
+    &gBomberJumpAnim,              // ENBOMJIMB_ANIM_JUMP
+    &gBomberArmSwipeAnim,          // ENBOMJIMB_ANIM_ARM_SWIPE
+    &gBomberSaluteAnim,            // ENBOMJIMB_ANIM_SALUTE
+    &gBomberRunAnim,               // ENBOMJIMB_ANIM_RUN
+    &gBomberLookAroundAnim,        // ENBOMJIMB_ANIM_LOOK_AROUND
+    &gBomberCaughtAnim,            // ENBOMJIMB_ANIM_CAUGHT
 };
 
 static u8 sAnimationModes[ENBOMJIMB_ANIM_MAX] = {
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_0
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_1
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_2
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_3
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_4
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_5
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_6
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_7
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_8
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_9
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_10
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_11
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_12
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_13
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_14
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_15
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_16
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_17
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_18
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_19
-    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_20
-    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_21
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_IDLE
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_HANDS_ON_HIPS
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_TALK_NORMAL
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_TALK_HANDS_ON_HIPS
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_BLOWGUN
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_WALK
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_SURPRISE
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_HIDE_UNDER_BOX
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_DAZED
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_SIT
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_CLIMB
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_HOLD_CUCCO
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_TURN_AROUND
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_SHOW_NUMBER
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_TALK_SHOWING_NUMBER
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_TAUNT
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_JUMP
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_ARM_SWIPE
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_SALUTE
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_RUN
+    ANIMMODE_LOOP, // ENBOMJIMB_ANIM_LOOK_AROUND
+    ANIMMODE_ONCE, // ENBOMJIMB_ANIM_CAUGHT
 };
 
 void EnBomjimb_Init(Actor* thisx, PlayState* play) {
@@ -152,8 +152,8 @@ void EnBomjimb_Init(Actor* thisx, PlayState* play) {
     this->actor.colChkInfo.mass = MASS_IMMOVABLE;
     ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 19.0f);
     this->actor.gravity = -2.0f;
-    SkelAnime_InitFlex(play, &this->skelAnime, &object_cs_Skel_00F82C, &gBomberIdleAnim, this->jointTable,
-                       this->morphTable, OBJECT_CS_LIMB_MAX);
+    SkelAnime_InitFlex(play, &this->skelAnime, &gBomberSkel, &gBomberIdleAnim, this->jointTable, this->morphTable,
+                       OBJECT_CS_LIMB_MAX);
     Collider_InitAndSetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
     this->actor.attentionRangeType = ATTENTION_RANGE_6;
     Actor_SetScale(&this->actor, 0.01f);
@@ -243,22 +243,22 @@ void EnBomjimb_ChangeAnim(EnBomjimb* this, s32 animIndex, f32 playSpeed) {
 }
 
 void func_80C011CC(EnBomjimb* this) {
-    if ((this->animIndex == ENBOMJIMB_ANIM_5) &&
+    if ((this->animIndex == ENBOMJIMB_ANIM_WALK) &&
         (Animation_OnFrame(&this->skelAnime, 9.0f) || Animation_OnFrame(&this->skelAnime, 10.0f) ||
          Animation_OnFrame(&this->skelAnime, 17.0f) || Animation_OnFrame(&this->skelAnime, 18.0f))) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_WALK);
     }
 
-    if ((this->animIndex == ENBOMJIMB_ANIM_19) &&
+    if ((this->animIndex == ENBOMJIMB_ANIM_RUN) &&
         (Animation_OnFrame(&this->skelAnime, 2.0f) || Animation_OnFrame(&this->skelAnime, 6.0f))) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_WALK);
     }
 
-    if ((this->animIndex == ENBOMJIMB_ANIM_18) && Animation_OnFrame(&this->skelAnime, 15.0f)) {
+    if ((this->animIndex == ENBOMJIMB_ANIM_SALUTE) && Animation_OnFrame(&this->skelAnime, 15.0f)) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_LAND);
     }
 
-    if ((this->animIndex == ENBOMJIMB_ANIM_7) && Animation_OnFrame(&this->skelAnime, 8.0f)) {
+    if ((this->animIndex == ENBOMJIMB_ANIM_HIDE_UNDER_BOX) && Animation_OnFrame(&this->skelAnime, 8.0f)) {
         Actor_PlaySfx(&this->actor, NA_SE_EV_BOMBERS_LAND);
     }
 }
@@ -342,7 +342,7 @@ void func_80C014E4(EnBomjimb* this, PlayState* play) {
                 abs = ABS_ALT(BINANG_SUB(this->actor.world.rot.y, Math_Vec3f_Yaw(&this->actor.world.pos, &sp48)));
                 if ((abs < 0x4000) && !BgCheck_EntityLineTest1(&play->colCtx, &this->actor.world.pos, &sp48, &sp60,
                                                                &colPoly, true, false, false, true, &bgId)) {
-                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_5, 1.0f);
+                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_WALK, 1.0f);
                     Math_Vec3f_Copy(&this->unk_294, &sp48);
                     this->unk_2B0 = Rand_S16Offset(30, 50);
                     this->unk_2CC++;
@@ -364,9 +364,9 @@ void func_80C014E4(EnBomjimb* this, PlayState* play) {
                                             false, true, &bgId)) {
                     this->unk_2AE = 0;
                     if (Rand_ZeroOne() < 0.5f) {
-                        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_20, 1.0f);
+                        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_LOOK_AROUND, 1.0f);
                     } else {
-                        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_0, 1.0f);
+                        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_IDLE, 1.0f);
                     }
                     this->unk_2CC = 0;
                     this->unk_2B4 = 0.0f;
@@ -380,9 +380,9 @@ void func_80C014E4(EnBomjimb* this, PlayState* play) {
             if ((this->unk_2B0 == 0) || (sqrtf(SQ(x) + SQ(z)) < 4.0f)) {
                 this->unk_2AE = Rand_S16Offset(20, 20);
                 if (!(this->unk_2AE & 1)) {
-                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_20, 1.0f);
+                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_LOOK_AROUND, 1.0f);
                 } else {
-                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_0, 1.0f);
+                    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_IDLE, 1.0f);
                 }
                 this->unk_2CC = 0;
                 this->unk_2B4 = 0.0f;
@@ -417,7 +417,7 @@ void func_80C01984(EnBomjimb* this, PlayState* play) {
         Actor_Spawn(&play->actorCtx, play, ACTOR_EN_NIW, this->actor.world.pos.x, this->actor.world.pos.y + 30.0f,
                     this->actor.world.pos.z, 0, this->actor.world.rot.y, 0, 2);
     if (this->unk_2E4 != NULL) {
-        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_11, 1.0f);
+        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_HOLD_CUCCO, 1.0f);
     }
     this->unk_2CA = 0;
     this->actionFunc = func_80C01A24;
@@ -500,14 +500,14 @@ void func_80C01CD0(EnBomjimb* this, PlayState* play) {
         return;
     }
 
-    if (this->animIndex != ENBOMJIMB_ANIM_7) {
+    if (this->animIndex != ENBOMJIMB_ANIM_HIDE_UNDER_BOX) {
         Math_SmoothStepToS(&this->actor.world.rot.y, Math_Vec3f_Yaw(&this->actor.world.pos, &this->unk_294), 1, 0xBB8,
                            0);
         Math_ApproachF(&this->actor.world.pos.x, this->unk_294.x, 0.3f, 2.0f);
         Math_ApproachF(&this->actor.world.pos.z, this->unk_294.z, 0.3f, 2.0f);
         if (sqrtf(SQ(this->actor.world.pos.x - this->unk_294.x) + SQ(this->actor.world.pos.z - this->unk_294.z)) <
             3.0f) {
-            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_7, 1.0f);
+            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_HIDE_UNDER_BOX, 1.0f);
             Math_Vec3f_Copy(&this->actor.world.pos, &this->unk_294);
         }
     } else if (curFrame >= this->animEndFrame) {
@@ -551,7 +551,7 @@ void func_80C01CD0(EnBomjimb* this, PlayState* play) {
 
 void func_80C01FD4(EnBomjimb* this) {
     this->actor.textId = 0x72D;
-    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_9, 1.0f);
+    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_SIT, 1.0f);
     this->unk_2CA = 4;
     this->actionFunc = func_80C0201C;
 }
@@ -578,7 +578,7 @@ void func_80C0201C(EnBomjimb* this, PlayState* play) {
 }
 
 void func_80C02108(EnBomjimb* this) {
-    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_6, 1.0f);
+    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_SURPRISE, 1.0f);
     this->unk_2D6 = BINANG_ROT180(this->actor.yawTowardsPlayer);
     this->actor.world.rot.y = this->actor.yawTowardsPlayer;
     func_80C012E0(this);
@@ -608,11 +608,11 @@ void func_80C0217C(EnBomjimb* this, PlayState* play) {
         return;
     }
 
-    if (this->animIndex == ENBOMJIMB_ANIM_6) {
+    if (this->animIndex == ENBOMJIMB_ANIM_SURPRISE) {
         f32 curFrame = this->skelAnime.curFrame;
 
         if (curFrame >= this->animEndFrame) {
-            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_19, 2.0f);
+            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_RUN, 2.0f);
         }
         return;
     }
@@ -673,7 +673,7 @@ void func_80C0217C(EnBomjimb* this, PlayState* play) {
 }
 
 void func_80C0250C(EnBomjimb* this) {
-    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_15, 1.0f);
+    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_TAUNT, 1.0f);
     this->unk_2D4 = 0;
     this->actor.speed = 0.0f;
     this->unk_2D6 = BINANG_ROT180(this->actor.yawTowardsPlayer);
@@ -693,7 +693,7 @@ void func_80C02570(EnBomjimb* this, PlayState* play) {
 
     if (this->actor.xzDistToPlayer < 200.0f) {
         this->unk_2D6 = BINANG_ROT180(this->actor.yawTowardsPlayer);
-        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_19, 2.0f);
+        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_RUN, 2.0f);
         this->actionFunc = func_80C0217C;
     } else if ((player->stateFlags3 == PLAYER_STATE3_1000000) || (this->actor.xzDistToPlayer > 410.0f)) {
         Math_SmoothStepToS(&this->actor.world.rot.y, this->actor.yawTowardsPlayer, 1, 0xBB8, 0);
@@ -703,7 +703,7 @@ void func_80C02570(EnBomjimb* this, PlayState* play) {
 
 void func_80C0267C(EnBomjimb* this) {
     func_80C012E0(this);
-    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_8, 1.0f);
+    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_DAZED, 1.0f);
     this->actor.speed = 0.0f;
     this->actor.world.rot.y = this->actor.yawTowardsPlayer;
     this->unk_2AE = 40;
@@ -726,9 +726,9 @@ void func_80C02740(EnBomjimb* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     func_80C012E0(this);
-    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_21, 1.0f);
+    EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_CAUGHT, 1.0f);
     if ((player->transformation != PLAYER_FORM_DEKU) && (player->transformation != PLAYER_FORM_HUMAN)) {
-        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_17, 1.0f);
+        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_ARM_SWIPE, 1.0f);
         Message_StartTextbox(play, 0x72E, &this->actor);
         player->stateFlags1 |= PLAYER_STATE1_10000000;
         player->actor.freezeTimer = 3;
@@ -740,7 +740,7 @@ void func_80C02740(EnBomjimb* this, PlayState* play) {
 
     if (((player->transformation == PLAYER_FORM_DEKU) && !CHECK_WEEKEVENTREG(WEEKEVENTREG_73_10)) ||
         ((player->transformation == PLAYER_FORM_HUMAN) && !CHECK_WEEKEVENTREG(WEEKEVENTREG_85_02))) {
-        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_17, 1.0f);
+        EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_ARM_SWIPE, 1.0f);
         Message_StartTextbox(play, 0x72E, &this->actor);
         player->stateFlags1 |= PLAYER_STATE1_10000000;
         player->actor.freezeTimer = 3;
@@ -807,15 +807,15 @@ void func_80C02A14(EnBomjimb* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
     f32 curFrame = this->skelAnime.curFrame;
 
-    if (this->animIndex == ENBOMJIMB_ANIM_21) {
+    if (this->animIndex == ENBOMJIMB_ANIM_CAUGHT) {
         player->actor.freezeTimer = 3;
         if (curFrame >= this->animEndFrame) {
-            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_9, 1.0f);
+            EnBomjimb_ChangeAnim(this, ENBOMJIMB_ANIM_SIT, 1.0f);
         }
         return;
     }
 
-    if ((this->unk_2CA == 8) && (this->animIndex == ENBOMJIMB_ANIM_9)) {
+    if ((this->unk_2CA == 8) && (this->animIndex == ENBOMJIMB_ANIM_SIT)) {
         player->actor.freezeTimer = 3;
         if (this->unk_2E0 == 0) {
             if (Animation_OnFrame(&this->skelAnime, 7.0f)) {
@@ -825,7 +825,7 @@ void func_80C02A14(EnBomjimb* this, PlayState* play) {
         }
     }
 
-    if ((this->animIndex == ENBOMJIMB_ANIM_15) && (this->unk_2CA == 8)) {
+    if ((this->animIndex == ENBOMJIMB_ANIM_TAUNT) && (this->unk_2CA == 8)) {
         player->actor.freezeTimer = 3;
     }
 
@@ -966,16 +966,16 @@ s32 EnBomjimb_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3
 
 void EnBomjimb_Draw(Actor* thisx, PlayState* play) {
     static Gfx* D_80C03260[] = {
-        gEnBomjimb_D_80C03240, gEnBomjimb_D_80C03250, gEnBomjimb_D_80C03250,
-        gEnBomjimb_D_80C03250, gEnBomjimb_D_80C03250,
+        gBomberCatchRedBandanaDL,  gBomberCatchBlueBandanaDL, gBomberCatchBlueBandanaDL,
+        gBomberCatchBlueBandanaDL, gBomberCatchBlueBandanaDL,
     };
     static TexturePtr D_80C03274[] = {
-        object_cs_Tex_00C520,
-        object_cs_Tex_00CD20,
-        object_cs_Tex_00D520,
+        gBomberEyeOpenTex,
+        gBomberEyeHalfTex,
+        gBomberEyeClosedTex,
     };
     static TexturePtr D_80C03280[] = {
-        object_cs_Tex_00E620, object_cs_Tex_00EA20, object_cs_Tex_00EE20, object_cs_Tex_00DD20, object_cs_Tex_00F220,
+        gBomberNumber1Tex, gBomberNumber2Tex, gBomberNumber3Tex, gBomberNumber4Tex, gBomberNumber5Tex,
     };
     EnBomjimb* this = (EnBomjimb*)thisx;
 

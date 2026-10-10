@@ -6,24 +6,24 @@
         <Texture Name="gDmZl4DressTLUT" OutName="dress_tlut" Format="rgba16" Width="16" Height="16" Offset="0x670" />
         <Texture Name="gDmZl4EyeTLUT" OutName="eye_tlut" Format="rgba16" Width="16" Height="16" Offset="0x870" />
         <Texture Name="gDmZl4MouthTLUT" OutName="mouth_tlut" Format="rgba16" Width="16" Height="16" Offset="0xA70" />
-        <Texture Name="gDmZl4DressGradientTex" OutName="dress_gradient" Format="ci8" Width="8" Height="8" Offset="0xC70" />
-        <Texture Name="gDmZl4DressPurpleTex" OutName="purple_dress_patern" Format="ci8" Width="16" Height="16" Offset="0xCB0" />
-        <Texture Name="gDmZl4TriforceSashTex" OutName="triforce_sash" Format="ci8" Width="32" Height="64" Offset="0xDB0" />
+        <Texture Name="gDmZl4DressGradientTex" OutName="dress_gradient" Format="ci8" Width="8" Height="8" Offset="0xC70" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4DressPurpleTex" OutName="purple_dress_patern" Format="ci8" Width="16" Height="16" Offset="0xCB0" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4TriforceSashTex" OutName="triforce_sash" Format="ci8" Width="32" Height="64" Offset="0xDB0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4BootLacesTex" OutName="boot_laces" Format="rgba16" Width="8" Height="8" Offset="0x15B0" />
         <Texture Name="gDmZl4BootTex" OutName="boot" Format="rgba16" Width="8" Height="8" Offset="0x1630" />
-        <Texture Name="gDmZl4AltDressBeltTex" OutName="alternate_dress_belt" Format="ci8" Width="32" Height="8" Offset="0x16B0" />
-        <Texture Name="gDmZl4AltDressTex" OutName="alternate_dress_patern" Format="ci8" Width="8" Height="8" Offset="0x17B0" />
-        <Texture Name="gDmZl4DressWrinklesTex" OutName="dress_wrinkles" Format="ci8" Width="32" Height="32" Offset="0x17F0" />
+        <Texture Name="gDmZl4AltDressBeltTex" OutName="alternate_dress_belt" Format="ci8" Width="32" Height="8" Offset="0x16B0" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4AltDressTex" OutName="alternate_dress_patern" Format="ci8" Width="8" Height="8" Offset="0x17B0" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4DressWrinklesTex" OutName="dress_wrinkles" Format="ci8" Width="32" Height="32" Offset="0x17F0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4AltDressLiningTex" OutName="alternate_dress_lining" Format="rgba16" Width="8" Height="16" Offset="0x1BF0" />
-        <Texture Name="gDmZl4AltDressGradientTex" OutName="alternate_dress_gradient" Format="ci8" Width="16" Height="16" Offset="0x1CF0" />
+        <Texture Name="gDmZl4AltDressGradientTex" OutName="alternate_dress_gradient" Format="ci8" Width="16" Height="16" Offset="0x1CF0" TlutOffset="0x670"/>
 
         <!-- not named in OOT, some blue blemish center -->
-        <Texture Name="gDmZl4_001DF0_Tex" OutName="tex_001DF0" Format="ci8" Width="8" Height="8" Offset="0x1DF0" />
+        <Texture Name="gDmZl4_001DF0_Tex" OutName="tex_001DF0" Format="ci8" Width="8" Height="8" Offset="0x1DF0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4HeadressTriforceEmblemTex" OutName="headdress_triforce_emblem" Format="rgba16" Width="16" Height="32" Offset="0x1E30" />
-        <Texture Name="gDmZl4HeadressGradientTex" OutName="headdress_gradient" Format="ci8" Width="8" Height="8" Offset="0x2230" />
+        <Texture Name="gDmZl4HeadressGradientTex" OutName="headdress_gradient" Format="ci8" Width="8" Height="8" Offset="0x2230" TlutOffset="0x670"/>
         <!-- not named in OOT, gradient with dark blotch bottom-->
-        <Texture Name="gDmZl4_002270_Tex" OutName="tex_002270" Format="ci8" Width="8" Height="16" Offset="0x2270" />
-        <Texture Name="gDmZl4HeaddressStripeTex" OutName="headdress_stripe" Format="ci8" Width="16" Height="32" Offset="0x22F0" />
+        <Texture Name="gDmZl4_002270_Tex" OutName="tex_002270" Format="ci8" Width="8" Height="16" Offset="0x2270" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4HeaddressStripeTex" OutName="headdress_stripe" Format="ci8" Width="16" Height="32" Offset="0x22F0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4EarTex" OutName="ear" Format="rgba16" Width="16" Height="16" Offset="0x24F0" />
         <Texture Name="gDmZl4HairOnSideTex" OutName="hair_on_side" Format="rgba16" Width="16" Height="16" Offset="0x26F0" />
         <Texture Name="gDmZl4SkinGradientTex" OutName="skin_gradient" Format="rgba16" Width="8" Height="8" Offset="0x28F0" />
@@ -47,11 +47,11 @@
         <Texture Name="gZl4MouthOpenTex" OutName="mouth_open" Format="ci8" Width="32" Height="32" Offset="0x52F0" TlutOffset="0xA70"/>
 
         <Texture Name="gDmZl4FingersTex" OutName="fingers" Format="rgba16" Width="16" Height="16" Offset="0x56F0" />
-        <Texture Name="gDmZl4BraceletTex" OutName="bracelet" Format="ci8" Width="16" Height="16" Offset="0x58F0" />
+        <Texture Name="gDmZl4BraceletTex" OutName="bracelet" Format="ci8" Width="16" Height="16" Offset="0x58F0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4BlueUndershirtGradient1Tex" OutName="blue_undershirt_gradient" Format="rgba16" Width="8" Height="8" Offset="0x59F0" />
         <Texture Name="gDmZl4BlueUndershirtGradient2Tex" OutName="blue_undershirt_gradient_2" Format="rgba16" Width="16" Height="16" Offset="0x5A70" />
-        <Texture Name="gDmZl4StripedShoulderTex" OutName="striped_shoulder_patern" Format="ci8" Width="8" Height="8" Offset="0x5C70" />
-        <Texture Name="gDmZl4UndershirtWrinklesTex" OutName="undershirt_wrinkles" Format="ci8" Width="16" Height="16" Offset="0x5CB0" />
+        <Texture Name="gDmZl4StripedShoulderTex" OutName="striped_shoulder_patern" Format="ci8" Width="8" Height="8" Offset="0x5C70" TlutOffset="0x670"/>
+        <Texture Name="gDmZl4UndershirtWrinklesTex" OutName="undershirt_wrinkles" Format="ci8" Width="16" Height="16" Offset="0x5CB0" TlutOffset="0x670"/>
         <Texture Name="gDmZl4PendantTex" OutName="pendant" Format="rgba16" Width="32" Height="32" Offset="0x5DB0" />
 
         <DList Name="gDmZl4ChestDL" Offset="0xA630" />

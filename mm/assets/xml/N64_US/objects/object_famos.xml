@@ -11,10 +11,10 @@
         <Texture Name="gFamosBottomTLUT" OutName="bottom_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2088" />
         <Texture Name="gFamosShieldTLUT" OutName="shield_tlut" Format="rgba16" Width="4" Height="4" Offset="0x20A8" />
         <Texture Name="gFamosSwordHiltTLUT" OutName="sword_hilt_tlut" Format="rgba16" Width="4" Height="4" Offset="0x20C8" />
-        <Texture Name="gFamosMainBodyTex" OutName="famos_main_body" Format="ci4" Width="64" Height="64" Offset="0x20E8" />
-        <Texture Name="gFamosBottomTex" OutName="famos_bottom" Format="ci4" Width="32" Height="32" Offset="0x28E8" />
-        <Texture Name="gFamosShieldTex" OutName="famos_shield" Format="ci4" Width="64" Height="64" Offset="0x2AE8" />
-        <Texture Name="gFamosSwordHiltTex" OutName="famos_sword_hilt" Format="ci4" Width="32" Height="32" Offset="0x32E8" />
+        <Texture Name="gFamosMainBodyTex" OutName="famos_main_body" Format="ci4" Width="64" Height="64" Offset="0x20E8" TlutOffset="0x2068"/>
+        <Texture Name="gFamosBottomTex" OutName="famos_bottom" Format="ci4" Width="32" Height="32" Offset="0x28E8" TlutOffset="0x2088"/>
+        <Texture Name="gFamosShieldTex" OutName="famos_shield" Format="ci4" Width="64" Height="64" Offset="0x2AE8" TlutOffset="0x20A8"/>
+        <Texture Name="gFamosSwordHiltTex" OutName="famos_sword_hilt" Format="ci4" Width="32" Height="32" Offset="0x32E8" TlutOffset="0x20C8"/>
         <Texture Name="gFamosLightSwitchTex" OutName="famos_light_switch" Format="rgba16" Width="32" Height="32" Offset="0x34E8" />
 
         <Limb Name="gFamosBodyLimb" Type="Standard" EnumName="FAMOS_LIMB_BODY" Offset="0x3CE8" />

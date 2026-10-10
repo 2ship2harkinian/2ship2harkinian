@@ -320,7 +320,8 @@ void func_8088AA98(EnArrow* this, PlayState* play) {
     Vec3f sp44;
     f32 temp_f0;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp50, &waterBox) &&
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp50,
+                                         &waterBox) &&
         (this->actor.world.pos.y < sp50) && !(this->actor.bgCheckFlags & BGCHECKFLAG_WATER)) {
         this->actor.bgCheckFlags |= BGCHECKFLAG_WATER;
 

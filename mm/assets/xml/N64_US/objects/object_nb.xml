@@ -29,7 +29,7 @@
         <Texture Name="gNbHairTex" OutName="nb_hair" Format="ci8" Width="16" Height="32" Offset="0x71D0" TlutOffset="0x6B10" />
         <Texture Name="gNbEyeTex" OutName="nb_eye" Format="ci8" Width="16" Height="8" Offset="0x73D0" TlutOffset="0x6910" />
         <Texture Name="gNbLowerEyelidTex" OutName="nb_lower_eyelid" Format="ci8" Width="16" Height="8" Offset="0x7450" TlutOffset="0x6910" />
-        <Texture Name="object_nb_Tex_0074D0" OutName="tex_0074D0" Format="ci8" Width="16" Height="8" Offset="0x74D0" TlutOffset="0x6D10" />
+        <Texture Name="object_nb_Tex_0074D0" OutName="tex_0074D0" Format="ci8" Width="16" Height="8" Offset="0x74D0" TlutOffset="0x6910" />
         <Texture Name="object_nb_Tex_007550" OutName="tex_007550" Format="ci8" Width="16" Height="16" Offset="0x7550" TlutOffset="0x6B10" />
         <Texture Name="object_nb_Tex_007650" OutName="tex_007650" Format="i8" Width="16" Height="16" Offset="0x7650" />
         <Texture Name="object_nb_Tex_007750" OutName="tex_007750" Format="rgba16" Width="8" Height="8" Offset="0x7750" />
@@ -38,7 +38,7 @@
         <Texture Name="object_nb_Tex_0079D0" OutName="tex_0079D0" Format="ci8" Width="32" Height="16" Offset="0x79D0" TlutOffset="0x6B10" />
         <Texture Name="gNbBookCoverTex" OutName="nb_book_cover" Format="ci8" Width="16" Height="16" Offset="0x7BD0" TlutOffset="0x6B10" />
         <Texture Name="gNbSkirtTex" OutName="nb_skirt" Format="ci8" Width="16" Height="16" Offset="0x7CD0" TlutOffset="0x6910" />
-        <Texture Name="gNbBookPageTex" OutName="nb_book_page" Format="ci8" Width="16" Height="16" Offset="0x7DD0" TlutOffset="0x6D10" />
+        <Texture Name="gNbBookPageTex" OutName="nb_book_page" Format="ci8" Width="16" Height="16" Offset="0x7DD0" TlutOffset="0x6910" />
         <Texture Name="gNbFingersTex" OutName="nb_fingers" Format="ci8" Width="16" Height="16" Offset="0x7ED0" TlutOffset="0x6910" />
         <Texture Name="gNbTigerTex" OutName="nb_tiger" Format="ci8" Width="32" Height="64" Offset="0x7FD0" TlutOffset="0x6D10" />
         <Texture Name="object_nb_Tex_0087D0" OutName="tex_0087D0" Format="ci8" Width="32" Height="32" Offset="0x87D0" TlutOffset="0x6B10" />

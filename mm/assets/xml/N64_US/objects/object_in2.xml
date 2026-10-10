@@ -19,28 +19,28 @@
         <DList Name="object_in2_DL_0048F8" Offset="0x48F8" />
         <DList Name="object_in2_DL_0049F0" Offset="0x49F0" />
         <DList Name="object_in2_DL_004AF8" Offset="0x4AF8" />
-        <Texture Name="object_in2_Tex_004C28" OutName="tex_004C28" Format="rgba16" Width="16" Height="16" Offset="0x4C28" />
+        <Texture Name="object_in2_TLUT_004C28" OutName="tlut_004C28" Format="rgba16" Width="16" Height="16" Offset="0x4C28" />
         <Texture Name="object_in2_TLUT_004E28" OutName="tlut_004E28" Format="rgba16" Width="16" Height="16" Offset="0x4E28" />
-        <Texture Name="object_in2_Tex_005028" OutName="tex_005028" Format="ci8" Width="32" Height="32" Offset="0x5028" />
-        <Texture Name="object_in2_Tex_005428" OutName="tex_005428" Format="ci8" Width="8" Height="8" Offset="0x5428" />
-        <Texture Name="object_in2_Tex_005468" OutName="tex_005468" Format="ci8" Width="8" Height="8" Offset="0x5468" />
-        <Texture Name="object_in2_Tex_0054A8" OutName="tex_0054A8" Format="ci8" Width="32" Height="32" Offset="0x54A8" />
+        <Texture Name="object_in2_Tex_005028" OutName="tex_005028" Format="ci8" Width="32" Height="32" Offset="0x5028" TlutOffset="0x4C28"/>
+        <Texture Name="object_in2_Tex_005428" OutName="tex_005428" Format="ci8" Width="8" Height="8" Offset="0x5428" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_005468" OutName="tex_005468" Format="ci8" Width="8" Height="8" Offset="0x5468" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_0054A8" OutName="tex_0054A8" Format="ci8" Width="32" Height="32" Offset="0x54A8" TlutOffset="0x4C28"/>
         <Texture Name="object_in2_Tex_0058A8" OutName="tex_0058A8" Format="rgba16" Width="16" Height="16" Offset="0x58A8" />
-        <Texture Name="object_in2_Tex_005AA8" OutName="tex_005AA8" Format="ci8" Width="16" Height="16" Offset="0x5AA8" />
-        <Texture Name="object_in2_Tex_005BA8" OutName="tex_005BA8" Format="ci8" Width="16" Height="16" Offset="0x5BA8" />
+        <Texture Name="object_in2_Tex_005AA8" OutName="tex_005AA8" Format="ci8" Width="16" Height="16" Offset="0x5AA8" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_005BA8" OutName="tex_005BA8" Format="ci8" Width="16" Height="16" Offset="0x5BA8" TlutOffset="0x4E28"/>
         <Texture Name="object_in2_Tex_005CA8" OutName="tex_005CA8" Format="i8" Width="8" Height="8" Offset="0x5CA8" />
-        <Texture Name="object_in2_Tex_005CE8" OutName="tex_005CE8" Format="ci8" Width="32" Height="32" Offset="0x5CE8" />
-        <Texture Name="object_in2_Tex_0060E8" OutName="tex_0060E8" Format="ci8" Width="16" Height="32" Offset="0x60E8" />
-        <Texture Name="object_in2_Tex_0062E8" OutName="tex_0062E8" Format="ci8" Width="16" Height="16" Offset="0x62E8" />
-        <Texture Name="object_in2_Tex_0063E8" OutName="tex_0063E8" Format="ci8" Width="8" Height="8" Offset="0x63E8" />
-        <Texture Name="object_in2_Tex_006428" OutName="tex_006428" Format="ci8" Width="16" Height="16" Offset="0x6428" />
-        <Texture Name="object_in2_Tex_006528" OutName="tex_006528" Format="ci8" Width="16" Height="16" Offset="0x6528" />
+        <Texture Name="object_in2_Tex_005CE8" OutName="tex_005CE8" Format="ci8" Width="32" Height="32" Offset="0x5CE8" TlutOffset="0x4C28"/>
+        <Texture Name="object_in2_Tex_0060E8" OutName="tex_0060E8" Format="ci8" Width="16" Height="32" Offset="0x60E8" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_0062E8" OutName="tex_0062E8" Format="ci8" Width="16" Height="16" Offset="0x62E8" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_0063E8" OutName="tex_0063E8" Format="ci8" Width="8" Height="8" Offset="0x63E8" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_006428" OutName="tex_006428" Format="ci8" Width="16" Height="16" Offset="0x6428" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_006528" OutName="tex_006528" Format="ci8" Width="16" Height="16" Offset="0x6528" TlutOffset="0x4E28"/>
         <Texture Name="object_in2_Tex_006628" OutName="tex_006628" Format="i8" Width="16" Height="16" Offset="0x6628" />
-        <Texture Name="object_in2_Tex_006728" OutName="tex_006728" Format="i8" Width="16" Height="16" Offset="0x6728" />
-        <Texture Name="object_in2_Tex_006828" OutName="tex_006828" Format="ci8" Width="32" Height="32" Offset="0x6828" />
-        <Texture Name="object_in2_Tex_006C28" OutName="tex_006C28" Format="ci8" Width="8" Height="8" Offset="0x6C28" />
-        <Texture Name="object_in2_Tex_006C68" OutName="tex_006C68" Format="ci8" Width="32" Height="32" Offset="0x6C68" />
-        <Texture Name="object_in2_Tex_007068" OutName="tex_007068" Format="ci8" Width="8" Height="8" Offset="0x7068" />
+        <Texture Name="object_in2_Tex_006728" OutName="tex_006728" Format="i8" Width="16" Height="16" Offset="0x6728"/>
+        <Texture Name="object_in2_Tex_006828" OutName="tex_006828" Format="ci8" Width="32" Height="32" Offset="0x6828" TlutOffset="0x4C28"/>
+        <Texture Name="object_in2_Tex_006C28" OutName="tex_006C28" Format="ci8" Width="8" Height="8" Offset="0x6C28" TlutOffset="0x4E28"/>
+        <Texture Name="object_in2_Tex_006C68" OutName="tex_006C68" Format="ci8" Width="32" Height="32" Offset="0x6C68" TlutOffset="0x4C28"/>
+        <Texture Name="object_in2_Tex_007068" OutName="tex_007068" Format="ci8" Width="8" Height="8" Offset="0x7068" TlutOffset="0x4E28"/>
         <DList Name="object_in2_DL_007198" Offset="0x7198" />
         <DList Name="object_in2_DL_0071A0" Offset="0x71A0" />
         <Texture Name="object_in2_Tex_007260" OutName="tex_007260" Format="rgba16" Width="16" Height="16" Offset="0x7260" />

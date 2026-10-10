@@ -133,7 +133,7 @@ s32 ObjAqua_IsUnderwater(ObjAqua* this, PlayState* play) {
     f32 waterSurface;
     s32 bgId;
 
-    if (WaterBox_GetSurfaceImpl(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterSurface,
+    if (BgCheck_GetWaterSurface(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterSurface,
                                 &waterBox, &bgId) &&
         (this->actor.world.pos.y < waterSurface)) {
         return true;

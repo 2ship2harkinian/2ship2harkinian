@@ -12,7 +12,7 @@
         <Texture Name="gSunsSongGraveTriforceGraniteTex" OutName="sun_song_grave_triforce_granite" Format="rgba16" Width="32" Height="32" Offset="0x678" />
         <Texture Name="gSunsSongGraveTriforceMarbleTex" OutName="sun_song_grave_triforce_marble" Format="rgba16" Width="32" Height="64" Offset="0xE78" />
         <Texture Name="gSunsSongGraveTriforceSymbolTex" OutName="sun_song_grave_triforce_symbol" Format="ia4" Width="128" Height="16" Offset="0x1E78" />
-        <Texture Name="gSunsSongGraveTriforceStoneInscriptionTex" OutName="sun_song_grave_triforce_stone_inscription" Format="ci4" Width="64" Height="64" Offset="0x2278" />
+        <Texture Name="gSunsSongGraveTriforceStoneInscriptionTex" OutName="sun_song_grave_triforce_stone_inscription" Format="ci4" Width="64" Height="64" Offset="0x2278" TlutOffset="0x658"/>
         <Texture Name="gSunsSongGraveTriforceStaffNotesTex" OutName="sun_song_grave_triforce_staff_notes" Format="ia4" Width="128" Height="32" Offset="0x2A78" />
         <Collision Name="gSunsSongGraveTriforceCol" Offset="0x33F8" />
     </File>

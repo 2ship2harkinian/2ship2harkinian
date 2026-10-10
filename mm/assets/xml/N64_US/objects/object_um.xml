@@ -21,13 +21,13 @@
         <Texture Name="object_um_Tex_004C80" OutName="tex_004C80" Format="i8" Width="32" Height="32" Offset="0x4C80" />
         <DList Name="gUmBrokenMinigamePotDL" Offset="0x52B0" />
         <Texture Name="object_um_TLUT_0054D0" OutName="tlut_0054D0" Format="rgba16" Width="16" Height="16" Offset="0x54D0" />
-        <Texture Name="object_um_Tex_0056D0" OutName="tex_0056D0" Format="ci8" Width="8" Height="8" Offset="0x56D0" />
-        <Texture Name="object_um_Tex_005710" OutName="tex_005710" Format="ci8" Width="32" Height="64" Offset="0x5710" />
-        <Texture Name="object_um_Tex_005F10" OutName="tex_005F10" Format="ci8" Width="32" Height="32" Offset="0x5F10" />
+        <Texture Name="object_um_Tex_0056D0" OutName="tex_0056D0" Format="ci8" Width="8" Height="8" Offset="0x56D0" TlutOffset="0x54D0"/>
+        <Texture Name="object_um_Tex_005710" OutName="tex_005710" Format="ci8" Width="32" Height="64" Offset="0x5710" TlutOffset="0x54D0"/>
+        <Texture Name="object_um_Tex_005F10" OutName="tex_005F10" Format="ci8" Width="32" Height="32" Offset="0x5F10" TlutOffset="0x54D0"/>
         <DList Name="object_um_DL_0067C0" Offset="0x67C0" /> <!-- pre-minigame pot? -->
         <Texture Name="object_um_TLUT_006AD0" OutName="tlut_006AD0" Format="rgba16" Width="16" Height="16" Offset="0x6AD0" />
-        <Texture Name="object_um_Tex_006CD0" OutName="tex_006CD0" Format="ci8" Width="8" Height="8" Offset="0x6CD0" />
-        <Texture Name="object_um_Tex_006D10" OutName="tex_006D10" Format="ci8" Width="32" Height="64" Offset="0x6D10" />
+        <Texture Name="object_um_Tex_006CD0" OutName="tex_006CD0" Format="ci8" Width="8" Height="8" Offset="0x6CD0" TlutOffset="0x6AD0"/>
+        <Texture Name="object_um_Tex_006D10" OutName="tex_006D10" Format="ci8" Width="32" Height="64" Offset="0x6D10" TlutOffset="0x6AD0"/>
         <Texture Name="object_um_Tex_007510" OutName="tex_007510" Format="rgba16" Width="32" Height="32" Offset="0x7510" />
 
         <TextureAnimation Name="object_um_Matanimheader_007D10" Offset="0x7D10" /> <!-- Empty TexAnim -->
@@ -87,12 +87,12 @@
         <Texture Name="object_um_TLUT_012ED0" OutName="tlut_012ED0" Format="rgba16" Width="16" Height="16" Offset="0x12ED0" />
         <Texture Name="object_um_TLUT_0130D0" OutName="tlut_0130D0" Format="rgba16" Width="16" Height="16" Offset="0x130D0" />
         <Texture Name="object_um_TLUT_0132D0" OutName="tlut_0132D0" Format="rgba16" Width="16" Height="16" Offset="0x132D0" />
-        <Texture Name="object_um_Tex_0134D0" OutName="tex_0134D0" Format="ci8" Width="32" Height="32" Offset="0x134D0" />
-        <Texture Name="object_um_Tex_0138D0" OutName="tex_0138D0" Format="ci8" Width="32" Height="32" Offset="0x138D0" />
+        <Texture Name="object_um_Tex_0134D0" OutName="tex_0134D0" Format="ci8" Width="32" Height="32" Offset="0x134D0" TlutOffset="0x12CD0"/>
+        <Texture Name="object_um_Tex_0138D0" OutName="tex_0138D0" Format="ci8" Width="32" Height="32" Offset="0x138D0" TlutOffset="0x12CD0"/>
         <Texture Name="object_um_Tex_013CD0" OutName="tex_013CD0" Format="rgba16" Width="32" Height="32" Offset="0x13CD0" />
-        <Texture Name="object_um_Tex_0144D0" OutName="tex_0144D0" Format="ci8" Width="32" Height="64" Offset="0x144D0" />
-        <Texture Name="object_um_Tex_014CD0" OutName="tex_014CD0" Format="ci8" Width="32" Height="64" Offset="0x14CD0" />
-        <Texture Name="object_um_Tex_0154D0" OutName="tex_0154D0" Format="ci8" Width="32" Height="64" Offset="0x154D0" />
+        <Texture Name="object_um_Tex_0144D0" OutName="tex_0144D0" Format="ci8" Width="32" Height="64" Offset="0x144D0" TlutOffset="0x12CD0"/>
+        <Texture Name="object_um_Tex_014CD0" OutName="tex_014CD0" Format="ci8" Width="32" Height="64" Offset="0x14CD0" TlutOffset="0x12ED0"/>
+        <Texture Name="object_um_Tex_0154D0" OutName="tex_0154D0" Format="ci8" Width="32" Height="64" Offset="0x154D0" TlutOffset="0x12ED0"/>
         <Texture Name="object_um_Tex_015CD0" OutName="tex_015CD0" Format="rgba16" Width="32" Height="32" Offset="0x15CD0" />
 
         <Texture Name="gUmCremiaEyeOpenTex" OutName="cremia_eye_open" Format="ci8" Width="32" Height="32" Offset="0x164D0" TlutOffset="0x130D0" />
@@ -107,20 +107,20 @@
         <Texture Name="gUmMouthFrownTex" OutName="mouth_frown" Format="ci8" Width="32" Height="16" Offset="0x180D0" TlutOffset="0x130D0" />
         <Texture Name="gUmMouthHangingOpenTex" OutName="mouth_hanging_open" Format="ci8" Width="32" Height="16" Offset="0x182D0" TlutOffset="0x130D0" />
 
-        <Texture Name="object_um_Tex_0184D0" OutName="tex_0184D0" Format="ci8" Width="8" Height="8" Offset="0x184D0" />
-        <Texture Name="object_um_Tex_018510" OutName="tex_018510" Format="ci8" Width="16" Height="16" Offset="0x18510" />
-        <Texture Name="object_um_Tex_018610" OutName="tex_018610" Format="ci8" Width="16" Height="16" Offset="0x18610" />
-        <Texture Name="object_um_Tex_018710" OutName="tex_018710" Format="ci8" Width="8" Height="8" Offset="0x18710" />
-        <Texture Name="object_um_Tex_018750" OutName="tex_018750" Format="ci8" Width="16" Height="16" Offset="0x18750" />
-        <Texture Name="object_um_Tex_018850" OutName="tex_018850" Format="ci8" Width="16" Height="16" Offset="0x18850" />
-        <Texture Name="object_um_Tex_018950" OutName="tex_018950" Format="ci8" Width="8" Height="16" Offset="0x18950" />
-        <Texture Name="object_um_Tex_0189D0" OutName="tex_0189D0" Format="ci8" Width="8" Height="8" Offset="0x189D0" />
+        <Texture Name="object_um_Tex_0184D0" OutName="tex_0184D0" Format="ci8" Width="8" Height="8" Offset="0x184D0" TlutOffset="0x130D0"/>
+        <Texture Name="object_um_Tex_018510" OutName="tex_018510" Format="ci8" Width="16" Height="16" Offset="0x18510" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_018610" OutName="tex_018610" Format="ci8" Width="16" Height="16" Offset="0x18610" TlutOffset="0x130D0"/>
+        <Texture Name="object_um_Tex_018710" OutName="tex_018710" Format="ci8" Width="8" Height="8" Offset="0x18710" TlutOffset="0x130D0"/>
+        <Texture Name="object_um_Tex_018750" OutName="tex_018750" Format="ci8" Width="16" Height="16" Offset="0x18750" TlutOffset="0x130D0"/>
+        <Texture Name="object_um_Tex_018850" OutName="tex_018850" Format="ci8" Width="16" Height="16" Offset="0x18850" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_018950" OutName="tex_018950" Format="ci8" Width="8" Height="16" Offset="0x18950" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_0189D0" OutName="tex_0189D0" Format="ci8" Width="8" Height="8" Offset="0x189D0" TlutOffset="0x132D0"/>
         <Texture Name="object_um_Tex_018A10" OutName="tex_018A10" Format="rgba16" Width="16" Height="32" Offset="0x18A10" />
-        <Texture Name="object_um_Tex_018E10" OutName="tex_018E10" Format="ci8" Width="32" Height="16" Offset="0x18E10" />
-        <Texture Name="object_um_Tex_019010" OutName="tex_019010" Format="ci8" Width="16" Height="32" Offset="0x19010" />
-        <Texture Name="object_um_Tex_019210" OutName="tex_019210" Format="ci8" Width="16" Height="16" Offset="0x19210" />
-        <Texture Name="object_um_Tex_019310" OutName="tex_019310" Format="ci8" Width="16" Height="32" Offset="0x19310" />
-        <Texture Name="object_um_Tex_019510" OutName="tex_019510" Format="ci8" Width="64" Height="16" Offset="0x19510" />
+        <Texture Name="object_um_Tex_018E10" OutName="tex_018E10" Format="ci8" Width="32" Height="16" Offset="0x18E10" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_019010" OutName="tex_019010" Format="ci8" Width="16" Height="32" Offset="0x19010" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_019210" OutName="tex_019210" Format="ci8" Width="16" Height="16" Offset="0x19210" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_019310" OutName="tex_019310" Format="ci8" Width="16" Height="32" Offset="0x19310" TlutOffset="0x132D0"/>
+        <Texture Name="object_um_Tex_019510" OutName="tex_019510" Format="ci8" Width="64" Height="16" Offset="0x19510" TlutOffset="0x132D0"/>
         <Animation Name="gUmIdleAnim" Offset="0x19E10" /> <!-- Original name is "um_wait" -->
     </File>
 </Root>
