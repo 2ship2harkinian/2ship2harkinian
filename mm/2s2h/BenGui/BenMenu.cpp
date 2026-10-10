@@ -2306,12 +2306,20 @@ void BenMenu::AddDevTools() {
         .CVar("gWindows.DLViewer")
         .Options(ButtonOptions().Tooltip("Enables the DL Viewer window for inspecting and editing display lists."))
         .WindowName("DL Viewer");
+
     path = { "Dev Tools", "Message Viewer", SECTION_COLUMN_1 };
     AddSidebarEntry("Dev Tools", "Message Viewer", 1);
     AddWidget(path, "Popout Message Viewer", WIDGET_WINDOW_BUTTON)
         .CVar("gWindows.MessageViewer")
         .Options(ButtonOptions().Tooltip("Enables the Message Viewer window for testing in-game messages."))
         .WindowName("Message Viewer");
+
+    path = { "Dev Tools", "kz Tools", SECTION_COLUMN_1 };
+    AddSidebarEntry("Dev Tools", "kz Tools", 1);
+    AddWidget(path, "Popout kz Tools", WIDGET_WINDOW_BUTTON)
+        .CVar("gWindows.KzTools")
+        .Options(ButtonOptions().Tooltip("Display debug values for testing.").Size(Sizes::Inline))
+        .WindowName("kz Tools");
 }
 
 BenMenu::BenMenu(const std::string& consoleVariable, const std::string& name)

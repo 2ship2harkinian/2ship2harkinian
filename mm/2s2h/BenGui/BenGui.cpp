@@ -36,6 +36,7 @@
 #include "DeveloperTools/EventLog.h"
 #include "DeveloperTools/DLViewer.h"
 #include "DeveloperTools/MessageViewer.h"
+#include "DeveloperTools/kzTools.h"
 
 namespace BenGui {
 // MARK: - Delegates
@@ -47,6 +48,7 @@ std::shared_ptr<Ship::GuiWindow> mStatsWindow;
 std::shared_ptr<Ship::GuiWindow> mGfxDebuggerWindow;
 std::shared_ptr<Ship::GuiWindow> mInputEditorWindow;
 
+std::shared_ptr<KzToolsWindow> mKzToolsWindow;
 std::shared_ptr<HookDebuggerWindow> mHookDebuggerWindow;
 std::shared_ptr<SaveEditorWindow> mSaveEditorWindow;
 std::shared_ptr<HudEditorWindow> mHudEditorWindow;
@@ -111,6 +113,10 @@ void SetupGuiElements() {
     if (mInputEditorWindow == nullptr) {
         SPDLOG_ERROR("Could not find input editor window");
     }
+    
+    mKzToolsWindow =
+        std::make_shared<KzToolsWindow>("gWindows.KzTools", "KzTools", ImVec2(480, 600));
+    gui->AddGuiWindow(mKzToolsWindow);
 
     mHookDebuggerWindow =
         std::make_shared<HookDebuggerWindow>("gWindows.HookDebugger", "Hook Debugger", ImVec2(480, 600));
@@ -192,6 +198,7 @@ void Destroy() {
     mBenMenu = nullptr;
     mModalWindow = nullptr;
     mStatsWindow = nullptr;
+    mKzToolsWindow = nullptr;
     mConsoleWindow = nullptr;
     mGfxDebuggerWindow = nullptr;
     mInputEditorWindow = nullptr;

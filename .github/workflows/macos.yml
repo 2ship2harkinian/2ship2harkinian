@@ -1,0 +1,117 @@
+name: generate-macos-build
+on:
+  workflow_dispatch:
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+
+  generate-2ship-otr:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v6
+      with:
+        submodules: true
+    - name: Configure ccache
+      uses: hendrikmuhs/ccache-action@v1.2.22
+      with:
+        save: ${{ github.ref_name == github.event.repository.default_branch }}
+        key: ${{ runner.os }}-otr-ccache-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-otr-ccache-${{ github.ref }}
+          ${{ runner.os }}-otr-ccache
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y $(cat .github/workflows/apt-deps.txt) libzip-dev zipcmp zipmerge ziptool
+    - name: Restore Cached deps folder
+      uses: actions/cache/restore@v5
+      with:
+        key: ${{ runner.os }}-deps-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-deps-${{ github.ref }}-
+          ${{ runner.os }}-deps-
+        path: deps
+    - name: Create deps folder
+      run: mkdir -p deps
+    - name: Install latest SDL
+      run: |
+        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+        if [ ! -d "deps/SDL2-2.30.3" ]; then
+          wget https://github.com/libsdl-org/SDL/releases/download/release-2.30.3/SDL2-2.30.3.tar.gz
+          tar -xzf SDL2-2.30.3.tar.gz -C deps
+        fi
+        cd deps/SDL2-2.30.3
+        ./configure --enable-hidapi-libusb
+        make -j 10
+        sudo make install
+        sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
+    - name: Install latest tinyxml2
+      run: |
+        sudo apt-get remove libtinyxml2-dev
+        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+        if [ ! -d "deps/tinyxml2-10.0.0" ]; then
+          wget https://github.com/leethomason/tinyxml2/archive/refs/tags/10.0.0.tar.gz
+          tar -xzf 10.0.0.tar.gz -C deps
+        fi
+        cd deps/tinyxml2-10.0.0
+        mkdir -p build
+        cd build
+        cmake ..
+        make
+        sudo make install
+    - name: Generate 2ship.o2r
+      run: |
+        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+        cmake --no-warn-unused-cli -H. -Bbuild-cmake -GNinja -DCMAKE_BUILD_TYPE:STRING=Release
+        cmake --build build-cmake --config Release --target Generate2ShipOtr -j3
+    - name: Upload 2ship.o2r
+      uses: actions/upload-artifact@v7
+      with:
+        name: 2ship.o2r
+        path: 2ship.o2r
+        retention-days: 3
+
+  build-macos:
+    needs: generate-2ship-otr
+    runs-on: macos-14
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v6
+      with:
+        submodules: recursive
+    - name: Setup Macports
+      uses: melusina-org/setup-macports@v1
+      with:
+        parameters: '.github/macports.yml'
+    - name: Configure ccache
+      uses: hendrikmuhs/ccache-action@v1.2.22
+      with:
+        key: ${{ runner.os }} # ccache-macos-{{ timestamp }}
+        max-size: "2G"
+        evict-old-files: job
+        save: ${{ github.ref_name == github.event.repository.default_branch }}
+    - name: Download 2ship.o2r
+      uses: actions/download-artifact@v8
+      with:
+        name: 2ship.o2r
+        path: build-cmake/mm
+    - name: Build 2Ship
+      env:
+        CCACHE_SLOPPINESS: pch_defines,time_macros
+      run: |
+        cmake --no-warn-unused-cli -H. -Bbuild-cmake -GNinja -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" -DCMAKE_C_FLAGS="-Xclang -fno-pch-timestamp" -DCMAKE_CXX_FLAGS="-Xclang -fno-pch-timestamp"
+        cmake --build build-cmake -j
+        (cd build-cmake && cpack)
+
+        mv _packages/*.dmg 2Ship.dmg
+        mv README.md readme.txt
+    - name: Upload build
+      uses: actions/upload-artifact@v7
+      with:
+        name: 2ship-mac
+        path: |
+          2Ship.dmg
+          readme.txt
