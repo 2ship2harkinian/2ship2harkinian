@@ -1226,6 +1226,22 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*f32`
+    VB_HOOKSHOT_SET_SPEED,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ArmsHook`
+    VB_HOOKSHOT_SHOOT,
+
+    // #### `result`
+    // ```c
     // (!DynaPolyActor_IsPlayerAbove((DynaPolyActor*)this->actor.child) &&
     //  (player->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) ||
     // (gSaveContext.timerCurTimes[TIMER_ID_MINIGAME_2] <= SECONDS_TO_TIMER(0)) ||
