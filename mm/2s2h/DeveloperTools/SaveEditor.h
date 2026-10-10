@@ -1088,6 +1088,7 @@ const std::vector<HeartFlags> heartFlags = {
     { "Tourist Information Archery",                       SCENE_MAP_SHOP,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_26_40 },
     { "Tourist Information Good Photo",                    SCENE_MAP_SHOP,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_87_04 },
     { "Twin Islands Underwater Chest Heart Piece",         SCENE_17SETUGEN,        FLAG_CYCL_SCENE_COLLECTIBLE, 0x07 },
+    { "Waterfall Rapids Beaver Brothers Race",             SCENE_35TAKI,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_BEAVER_BROS_HEART_PIECE },
     { "Woodfall Piece Of Heart Chest",                     SCENE_21MITURINMAE,     FLAG_CYCL_SCENE_COLLECTIBLE, 0x0A },
     { "Woodfall Temple Boss Container",                    SCENE_MITURIN_BS,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F },
     { "Zora Cape Waterfall Piece Of Heart",                SCENE_31MISAKI,         FLAG_CYCL_SCENE_COLLECTIBLE, 0x07 },
