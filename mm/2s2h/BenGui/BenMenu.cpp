@@ -2033,6 +2033,13 @@ void BenMenu::AddEnhancements() {
         .Options(CheckboxOptions().Tooltip("Dying will delete your file\n\n     " ICON_FA_EXCLAMATION_TRIANGLE
                                            " WARNING " ICON_FA_EXCLAMATION_TRIANGLE
                                            "\nTHIS IS NOT REVERSIBLE\nUSE AT YOUR OWN RISK!"));
+    AddWidget(path, "Time Skip on Death", WIDGET_CVAR_SLIDER_INT)
+        .CVar("gEnhancements.DifficultyOptions.TimeSkipOnDeath")
+        .Options(IntSliderOptions()
+            .Tooltip("Dying will skip a specified number of hours of in-game time.")
+            .Min(0)
+            .Max(24)
+            .DefaultValue(0));
     AddWidget(path, "Jinxed Timer: %d seconds", WIDGET_CVAR_SLIDER_INT)
         .CVar("gEnhancements.DifficultyOptions.JinxedTimer")
         .Options(
