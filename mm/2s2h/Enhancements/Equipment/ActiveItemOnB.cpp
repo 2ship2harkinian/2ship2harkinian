@@ -34,9 +34,9 @@ constexpr bool PlayerHoldsItem(Player* player) {
 
 constexpr bool IsAiming(Player* player) {
     return (player->unk_AA5 == PLAYER_UNKAA5_3 ||
-            ( // overshoulder
-                player->unk_AA5 == PLAYER_UNKAA5_0 && (player->stateFlags1 & PLAYER_STATE1_PARALLEL) &&
-                player->focusActor == NULL));
+            ( // z-target check (including overshoulder, excluding target lock)
+                player->unk_AA5 == PLAYER_UNKAA5_0 &&
+                (player->stateFlags1 & (PLAYER_STATE1_PARALLEL | PLAYER_STATE1_Z_TARGETING | PLAYER_STATE1_8))) && player->focusActor == NULL);
 }
 
 constexpr bool IsHoldingScoped(Player* player) {
