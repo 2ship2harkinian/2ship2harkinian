@@ -1,0 +1,5 @@
+<Root>
+    <File Name="ovl_Boss_05" BaseAddress="0x809D3210" RangeStart="0x3540" RangeEnd="0x364C">
+        <Collision Name="sBioBabaLilypadCol" Offset="0x3620" />
+    </File>
+</Root>

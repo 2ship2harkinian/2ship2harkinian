@@ -1,0 +1,28 @@
+<Root>
+    <File Name="ovl_file_choose" BaseAddress="0x80804010" RangeStart="0x11380" RangeEnd="0x119C0">
+        <!-- PAL options menu: Options, Sound, Targeting, Language, Check Brightness and Dolby logo -->
+        <Array Name="gOptionsMenuHeadersPALVtx" Count="24" Offset="0x11380" Static="Off">
+            <Vtx/>
+        </Array>
+
+        <!-- Four audio choices and two targeting choices -->
+        <Array Name="gOptionsMenuSettingsPALVtx" Count="24" Offset="0x11540" Static="Off">
+            <Vtx/>
+        </Array>
+
+        <!-- Two brightness rectangles -->
+        <Array Name="gOptionsBrightnessPALVtx" Count="8" Offset="0x11740" Static="Off">
+            <Vtx/>
+        </Array>
+
+        <!-- Sound, Targeting, Brightness and Language dividers -->
+        <Array Name="gOptionsDividersPALVtx" Count="16" Offset="0x117C0" Static="Off">
+            <Vtx/>
+        </Array>
+
+        <!-- English, Deutsch, Français and Español -->
+        <Array Name="gOptionsLanguageSettingsPALVtx" Count="16" Offset="0x118C0" Static="Off">
+            <Vtx/>
+        </Array>
+    </File>
+</Root>

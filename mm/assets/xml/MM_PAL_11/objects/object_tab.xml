@@ -1,0 +1,63 @@
+﻿<Root>
+    <File Name="object_tab" Segment="6">
+        <Animation Name="gBartenIdleAnim" Offset="0x758" />
+        <DList Name="object_tab_DL_003E10" Offset="0x3E10" />
+        <DList Name="object_tab_DL_003EF0" Offset="0x3EF0" />
+        <DList Name="object_tab_DL_004270" Offset="0x4270" />
+        <DList Name="object_tab_DL_004438" Offset="0x4438" />
+        <DList Name="object_tab_DL_0046C8" Offset="0x46C8" />
+        <DList Name="object_tab_DL_0047F8" Offset="0x47F8" />
+        <DList Name="object_tab_DL_004B70" Offset="0x4B70" />
+        <DList Name="object_tab_DL_004E00" Offset="0x4E00" />
+        <DList Name="object_tab_DL_004F30" Offset="0x4F30" />
+        <DList Name="object_tab_DL_005178" Offset="0x5178" />
+        <DList Name="object_tab_DL_005668" Offset="0x5668" />
+        <DList Name="object_tab_DL_005758" Offset="0x5758" />
+        <DList Name="object_tab_DL_005840" Offset="0x5840" />
+        <DList Name="object_tab_DL_005988" Offset="0x5988" />
+        <DList Name="object_tab_DL_005A78" Offset="0x5A78" />
+        <DList Name="object_tab_DL_005B60" Offset="0x5B60" />
+        <Texture Name="object_tab_TLUT_005CA8" OutName="tlut_005CA8" Format="rgba16" Width="16" Height="16" Offset="0x5CA8" />
+        <Texture Name="object_tab_Tex_005EA8" OutName="tex_005EA8" Format="rgba16" Width="16" Height="16" Offset="0x5EA8" />
+        <Texture Name="object_tab_Tex_0060A8" OutName="tex_0060A8" Format="ci8" Width="8" Height="16" Offset="0x60A8" />
+        <Texture Name="object_tab_Tex_006128" OutName="tex_006128" Format="ci8" Width="16" Height="32" Offset="0x6128" />
+        <Texture Name="object_tab_Tex_006328" OutName="tex_006328" Format="ci8" Width="8" Height="8" Offset="0x6328" />
+        <Texture Name="object_tab_Tex_006368" OutName="tex_006368" Format="ci8" Width="8" Height="16" Offset="0x6368" />
+        <Texture Name="object_tab_Tex_0063E8" OutName="tex_0063E8" Format="ci8" Width="8" Height="8" Offset="0x63E8" />
+        <Texture Name="gBartenEyeOpenTex" OutName="barten_eye_open" Format="ci8" Width="32" Height="32" Offset="0x6428" />
+        <Texture Name="object_tab_Tex_006828" OutName="tex_006828" Format="ci8" Width="16" Height="16" Offset="0x6828" />
+        <Texture Name="gBartenEyeHalfOpenTex" OutName="barten_eye_half_open" Format="ci8" Width="32" Height="32" Offset="0x6928" />
+        <Texture Name="gBartenEyeClosedTex" OutName="barten_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x6D28" />
+        <Texture Name="object_tab_Tex_007128" OutName="tex_007128" Format="ci8" Width="16" Height="16" Offset="0x7128" />
+        <Texture Name="object_tab_Tex_007228" OutName="tex_007228" Format="ci8" Width="16" Height="16" Offset="0x7228" />
+        <Texture Name="object_tab_Tex_007328" OutName="tex_007328" Format="i8" Width="32" Height="32" Offset="0x7328" />
+        <Texture Name="object_tab_Tex_007728" OutName="tex_007728" Format="rgba16" Width="8" Height="16" Offset="0x7728" />
+        <Texture Name="object_tab_Tex_007828" OutName="tex_007828" Format="ci8" Width="8" Height="8" Offset="0x7828" />
+        <Texture Name="object_tab_Tex_007868" OutName="tex_007868" Format="ci8" Width="8" Height="16" Offset="0x7868" />
+        <Texture Name="object_tab_Tex_0078E8" OutName="tex_0078E8" Format="i8" Width="16" Height="16" Offset="0x78E8" />
+        <Texture Name="object_tab_Tex_0079E8" OutName="tex_0079E8" Format="i8" Width="8" Height="8" Offset="0x79E8" />
+        <Texture Name="object_tab_Tex_007A28" OutName="tex_007A28" Format="rgba16" Width="16" Height="16" Offset="0x7A28" />
+        <!-- <Blob Name="object_tab_Blob_007C28" Size="0x220" Offset="0x7C28" /> -->
+        <Limb Name="object_tab_Standardlimb_007E48" Type="Standard" EnumName="OBJECT_TAB_LIMB_01" Offset="0x7E48" />
+        <Limb Name="object_tab_Standardlimb_007E54" Type="Standard" EnumName="OBJECT_TAB_LIMB_02" Offset="0x7E54" />
+        <Limb Name="object_tab_Standardlimb_007E60" Type="Standard" EnumName="OBJECT_TAB_LIMB_03" Offset="0x7E60" />
+        <Limb Name="object_tab_Standardlimb_007E6C" Type="Standard" EnumName="OBJECT_TAB_LIMB_04" Offset="0x7E6C" />
+        <Limb Name="object_tab_Standardlimb_007E78" Type="Standard" EnumName="OBJECT_TAB_LIMB_05" Offset="0x7E78" />
+        <Limb Name="object_tab_Standardlimb_007E84" Type="Standard" EnumName="OBJECT_TAB_LIMB_06" Offset="0x7E84" />
+        <Limb Name="object_tab_Standardlimb_007E90" Type="Standard" EnumName="OBJECT_TAB_LIMB_07" Offset="0x7E90" />
+        <Limb Name="object_tab_Standardlimb_007E9C" Type="Standard" EnumName="OBJECT_TAB_LIMB_08" Offset="0x7E9C" />
+        <Limb Name="object_tab_Standardlimb_007EA8" Type="Standard" EnumName="OBJECT_TAB_LIMB_09" Offset="0x7EA8" />
+        <Limb Name="object_tab_Standardlimb_007EB4" Type="Standard" EnumName="OBJECT_TAB_LIMB_0A" Offset="0x7EB4" />
+        <Limb Name="object_tab_Standardlimb_007EC0" Type="Standard" EnumName="OBJECT_TAB_LIMB_0B" Offset="0x7EC0" />
+        <Limb Name="object_tab_Standardlimb_007ECC" Type="Standard" EnumName="OBJECT_TAB_LIMB_0C" Offset="0x7ECC" />
+        <Limb Name="object_tab_Standardlimb_007ED8" Type="Standard" EnumName="OBJECT_TAB_LIMB_0D" Offset="0x7ED8" />
+        <Limb Name="object_tab_Standardlimb_007EE4" Type="Standard" EnumName="OBJECT_TAB_LIMB_0E" Offset="0x7EE4" />
+        <Limb Name="object_tab_Standardlimb_007EF0" Type="Standard" EnumName="OBJECT_TAB_LIMB_0F" Offset="0x7EF0" />
+        <Limb Name="object_tab_Standardlimb_007EFC" Type="Standard" EnumName="OBJECT_TAB_LIMB_10" Offset="0x7EFC" />
+        <Limb Name="object_tab_Standardlimb_007F08" Type="Standard" EnumName="OBJECT_TAB_LIMB_11" Offset="0x7F08" />
+        <Limb Name="object_tab_Standardlimb_007F14" Type="Standard" EnumName="OBJECT_TAB_LIMB_12" Offset="0x7F14" />
+        <Limb Name="object_tab_Standardlimb_007F20" Type="Standard" EnumName="OBJECT_TAB_LIMB_13" Offset="0x7F20" />
+        <Skeleton Name="gBartenSkel" Type="Flex" LimbType="Standard" LimbNone="BARTEN_LIMB_NONE" LimbMax="BARTEN_LIMB_MAX" EnumName="BartenLimb" Offset="0x7F78" />
+        <Animation Name="gBartenIdleBarCounterAnim" Offset="0x86AC" />
+    </File>
+</Root>

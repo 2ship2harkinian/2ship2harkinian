@@ -1,0 +1,8 @@
+<Root>
+    <File Name="parameter_static2_ger" Segment="2" OutName="parameter_static">
+        <Texture Name="gTatlCUpGERTex" OutName="tatl_c_up_ger" Format="ia4" Width="32" Height="12" Offset="0x0" />
+        <Texture Name="gMinigameCountdownGoGERTex" OutName="minigame_countdown_go_ger" Format="ia8" Width="40" Height="32" Offset="0xC0" />
+        <Texture Name="gPerfectLetterExclamationGERTex" OutName="letter_perfect_exclamation_ger" Format="i4" Width="32" Height="33" Offset="0x5C0" />
+        <Texture Name="gPerfectLetterKTex" OutName="letter_perfect_k" Format="i4" Width="32" Height="33" Offset="0x7D0" />
+    </File>
+</Root>

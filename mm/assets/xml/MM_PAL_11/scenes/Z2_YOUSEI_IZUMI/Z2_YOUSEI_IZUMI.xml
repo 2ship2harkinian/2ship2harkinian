@@ -1,0 +1,20 @@
+<Root>
+    <File Name="Z2_YOUSEI_IZUMI" Segment="2" Game="MM">
+        <Scene Name="Z2_YOUSEI_IZUMI" Offset="0x0"/>
+    </File>
+    <File Name="Z2_YOUSEI_IZUMI_room_00" Segment="3" Game="MM">
+        <Room Name="Z2_YOUSEI_IZUMI_room_00" Offset="0x0"/>
+    </File>
+    <File Name="Z2_YOUSEI_IZUMI_room_01" Segment="3" Game="MM">
+        <Room Name="Z2_YOUSEI_IZUMI_room_01" Offset="0x0"/>
+    </File>
+    <File Name="Z2_YOUSEI_IZUMI_room_02" Segment="3" Game="MM">
+        <Room Name="Z2_YOUSEI_IZUMI_room_02" Offset="0x0"/>
+    </File>
+    <File Name="Z2_YOUSEI_IZUMI_room_03" Segment="3" Game="MM">
+        <Room Name="Z2_YOUSEI_IZUMI_room_03" Offset="0x0"/>
+    </File>
+    <File Name="Z2_YOUSEI_IZUMI_room_04" Segment="3" Game="MM">
+        <Room Name="Z2_YOUSEI_IZUMI_room_04" Offset="0x0"/>
+    </File>
+</Root>

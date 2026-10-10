@@ -1,0 +1,15 @@
+<Root>
+    <ExternalFile XmlPath="misc/scene_texture_06.xml" OutPath="misc/scene_texture_06/"/>
+    <File Name="Z2_22DEKUCITY" Segment="2" Game="MM">
+        <Scene Name="Z2_22DEKUCITY" Offset="0x0"/>
+    </File>
+    <File Name="Z2_22DEKUCITY_room_00" Segment="3" Game="MM">
+        <Room Name="Z2_22DEKUCITY_room_00" Offset="0x0"/>
+    </File>
+    <File Name="Z2_22DEKUCITY_room_01" Segment="3" Game="MM">
+        <Room Name="Z2_22DEKUCITY_room_01" Offset="0x0"/>
+    </File>
+    <File Name="Z2_22DEKUCITY_room_02" Segment="3" Game="MM">
+        <Room Name="Z2_22DEKUCITY_room_02" Offset="0x0"/>
+    </File>
+</Root>

@@ -1,0 +1,13 @@
+<Root>
+    <File Name="Z2_SECOM" Segment="2" Game="MM">
+        <Scene Name="Z2_SECOM" Offset="0x0"/>
+        <!-- This texture is used in an "AnimatedMaterial", and must be declared to use the proper symbol -->
+        <Texture Name="gSakonsHidoutConveyorBeltTex" OutName="sakons_hideout_conveyor_belt" Height="32" Width="32" Format="rgba16" Offset="0x47F0"/>
+    </File>
+    <File Name="Z2_SECOM_room_00" Segment="3" Game="MM">
+        <Room Name="Z2_SECOM_room_00" Offset="0x0"/>
+    </File>
+    <File Name="Z2_SECOM_room_01" Segment="3" Game="MM">
+        <Room Name="Z2_SECOM_room_01" Offset="0x0"/>
+    </File>
+</Root>

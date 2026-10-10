@@ -1,0 +1,82 @@
+﻿<Root>
+    <!-- Object for Bomb Shop Lady -->
+    <File Name="object_bba" Segment="6">
+        <!-- DLists -->
+        <DList Name="gBbaUpperLegsDL" Offset="0x2A80" />
+        <DList Name="gBbaRightHandDL" Offset="0x2B70" />
+        <DList Name="gBbaRightForearmDL" Offset="0x2D88" />
+        <DList Name="gBbaRightUpperArmDL" Offset="0x2E90" />
+        <DList Name="gBbaLeftHandDL" Offset="0x2FA0" />
+        <DList Name="gBbaLeftForearmDL" Offset="0x31B8" />
+        <DList Name="gBbaLeftUpperArmDL" Offset="0x32C0" />
+        <DList Name="gBbaTorsoDL" Offset="0x33D0" />
+        <DList Name="gBbaBagDL" Offset="0x3618" />
+        <DList Name="gBbaNeckDL" Offset="0x3760" />
+        <DList Name="gBbaHeadDL" Offset="0x3968" />
+        <DList Name="gBbaMiddleLegsDL" Offset="0x3F68" />
+        <DList Name="gBbaLowerLegsDL" Offset="0x4078" />
+        <DList Name="gBbaFeetDL" Offset="0x4180" />
+
+        <!-- Animations -->
+        <Animation Name="gBombShopLadySwayAnim" Offset="0x4910" /> <!-- Original name is "sb_ending" -->
+        <Animation Name="gBombShopLadyKnockedOverAnim" Offset="0x5154" /> <!-- Original name is "sb_taore" ("to fall (over, down); to collapse; to take a fall") -->
+        <Animation Name="gBombShopLadyLyingDownAnim" Offset="0x58B8" /> <!-- Original name is "sb_taorewait" -->
+        <Animation Name="gBombShopLadyIdleHoldingBagAnim" Offset="0x5DC4" /> <!-- Original name is "sb_wait01" -->
+
+        <!-- Skeleton -->
+        <Limb Name="gBbaUpperLegsLimb" Type="Standard" EnumName="BBA_LIMB_UPPER_LEGS" Offset="0x5DE0" />
+        <Limb Name="gBbaMiddleLegsLimb" Type="Standard" EnumName="BBA_LIMB_MIDDLE_LEGS" Offset="0x5DEC" />
+        <Limb Name="gBbaLowerLegsLimb" Type="Standard" EnumName="BBA_LIMB_LOWER_LEGS" Offset="0x5DF8" />
+        <Limb Name="gBbaFeetLimb" Type="Standard" EnumName="BBA_LIMB_FEET" Offset="0x5E04" />
+        <Limb Name="gBbaUpperRootLimb" Type="Standard" EnumName="BBA_LIMB_UPPER_ROOT" Offset="0x5E10" />
+        <Limb Name="gBbaNeckLimb" Type="Standard" EnumName="BBA_LIMB_NECK" Offset="0x5E1C" />
+        <Limb Name="gBbaHeadLimb" Type="Standard" EnumName="BBA_LIMB_HEAD" Offset="0x5E28" />
+        <Limb Name="gBbaBagLimb" Type="Standard" EnumName="BBA_LIMB_BAG" Offset="0x5E34" />
+        <Limb Name="gBbaTorsoLimb" Type="Standard" EnumName="BBA_LIMB_TORSO" Offset="0x5E40" />
+        <Limb Name="gBbaLeftUpperArmLimb" Type="Standard" EnumName="BBA_LIMB_LEFT_UPPER_ARM" Offset="0x5E4C" />
+        <Limb Name="gBbaLeftLowerArmRootLimb" Type="Standard" EnumName="BBA_LIMB_LEFT_LOWER_ARM_ROOT" Offset="0x5E58" />
+        <Limb Name="gBbaLeftForearmLimb" Type="Standard" EnumName="BBA_LIMB_LEFT_FOREARM" Offset="0x5E64" />
+        <Limb Name="gBbaLeftHandLimb" Type="Standard" EnumName="BBA_LIMB_LEFT_HAND" Offset="0x5E70" />
+        <Limb Name="gBbaRightUpperArmLimb" Type="Standard" EnumName="BBA_LIMB_RIGHT_UPPER_ARM" Offset="0x5E7C" />
+        <Limb Name="gBbaRightLowerArmRootLimb" Type="Standard" EnumName="BBA_LIMB_RIGHT_LOWER_ARM_ROOT" Offset="0x5E88" />
+        <Limb Name="gBbaRightForearmLimb" Type="Standard" EnumName="BBA_LIMB_RIGHT_FOREARM" Offset="0x5E94" />
+        <Limb Name="gBbaRightHandLimb" Type="Standard" EnumName="BBA_LIMB_RIGHT_HAND" Offset="0x5EA0" />
+        <Skeleton Name="gBombShopLadySkel" Type="Flex" LimbType="Standard" LimbNone="BOMB_SHOP_LADY_LIMB_NONE" LimbMax="BOMB_SHOP_LADY_LIMB_MAX" EnumName="BombShopLadyLimb" Offset="0x5EF0" />
+
+         <!-- Animations -->
+        <Animation Name="gBombShopLadyIdleAnim" Offset="0x6550" /> <!-- Original name is "sb_wait02" -->
+        <Animation Name="gBombShopLadyWalkingHoldingBagAnim" Offset="0x6B10" /> <!-- Original name is "sb_walk01" -->
+
+        <!-- TLUT -->
+        <Texture Name="gBbaTLUT" OutName="bba_tlut" Format="rgba16" Width="16" Height="16" Offset="0x6B20" />
+
+        <!-- Unused Textures -->
+        <!-- These are just exact copies of the used textures -->
+        <Texture Name="gBbaHairSkin2Tex" OutName="bba_hair_skin_2" Format="ci8" Width="32" Height="32" Offset="0x6D20" TlutOffset="0x6B20" />
+        <Texture Name="gBbaEar2Tex" OutName="bba_ear_2" Format="ci8" Width="8" Height="8" Offset="0x7120" TlutOffset="0x6B20" />
+        <Texture Name="gBbaNostril2Tex" OutName="bba_nostril_2" Format="ci8" Width="8" Height="8" Offset="0x7160" TlutOffset="0x6B20" />
+        <Texture Name="gBbaEye2Tex" OutName="bba_eye_2" Format="rgba16" Width="32" Height="32" Offset="0x71A0"/>
+        <Texture Name="gBbaWrinkles2Tex" OutName="bba_wrinkles_2" Format="ci8" Width="32" Height="32" Offset="0x79A0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaCheek2Tex" OutName="bba_cheek_2" Format="ci8" Width="16" Height="16" Offset="0x7DA0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaSkin2Tex" OutName="bba_skin_2" Format="ci8" Width="8" Height="8" Offset="0x7EA0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaForehead2Tex" OutName="bba_forehead_2" Format="ci8" Width="32" Height="32" Offset="0x7EE0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaFingers2Tex" OutName="bba_fingers_2" Format="ci8" Width="16" Height="16" Offset="0x82E0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaShirt2Tex" OutName="bba_shirt_2" Format="ci8" Width="16" Height="16" Offset="0x83E0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaBag2Tex" OutName="bba_bag_2" Format="ci8" Width="16" Height="16" Offset="0x84E0" TlutOffset="0x6B20" />
+        <Texture Name="gBbaSkirt2Tex" OutName="bba_skirt_2" Format="ci8" Width="16" Height="16" Offset="0x85E0" TlutOffset="0x6B20" />
+
+        <!-- Textures -->
+        <Texture Name="gBbaSkinTex" OutName="bba_skin" Format="ci8" Width="8" Height="8" Offset="0x86E0" />
+        <Texture Name="gBbaWrinklesTex" OutName="bba_wrinkles" Format="ci8" Width="32" Height="32" Offset="0x8720" />
+        <Texture Name="gBbaHairSkinTex" OutName="bba_hair_skin" Format="ci8" Width="32" Height="32" Offset="0x8B20" />
+        <Texture Name="gBbaNostrilTex" OutName="bba_nostril" Format="ci8" Width="8" Height="8" Offset="0x8F20" />
+        <Texture Name="gBbaEarTex" OutName="bba_ear" Format="ci8" Width="8" Height="8" Offset="0x8F60" />
+        <Texture Name="gBbaFingersTex" OutName="bba_fingers" Format="ci8" Width="16" Height="16" Offset="0x8FA0" />
+        <Texture Name="gBbaBagTex" OutName="bba_bag" Format="ci8" Width="16" Height="16" Offset="0x90A0" />
+        <Texture Name="gBbaSkirtTex" OutName="bba_skirt" Format="ci8" Width="16" Height="16" Offset="0x91A0" />
+        <Texture Name="gBombShopLadyEyeTex" OutName="bomb_shop_lady_eye" Format="rgba16" Width="32" Height="32" Offset="0x92A0" />
+        <Texture Name="gBbaCheekTex" OutName="bba_cheek" Format="ci8" Width="16" Height="16" Offset="0x9AA0" />
+        <Texture Name="gBbaForeheadTex" OutName="bba_forehead" Format="ci8" Width="32" Height="32" Offset="0x9BA0" />
+        <Texture Name="gBbaShirtTex" OutName="bba_shirt" Format="ci8" Width="16" Height="16" Offset="0x9FA0" />
+    </File>
+</Root>

@@ -1,0 +1,9 @@
+<Root>
+    <ExternalFile XmlPath="misc/scene_texture_08.xml" OutPath="misc/scene_texture_08/"/>
+    <File Name="Z2_ROMANYMAE" Segment="2" Game="MM">
+        <Scene Name="Z2_ROMANYMAE" Offset="0x0"/>
+    </File>
+    <File Name="Z2_ROMANYMAE_room_00" Segment="3" Game="MM">
+        <Room Name="Z2_ROMANYMAE_room_00" Offset="0x0"/>
+    </File>
+</Root>

@@ -52,16 +52,27 @@
 extern "C" uint32_t CRC32C(unsigned char* data, size_t dataSize);
 
 static constexpr uint32_t MM_US_10 = 0x5354631C;
+static constexpr uint32_t MM_PAL_10 = 0xE97955C6;
+static constexpr uint32_t MM_PAL_11 = 0x0A5D8F83;
 static constexpr uint32_t MM_US_GC = 0xB443EB08;
 
 static const std::unordered_map<uint32_t, const char*> verMap = {
     { MM_US_10, "US 1.0" },
+    { MM_PAL_10, "EU/PAL 1.0 (unsupported)" },
+    { MM_PAL_11, "EU/PAL 1.1" },
     { MM_US_GC, "US GC" },
 };
+
+static constexpr const char* MM_PAL_10_UNSUPPORTED_MESSAGE =
+    "This ROM is Majora's Mask PAL/EU 1.0 (the original, non-revised release).\n\n"
+    "This version is not supported. Please use Majora's Mask PAL/EU Rev 1 (Rev A / 1.1).\n\n"
+    "Detected header CRC32: E97955C6\n"
+    "Supported PAL Rev 1 header CRC32: 0A5D8F83";
 
 // TODO only check the first 54MB of the rom.
 static constexpr std::array<const uint32_t, 10> goodCrcs = {
     0x96F49400, // MM US 1.0 32MB
+    0xE3038C1C, // MM EU/PAL 1.1 32MB
     0xBB434787, // MM GC
 };
 
@@ -349,6 +360,10 @@ bool Extractor::ValidateRom(bool skipCrcTextBox) {
         ShowSizeErrorBox();
         return false;
     }
+    if (GetRomVerCrc() == MM_PAL_10) {
+        ShowErrorBox("Unsupported PAL/EU ROM", MM_PAL_10_UNSUPPORTED_MESSAGE);
+        return false;
+    }
     if (!ValidateAndFixRom()) {
         if (!skipCrcTextBox) {
             ShowCrcErrorBox();
@@ -497,7 +512,16 @@ bool Extractor::Run(std::string searchPath, RomSearchMode searchMode) {
         inFile.close();
         BitConverter::RomToBigEndian(mRomData.get(), mCurRomSize);
 
-        int option = ShowRomPickBox(GetRomVerCrc());
+        const uint32_t verCrc = GetRomVerCrc();
+        if (verCrc == MM_PAL_10) {
+            ShowErrorBox("Unsupported PAL/EU ROM", MM_PAL_10_UNSUPPORTED_MESSAGE);
+            if (rom == roms.back()) {
+                return false;
+            }
+            continue;
+        }
+
+        int option = ShowRomPickBox(verCrc);
 
         if (option == (int)ButtonId::YES) {
             if (!ValidateRom(true)) {
@@ -537,6 +561,8 @@ const char* Extractor::GetZapdVerStr() const {
     switch (GetRomVerCrc()) {
         case MM_US_10:
             return "N64_US";
+        case MM_PAL_11:
+            return "MM_PAL_11";
         case MM_US_GC:
             return "GC_US";
         default:
@@ -569,8 +595,32 @@ std::string Extractor::Mkdtemp() {
 extern "C" int zapd_report(int argc, char** argv, std::atomic<size_t>* extractCount, std::atomic<size_t>* totalExtract);
 static void MessageboxWorker();
 
+static std::string StripAnsiEscapeSequences(const std::string& input) {
+    std::string output;
+    output.reserve(input.size());
+
+    for (size_t i = 0; i < input.size();) {
+        if (input[i] == '\x1B' && i + 1 < input.size() && input[i + 1] == '[') {
+            i += 2;
+            while (i < input.size() && (input[i] < '@' || input[i] > '~')) {
+                ++i;
+            }
+            if (i < input.size()) {
+                ++i;
+            }
+            continue;
+        }
+
+        output.push_back(input[i]);
+        ++i;
+    }
+
+    return output;
+}
+
 bool Extractor::CallZapd(std::string installPath, std::string exportdir, std::atomic<size_t>* extractCount,
                          std::atomic<size_t>* totalExtract) {
+    mLastError.clear();
     constexpr int argc = 22;
     char xmlPath[1024];
     char confPath[1024];
@@ -621,15 +671,38 @@ bool Extractor::CallZapd(std::string installPath, std::string exportdir, std::at
     argv[20] = "-osf";
     argv[21] = "placeholder";
 
-    zapd_report(argc, (char**)argv.data(), extractCount, totalExtract);
+    auto cleanup = [&]() {
+        std::error_code ec;
+        std::filesystem::current_path(curdir, ec);
+        std::filesystem::remove_all(tempdir, ec);
+    };
 
-    std::filesystem::copy(otrFile, exportdir + "/" + otrFile, std::filesystem::copy_options::overwrite_existing);
+    try {
+        const int result = zapd_report(argc, (char**)argv.data(), extractCount, totalExtract);
+        if (result != 0) {
+            mLastError = "ZAPD extraction failed with exit code " + std::to_string(result) + ".";
+            cleanup();
+            return false;
+        }
 
-    // Go back to where this game was executed from
-    std::filesystem::current_path(curdir);
-    std::filesystem::remove_all(tempdir);
+        std::filesystem::copy(otrFile, exportdir + "/" + otrFile, std::filesystem::copy_options::overwrite_existing);
+    } catch (const std::exception& e) {
+        mLastError = "ZAPD extraction failed:\n\n";
+        mLastError += StripAnsiEscapeSequences(e.what());
+        cleanup();
+        return false;
+    } catch (...) {
+        mLastError = "ZAPD extraction failed with an unknown exception.";
+        cleanup();
+        return false;
+    }
 
-    return false;
+    cleanup();
+    return true;
+}
+
+const std::string& Extractor::GetLastError() const {
+    return mLastError;
 }
 
 static void MessageboxWorker() {

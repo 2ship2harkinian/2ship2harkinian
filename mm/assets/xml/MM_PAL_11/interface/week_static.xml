@@ -1,0 +1,16 @@
+<Root>
+    <File Name="week_static" Segment="9">
+        <Texture Name="gClockDay1stTex" OutName="clock_day_1st" Format="i8" Width="48" Height="27" Offset="0x0"/>
+        <Texture Name="gClockDay2ndTex" OutName="clock_day_2nd" Format="i8" Width="48" Height="27" Offset="0x510"/>
+        <Texture Name="gClockDayFinalTex" OutName="clock_day_final" Format="i8" Width="48" Height="27" Offset="0xA20"/>
+        <Texture Name="gClockDay1stGERTex" OutName="clock_day_1st_ger" Format="i8" Width="48" Height="27" Offset="0xF30"/>
+        <Texture Name="gClockDay2ndGERTex" OutName="clock_day_2nd_ger" Format="i8" Width="48" Height="27" Offset="0x1440"/>
+        <Texture Name="gClockDayFinalGERTex" OutName="clock_day_final_ger" Format="i8" Width="48" Height="27" Offset="0x1950"/>
+        <Texture Name="gClockDay1stFRATex" OutName="clock_day_1st_fra" Format="i8" Width="48" Height="27" Offset="0x1E60"/>
+        <Texture Name="gClockDay2ndFRATex" OutName="clock_day_2nd_fra" Format="i8" Width="48" Height="27" Offset="0x2370"/>
+        <Texture Name="gClockDayFinalFRATex" OutName="clock_day_final_fra" Format="i8" Width="48" Height="27" Offset="0x2880"/>
+        <Texture Name="gClockDay1stESPTex" OutName="clock_day_1st_esp" Format="i8" Width="48" Height="27" Offset="0x2D90"/>
+        <Texture Name="gClockDay2ndESPTex" OutName="clock_day_2nd_esp" Format="i8" Width="48" Height="27" Offset="0x32A0"/>
+        <Texture Name="gClockDayFinalESPTex" OutName="clock_day_final_esp" Format="i8" Width="48" Height="27" Offset="0x37B0"/>
+    </File>
+</Root>

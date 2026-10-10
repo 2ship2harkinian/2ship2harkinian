@@ -16,6 +16,15 @@ void func_80147414(SramContext* sramCtx, s32 fileNum, s32 arg2);
     ((newf)[0] != 'Z' || (newf)[1] != 'E' || (newf)[2] != 'L' || (newf)[3] != 'D' || (newf)[4] != 'A' || \
      (newf)[5] != '3')
 
+static void Sram_ValidateLanguageOption(void) {
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11) || (gSaveContext.options.language < LANGUAGE_ENG) ||
+        (gSaveContext.options.language > LANGUAGE_SPA)) {
+        gSaveContext.options.language = LANGUAGE_ENG;
+    }
+
+    gSaveContext.options.languageSetting = gSaveContext.options.language - LANGUAGE_ENG;
+}
+
 typedef struct PersistentCycleSceneFlags {
     /* 0x0 */ u32 switch0;
     /* 0x4 */ u32 switch1;
@@ -1807,7 +1816,7 @@ void func_801457CC(GameState* gameState, SramContext* sramCtx) {
         gSaveContext.flashSaveAvailable = D_801F6AF2;
     }
 
-    gSaveContext.options.language = LANGUAGE_ENG;
+    Sram_ValidateLanguageOption();
 }
 
 void Sram_EraseSave(FileSelectState* fileSelect2, SramContext* sramCtx, s32 fileNum) {
@@ -1997,7 +2006,7 @@ void Sram_InitSave(FileSelectState* fileSelect2, SramContext* sramCtx) {
  */
 void Sram_WriteSaveOptionsToBuffer(SramContext* sramCtx) {
     if (gSaveContext.flashSaveAvailable) {
-        gSaveContext.options.language = LANGUAGE_ENG;
+        Sram_ValidateLanguageOption();
         memcpy(sramCtx->saveBuf, &gSaveContext.options, sizeof(SaveOptions));
     }
 }
@@ -2032,6 +2041,7 @@ void Sram_LoadGlobalOptions(void) {
         return;
     }
 
+    Sram_ValidateLanguageOption();
     Audio_SetFileSelectSettings(gSaveContext.options.audioSetting);
 }
 // #endregion

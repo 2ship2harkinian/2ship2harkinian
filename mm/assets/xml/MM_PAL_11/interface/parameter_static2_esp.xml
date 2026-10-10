@@ -1,0 +1,7 @@
+<Root>
+    <File Name="parameter_static2_esp" Segment="2" OutName="parameter_static">
+        <Texture Name="gTatlCUpESPTex" OutName="tatl_c_up_esp" Format="ia4" Width="32" Height="12" Offset="0x0" />
+        <Texture Name="gMinigameCountdownGoESPTex" OutName="minigame_countdown_go_esp" Format="ia8" Width="40" Height="32" Offset="0xC0" />
+        <Texture Name="gPerfectLetterOTex" OutName="letter_perfect_o" Format="i4" Width="32" Height="33" Offset="0x7D0" />
+    </File>
+</Root>

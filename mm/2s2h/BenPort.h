@@ -24,6 +24,7 @@
 
 #define MM_NTSC_US_10 0x5354631C
 #define MM_NTSC_US_GC 0xB443EB08
+#define MM_PAL_11 0x0A5D8F83
 
 #ifdef __cplusplus
 #include <ship/Context.h>
@@ -72,6 +73,7 @@ class OTRGlobals {
 };
 
 uint32_t IsGameMasterQuest();
+extern "C" bool ResourceMgr_HasGameVersion(uint32_t version);
 #endif
 
 #ifndef __cplusplus
@@ -98,6 +100,7 @@ uint16_t OTRGetPixelDepth(float x, float y);
 int32_t OTRGetLastScancode();
 uint32_t ResourceMgr_GetNumGameVersions();
 uint32_t ResourceMgr_GetGameVersion(int index);
+bool ResourceMgr_HasGameVersion(uint32_t version);
 uint32_t ResourceMgr_GetGamePlatform(int index);
 uint32_t ResourceMgr_GetGameRegion(int index);
 void ResourceMgr_LoadDirectory(const char* resName);

@@ -1,0 +1,8 @@
+<Root>
+    <File Name="message_data_static">
+        <TextMM Name="message_data_static" SegmentName="code_eng"/>
+    </File>
+    <File Name="staff_message_data_static">
+        <TextMM Name="staff_message_data_static" CodeOffset="0x122078"/>
+    </File>
+</Root>

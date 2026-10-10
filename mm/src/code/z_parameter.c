@@ -797,11 +797,14 @@ static Gfx sScreenFillSetupDL[] = {
 };
 
 s16 sBButtonDoActionTextureScale = 0;
-f32 sBButtonDoActionTextureScales[] = {
+// These tables are indexed directly by gSaveContext.options.language. PAL requires GER/FRE/SPA entries.
+f32 sBButtonDoActionTextureScales[LANGUAGE_MAX] = {
     // 100 is 1:1 scale, > 100 magnifies
     100.0f, // LANGUAGE_JPN
     109.0f, // LANGUAGE_ENG
-    // Data missing for other languages?
+    109.0f, // LANGUAGE_GER
+    109.0f, // LANGUAGE_FRE
+    109.0f, // LANGUAGE_SPA
 };
 s16 sItemIconTextureScales[] = {
     (s16)(1.074219f * (1 << 10)) >> 1, // EQUIP_SLOT_B
@@ -809,20 +812,26 @@ s16 sItemIconTextureScales[] = {
     (s16)(1.328125f * (1 << 10)) >> 1, // EQUIP_SLOT_C_DOWN
     (s16)(1.328125f * (1 << 10)) >> 1, // EQUIP_SLOT_C_RIGHT
 };
-s16 sBButtonDoActionXPositions[] = {
+s16 sBButtonDoActionXPositions[LANGUAGE_MAX] = {
     158, // LANGUAGE_JPN
     155, // LANGUAGE_ENG
-    // Data missing for other languages?
+    155, // LANGUAGE_GER
+    155, // LANGUAGE_FRE
+    155, // LANGUAGE_SPA
 };
-s16 sBButtonDoActionYPositions[] = {
+s16 sBButtonDoActionYPositions[LANGUAGE_MAX] = {
     23, // LANGUAGE_JPN
     22, // LANGUAGE_ENG
-    // Data missing for other languages?
+    22, // LANGUAGE_GER
+    22, // LANGUAGE_FRE
+    22, // LANGUAGE_SPA
 };
-f32 sAButtonDoActionTexScales[] = {
+f32 sAButtonDoActionTexScales[LANGUAGE_MAX] = {
     -380.0f, // LANGUAGE_JPN
     -350.0f, // LANGUAGE_ENG
-    // Data missing for other languages?
+    -350.0f, // LANGUAGE_GER
+    -350.0f, // LANGUAGE_FRE
+    -350.0f, // LANGUAGE_SPA
 };
 s16 sBCButtonXPositions[] = {
     167, // EQUIP_SLOT_B
@@ -1375,6 +1384,27 @@ s16 sPerfectLettersCenterY[PERFECT_LETTERS_NUM_LETTERS] = {
     1,   // !
 };
 
+// PERFECTO uses a full-width O in the eighth slot instead of the narrow exclamation mark.
+// These offsets preserve the alignment of the PAL Spanish artwork.
+s16 sPerfectLettersSpanishLayoutOffsetX[PERFECT_LETTERS_NUM_LETTERS] = {
+    -6, // P
+    -6, // E
+    -7, // R
+    -7, // F
+    -6, // E
+    -6, // C
+    -7, // T
+    -1, // O
+};
+
+static s16 Interface_GetPerfectLettersLayoutOffsetX(s16 letterIndex) {
+    if (gSaveContext.options.language == LANGUAGE_SPA) {
+        return sPerfectLettersSpanishLayoutOffsetX[letterIndex];
+    }
+
+    return 0;
+}
+
 /**
  * interfaceCtx->actionVtx[0]   -> A Button
  * interfaceCtx->actionVtx[4]   -> A Button Shadow
@@ -1483,7 +1513,7 @@ void Interface_SetVertices(PlayState* play) {
                  (interfaceCtx->perfectLettersState[0] == PERFECT_LETTERS_STATE_EXIT))) {
                 // Left vertices x Pos
                 interfaceCtx->actionVtx[i + 0].v.ob[0] = interfaceCtx->actionVtx[i + 2].v.ob[0] =
-                    -((sPerfectLettersCenterX[k] - shadowOffset) + 16);
+                    -((sPerfectLettersCenterX[k] - shadowOffset) + 16) + Interface_GetPerfectLettersLayoutOffsetX(k);
 
                 // Right vertices x Pos
                 interfaceCtx->actionVtx[i + 1].v.ob[0] = interfaceCtx->actionVtx[i + 3].v.ob[0] =
@@ -1528,6 +1558,14 @@ void Interface_SetVertices(PlayState* play) {
                 // Bottom vertices y Pos
                 interfaceCtx->actionVtx[i + 2].v.ob[1] = interfaceCtx->actionVtx[i + 3].v.ob[1] =
                     interfaceCtx->actionVtx[i + 0].v.ob[1] - PERFECT_LETTERS_VTX_HEIGHT;
+            }
+
+            // The PAL Spanish O sits one texture row higher than the other PERFECT glyphs.
+            if ((gSaveContext.options.language == LANGUAGE_SPA) && (k == (PERFECT_LETTERS_NUM_LETTERS - 1))) {
+                interfaceCtx->actionVtx[i + 0].v.ob[1]--;
+                interfaceCtx->actionVtx[i + 1].v.ob[1]--;
+                interfaceCtx->actionVtx[i + 2].v.ob[1]--;
+                interfaceCtx->actionVtx[i + 3].v.ob[1]--;
             }
 
             // All vertices z Pos
@@ -7661,6 +7699,7 @@ void Interface_UpdatePerfectLettersType2(PlayState* play) {
     s16 i;
     InterfaceContext* interfaceCtx = &play->interfaceCtx;
     s16 colorStepR;
+    s16 spellingOffsetX;
     s16 colorStepG;
     s16 colorStepB;
     s16 colorStepA;
@@ -7700,9 +7739,10 @@ void Interface_UpdatePerfectLettersType2(PlayState* play) {
             }
         } else if (interfaceCtx->perfectLettersState[i] == PERFECT_LETTERS_STATE_SPREAD) {
             // Spread out the letters horizontally from the center to the spelt-out word
-            colorStepR = ABS_ALT(interfaceCtx->perfectLettersOffsetX[i] - sPerfectLettersType2SpellingOffsetsX[i]) /
+            spellingOffsetX = sPerfectLettersType2SpellingOffsetsX[i] - Interface_GetPerfectLettersLayoutOffsetX(i);
+            colorStepR = ABS_ALT(interfaceCtx->perfectLettersOffsetX[i] - spellingOffsetX) /
                          interfaceCtx->perfectLettersColorTimer;
-            if (interfaceCtx->perfectLettersOffsetX[i] >= sPerfectLettersType2SpellingOffsetsX[i]) {
+            if (interfaceCtx->perfectLettersOffsetX[i] >= spellingOffsetX) {
                 interfaceCtx->perfectLettersOffsetX[i] -= colorStepR;
             } else {
                 interfaceCtx->perfectLettersOffsetX[i] += colorStepR;
@@ -7834,6 +7874,7 @@ void Interface_UpdatePerfectLettersType3(PlayState* play) {
     s16 i;
     InterfaceContext* interfaceCtx = &play->interfaceCtx;
     s16 colorStepR;
+    s16 spellingOffsetX;
     s16 colorStepG;
     s16 colorStepB;
     s16 j = 0;
@@ -7872,9 +7913,10 @@ void Interface_UpdatePerfectLettersType3(PlayState* play) {
             }
         } else if (interfaceCtx->perfectLettersState[i] == PERFECT_LETTERS_STATE_SPREAD) {
             // Spread out the letters horizontally from the center to the spelt-out word
-            colorStepR = ABS_ALT(interfaceCtx->perfectLettersOffsetX[i] - sPerfectLettersType3SpellingOffsetsX[i]) /
+            spellingOffsetX = sPerfectLettersType3SpellingOffsetsX[i] - Interface_GetPerfectLettersLayoutOffsetX(i);
+            colorStepR = ABS_ALT(interfaceCtx->perfectLettersOffsetX[i] - spellingOffsetX) /
                          interfaceCtx->perfectLettersColorTimer;
-            if (interfaceCtx->perfectLettersOffsetX[i] >= sPerfectLettersType3SpellingOffsetsX[i]) {
+            if (interfaceCtx->perfectLettersOffsetX[i] >= spellingOffsetX) {
                 interfaceCtx->perfectLettersOffsetX[i] -= colorStepR;
             } else {
                 interfaceCtx->perfectLettersOffsetX[i] += colorStepR;
@@ -7969,10 +8011,44 @@ void Interface_UpdatePerfectLettersType3(PlayState* play) {
     }
 }
 
-TexturePtr sPerfectLettersTextures[PERFECT_LETTERS_NUM_LETTERS] = {
-    gPerfectLetterPTex, gPerfectLetterETex, gPerfectLetterRTex, gPerfectLetterFTex,
-    gPerfectLetterETex, gPerfectLetterCTex, gPerfectLetterTTex, gPerfectLetterExclamationTex,
+static const ALIGN_ASSET(2) char sPerfectLetterKTex[] = "__OTR__parameter_static/gPerfectLetterKTex";
+static const ALIGN_ASSET(2) char sPerfectLetterATex[] = "__OTR__parameter_static/gPerfectLetterATex";
+static const ALIGN_ASSET(2) char sPerfectLetterITex[] = "__OTR__parameter_static/gPerfectLetterITex";
+static const ALIGN_ASSET(2) char sPerfectLetterOTex[] = "__OTR__parameter_static/gPerfectLetterOTex";
+
+static TexturePtr sPerfectLettersTextures[LANGUAGE_MAX][PERFECT_LETTERS_NUM_LETTERS] = {
+    [LANGUAGE_JPN] = {
+        gPerfectLetterPTex, gPerfectLetterETex, gPerfectLetterRTex, gPerfectLetterFTex,
+        gPerfectLetterETex, gPerfectLetterCTex, gPerfectLetterTTex, gPerfectLetterExclamationTex,
+    },
+    [LANGUAGE_ENG] = {
+        gPerfectLetterPTex, gPerfectLetterETex, gPerfectLetterRTex, gPerfectLetterFTex,
+        gPerfectLetterETex, gPerfectLetterCTex, gPerfectLetterTTex, gPerfectLetterExclamationTex,
+    },
+    // PERFEKT!
+    [LANGUAGE_GER] = {
+        gPerfectLetterPTex, gPerfectLetterETex, gPerfectLetterRTex, gPerfectLetterFTex,
+        gPerfectLetterETex, sPerfectLetterKTex, gPerfectLetterTTex, gPerfectLetterExclamationTex,
+    },
+    // PARFAIT!
+    [LANGUAGE_FRE] = {
+        gPerfectLetterPTex, sPerfectLetterATex, gPerfectLetterRTex, gPerfectLetterFTex,
+        sPerfectLetterATex, sPerfectLetterITex, gPerfectLetterTTex, gPerfectLetterExclamationTex,
+    },
+    // PERFECTO
+    [LANGUAGE_SPA] = {
+        gPerfectLetterPTex, gPerfectLetterETex, gPerfectLetterRTex, gPerfectLetterFTex,
+        gPerfectLetterETex, gPerfectLetterCTex, gPerfectLetterTTex, sPerfectLetterOTex,
+    },
 };
+
+static TexturePtr* Interface_GetPerfectLettersTextures(void) {
+    if (gSaveContext.options.language < LANGUAGE_MAX) {
+        return sPerfectLettersTextures[gSaveContext.options.language];
+    }
+
+    return sPerfectLettersTextures[LANGUAGE_ENG];
+}
 
 void Interface_DrawPerfectLetters(PlayState* play) {
     InterfaceContext* interfaceCtx = &play->interfaceCtx;
@@ -7980,6 +8056,7 @@ void Interface_DrawPerfectLetters(PlayState* play) {
     f32 letterY;
     s16 i;
     s16 vtxOffset;
+    TexturePtr* perfectLettersTextures = Interface_GetPerfectLettersTextures();
 
     OPEN_DISPS(play->state.gfxCtx);
 
@@ -8006,7 +8083,7 @@ void Interface_DrawPerfectLetters(PlayState* play) {
             MATRIX_FINALIZE_AND_LOAD(OVERLAY_DISP++, play->state.gfxCtx);
             gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[44 + vtxOffset], 4, 0);
 
-            OVERLAY_DISP = Gfx_DrawTexQuad4b(OVERLAY_DISP, sPerfectLettersTextures[i], G_IM_FMT_I, 32, 33, 0);
+            OVERLAY_DISP = Gfx_DrawTexQuad4b(OVERLAY_DISP, perfectLettersTextures[i], G_IM_FMT_I, 32, 33, 0);
 
             // Draw Minigame Perfect Colored Letters
             gDPPipeSync(OVERLAY_DISP++);
@@ -8020,7 +8097,7 @@ void Interface_DrawPerfectLetters(PlayState* play) {
             MATRIX_FINALIZE_AND_LOAD(OVERLAY_DISP++, play->state.gfxCtx);
             gSPVertex(OVERLAY_DISP++, &interfaceCtx->actionVtx[76 + vtxOffset], 4, 0);
 
-            OVERLAY_DISP = Gfx_DrawTexQuad4b(OVERLAY_DISP, sPerfectLettersTextures[i], G_IM_FMT_I, 32, 33, 0);
+            OVERLAY_DISP = Gfx_DrawTexQuad4b(OVERLAY_DISP, perfectLettersTextures[i], G_IM_FMT_I, 32, 33, 0);
         }
     }
 

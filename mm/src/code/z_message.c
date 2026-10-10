@@ -20,6 +20,8 @@
 #include "2s2h_assets.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 
+extern MessageTableEntry* OTRMessage_GetTable(u8 language);
+
 const char* gBombersNotebookPhotos[] = {
     gBombersNotebookPhotoAnjuTex,
     gBombersNotebookPhotoKafeiTex,
@@ -2381,8 +2383,10 @@ void Message_Decode(PlayState* play) {
     u16 curChar;
     u8 index2 = 0;
 
-    // BENTODO do this somewhere else
-    gSaveContext.options.language = LANGUAGE_ENG;
+    // Non-PAL releases currently expose only the English message bank.
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11)) {
+        gSaveContext.options.language = LANGUAGE_ENG;
+    }
 
     msgCtx->textDelayTimer = 0;
     msgCtx->textDelay = msgCtx->textDelayTimer;
@@ -3319,8 +3323,10 @@ void Message_OpenText(PlayState* play, u16 textId) {
     bool loadFromMessageTable = true;
     GameInteractor_ExecuteOnOpenText(&textId, &loadFromMessageTable);
 
-    // BENTODO do this somewhere else
-    gSaveContext.options.language = LANGUAGE_ENG;
+    // Non-PAL releases currently expose only the English message bank.
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11)) {
+        gSaveContext.options.language = LANGUAGE_ENG;
+    }
 
     if (play->msgCtx.msgMode == MSGMODE_NONE) {
         gSaveContext.prevHudVisibility = gSaveContext.hudVisibility;
@@ -3470,8 +3476,10 @@ void func_801514B0(PlayState* play, u16 arg1, u8 arg2) {
     Font* font = &msgCtx->font;
     Player* player = GET_PLAYER(play);
     f32 temp = 1024.0f;
-    // BENTODO do this somewhere else
-    gSaveContext.options.language = LANGUAGE_ENG;
+    // Non-PAL releases currently expose only the English message bank.
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11)) {
+        gSaveContext.options.language = LANGUAGE_ENG;
+    }
 
     msgCtx->ocarinaAction = 0xFFFF;
 
@@ -6302,7 +6310,7 @@ void Message_Update(PlayState* play) {
 }
 
 void Message_SetTables(PlayState* play) {
-    play->msgCtx.messageTableNES = sMessageTableNES;
+    play->msgCtx.messageTableNES = OTRMessage_GetTable(gSaveContext.options.language);
     play->msgCtx.messageTableCredits = sMessageTableCredits;
 }
 

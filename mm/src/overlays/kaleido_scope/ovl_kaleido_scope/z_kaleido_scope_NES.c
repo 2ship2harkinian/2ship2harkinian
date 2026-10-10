@@ -1085,6 +1085,24 @@ TexturePtr D_8082B9A8[] = {
     gPauseToMasksENGTex,
     gPauseToSelectItemENGTex,
 };
+
+static u16 KaleidoScope_GetPalLabelWidth(u16 engWidth, u16 gerWidth, u16 fraWidth, u16 espWidth) {
+    if (!ResourceMgr_HasGameVersion(MM_PAL_11)) {
+        return engWidth;
+    }
+
+    switch (gSaveContext.options.language) {
+        case LANGUAGE_GER:
+            return gerWidth;
+        case LANGUAGE_FRE:
+            return fraWidth;
+        case LANGUAGE_SPA:
+            return espWidth;
+        default:
+            return engWidth;
+    }
+}
+
 void KaleidoScope_DrawInfoPanel(PlayState* play) {
     static s16 sPauseZRCursorColorTargets[][4] = {
         { 180, 210, 255, 220 },
@@ -1340,7 +1358,8 @@ void KaleidoScope_DrawInfoPanel(PlayState* play) {
             pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 24 * (1 << 5);
 
             // #region 2S2H - fixed vtx size for correct texture size
-            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = 64 * (1 << 5);
+            u16 decideWidth = KaleidoScope_GetPalLabelWidth(64, 96, 80, 80);
+            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = decideWidth * (1 << 5);
 
             gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
             gDPPipeSync(POLY_OPA_DISP++);
@@ -1348,7 +1367,7 @@ void KaleidoScope_DrawInfoPanel(PlayState* play) {
 
             //! @bug: Incorrect dimensions. Should be 64x16
             //! Fixed 11/23/23
-            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToDecideENGTex, G_IM_FMT_IA, 64, 16, 4);
+            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToDecideENGTex, G_IM_FMT_IA, decideWidth, 16, 4);
 
         } else if (pauseCtx->cursorSpecialPos != 0) {
             if ((pauseCtx->state == PAUSE_STATE_MAIN) && (pauseCtx->mainState == PAUSE_MAIN_STATE_IDLE)) {
@@ -1386,14 +1405,15 @@ void KaleidoScope_DrawInfoPanel(PlayState* play) {
 
             pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 48 * (1 << 5);
 
-            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = 64 * (1 << 5);
+            u16 equipWidth = KaleidoScope_GetPalLabelWidth(64, 96, 80, 80);
+            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = equipWidth * (1 << 5);
 
             gSPDisplayList(POLY_OPA_DISP++, gCButtonIconsDL);
 
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToEquipENGTex, G_IM_FMT_IA, 64, 16, 4);
+            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToEquipENGTex, G_IM_FMT_IA, equipWidth, 16, 4);
         } else if ((pauseCtx->pageIndex == PAUSE_MAP) && sInDungeonScene) {
             // No code in this case
         } else if ((pauseCtx->pageIndex == PAUSE_QUEST) &&
@@ -1413,14 +1433,16 @@ void KaleidoScope_DrawInfoPanel(PlayState* play) {
 
                 pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 24 * (1 << 5);
 
-                pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = 96 * (1 << 5);
+                u16 notebookWidth = KaleidoScope_GetPalLabelWidth(96, 112, 112, 112);
+                pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = notebookWidth * (1 << 5);
 
                 gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
 
                 gDPPipeSync(POLY_OPA_DISP++);
                 gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-                POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToViewNotebookENGTex, G_IM_FMT_IA, 96, 16, 4);
+                POLY_OPA_DISP =
+                    Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToViewNotebookENGTex, G_IM_FMT_IA, notebookWidth, 16, 4);
             }
         } else if ((pauseCtx->pageIndex == PAUSE_QUEST) && (pauseCtx->cursorSlot[PAUSE_QUEST] >= QUEST_SONG_SONATA) &&
                    (pauseCtx->cursorSlot[PAUSE_QUEST] <= QUEST_SONG_SUN) && (pauseCtx->namedItem != PAUSE_ITEM_NONE)) {
@@ -1438,14 +1460,15 @@ void KaleidoScope_DrawInfoPanel(PlayState* play) {
 
             pauseCtx->infoPanelVtx[17].v.tc[0] = pauseCtx->infoPanelVtx[19].v.tc[0] = 24 * (1 << 5);
 
-            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = 96 * (1 << 5);
+            u16 melodyWidth = KaleidoScope_GetPalLabelWidth(96, 112, 112, 112);
+            pauseCtx->infoPanelVtx[21].v.tc[0] = pauseCtx->infoPanelVtx[23].v.tc[0] = melodyWidth * (1 << 5);
 
             gSPDisplayList(POLY_OPA_DISP++, gAButtonIconDL);
 
             gDPPipeSync(POLY_OPA_DISP++);
             gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
 
-            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToPlayMelodyENGTex, G_IM_FMT_IA, 96, 16, 4);
+            POLY_OPA_DISP = Gfx_DrawTexQuad4b(POLY_OPA_DISP, gPauseToPlayMelodyENGTex, G_IM_FMT_IA, melodyWidth, 16, 4);
         }
     }
 
