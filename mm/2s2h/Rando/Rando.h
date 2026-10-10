@@ -1,6 +1,8 @@
 #ifndef RANDO_H
 #define RANDO_H
 
+#include <nlohmann/json_fwd.hpp>
+
 #include "StaticData/StaticData.h"
 #include "Types.h"
 #include "variables.h"

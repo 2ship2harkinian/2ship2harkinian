@@ -2496,6 +2496,10 @@ void Player_PlaySfx(Player* player, u16 sfxId) {
                              &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
         }
     }
+
+    if (player->actor.id == ACTOR_PLAYER) {
+        GameInteractor_ExecuteOnPlayerSfx(sfxId);
+    }
 }
 
 /**
@@ -2688,6 +2692,7 @@ void Actor_SpawnSetupActors(PlayState* play, ActorContext* actorCtx) {
 
         // Prevents re-spawning the setup actors
         play->numSetupActors = -play->numSetupActors;
+        GameInteractor_ExecuteOnSceneSpawnActors();
     }
 }
 

@@ -79,12 +79,6 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     endif()
 endif()
 
-if (CMAKE_SYSTEM_NAME MATCHES "Windows|Linux")
-    if(NOT DEFINED BUILD_CROWD_CONTROL)
-        set(BUILD_CROWD_CONTROL OFF)
-    endif()
-endif()
-
 # Enable the Gfx debugger in LUS to use libgfxd from ZAPDTR
 set(GFX_DEBUG_DISASSEMBLER ON)
 

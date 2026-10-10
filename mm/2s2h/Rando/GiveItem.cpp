@@ -1,7 +1,9 @@
 #include "Rando/Rando.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 #include "Rando/ActorBehavior/Souls.h"
 #include "Rando/MiscBehavior/MiscBehavior.h"
 #include "Rando/MiscBehavior/ClockShuffle.h"
+#include "2s2h/Network/Anchor/Anchor.h"
 
 extern "C" {
 #include "variables.h"
@@ -135,11 +137,11 @@ void Rando::GiveItem(RandoItemId randoItemId) {
                     Rando::GiveItem(RI_SOUL_BOSS_MAJORA);
                 }
                 GameInteractor_ExecuteOnGameCompletion();
-                GameInteractor::Instance->events.emplace_back(
-                    GIEventTransition{ .entrance = ENTRANCE(TERMINA_FIELD, 0),
-                                       .cutsceneIndex = 0xFFF7,
-                                       .transitionTrigger = TRANS_TRIGGER_START,
-                                       .transitionType = TRANS_TYPE_FADE_BLACK });
+                GameInteractor::Instance->Queue(GIActions::Transition({ .entrance = ENTRANCE(TERMINA_FIELD, 0),
+                                                                        .cutsceneIndex = 0xFFF7,
+                                                                        .transitionTrigger = TRANS_TRIGGER_START,
+                                                                        .transitionType = TRANS_TYPE_FADE_BLACK }));
+                Anchor::Instance->SendPacket_GameComplete();
             }
             break;
         // Technically these should never be used, but leaving them here just in case

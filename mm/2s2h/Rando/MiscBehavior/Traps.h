@@ -2,20 +2,11 @@
 #define RANDO_TRAP_H
 
 #include "Rando/Rando.h"
-typedef enum {
-    TRAP_FREEZE,
-    TRAP_BLAST,
-    TRAP_SHOCK,
-    TRAP_JINX,
-    TRAP_WALLET,
-    TRAP_ENEMY,
-    TRAP_TIME,
-    TRAP_FIRE,
-    TRAP_KNOCKBACK,
-    TRAP_MAX
-} TrapTypes;
+#include "2s2h/GameInteractor/GameInteractorAction.h"
 
-extern int RollTrapType();
-extern std::string GetTrapMessage();
+// Picks the next trap from the enabled pool and remembers it, so that GetTrapMessage() and the
+// eventual OfferTrapItem() agree on what the player is getting.
+void RollTrapType();
+std::string GetTrapMessage();
 
 #endif

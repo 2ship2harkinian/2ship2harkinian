@@ -2272,6 +2272,14 @@ void BenMenu::AddDevTools() {
             "Enables the Gfx Debugger window, allowing you to input commands, type help for some examples."))
         .WindowName("Gfx Debugger");
 
+    path = { "Dev Tools", "Action Debugger", SECTION_COLUMN_1 };
+    AddSidebarEntry("Dev Tools", "Action Debugger", 1);
+    AddWidget(path, "Popout Action Debugger", WIDGET_WINDOW_BUTTON)
+        .CVar("gWindows.ActionDebugger")
+        .Options(ButtonOptions().Tooltip("Enables the Action Debugger window, for firing any registered "
+                                         "GameInteractor action and watching the queue handle it."))
+        .WindowName("Action Debugger");
+
     path = { "Dev Tools", "Hook Debugger", SECTION_COLUMN_1 };
     AddSidebarEntry("Dev Tools", "Hook Debugger", 1);
     AddWidget(path, "Popout Hook Debugger", WIDGET_WINDOW_BUTTON)

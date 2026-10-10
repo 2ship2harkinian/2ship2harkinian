@@ -1,6 +1,7 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -20,11 +21,10 @@ void RegisterSkipPrincessDelivery() {
             SET_WEEKEVENTREG(WEEKEVENTREG_23_20);
 
             // Set up transition to Deku Palace throne room
-            GameInteractor::Instance->events.emplace_back(
-                GIEventTransition{ .entrance = ENTRANCE(DEKU_KINGS_CHAMBER, 3),
-                                   .cutsceneIndex = 0,
-                                   .transitionTrigger = TRANS_TRIGGER_START,
-                                   .transitionType = TRANS_TYPE_FADE_BLACK });
+            GameInteractor::Instance->Queue(GIActions::Transition({ .entrance = ENTRANCE(DEKU_KINGS_CHAMBER, 3),
+                                                                    .cutsceneIndex = 0,
+                                                                    .transitionTrigger = TRANS_TRIGGER_START,
+                                                                    .transitionType = TRANS_TYPE_FADE_BLACK }));
             *should = false;
         }
     });

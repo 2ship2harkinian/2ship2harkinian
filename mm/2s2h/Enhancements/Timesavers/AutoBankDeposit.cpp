@@ -4,6 +4,7 @@
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/CustomItem/CustomItem.h"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 #define CVAR_NAME "gEnhancements.Timesavers.AutoBankDeposit"
 #define CVAR CVarGetInteger(CVAR_NAME, 0)
@@ -35,22 +36,22 @@ static void GrantBankFirstReward() {
         u32 walletLevel = CUR_UPG_VALUE(UPG_WALLET);
         s16 itemDrawId = (walletLevel == 0) ? (s16)GID_WALLET_ADULT : (s16)GID_WALLET_GIANT;
 
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-            .showGetItemCutscene = true, .param = itemDrawId, .giveItem = [](Actor* actor, PlayState* play) {
-                u32 walletLevel = CUR_UPG_VALUE(UPG_WALLET);
-                ItemId wallet = (walletLevel == 0) ? ITEM_WALLET_ADULT : ITEM_WALLET_GIANT;
-                const char* walletName = (walletLevel == 0) ? "Adult's Wallet" : "Giant's Wallet";
+        GameInteractor::Instance->Queue(GIActions::GiveItem(
+            { .showGetItemCutscene = true, .param = itemDrawId, .giveItem = [](Actor* actor, PlayState* play) {
+                 u32 walletLevel = CUR_UPG_VALUE(UPG_WALLET);
+                 ItemId wallet = (walletLevel == 0) ? ITEM_WALLET_ADULT : ITEM_WALLET_GIANT;
+                 const char* walletName = (walletLevel == 0) ? "Adult's Wallet" : "Giant's Wallet";
 
-                if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                    CustomMessage::SetActiveCustomMessage(std::string("You got ") + walletName + "!",
-                                                          { .textboxType = 2 });
-                } else {
-                    CustomMessage::StartTextbox(std::string("You got ") + walletName + "!\x1C\x02\x10",
-                                                { .textboxType = 2 });
-                }
+                 if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                     CustomMessage::SetActiveCustomMessage(std::string("You got ") + walletName + "!",
+                                                           { .textboxType = 2 });
+                 } else {
+                     CustomMessage::StartTextbox(std::string("You got ") + walletName + "!\x1C\x02\x10",
+                                                 { .textboxType = 2 });
+                 }
 
-                Item_Give(play, wallet);
-            } });
+                 Item_Give(play, wallet);
+             } }));
     }
 }
 
@@ -60,16 +61,16 @@ static void GrantBankInterestReward() {
     if (IS_RANDO) {
         RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_WEST_BANK_INTEREST].eligible = true;
     } else {
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-            .showGetItemCutscene = true, .param = GID_RUPEE_BLUE, .giveItem = [](Actor* actor, PlayState* play) {
-                if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                    CustomMessage::SetActiveCustomMessage("You got a Blue Rupee!", { .textboxType = 2 });
-                } else {
-                    CustomMessage::StartTextbox("You got a Blue Rupee!\x1C\x02\x10", { .textboxType = 2 });
-                }
+        GameInteractor::Instance->Queue(GIActions::GiveItem(
+            { .showGetItemCutscene = true, .param = GID_RUPEE_BLUE, .giveItem = [](Actor* actor, PlayState* play) {
+                 if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                     CustomMessage::SetActiveCustomMessage("You got a Blue Rupee!", { .textboxType = 2 });
+                 } else {
+                     CustomMessage::StartTextbox("You got a Blue Rupee!\x1C\x02\x10", { .textboxType = 2 });
+                 }
 
-                Item_Give(play, ITEM_RUPEE_BLUE);
-            } });
+                 Item_Give(play, ITEM_RUPEE_BLUE);
+             } }));
     }
 }
 
@@ -79,16 +80,16 @@ static void GrantBankFinalReward() {
     if (IS_RANDO) {
         RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_WEST_BANK_PIECE_OF_HEART].eligible = true;
     } else {
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-            .showGetItemCutscene = true, .param = GID_HEART_PIECE, .giveItem = [](Actor* actor, PlayState* play) {
-                if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                    CustomMessage::SetActiveCustomMessage("You got a Piece of Heart!", { .textboxType = 2 });
-                } else {
-                    CustomMessage::StartTextbox("You got a Piece of Heart!\x1C\x02\x10", { .textboxType = 2 });
-                }
+        GameInteractor::Instance->Queue(GIActions::GiveItem(
+            { .showGetItemCutscene = true, .param = GID_HEART_PIECE, .giveItem = [](Actor* actor, PlayState* play) {
+                 if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                     CustomMessage::SetActiveCustomMessage("You got a Piece of Heart!", { .textboxType = 2 });
+                 } else {
+                     CustomMessage::StartTextbox("You got a Piece of Heart!\x1C\x02\x10", { .textboxType = 2 });
+                 }
 
-                Item_Give(play, ITEM_HEART_PIECE);
-            } });
+                 Item_Give(play, ITEM_HEART_PIECE);
+             } }));
     }
 }
 

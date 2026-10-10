@@ -4,6 +4,7 @@
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "variables.h"
@@ -30,24 +31,24 @@ void RegisterSkipLearningSongOfSoaring() {
     // Then, once this textId is opened for the first time, give the player the reward. (unless we're in rando)
     COND_ID_HOOK(OnOpenText, ENGRAVING_TEXT_ID, CVAR && !IS_RANDO, [](u16* textId, bool* loadFromMessageTable) {
         if (!CHECK_QUEST_ITEM(QUEST_SONG_SOARING)) {
-            GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-                .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
-                .giveItem =
-                    [](Actor* actor, PlayState* play) {
-                        if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                            CustomMessage::SetActiveCustomMessage("You learned the Song of Soaring!",
-                                                                  { .textboxType = 2 });
-                        } else {
-                            CustomMessage::StartTextbox("You learned the Song of Soaring!\x1C\x02\x10",
-                                                        { .textboxType = 2 });
-                        }
-                        Item_Give(gPlayState, ITEM_SONG_SOARING);
-                    },
-                .drawItem =
-                    [](Actor* actor, PlayState* play) {
-                        Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                        Rando::DrawItem(RI_SONG_SOARING);
-                    } });
+            GameInteractor::Instance->Queue(GIActions::GiveItem(
+                { .showGetItemCutscene = !CVarGetInteger("gEnhancements.Cutscenes.SkipGetItemCutscenes", 0),
+                  .giveItem =
+                      [](Actor* actor, PlayState* play) {
+                          if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                              CustomMessage::SetActiveCustomMessage("You learned the Song of Soaring!",
+                                                                    { .textboxType = 2 });
+                          } else {
+                              CustomMessage::StartTextbox("You learned the Song of Soaring!\x1C\x02\x10",
+                                                          { .textboxType = 2 });
+                          }
+                          Item_Give(gPlayState, ITEM_SONG_SOARING);
+                      },
+                  .drawItem =
+                      [](Actor* actor, PlayState* play) {
+                          Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                          Rando::DrawItem(RI_SONG_SOARING);
+                      } }));
         }
     });
 }

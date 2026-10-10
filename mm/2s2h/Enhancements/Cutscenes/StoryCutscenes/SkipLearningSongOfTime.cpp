@@ -4,6 +4,7 @@
 #include "2s2h/CustomMessage/CustomMessage.h"
 #include "2s2h/Rando/Rando.h"
 #include "2s2h/ShipInit.hpp"
+#include "2s2h/GameInteractor/Actions/Actions.h"
 
 extern "C" {
 #include "functions.h"
@@ -22,23 +23,24 @@ void RegisterSkipLearningSongOfTime() {
         *should = false;
         // This typically gets set in the cutscene
         gSaveContext.save.playerForm = PLAYER_FORM_DEKU;
-        GameInteractor::Instance->events.emplace_back(GIEventGiveItem{
-            .showGetItemCutscene = true,
-            .param = GID_MASK_DEKU,
-            .giveItem =
-                [](Actor* actor, PlayState* play) {
-                    if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
-                        CustomMessage::SetActiveCustomMessage("You received the Song of Time!", { .textboxType = 2 });
-                    } else {
-                        CustomMessage::StartTextbox("You received the Song of Time!\x1C\x02\x10", { .textboxType = 2 });
-                    }
-                    Item_Give(gPlayState, ITEM_SONG_TIME);
-                },
-            .drawItem =
-                [](Actor* actor, PlayState* play) {
-                    Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
-                    Rando::DrawItem(RI_SONG_TIME);
-                } });
+        GameInteractor::Instance->Queue(GIActions::GiveItem(
+            { .showGetItemCutscene = true,
+              .param = GID_MASK_DEKU,
+              .giveItem =
+                  [](Actor* actor, PlayState* play) {
+                      if (CUSTOM_ITEM_FLAGS & CustomItem::GIVE_ITEM_CUTSCENE) {
+                          CustomMessage::SetActiveCustomMessage("You received the Song of Time!", { .textboxType = 2 });
+                      } else {
+                          CustomMessage::StartTextbox("You received the Song of Time!\x1C\x02\x10",
+                                                      { .textboxType = 2 });
+                      }
+                      Item_Give(gPlayState, ITEM_SONG_TIME);
+                  },
+              .drawItem =
+                  [](Actor* actor, PlayState* play) {
+                      Matrix_Scale(30.0f, 30.0f, 30.0f, MTXMODE_APPLY);
+                      Rando::DrawItem(RI_SONG_TIME);
+                  } }));
     });
 }
 

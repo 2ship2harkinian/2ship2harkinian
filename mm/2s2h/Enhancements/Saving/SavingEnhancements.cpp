@@ -3,6 +3,7 @@
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/Network/Anchor/Anchor.h"
 
 extern "C" {
 #include <variables.h>
@@ -234,6 +235,7 @@ static RegisterShipInitFunc registerSavingEnhancements(
             if (gSaveContext.save.shipSaveInfo.fileCompletedAt == 0) {
                 SavingEnhancements_AdvancePlaytime();
                 gSaveContext.save.shipSaveInfo.fileCompletedAt = GetUnixTimestamp();
+                Anchor::Instance->SendPacket_GameComplete();
             }
         });
 
