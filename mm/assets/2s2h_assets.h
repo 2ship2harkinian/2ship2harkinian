@@ -23,6 +23,9 @@ static const ALIGN_ASSET(2) char gTriforcePieceTex[] = dgTriforcePiece;
 #define dgFlippers "__OTR__textures/parameter_static/gFlippers"
 static const ALIGN_ASSET(2) char gFlippersTex[] = dgFlippers;
 
+#define dgGrab "__OTR__textures/parameter_static/gGrabTex"
+static const ALIGN_ASSET(2) char gGrabTex[] = dgGrab;
+
 #define dgThreeDayClockHour13Tex "__OTR__textures/parameter_static/gThreeDayClockHour13Tex"
 static const ALIGN_ASSET(2) char gThreeDayClockHour13Tex[] = dgThreeDayClockHour13Tex;
 
@@ -434,6 +437,9 @@ static const ALIGN_ASSET(2) char gBarrelTrackerIcon[] = dgBarrelTrackerIcon;
 
 #define dgGiFlippersDL "__OTR__objects/object_ability_swim/gGiFlippersDL"
 static const ALIGN_ASSET(2) char gGiFlippersDL[] = dgGiFlippersDL;
+
+#define dgGiGrabDL "__OTR__objects/object_ability_grab/gGiGrabDL"
+static const ALIGN_ASSET(2) char gGiGrabDL[] = dgGiGrabDL;
 
 #define dgTriforcePiece0DL "__OTR__objects/object_triforce_piece_0/gTriforcePiece0DL"
 static const ALIGN_ASSET(2) char gTriforcePiece0DL[] = dgTriforcePiece0DL;
