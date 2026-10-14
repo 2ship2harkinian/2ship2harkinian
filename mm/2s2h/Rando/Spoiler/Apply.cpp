@@ -29,6 +29,9 @@ void ApplyToSaveContext(nlohmann::json spoiler) {
     auto priorityItems = Rando::GetSariaPriorityItemsFromSpoiler(spoiler);
     Rando::SetSariaPriorityItemsInSave(gSaveContext.save.shipSaveInfo.rando, priorityItems);
 
+    auto additionalItems = Rando::GetAdditionalItemsFromSpoiler(spoiler);
+    Rando::SetAdditionalItemsInSave(gSaveContext.save.shipSaveInfo.rando, additionalItems);
+
     for (auto& [randoCheckId, randoStaticCheck] : Rando::StaticData::Checks) {
         if (randoStaticCheck.randoCheckId == RC_UNKNOWN) {
             continue;
