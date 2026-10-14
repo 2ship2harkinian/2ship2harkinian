@@ -152,6 +152,18 @@ list(FILTER src__ EXCLUDE REGEX "src/libultra/*")
 #list(REMOVE_ITEM src__ "src/libultra/gu/sqrtf.c")
 #list(REMOVE_ITEM src__ "src/libultra/gu/us2dex.c")
 
+# The decomp under src/ is verified by matching the original ROM, not by being warning-clean, and we
+# deliberately don't change it -- so its warnings are permanent noise that buried the actionable ones
+# in CI (~3300 lines of a 9200-line Linux build log). Applied per source file rather than to the
+# target, so everything under 2s2h/ keeps warning normally.
+set(src__no_warn ${src__})
+list(FILTER src__no_warn INCLUDE REGEX "\\.c$")
+if (MSVC)
+    set_source_files_properties(${src__no_warn} PROPERTIES COMPILE_OPTIONS /w)
+else()
+    set_source_files_properties(${src__no_warn} PROPERTIES COMPILE_OPTIONS -w)
+endif()
+
 source_group("src" REGULAR_EXPRESSION "src/*")
 source_group("src\\boot" REGULAR_EXPRESSION "src/boot/*")
 source_group("src\\buffers" REGULAR_EXPRESSION "src/buffers/*")
