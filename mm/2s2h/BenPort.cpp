@@ -1188,9 +1188,13 @@ void RunCommands(Gfx* Commands, int time, int step, int denom, int count) {
     ImGui::PushStyleColor(ImGuiCol_TitleBgActive, UIWidgets::ColorValues.at(themeColor));
     for (int i = 0; i < count; i++) {
         time += step;
+        const float interpolationStep = (float)time / denom;
         std::unordered_map<Mtx*, MtxF> mtx_replacements =
-            (time == denom) ? std::unordered_map<Mtx*, MtxF>() : FrameInterpolation_Interpolate((float)time / denom);
-        intp->mInterpolationT = (float)time / denom;
+            (time == denom) ? std::unordered_map<Mtx*, MtxF>() : FrameInterpolation_Interpolate(interpolationStep);
+        // Skin and ribbon vertices are CPU written and shared by every displayed frame of the tick.
+        FrameInterpolation_UpdateSkinnedVertices(interpolationStep);
+        FrameInterpolation_UpdateRibbonHeads(interpolationStep);
+        intp->mInterpolationT = interpolationStep;
         wnd->DrawAndRunGraphicsCommands(Commands, mtx_replacements);
         intp->mInterpolationIndex++;
     }
