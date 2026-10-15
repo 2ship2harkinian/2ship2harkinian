@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 #include "mixer.h"
+#include "CpuHelpers.h"
+
 #ifndef __clang__
 #pragma GCC optimize("unroll-loops")
 #endif
@@ -69,8 +71,13 @@ static int16_t resample_table[64][4] = {
     { 0xffdf, 0x0d46, 0x66ad, 0x0c39 }
 };
 
+static void aMixImplRef(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
 static void aMixImplSSE2(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
 static void aMixImplNEON(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
+static void aMixImpl256(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
+
+typedef void (*aMixFunc)(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
+static aMixFunc sMixFunc;
 
 static inline int16_t clamp16(int32_t v) {
     if (v < -0x8000) {
@@ -88,6 +95,26 @@ static inline int32_t clamp32(int64_t v) {
         return 0x7fffffff;
     }
     return (int32_t)v;
+}
+
+extern int Cpu_SupportsAVX2(void);
+
+// Sets up which version of a function to use. If you are trying to read an example implementation, look at the function
+// name ending with "ImplRef". If you are debugging a crash or issue, break in the function calling the function pointer
+void Mixer_Init(void) {
+#if defined(X86_CPU)
+    if (Cpu_SupportsAVX2()) {
+        sMixFunc = aMixImpl256;
+        return;
+    }
+    // If AVX2 isn't supported, fallback to the SSE2 implementation. SSE2 support goes back to early 2000s. We can
+    // assume it is supported
+    sMixFunc = aMixImplSSE2;
+#elif defiend(__ARM_NEON)
+    sMixFunc = aMixImplNEON;
+#else
+    sMixFunc = aMixImplRef;
+#endif
 }
 
 void aClearBufferImpl(uint16_t addr, int nbytes) {
@@ -357,13 +384,7 @@ static void aMixImplRef(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t
 }
 
 void aMixImpl(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr) {
-#if defined(__SSE2__) || defined(_M_AMD64)
-    aMixImplSSE2(count, gain, in_addr, out_addr);
-#elif defined(__ARM_NEON)
-    aMixImplNEON(count, gain, in_addr, out_addr);
-#else
-    aMixImplRef(count, gain, in_addr, out_addr);
-#endif
+    sMixFunc(count, gain, in_addr, out_addr);
 }
 
 void aS8DecImpl(uint8_t flags, ADPCM_STATE state) {
@@ -607,25 +628,17 @@ void aUnkCmd19Impl(uint8_t f, uint16_t count, uint16_t out_addr, uint16_t in_add
 // SIMD operations expect aligned data
 #include "align_asset_macro.h"
 
-#if defined(__SSE2__) || defined(_M_AMD64)
+#if defined(X86_CPU)
 #include <immintrin.h>
 
-static const ALIGN_ASSET(16) int16_t x7fff[8] = {
-    0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,
-};
-static const ALIGN_ASSET(16) int32_t x4000[4] = {
-    0x4000,
-    0x4000,
-    0x4000,
-    0x4000,
-};
+static const ALIGN_ASSET(32) int16_t x7fff[16] = { 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,};
+static const ALIGN_ASSET(32) int32_t x4000[8] = { 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000};
 
 static void aMixImplSSE2(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr) {
     int nbytes = ROUND_UP_32(ROUND_DOWN_16(count << 4));
     int16_t* in = BUF_S16(in_addr);
     int16_t* out = BUF_S16(out_addr);
-    int i;
-    int32_t sample;
+
     if (gain == -0x8000) {
         while (nbytes > 0) {
             for (unsigned int i = 0; i < 2; i++) {
@@ -638,6 +651,7 @@ static void aMixImplSSE2(uint16_t count, int16_t gain, uint16_t in_addr, uint16_
                 out += 8;
             }
         }
+        return;
     }
     // Load constants into vectors from aligned memory.
     __m128i x7fffVec = _mm_load_si128((__m128i*)x7fff);
@@ -686,7 +700,75 @@ static void aMixImplSSE2(uint16_t count, int16_t gain, uint16_t in_addr, uint16_
         }
     }
 }
+
+#pragma GCC target("avx2")
+// AVX2 version of the SSE2 implementation above. AVX2 support can be forced because we check if the CPU supports it
+// at runtime.
+void aMixImpl256(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr) {
+    int nbytes = ROUND_UP_32(ROUND_DOWN_16(count << 4));
+    int16_t* in = BUF_S16(in_addr);
+    int16_t* out = BUF_S16(out_addr);
+    int i;
+    int32_t sample;
+    if (gain == -0x8000) {
+        while (nbytes > 0) {
+            __m256i outVec =_mm256_loadu_si256((__m256*)out);
+            __m256i inVec =_mm256_loadu_si256((__m256i*)in);
+            __m256i subsVec =_mm256_subs_epi16(outVec, inVec);
+            _mm256_storeu_si256(out, subsVec);
+            in += 16;
+            out += 16;
+            nbytes -= 16 * sizeof(int16_t);
+        }
+        return;
+    }
+    // Load constants into vectors from aligned memory.
+    __m256i x7fffVec = _mm256_load_si256((__m256i*)x7fff);
+    __m256i x4000Vec = _mm256_load_si256((__m256i*)x4000);
+    __m256i gainVec = _mm256_set1_epi16(gain);
+    while (nbytes > 0) {
+        // Load input and output data into vectors
+        __m256i outVec = _mm256_loadu_si256((__m256i*)out);
+        __m256i inVec = _mm256_loadu_si256((__m256i*)in);
+        // Multiply `out` by `0x7FFF` producing 32 bit results, and store the upper and lower bits in each vector.
+        // Equivalent to `out[0..16] * 0x7FFF`
+        __m256i outx7fffLoVec = _mm256_mullo_epi16(outVec, x7fffVec);
+        __m256i outx7fffHiVec = _mm256_mulhi_epi16(outVec, x7fffVec);
+        // Same as above but for in and gain. Equivalent to `in[0..16] * gain`
+        __m256i inxGainLoVec = _mm256_mullo_epi16(inVec, gainVec);
+        __m256i inxGainHiVec = _mm256_mulhi_epi16(inVec, gainVec);
+
+        // Interleave the lo and hi bits into one 32 bit value for each vector element.
+        // So now we have 8 full elements in each vector instead of 16 half elements.
+        outx7fffLoVec = _mm256_unpacklo_epi16(outx7fffLoVec, outx7fffHiVec);
+        outx7fffHiVec = _mm256_unpackhi_epi16(outx7fffLoVec, outx7fffHiVec);
+        inxGainLoVec = _mm256_unpacklo_epi16(inxGainLoVec, inxGainHiVec);
+        inxGainHiVec = _mm256_unpackhi_epi16(inxGainLoVec, inxGainHiVec);
+
+        // Now we have 8 32 bit elements.  Continue the calculaton per the reference implementation.
+        // We already did out + 0x7fff and in * gain.
+        // *out * 0x7fff + *in++ * gain is the final result of these two calculations.
+        __m256i addLoVec = _mm256_add_epi32(outx7fffLoVec, inxGainLoVec);
+        __m256i addHiVec = _mm256_add_epi32(outx7fffHiVec, inxGainHiVec);
+        // Add 0x4000 to each element
+        addLoVec = _mm256_add_epi32(addLoVec, x4000Vec);
+        addHiVec = _mm256_add_epi32(addHiVec, x4000Vec);
+        // Shift each element over by 15
+        __m256i shiftedLoVec = _mm256_srai_epi32(addLoVec, 15);
+        __m256i shiftedHiVec = _mm256_srai_epi32(addHiVec, 15);
+        // Convert each 32 bit element to 16 bit with saturation (clamp) and store in `outVec`
+        outVec = _mm256_packs_epi32(shiftedLoVec, shiftedHiVec);
+        // Write the final vector back to memory
+        // The final calculation is ((out[0..16] * 0x7fff + in[0..16] * gain) + 0x4000) >> 15;
+        _mm256_storeu_si256((__m256i*)out, outVec);
+
+        in += 16;
+        out += 16;
+        nbytes -= 16 * sizeof(int16_t);
+    }
+}
 #endif
+
 #if defined(__ARM_NEON)
 #include <arm_neon.h>
 static const int32_t x4000Arr[4] = { 0x4000, 0x4000, 0x4000, 0x4000 };
@@ -744,76 +826,6 @@ void aMixImplNEON(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_a
 
             nbytes -= 8 * sizeof(int16_t);
         }
-    }
-}
-#endif
-
-#if 0
-static const ALIGN_ASSET(32) int16_t x7fff[16] = { 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,};
-static const ALIGN_ASSET(32) int32_t x4000[8] = { 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000};
-
-#pragma GCC target("avx2")
-// AVX2 version of the SSE2 implementation above. AVX2 wasn't released until 2014 and I don't have a good way of checking for it at compile time.
-void aMixImpl256(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr) {
-    int nbytes = ROUND_UP_32(ROUND_DOWN_16(count << 4));
-    int16_t* in = BUF_S16(in_addr);
-    int16_t* out = BUF_S16(out_addr);
-    int i;
-    int32_t sample;
-    if (gain == -0x8000) {
-        while (nbytes > 0) {
-            __m256i outVec =_mm256_loadu_si256((__m256*)out);
-            __m256i inVec =_mm256_loadu_si256((__m256i*)in);
-            __m256i subsVec =_mm256_subs_epi16(outVec, inVec);
-            _mm256_storeu_si256(out, subsVec);
-            in += 16;
-            out += 16;
-            nbytes -= 16 * sizeof(int16_t);
-        }
-    }
-    // Load constants into vectors from aligned memory.
-    __m256i x7fffVec = _mm256_load_si256((__m256i*)x7fff);
-    __m256i x4000Vec = _mm256_load_si256((__m256i*)x4000);
-    __m256i gainVec = _mm256_set1_epi16(gain);
-    while (nbytes > 0) {
-        // Load input and output data into vectors
-        __m256i outVec = _mm256_loadu_si256((__m256i*)out);
-        __m256i inVec = _mm256_loadu_si256((__m256i*)in);
-        // Multiply `out` by `0x7FFF` producing 32 bit results, and store the upper and lower bits in each vector.
-        // Equivalent to `out[0..16] * 0x7FFF`
-        __m256i outx7fffLoVec = _mm256_mullo_epi16(outVec, x7fffVec);
-        __m256i outx7fffHiVec = _mm256_mulhi_epi16(outVec, x7fffVec);
-        // Same as above but for in and gain. Equivalent to `in[0..16] * gain`
-        __m256i inxGainLoVec = _mm256_mullo_epi16(inVec, gainVec);
-        __m256i inxGainHiVec = _mm256_mulhi_epi16(inVec, gainVec);
-
-        // Interleave the lo and hi bits into one 32 bit value for each vector element.
-        // So now we have 8 full elements in each vector instead of 16 half elements.
-        outx7fffLoVec = _mm256_unpacklo_epi16(outx7fffLoVec, outx7fffHiVec);
-        outx7fffHiVec = _mm256_unpackhi_epi16(outx7fffLoVec, outx7fffHiVec);
-        inxGainLoVec = _mm256_unpacklo_epi16(inxGainLoVec, inxGainHiVec);
-        inxGainHiVec = _mm256_unpackhi_epi16(inxGainLoVec, inxGainHiVec);
-
-        // Now we have 8 32 bit elements.  Continue the calculaton per the reference implementation.
-        // We already did out + 0x7fff and in * gain.
-        // *out * 0x7fff + *in++ * gain is the final result of these two calculations.
-        __m256i addLoVec = _mm256_add_epi32(outx7fffLoVec, inxGainLoVec);
-        __m256i addHiVec = _mm256_add_epi32(outx7fffHiVec, inxGainHiVec);
-        // Add 0x4000 to each element
-        addLoVec = _mm256_add_epi32(addLoVec, x4000Vec);
-        addHiVec = _mm256_add_epi32(addHiVec, x4000Vec);
-        // Shift each element over by 15
-        __m256i shiftedLoVec = _mm256_srai_epi32(addLoVec, 15);
-        __m256i shiftedHiVec = _mm256_srai_epi32(addHiVec, 15);
-        // Convert each 32 bit element to 16 bit with saturation (clamp) and store in `outVec`
-        outVec = _mm256_packs_epi32(shiftedLoVec, shiftedHiVec);
-        // Write the final vector back to memory
-        // The final calculation is ((out[0..16] * 0x7fff + in[0..16] * gain) + 0x4000) >> 15;
-        _mm256_storeu_si256((__m256i*)out, outVec);
-
-        in += 16;
-        out += 16;
-        nbytes -= 16 * sizeof(int16_t);
     }
 }
 #endif
