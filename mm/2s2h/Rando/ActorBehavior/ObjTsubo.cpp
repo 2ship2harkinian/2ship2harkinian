@@ -1,4 +1,5 @@
 #include "ActorBehavior.h"
+#include "CSMC.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 
 #include "2s2h/CustomItem/CustomItem.h"
@@ -333,10 +334,9 @@ void IdentifyPot(Actor* actor, bool* should) {
     Rando::ActorBehavior::SetObjectRandoCheckId(actor, randoCheckId);
 }
 
-void ObjTsubo_RandoDraw(Actor* actor, PlayState* play) {
+static const char* GetPotDList(Actor* actor) {
     if (!CVarGetInteger("gRando.CSMC", 0)) {
-        Gfx_DrawDListOpa(play, (Gfx*)gPotMajorDL);
-        return;
+        return gPotMajorDL;
     }
 
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
@@ -345,33 +345,28 @@ void ObjTsubo_RandoDraw(Actor* actor, PlayState* play) {
 
     switch (randoItemType) {
         case RITYPE_BOSS_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotBossKeyDL);
-            break;
+            return gPotBossKeyDL;
         case RITYPE_HEALTH:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotHeartDL);
-            break;
+            return gPotHeartDL;
         case RITYPE_LESSER:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotMinorDL);
-            break;
+            return gPotMinorDL;
         case RITYPE_MAJOR:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotMajorDL);
-            break;
+            return gPotMajorDL;
         case RITYPE_MASK:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotMaskDL);
-            break;
+            return gPotMaskDL;
         case RITYPE_SKULLTULA_TOKEN:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotTokenDL);
-            break;
+            return gPotTokenDL;
         case RITYPE_SMALL_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotSmallKeyDL);
-            break;
+            return gPotSmallKeyDL;
         case RITYPE_STRAY_FAIRY:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotFairyDL);
-            break;
+            return gPotFairyDL;
         default:
-            Gfx_DrawDListOpa(play, (Gfx*)gPotStandardDL);
-            break;
+            return gPotStandardDL;
     }
+}
+
+void ObjTsubo_RandoDraw(Actor* actor, PlayState* play) {
+    CSMC_DrawActorOpa(actor, play, GetPotDList(actor), ObjTsubo_Draw);
 }
 
 void Rando::ActorBehavior::InitObjTsuboBehavior() {

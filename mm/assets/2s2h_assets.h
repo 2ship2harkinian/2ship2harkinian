@@ -7,6 +7,11 @@
 // We need to add the aligned version of the resource names here and use in code
 // On Mac, not using aligned resource names was causing crashes in release builds
 
+// Custom assets that were removed and have not been replaced yet. Code using them must provide a fallback.
+#define dgMissingAsset ""
+#define IS_MISSING_ASSET(asset) ((asset)[0] == '\0')
+#define ASSET_OR(asset, fallback) (IS_MISSING_ASSET(asset) ? (fallback) : (asset))
+
 // textures
 #define dgDPad "__OTR__textures/parameter_static/gDPad"
 static const ALIGN_ASSET(2) char gDPadTex[] = dgDPad;
@@ -168,268 +173,268 @@ static const ALIGN_ASSET(2) char gFileSelArrowLeftTex[] = dgFileSelArrowLeftTex;
 #define dgFileSelArrowRightTex "__OTR__misc/title_static/gFileSelArrowRightTex"
 static const ALIGN_ASSET(2) char gFileSelArrowRightTex[] = dgFileSelArrowRightTex;
 
-#define dgBoxChestCornerHealthTex "__OTR__objects/object_box/gBoxChestCornerHealthTex"
+#define dgBoxChestCornerHealthTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerHealthTex[] = dgBoxChestCornerHealthTex;
 
-#define dgBoxChestCornerLesserTex "__OTR__objects/object_box/gBoxChestCornerLesserTex"
+#define dgBoxChestCornerLesserTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerLesserTex[] = dgBoxChestCornerLesserTex;
 
-#define dgBoxChestCornerMajorTex "__OTR__objects/object_box/gBoxChestCornerMajorTex"
+#define dgBoxChestCornerMajorTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerMajorTex[] = dgBoxChestCornerMajorTex;
 
-#define dgBoxChestCornerMaskTex "__OTR__objects/object_box/gBoxChestCornerMaskTex"
+#define dgBoxChestCornerMaskTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerMaskTex[] = dgBoxChestCornerMaskTex;
 
-#define dgBoxChestCornerSkullTokenTex "__OTR__objects/object_box/gBoxChestCornerSkullTokenTex"
+#define dgBoxChestCornerSkullTokenTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerSkullTokenTex[] = dgBoxChestCornerSkullTokenTex;
 
-#define dgBoxChestCornerSmallKeyTex "__OTR__objects/object_box/gBoxChestCornerSmallKeyTex"
+#define dgBoxChestCornerSmallKeyTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerSmallKeyTex[] = dgBoxChestCornerSmallKeyTex;
 
-#define dgBoxChestCornerStrayFairyTex "__OTR__objects/object_box/gBoxChestCornerStrayFairyTex"
+#define dgBoxChestCornerStrayFairyTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestCornerStrayFairyTex[] = dgBoxChestCornerStrayFairyTex;
 
-#define dgBoxChestLockHealthTex "__OTR__objects/object_box/gBoxChestLockHealthTex"
+#define dgBoxChestLockHealthTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockHealthTex[] = dgBoxChestLockHealthTex;
 
-#define dgBoxChestLockLesserTex "__OTR__objects/object_box/gBoxChestLockLesserTex"
+#define dgBoxChestLockLesserTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockLesserTex[] = dgBoxChestLockLesserTex;
 
-#define dgBoxChestLockMajorTex "__OTR__objects/object_box/gBoxChestLockMajorTex"
+#define dgBoxChestLockMajorTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockMajorTex[] = dgBoxChestLockMajorTex;
 
-#define dgBoxChestLockMaskTex "__OTR__objects/object_box/gBoxChestLockMaskTex"
+#define dgBoxChestLockMaskTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockMaskTex[] = dgBoxChestLockMaskTex;
 
-#define dgBoxChestLockSkullTokenTex "__OTR__objects/object_box/gBoxChestLockSkullTokenTex"
+#define dgBoxChestLockSkullTokenTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockSkullTokenTex[] = dgBoxChestLockSkullTokenTex;
 
-#define dgBoxChestLockSmallKeyTex "__OTR__objects/object_box/gBoxChestLockSmallKeyTex"
+#define dgBoxChestLockSmallKeyTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockSmallKeyTex[] = dgBoxChestLockSmallKeyTex;
 
-#define dgBoxChestLockStrayFairyTex "__OTR__objects/object_box/gBoxChestLockStrayFairyTex"
+#define dgBoxChestLockStrayFairyTex dgMissingAsset
 static const ALIGN_ASSET(2) char gBoxChestLockStrayFairyTex[] = dgBoxChestLockStrayFairyTex;
 
-#define dgPotBossKeyDL "__OTR__objects/object_tsubo/gPotBossKeyDL"
+#define dgPotBossKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotBossKeyDL[] = dgPotBossKeyDL;
 
-#define dgPotFairyDL "__OTR__objects/object_tsubo/gPotFairyDL"
+#define dgPotFairyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotFairyDL[] = dgPotFairyDL;
 
-#define dgPotHeartDL "__OTR__objects/object_tsubo/gPotHeartDL"
+#define dgPotHeartDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotHeartDL[] = dgPotHeartDL;
 
-#define dgPotMajorDL "__OTR__objects/object_tsubo/gPotMajorDL"
+#define dgPotMajorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotMajorDL[] = dgPotMajorDL;
 
-#define dgPotMaskDL "__OTR__objects/object_tsubo/gPotMaskDL"
+#define dgPotMaskDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotMaskDL[] = dgPotMaskDL;
 
-#define dgPotMinorDL "__OTR__objects/object_tsubo/gPotMinorDL"
+#define dgPotMinorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotMinorDL[] = dgPotMinorDL;
 
-#define dgPotRandomDL "__OTR__objects/object_tsubo/gPotRandomDL"
+#define dgPotRandomDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotRandomDL[] = dgPotRandomDL;
 
-#define dgPotSmallKeyDL "__OTR__objects/object_tsubo/gPotSmallKeyDL"
+#define dgPotSmallKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotSmallKeyDL[] = dgPotSmallKeyDL;
 
-#define dgPotStandardDL "__OTR__objects/object_tsubo/gPotStandardDL"
+#define dgPotStandardDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotStandardDL[] = dgPotStandardDL;
 
-#define dgPotTokenDL "__OTR__objects/object_tsubo/gPotTokenDL"
+#define dgPotTokenDL dgMissingAsset
 static const ALIGN_ASSET(2) char gPotTokenDL[] = dgPotTokenDL;
 
-#define dgLargeMajorCrateDL "__OTR__objects/object_kibako2/gLargeMajorCrateDL"
+#define dgLargeMajorCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeMajorCrateDL[] = dgLargeMajorCrateDL;
 
-#define dgLargeMaskCrateDL "__OTR__objects/object_kibako2/gLargeMaskCrateDL"
+#define dgLargeMaskCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeMaskCrateDL[] = dgLargeMaskCrateDL;
 
-#define dgLargeMinorCrateDL "__OTR__objects/object_kibako2/gLargeMinorCrateDL"
+#define dgLargeMinorCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeMinorCrateDL[] = dgLargeMinorCrateDL;
 
-#define dgLargeRandoCrateDL "__OTR__objects/object_kibako2/gLargeRandoCrateDL"
+#define dgLargeRandoCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeRandoCrateDL[] = dgLargeRandoCrateDL;
 
-#define dgLargeSmallKeyCrateDL "__OTR__objects/object_kibako2/gLargeSmallKeyCrateDL"
+#define dgLargeSmallKeyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeSmallKeyCrateDL[] = dgLargeSmallKeyCrateDL;
 
-#define dgLargeTokenCrateDL "__OTR__objects/object_kibako2/gLargeTokenCrateDL"
+#define dgLargeTokenCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeTokenCrateDL[] = dgLargeTokenCrateDL;
 
-#define dgLargeBossKeyCrateDL "__OTR__objects/object_kibako2/gLargeBossKeyCrateDL"
+#define dgLargeBossKeyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeBossKeyCrateDL[] = dgLargeBossKeyCrateDL;
 
-#define dgLargeFairyCrateDL "__OTR__objects/object_kibako2/gLargeFairyCrateDL"
+#define dgLargeFairyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeFairyCrateDL[] = dgLargeFairyCrateDL;
 
-#define dgLargeHeartCrateDL "__OTR__objects/object_kibako2/gLargeHeartCrateDL"
+#define dgLargeHeartCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeHeartCrateDL[] = dgLargeHeartCrateDL;
 
-#define dgLargeJunkCrateDL "__OTR__objects/object_kibako2/gLargeJunkCrateDL"
+#define dgLargeJunkCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gLargeJunkCrateDL[] = dgLargeJunkCrateDL;
 
-#define dgSmallMajorCrateDL "__OTR__objects/object_kibako/gSmallMajorCrateDL"
+#define dgSmallMajorCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallMajorCrateDL[] = dgSmallMajorCrateDL;
 
-#define dgSmallMaskCrateDL "__OTR__objects/object_kibako/gSmallMaskCrateDL"
+#define dgSmallMaskCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallMaskCrateDL[] = dgSmallMaskCrateDL;
 
-#define dgSmallMinorCrateDL "__OTR__objects/object_kibako/gSmallMinorCrateDL"
+#define dgSmallMinorCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallMinorCrateDL[] = dgSmallMinorCrateDL;
 
-#define dgSmallRandoCrateDL "__OTR__objects/object_kibako/gSmallRandoCrateDL"
+#define dgSmallRandoCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallRandoCrateDL[] = dgSmallRandoCrateDL;
 
-#define dgSmallSmallKeyCrateDL "__OTR__objects/object_kibako/gSmallSmallKeyCrateDL"
+#define dgSmallSmallKeyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallSmallKeyCrateDL[] = dgSmallSmallKeyCrateDL;
 
-#define dgSmallTokenCrateDL "__OTR__objects/object_kibako/gSmallTokenCrateDL"
+#define dgSmallTokenCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallTokenCrateDL[] = dgSmallTokenCrateDL;
 
-#define dgSmallBossKeyCrateDL "__OTR__objects/object_kibako/gSmallBossKeyCrateDL"
+#define dgSmallBossKeyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallBossKeyCrateDL[] = dgSmallBossKeyCrateDL;
 
-#define dgSmallFairyCrateDL "__OTR__objects/object_kibako/gSmallFairyCrateDL"
+#define dgSmallFairyCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallFairyCrateDL[] = dgSmallFairyCrateDL;
 
-#define dgSmallHeartCrateDL "__OTR__objects/object_kibako/gSmallHeartCrateDL"
+#define dgSmallHeartCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallHeartCrateDL[] = dgSmallHeartCrateDL;
 
-#define dgSmallJunkCrateDL "__OTR__objects/object_kibako/gSmallJunkCrateDL"
+#define dgSmallJunkCrateDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSmallJunkCrateDL[] = dgSmallJunkCrateDL;
 
-#define dgBarrelMajorDL "__OTR__objects/object_taru/gBarrelMajorDL"
+#define dgBarrelMajorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelMajorDL[] = dgBarrelMajorDL;
 
-#define dgBarrelMaskDL "__OTR__objects/object_taru/gBarrelMaskDL"
+#define dgBarrelMaskDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelMaskDL[] = dgBarrelMaskDL;
 
-#define dgBarrelMinorDL "__OTR__objects/object_taru/gBarrelMinorDL"
+#define dgBarrelMinorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelMinorDL[] = dgBarrelMinorDL;
 
-#define dgBarrelRandoDL "__OTR__objects/object_taru/gBarrelRandoDL"
+#define dgBarrelRandoDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelRandoDL[] = dgBarrelRandoDL;
 
-#define dgBarrelSmallKeyDL "__OTR__objects/object_taru/gBarrelSmallKeyDL"
+#define dgBarrelSmallKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelSmallKeyDL[] = dgBarrelSmallKeyDL;
 
-#define dgBarrelTokenDL "__OTR__objects/object_taru/gBarrelTokenDL"
+#define dgBarrelTokenDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelTokenDL[] = dgBarrelTokenDL;
 
-#define dgBarrelBossKeyDL "__OTR__objects/object_taru/gBarrelBossKeyDL"
+#define dgBarrelBossKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelBossKeyDL[] = dgBarrelBossKeyDL;
 
-#define dgBarrelFairyDL "__OTR__objects/object_taru/gBarrelFairyDL"
+#define dgBarrelFairyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelFairyDL[] = dgBarrelFairyDL;
 
-#define dgBarrelHeartDL "__OTR__objects/object_taru/gBarrelHeartDL"
+#define dgBarrelHeartDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelHeartDL[] = dgBarrelHeartDL;
 
-#define dgBarrelJunkDL "__OTR__objects/object_taru/gBarrelJunkDL"
+#define dgBarrelJunkDL dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelJunkDL[] = dgBarrelJunkDL;
 
-#define dgRandoBushDL "__OTR__objects/gameplay_field_keep/gFieldBushRandomDL"
+#define dgRandoBushDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushDL[] = dgRandoBushDL;
 
-#define dgRandoBushXluDL "__OTR__objects/gameplay_field_keep/gFieldBushRandomXluDL"
+#define dgRandoBushXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushXluDL[] = dgRandoBushXluDL;
 
-#define dgRandoBushMinorDL "__OTR__objects/gameplay_field_keep/gFieldBushMinorDL"
+#define dgRandoBushMinorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMinorDL[] = dgRandoBushMinorDL;
 
-#define dgRandoBushMinorXluDL "__OTR__objects/gameplay_field_keep/gFieldBushMinorXluDL"
+#define dgRandoBushMinorXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMinorXluDL[] = dgRandoBushMinorXluDL;
 
-#define dgRandoBushMajorDL "__OTR__objects/gameplay_field_keep/gFieldBushMajorDL"
+#define dgRandoBushMajorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMajorDL[] = dgRandoBushMajorDL;
 
-#define dgRandoBushMajorXluDL "__OTR__objects/gameplay_field_keep/gFieldBushMajorXluDL"
+#define dgRandoBushMajorXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMajorXluDL[] = dgRandoBushMajorXluDL;
 
-#define dgRandoBushSmallKeyDL "__OTR__objects/gameplay_field_keep/gFieldBushSmallKeyDL"
+#define dgRandoBushSmallKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushSmallKeyDL[] = dgRandoBushSmallKeyDL;
 
-#define dgRandoBushSmallKeyXluDL "__OTR__objects/gameplay_field_keep/gFieldBushSmallKeyXluDL"
+#define dgRandoBushSmallKeyXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushSmallKeyXluDL[] = dgRandoBushSmallKeyXluDL;
 
-#define dgRandoBushBossKeyDL "__OTR__objects/gameplay_field_keep/gFieldBushBossKeyDL"
+#define dgRandoBushBossKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushBossKeyDL[] = dgRandoBushBossKeyDL;
 
-#define dgRandoBushBossKeyXluDL "__OTR__objects/gameplay_field_keep/gFieldBushBossKeyXluDL"
+#define dgRandoBushBossKeyXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushBossKeyXluDL[] = dgRandoBushBossKeyXluDL;
 
-#define dgRandoBushTokenDL "__OTR__objects/gameplay_field_keep/gFieldBushTokenDL"
+#define dgRandoBushTokenDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushTokenDL[] = dgRandoBushTokenDL;
 
-#define dgRandoBushTokenXluDL "__OTR__objects/gameplay_field_keep/gFieldBushTokenXluDL"
+#define dgRandoBushTokenXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushTokenXluDL[] = dgRandoBushTokenXluDL;
 
-#define dgRandoBushMaskDL "__OTR__objects/gameplay_field_keep/gFieldBushMaskDL"
+#define dgRandoBushMaskDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMaskDL[] = dgRandoBushMaskDL;
 
-#define dgRandoBushMaskXluDL "__OTR__objects/gameplay_field_keep/gFieldBushMaskXluDL"
+#define dgRandoBushMaskXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushMaskXluDL[] = dgRandoBushMaskXluDL;
 
-#define dgRandoBushFairyDL "__OTR__objects/gameplay_field_keep/gFieldBushFairyDL"
+#define dgRandoBushFairyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushFairyDL[] = dgRandoBushFairyDL;
 
-#define dgRandoBushFairyXluDL "__OTR__objects/gameplay_field_keep/gFieldBushFairyXluDL"
+#define dgRandoBushFairyXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushFairyXluDL[] = dgRandoBushFairyXluDL;
 
-#define dgRandoBushHeartDL "__OTR__objects/gameplay_field_keep/gFieldBushHeartDL"
+#define dgRandoBushHeartDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushHeartDL[] = dgRandoBushHeartDL;
 
-#define dgRandoBushHeartXluDL "__OTR__objects/gameplay_field_keep/gFieldBushHeartXluDL"
+#define dgRandoBushHeartXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushHeartXluDL[] = dgRandoBushHeartXluDL;
 
-#define dgRandoBushJunkDL "__OTR__objects/gameplay_field_keep/gFieldBushJunkDL"
+#define dgRandoBushJunkDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushJunkDL[] = dgRandoBushJunkDL;
 
-#define dgRandoBushJunkXluDL "__OTR__objects/gameplay_field_keep/gFieldBushJunkXluDL"
+#define dgRandoBushJunkXluDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoBushJunkXluDL[] = dgRandoBushJunkXluDL;
 
-#define dgRandoCuttableGrassRandomDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassRandomDL"
+#define dgRandoCuttableGrassRandomDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassRandomDL[] = dgRandoCuttableGrassRandomDL;
 
-#define dgRandoCuttableGrassMinorDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassMinorDL"
+#define dgRandoCuttableGrassMinorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassMinorDL[] = dgRandoCuttableGrassMinorDL;
 
-#define dgRandoCuttableGrassMajorDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassMajorDL"
+#define dgRandoCuttableGrassMajorDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassMajorDL[] = dgRandoCuttableGrassMajorDL;
 
-#define dgRandoCuttableGrassSmallKeyDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassSmallKeyDL"
+#define dgRandoCuttableGrassSmallKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassSmallKeyDL[] = dgRandoCuttableGrassSmallKeyDL;
 
-#define dgRandoCuttableGrassBossKeyDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassBossKeyDL"
+#define dgRandoCuttableGrassBossKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassBossKeyDL[] = dgRandoCuttableGrassBossKeyDL;
 
-#define dgRandoCuttableGrassTokenDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassTokenDL"
+#define dgRandoCuttableGrassTokenDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassTokenDL[] = dgRandoCuttableGrassTokenDL;
 
-#define dgRandoCuttableGrassMaskDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassMaskDL"
+#define dgRandoCuttableGrassMaskDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassMaskDL[] = dgRandoCuttableGrassMaskDL;
 
-#define dgRandoCuttableGrassFairyDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassFairyDL"
+#define dgRandoCuttableGrassFairyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassFairyDL[] = dgRandoCuttableGrassFairyDL;
 
-#define dgRandoCuttableGrassHeartDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassHeartDL"
+#define dgRandoCuttableGrassHeartDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassHeartDL[] = dgRandoCuttableGrassHeartDL;
 
-#define dgRandoCuttableGrassJunkDL "__OTR__objects/gameplay_keep/gRandoCuttableGrassJunkDL"
+#define dgRandoCuttableGrassJunkDL dgMissingAsset
 static const ALIGN_ASSET(2) char gRandoCuttableGrassJunkDL[] = dgRandoCuttableGrassJunkDL;
 
-#define dgChestTrackerIcon "__OTR__textures/icons/gChestTrackerIcon"
+#define dgChestTrackerIcon dgMissingAsset
 static const ALIGN_ASSET(2) char gChestTrackerIcon[] = dgChestTrackerIcon;
 
-#define dgPotTrackerIcon "__OTR__textures/icons/gPotTrackerIcon"
+#define dgPotTrackerIcon dgMissingAsset
 static const ALIGN_ASSET(2) char gPotTrackerIcon[] = dgPotTrackerIcon;
 
-#define dgCrateTrackerIcon "__OTR__textures/icons/gCrateTrackerIcon"
+#define dgCrateTrackerIcon dgMissingAsset
 static const ALIGN_ASSET(2) char gCrateTrackerIcon[] = dgCrateTrackerIcon;
 
-#define dgBarrelTrackerIcon "__OTR__textures/icons/gBarrelTrackerIcon"
+#define dgBarrelTrackerIcon dgMissingAsset
 static const ALIGN_ASSET(2) char gBarrelTrackerIcon[] = dgBarrelTrackerIcon;
 
 #define dgGiFlippersDL "__OTR__objects/object_ability_swim/gGiFlippersDL"
@@ -450,7 +455,7 @@ static const ALIGN_ASSET(2) char gTriforcePieceCompletedDL[] = dgTriforcePieceCo
 #define dgTrapDL "__OTR__objects/object_trap/gTrapDL"
 static const ALIGN_ASSET(2) char gTrapDL[] = dgTrapDL;
 
-#define dgSkeletonKeyDL "__OTR__objects/object_key/gSkeletonKeyDL"
+#define dgSkeletonKeyDL dgMissingAsset
 static const ALIGN_ASSET(2) char gSkeletonKeyDL[] = dgSkeletonKeyDL;
 
 #define dgOcarinaAButtonDL "__OTR__objects/object_ocarina_a_button/gOcarinaAButtonDL"
