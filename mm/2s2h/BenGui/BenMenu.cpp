@@ -2060,6 +2060,9 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "No Random Drops", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.DifficultyOptions.NoRandomDrops")
         .Options(CheckboxOptions().Tooltip("Prevents spawning of any collectibles."));
+    AddWidget(path, "Drops Don't Despawn", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.DifficultyOptions.NoDropDespawning")
+        .Options(CheckboxOptions().Tooltip("Prevents drops from despawning after a set amount of time."));
     AddWidget(path, "Always Find Rock Sirloin", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.DifficultyOptions.AlwaysFindRockSirloin")
         .Options(CheckboxOptions().Tooltip(

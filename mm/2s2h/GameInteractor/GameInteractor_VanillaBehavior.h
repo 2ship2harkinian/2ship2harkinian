@@ -2597,6 +2597,14 @@ typedef enum {
     // #### `args`
     // - `*f32` (speed)
     VB_ZTARGET_SPEED_CHECK,
+
+    // #### `result`
+    // ```c
+    // this->unk152 > 0
+    // ```
+    // #### `args`
+    // - `*EnItem00`
+    VB_UPDATE_ITEM00
 } GIVanillaBehavior;
 
 #endif
