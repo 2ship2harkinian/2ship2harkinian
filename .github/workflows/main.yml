@@ -26,32 +26,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y $(cat .github/workflows/apt-deps.txt) libzip-dev zipcmp zipmerge ziptool
-    - name: Restore Cached deps folder
-      uses: actions/cache/restore@v5
-      with:
-        key: ${{ runner.os }}-deps-${{ github.ref }}-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-deps-${{ github.ref }}-
-          ${{ runner.os }}-deps-
-        path: deps
-    - name: Create deps folder
-      run: mkdir -p deps
-    - name: Install latest SDL
-      run: |
-        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
-        if [ ! -d "deps/SDL2-2.30.3" ]; then
-          wget https://github.com/libsdl-org/SDL/releases/download/release-2.30.3/SDL2-2.30.3.tar.gz
-          tar -xzf SDL2-2.30.3.tar.gz -C deps
-        fi
-        cd deps/SDL2-2.30.3
-        ./configure --enable-hidapi-libusb
-        make -j 10
-        sudo make install
-        sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
     - name: Install latest tinyxml2
       run: |
         sudo apt-get remove libtinyxml2-dev
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+        mkdir -p deps
         if [ ! -d "deps/tinyxml2-10.0.0" ]; then
           wget https://github.com/leethomason/tinyxml2/archive/refs/tags/10.0.0.tar.gz
           tar -xzf 10.0.0.tar.gz -C deps
@@ -65,7 +44,7 @@ jobs:
     - name: Generate 2ship.o2r
       run: |
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
-        cmake --no-warn-unused-cli -H. -Bbuild-cmake -GNinja -DCMAKE_BUILD_TYPE:STRING=Release
+        cmake --no-warn-unused-cli -H. -Bbuild-cmake -GNinja -DCMAKE_BUILD_TYPE:STRING=Release -D2SHIP_TOOLS_ONLY=ON
         cmake --build build-cmake --config Release --target Generate2ShipOtr -j3
     - name: Upload 2ship.o2r
       uses: actions/upload-artifact@v7
@@ -163,6 +142,7 @@ jobs:
       run: |
         sudo apt-get remove libtinyxml2-dev
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+        mkdir -p deps
         if [ ! -d "deps/tinyxml2-10.0.0" ]; then
           wget https://github.com/leethomason/tinyxml2/archive/refs/tags/10.0.0.tar.gz
           tar -xzf 10.0.0.tar.gz -C deps

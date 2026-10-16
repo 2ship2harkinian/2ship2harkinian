@@ -1,6 +1,0 @@
-<Root>
-    <File Name="code" BaseAddress="0x800A6440" RangeStart="0x107218" RangeEnd="0x107238" OutName="actor">
-        <DList Name="gActorSetupXluDL" Offset="0x107218"/>
-        <DList Name="gActorSetupOpaDL" Offset="0x107230"/>
-    </File>
-</Root>

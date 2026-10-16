@@ -20,7 +20,7 @@ It is recommended that you install Python and Git standalone, the install proces
 
 1. Clone the 2 Ship 2 Harkinian repository
 
-_Note: Be sure to either clone with the ``--recursive`` flag or do ``git submodule update --init`` after cloning to pull in the libultraship submodule!_
+_Note: Be sure to either clone with the ``--recursive`` flag or do ``git submodule update --init`` after cloning to pull in the libultraship and torch submodules!_
 
 2. After setup and initial build, use the built-in O2R extraction to make your mm.o2r file.
 
@@ -79,6 +79,10 @@ C:\Program Files\CMake\bin\cmake.exe --build build-cmake --target clean
 ```
 
 #### Regenerate Asset Headers
+> **Currently unavailable.** The Torch migration removed the ZAPD-based header
+> generator, and Torch does not emit MM asset headers yet. The checked-in headers
+> under `mm/assets` are unaffected; only regenerating them is.
+
 ```powershell
 # If you need to regenerate the asset headers to check them into source
 C:\Program Files\CMake\bin\cmake.exe --build build-cmake --target ExtractAssetHeaders
@@ -238,6 +242,10 @@ cmake --build build-cmake --target clean
 ```
 
 #### Regenerate Asset Headers
+> **Currently unavailable.** The Torch migration removed the ZAPD-based header
+> generator, and Torch does not emit MM asset headers yet. The checked-in headers
+> under `mm/assets` are unaffected; only regenerating them is.
+
 ```bash
 # If you need to regenerate the asset headers to check them into source
 cmake --build build-cmake --target ExtractAssetHeaders
@@ -254,7 +262,8 @@ _Note: If you're using Visual Studio Code, the [cpack plugin](https://marketplac
 # Clone the repo
 git clone https://github.com/2ship2harkinian/2ship2harkinian.git
 cd 2ship2harkinian
-# Clone the submodule libultraship
+
+# Clone the submodules
 git submodule update --init
 
 # Generate Ninja project
@@ -290,6 +299,10 @@ cmake --build build-cmake --target clean
 ```
 
 #### Regenerate Asset Headers
+> **Currently unavailable.** The Torch migration removed the ZAPD-based header
+> generator, and Torch does not emit MM asset headers yet. The checked-in headers
+> under `mm/assets` are unaffected; only regenerating them is.
+
 ```bash
 # If you need to regenerate the asset headers to check them into source
 cmake --build build-cmake --target ExtractAssetHeaders
