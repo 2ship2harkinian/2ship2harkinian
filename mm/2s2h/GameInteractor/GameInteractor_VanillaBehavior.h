@@ -634,6 +634,22 @@ typedef enum {
     VB_DRAW_SLIME_RANDO_ITEM,
 
     // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjEtcetera`
+    VB_DRAW_ETCETERA_IDLE,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjEtcetera`
+    VB_DRAW_ETCETERA_ANIMATED,
+
+    // #### `result`
     // #### In `Item_DropCollectible`:
     // ```c
     // true

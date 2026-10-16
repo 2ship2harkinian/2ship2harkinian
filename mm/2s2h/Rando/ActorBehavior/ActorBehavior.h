@@ -16,6 +16,8 @@ void SetObjectRandoCheckId(const void* object, RandoCheckId rc);
 void SpawnWonderItemSparkle(Vec3f* pos);
 void DrawWonderItemSparkle(Actor* actor, PlayState* play);
 
+void SpawnDekuFlowerSparkle(Actor* actor);
+
 void InitDmChar01Behavior();
 void InitDmChar05Behavior();
 void InitDmChar08Behavior();
@@ -107,6 +109,7 @@ void InitPlayerBehavior();
 void InitSoulsBehavior();
 void InitTrapsBehavior();
 void InitWonderItemsBehavior();
+void InitObjEtceteraBehavior();
 
 } // namespace ActorBehavior
 
