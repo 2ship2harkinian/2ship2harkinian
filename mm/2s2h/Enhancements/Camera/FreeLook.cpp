@@ -2,6 +2,8 @@
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
 #include "CameraUtils.h"
+#include "2s2h/Mouse.h"
+#include "2s2h/Enhancements/Controls/Mouse/MouseShieldAim.h"
 
 extern "C" {
 #include "macros.h"
@@ -96,13 +98,34 @@ bool Camera_FreeLook(Camera* camera) {
 
     Camera_ResetActionFuncState(camera, camera->mode);
 
-    f32 yawDiff = -sCamPlayState->state.input[0].cur.right_stick_x * 10.0f *
-                  (CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.X", 1.0f));
-    f32 pitchDiff = sCamPlayState->state.input[0].cur.right_stick_y * 10.0f *
-                    (CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.Y", 1.0f));
+    f32 yawDiff = -sCamPlayState->state.input[0].cur.right_stick_x * 10.0f;
+    f32 pitchDiff = sCamPlayState->state.input[0].cur.right_stick_y * 10.0f;
 
-    yaw += yawDiff * GameInteractor_InvertControl(GI_INVERT_CAMERA_RIGHT_STICK_X);
-    pitch += pitchDiff * -GameInteractor_InvertControl(GI_INVERT_CAMERA_RIGHT_STICK_Y);
+    // Disable mouse camera control when holding up a shield
+    bool mouseEnabled = Mouse_IsCaptured() && CVarGetInteger("gSettings.EnableMouse", 0);
+    bool inShieldingState = player->stateFlags1 & PLAYER_STATE1_400000;
+    bool mouseShieldingEnabled = CVarGetInteger("gEnhancements.Equipment.MouseShielding.Enable", 0);
+    bool mouseShieldingCameraControl = CVarGetInteger("gEnhancements.Equipment.MouseShielding.CameraControl", 1);
+    if (mouseEnabled &&
+        !(mouseShieldingEnabled && !mouseShieldingCameraControl && inShieldingState && player->focusActor == NULL) &&
+        !CVarGetInteger("gEnhancements.Camera.Mouse.DisableThirdPerson", 0)) {
+        MouseCoords mouseDelta = Mouse_GetDelta();
+        yawDiff -= mouseDelta.x * 40.0f;
+        pitchDiff -= mouseDelta.y * 40.0f;
+    }
+
+    yawDiff *= CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.X", 1.0f) *
+               GameInteractor_InvertControl(GI_INVERT_CAMERA_RIGHT_STICK_X);
+    pitchDiff *= CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.Y", 1.0f) *
+                 -GameInteractor_InvertControl(GI_INVERT_CAMERA_RIGHT_STICK_Y);
+
+    yaw += yawDiff;
+    pitch += pitchDiff;
+
+    if (mouseEnabled && mouseShieldingEnabled && mouseShieldingCameraControl && inShieldingState &&
+        player->focusActor == NULL) {
+        HandleShieldCameraControl(camera, (s16)yaw);
+    }
 
     s16 maxPitch = DEG_TO_BINANG(CVarGetFloat("gEnhancements.Camera.FreeLook.MaxPitch", 72.0f));
     s16 minPitch = DEG_TO_BINANG(CVarGetFloat("gEnhancements.Camera.FreeLook.MinPitch", -49.0f));
@@ -115,6 +138,7 @@ bool Camera_FreeLook(Camera* camera) {
     }
 
     f32 distTarget = CVarGetInteger("gEnhancements.Camera.FreeLook.MaxCameraDistance", roData->unk_04);
+    // TODO: try with different transition
     f32 transitionSpeed = CVarGetInteger("gEnhancements.Camera.FreeLook.TransitionSpeed", 25);
     // Smooth step camera away to max camera distance. Camera collision is calculated later
     camera->dist = Camera_ScaledStepToCeilF(distTarget, camera->dist,
@@ -152,11 +176,33 @@ bool Camera_FreeLook(Camera* camera) {
 }
 
 bool Camera_CanFreeLook(Camera* camera) {
-    f32 camX = sCamPlayState->state.input[0].cur.right_stick_x * 10.0f;
-    f32 camY = sCamPlayState->state.input[0].cur.right_stick_y * 10.0f;
-    if (!sCanFreeLook && (fabsf(camX) >= 15.0f || fabsf(camY) >= 15.0f)) {
-        sCanFreeLook = true;
+    if (!sCanFreeLook && Mouse_IsCaptured() && CVarGetInteger("gSettings.EnableMouse", 0) &&
+        !CVarGetInteger("gEnhancements.Camera.Mouse.DisableThirdPerson", 0)) {
+        MouseCoords mouseDelta = Mouse_GetDelta();
+        Player* player = GET_PLAYER(gPlayState);
+        if (mouseDelta.x != 0 || mouseDelta.y != 0) {
+            // TODO: why auto? consider
+            if (player->autoLockOnActor == NULL) {
+                sCanFreeLook = true;
+            } else if (CVarGetInteger("gEnhancements.Camera.Mouse.ZTargetFreeLookEnabled", 1) &&
+                       (abs(mouseDelta.x) * CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.X", 1.0f) >
+                            30.0f ||
+                        abs(mouseDelta.y) * CVarGetFloat("gEnhancements.Camera.RightStick.CameraSensitivity.Y", 1.0f) >
+                            30.0f)) {
+                sCanFreeLook = true;
+            }
+        }
     }
+
+    if (!sCanFreeLook) {
+        f32 camX = sCamPlayState->state.input[0].cur.right_stick_x * 10.0f;
+        f32 camY = sCamPlayState->state.input[0].cur.right_stick_y * 10.0f;
+        if (fabsf(camX) >= 15.0f || fabsf(camY) >= 15.0f) {
+            sCanFreeLook = true;
+        }
+    }
+
+    // TODO: check persistent Z-target freelook variant
     // Pressing Z will "Reset" Camera
     if (CHECK_BTN_ALL(sCamPlayState->state.input[0].press.button, BTN_Z)) {
         sCanFreeLook = false;

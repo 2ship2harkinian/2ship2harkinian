@@ -193,6 +193,20 @@ void GameInteractor_ExecuteOnPlayerReleaseHeldActor(PlayState* play, Player* pla
     GameInteractor::Instance->ExecuteHooksForFilter<GameInteractor::OnPlayerReleaseHeldActor>(play, player, heldActor);
 }
 
+void GameInteractor_ExecuteOnPlayerShieldControl(Player* player, PlayState* play, f32* xInput, f32* yInput,
+                                                 bool* handled) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayerShieldControl>(player, play, xInput, yInput,
+                                                                                  handled);
+}
+
+void GameInteractor_ExecuteOnPlayerTelescopeAim(s16* inputX, s16* inputY) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayerTelescopeAim>(inputX, inputY);
+}
+
+void GameInteractor_ExecuteOnPlayerDekuCharge(Player* player) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayerDekuCharge>(player);
+}
+
 void GameInteractor_ExecuteOnBossDefeated(s16 actorId) {
     SPDLOG_DEBUG("GameInteractor_ExecuteOnBossDefeated: actorId: {}", actorId);
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnBossDefeated>(actorId);
@@ -359,13 +373,18 @@ int GameInteractor_InvertControl(GIInvertType type) {
                 result *= -1;
             }
             break;
-        case GI_INVERT_SHIELD_Y:
-            if (CVarGetInteger("gEnhancements.Equipment.InvertShieldY", 0)) {
+        case GI_INVERT_ZORA_SWIM_Y:
+            if (CVarGetInteger("gEnhancements.Player.InvertZoraSwimY", 1)) {
                 result *= -1;
             }
             break;
-        case GI_INVERT_ZORA_SWIM_Y:
-            if (CVarGetInteger("gEnhancements.Player.InvertZoraSwimY", 1)) {
+        case GI_INVERT_SHIELD_X:
+            if (CVarGetInteger("gEnhancements.Equipment.InvertShieldX", 0)) {
+                result *= -1;
+            }
+            break;
+        case GI_INVERT_SHIELD_Y:
+            if (CVarGetInteger("gEnhancements.Equipment.InvertShieldY", 0)) {
                 result *= -1;
             }
             break;
