@@ -352,6 +352,15 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*PlayState`
+    // - `s32` (bottleIndex)
+    VB_COOL_HOT_WATER,
+
+    // #### `result`
+    // ```c
     // (bean->unk_1E4 == 2) || (bean->unk_1E4 == 1)
     // ```
     // #### `args`
