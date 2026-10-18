@@ -355,8 +355,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*PlayState`
-    // - `s32` (bottleIndex)
+    // - None
     VB_COOL_HOT_WATER,
 
     // #### `result`
