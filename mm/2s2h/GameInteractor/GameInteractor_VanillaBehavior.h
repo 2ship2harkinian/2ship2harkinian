@@ -1037,6 +1037,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - `uint16_t flag`
+    VB_GIVE_NOTEBOOK_ENTRY,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - None
     VB_GIVE_PENDANT_OF_MEMORIES_FROM_KAFEI,
 

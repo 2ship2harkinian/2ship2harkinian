@@ -94,6 +94,7 @@ void InitEnZotBehavior();
 void InitEnZowBehavior();
 void InitItemBHeartBehavior();
 void InitItemGetBehavior();
+void InitNotebookEntriesBehavior();
 void InitObjCombBehavior();
 void InitObjKibakoBehavior();
 void InitObjGrassBehavior();

@@ -122,6 +122,7 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnZowBehavior();
     Rando::ActorBehavior::InitItemBHeartBehavior();
     Rando::ActorBehavior::InitItemGetBehavior();
+    Rando::ActorBehavior::InitNotebookEntriesBehavior();
     Rando::ActorBehavior::InitObjCombBehavior();
     Rando::ActorBehavior::InitObjKibakoBehavior();
     Rando::ActorBehavior::InitObjGrassBehavior();
