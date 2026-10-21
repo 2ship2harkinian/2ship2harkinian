@@ -247,6 +247,7 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_TINGLE_SHOP, "Tingle Maps" },
     { RCTYPE_TREE, "Trees" },
     { RCTYPE_WONDER_ITEM, "Wonder Items" },
+    { RCTYPE_NOTEBOOK_ENTRY, "Notebook Entries" },
 };
 
 struct CheckFilterGroup {
@@ -415,6 +416,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_GOLD_SKULLTULAS",
                                                                    "gRando.Options.RO_SHUFFLE_GRASS_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_HIVE_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_NOTEBOOK_ENTRIES",
                                                                    "gRando.Options.RO_SHUFFLE_OCARINA_BUTTONS",
                                                                    "gRando.Options.RO_SHUFFLE_OWL_STATUES",
                                                                    "gRando.Options.RO_SHUFFLE_POT_DROPS",
@@ -779,6 +781,8 @@ static void DrawCheckPoolTab() {
                       "Items sitting out in the world (hearts, rupees, arrows, etc.) are checks.");
     CheckPoolCheckbox("Wonder Items", RO_SHUFFLE_WONDER_ITEMS, RCTYPE_WONDER_ITEM,
                       "Invisible touch/shoot triggers scattered around the world are checks.");
+    CheckPoolCheckbox("Notebook Entries", RO_SHUFFLE_NOTEBOOK_ENTRIES, RCTYPE_NOTEBOOK_ENTRY,
+                      "Bombers' Notebook entries from NPC events are checks.");
     int32_t skulltulasShuffled =
         CVarGetInteger(Rando::StaticData::Options[RO_SKULLTULA_SHUFFLED].cvar, SPIDER_HOUSE_TOKENS_REQUIRED);
     CheckPoolCheckbox("Gold Skulltulas", RO_SHUFFLE_GOLD_SKULLTULAS, RCTYPE_SKULL_TOKEN,
