@@ -6,28 +6,92 @@ extern "C" {
 #include "functions.h"
 #include "variables.h"
 #include "overlays/actors/ovl_En_Test3/z_en_test3.h"
+#include "objects/gameplay_keep/gameplay_keep.h"
 }
 
-void drawMask(Actor* kafei) {
-    EnTest3* test3 = (EnTest3*)kafei;
-    OPEN_DISPS(gPlayState->state.gfxCtx);
-    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
-    Vec3s rot;
-    rot.x = 19737;
-    rot.y = -16100;
-    rot.z = 13674;
-    Vec3f pos;
-    pos.x = 40.0f;
-    pos.y = -25.0f;
-    pos.z = 0.0f;
-    Matrix_TranslateRotateZYX(&pos, &rot);
-    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
-    Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK),
-                    RC_KAFEIS_HIDEOUT_KEATON_MASK, kafei);
-    CLOSE_DISPS(gPlayState->state.gfxCtx);
+static MtxF kafeiHeadMatrix;
+static MtxF kafeiHandMatrix;
+static bool hasValidHeadMatrix = false;
+static bool hasValidHandMatrix = false;
+
+void stopMaskDraw(Gfx** dList1) {
+    *dList1 = NULL;
+    Matrix_Get(&kafeiHeadMatrix);
+    hasValidHeadMatrix = true;
 }
 
-void drawPendant(Actor* kafei) {
+void stopMaskDrawInHand(Actor* actor) {
+    EnTest3* kafei = (EnTest3*)actor;
+    if (BEN_ANIM_EQUAL((const char*)kafei->player.skelAnime.animation, gPlayerAnim_cl_maskoff) ||
+        (kafei->player.stateFlags2 & PLAYER_STATE2_1000000)) {
+        Matrix_Get(&kafeiHandMatrix);
+        hasValidHandMatrix = true;
+    }
+}
+
+void drawReplacement() {
+    if (hasValidHeadMatrix) {
+        OPEN_DISPS(gPlayState->state.gfxCtx);
+        Matrix_Push();
+        Matrix_Put(&kafeiHeadMatrix);
+        Vec3s rot;
+        rot.x = 0;
+        rot.y = 50000;
+        rot.z = 33500;
+        Vec3f pos;
+        pos.x = 1000.0f;
+        pos.y = -400.0f;
+        pos.z = 0.0f;
+        Matrix_TranslateRotateZYX(&pos, &rot);
+        Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
+        gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
+        gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
+        MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
+        auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
+        auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+        Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+        Vec3f sparklePos;
+        Matrix_MultZero(&sparklePos);
+        sparklePos.y -= 3;
+        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
+        POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
+        Matrix_Pop();
+        CLOSE_DISPS(gPlayState->state.gfxCtx);
+        hasValidHeadMatrix = false;
+    } else if (hasValidHandMatrix) {
+        OPEN_DISPS(gPlayState->state.gfxCtx);
+        Matrix_Push();
+        Matrix_Put(&kafeiHandMatrix);
+        Vec3s rot;
+        rot.x = 0;
+        rot.y = 0;
+        rot.z = 0;
+        Vec3f pos;
+        pos.x = 0.0f;
+        pos.y = 1000.0f;
+        pos.z = 0.0f;
+        Matrix_TranslateRotateZYX(&pos, &rot);
+        Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
+        gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
+        gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
+        MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
+        auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
+        auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+        Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+        Vec3f sparklePos;
+        Matrix_MultZero(&sparklePos);
+        sparklePos.y -= 3;
+        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
+        POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
+        Matrix_Pop();
+        CLOSE_DISPS(gPlayState->state.gfxCtx);
+        hasValidHandMatrix = false;
+    }
+}
+
+void drawPendant() {
     OPEN_DISPS(gPlayState->state.gfxCtx);
     Matrix_Scale(10.0f, 10.0f, 10.0f, MTXMODE_APPLY);
     Vec3s rot;
@@ -40,24 +104,65 @@ void drawPendant(Actor* kafei) {
     pos.z = 0.0f;
     Matrix_TranslateRotateZYX(&pos, &rot);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES];
+    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
+    Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
+    Vec3f sparklePos;
+    Matrix_MultZero(&sparklePos);
+    sparklePos.y -= 5;
+    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    CLOSE_DISPS(gPlayState->state.gfxCtx);
+}
+
+void drawPendantInHand(Actor* enTest3) {
+    OPEN_DISPS(gPlayState->state.gfxCtx);
+    EnTest3* kafei = (EnTest3*)enTest3;
+    Vec3f refPos;
+    refPos.x = kafei->player.bodyPartsPos[PLAYER_BODYPART_LEFT_HAND].x;
+    refPos.y = kafei->player.bodyPartsPos[PLAYER_BODYPART_LEFT_HAND].y - 6.0f;
+    refPos.z = kafei->player.bodyPartsPos[PLAYER_BODYPART_LEFT_HAND].z;
+    Matrix_Translate((Math_SinS(kafei->player.actor.shape.rot.y) * 3.3f) + refPos.x, refPos.y + 10.0f,
+                     (Math_CosS(kafei->player.actor.shape.rot.y) * 3.3f) + refPos.z, MTXMODE_NEW);
+    Matrix_RotateZYX(0, (gPlayState->gameplayFrames * 1000), 0, MTXMODE_APPLY);
+    Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
+    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES];
     Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES),
-                    RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES, kafei);
+                    RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
 void Rando::ActorBehavior::InitTest3Behavior() {
     COND_VB_SHOULD(VB_DRAW_KAFEI_KEATON_MASK, IS_RANDO, {
-        Actor* test3 = va_arg(args, Actor*);
+        Gfx** dList1 = va_arg(args, Gfx**);
         if (*should) {
             *should = false;
-            drawMask(test3);
+            stopMaskDraw(dList1);
         }
     });
     COND_VB_SHOULD(VB_DRAW_KAFEI_PENDANT, IS_RANDO, {
+        if (*should) {
+            *should = false;
+            drawPendant();
+        }
+    });
+    COND_VB_SHOULD(VB_DRAW_KAFEI_KEATON_IN_HAND, IS_RANDO, {
         Actor* test3 = va_arg(args, Actor*);
         if (*should) {
             *should = false;
-            drawPendant(test3);
+            stopMaskDrawInHand(test3);
         }
     });
+    COND_VB_SHOULD(VB_DRAW_KAFEI_GET_ITEM, IS_RANDO, {
+        Actor* test3 = va_arg(args, Actor*);
+        EnTest3* kafei = (EnTest3*)test3;
+        if (*should) {
+            if ((kafei->player.stateFlags1 & PLAYER_STATE1_400)) {
+                *should = true;
+                return;
+            } else {
+                *should = false;
+                drawPendantInHand(test3);
+            }
+        }
+    });
+    COND_ID_HOOK(OnActorDraw, ACTOR_EN_TEST3, IS_RANDO, [](Actor* actor) { drawReplacement(); });
 }

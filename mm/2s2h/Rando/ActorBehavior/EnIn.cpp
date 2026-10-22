@@ -1,11 +1,47 @@
 #include "ActorBehavior.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/Enhancements/FrameInterpolation/FrameInterpolation.h"
 
 extern "C" {
 #include "variables.h"
 #include "overlays/actors/ovl_En_In/z_en_in.h"
 void func_808F3C40(EnIn* enIn, PlayState* play);
+}
+
+void drawRandoGaroMask(s32 limbIndex) {
+
+    if (limbIndex == OBJECT_IN_LIMB_0C) {
+        OPEN_DISPS(gPlayState->state.gfxCtx);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)object_in_DL_007C48);
+        CLOSE_DISPS(gPlayState->state.gfxCtx);
+    } else if (limbIndex == OBJECT_IN_LIMB_10) {
+        OPEN_DISPS(gPlayState->state.gfxCtx);
+        Matrix_Push();
+        Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
+        Vec3s rot;
+        rot.x = 32500;
+        rot.y = -16100;
+        rot.z = 13674;
+        Vec3f pos;
+        pos.x = 75.0f;
+        pos.y = 80.0f;
+        pos.z = 0.0f;
+        Matrix_TranslateRotateZYX(&pos, &rot);
+        gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
+        gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
+        auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_GORMAN_TRACK_GARO_MASK];
+        auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_GORMAN_TRACK_GARO_MASK);
+        Rando::DrawItem(randoItemId, RC_GORMAN_TRACK_GARO_MASK);
+        Vec3f sparklePos;
+        Matrix_MultZero(&sparklePos);
+        sparklePos.y -= 3;
+        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
+        POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
+        Matrix_Pop();
+        CLOSE_DISPS(gPlayState->state.gfxCtx);
+    }
 }
 
 void EnIn_OnOpenPurchaseText(u16* textId, bool* loadFromMessageTable) {
@@ -101,5 +137,21 @@ void Rando::ActorBehavior::InitEnInBehavior() {
             }
             *ret = false;
         }
+    });
+
+    COND_VB_SHOULD(VB_DRAW_GARO_MASK, IS_RANDO, {
+        if (*should) {
+            *should = false;
+        }
+    });
+
+    COND_VB_SHOULD(VB_DRAW_CHASE_EQUIPMENT, IS_RANDO, {
+        s32 limbIndex = va_arg(args, s32);
+        if (*should) {
+            *should = false;
+
+            drawRandoGaroMask(limbIndex);
+        }
+        return;
     });
 }

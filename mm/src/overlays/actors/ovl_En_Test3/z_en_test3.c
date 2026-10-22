@@ -1234,7 +1234,9 @@ void EnTest3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList1, Gfx** dL
 
         Math_Vec3f_Copy(&this->player.leftHandWorld.pos, sKafeiCurBodyPartPos);
         if (*dList1 != NULL) {
-            func_80128640(play, &this->player, *dList1);
+            if (GameInteractor_Should(VB_DRAW_KAFEI_KEATON_IN_HAND, true, thisx)) {
+                func_80128640(play, &this->player, *dList1);
+            }
             if (this->player.stateFlags3 & PLAYER_STATE3_20000000) {
                 OPEN_DISPS(play->state.gfxCtx);
 
@@ -1277,7 +1279,7 @@ void EnTest3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList1, Gfx** dL
                 ((!BEN_ANIM_EQUAL(this->player.skelAnime.animation, gPlayerAnim_cl_setmask)) ||
                  (this->player.skelAnime.curFrame >= 12.0f))) {
                 if (func_80127438(play, &this->player, this->player.currentMask)) {
-                    if (GameInteractor_Should(VB_DRAW_KAFEI_KEATON_MASK, true, this)) {
+                    if (GameInteractor_Should(VB_DRAW_KAFEI_KEATON_MASK, true, dList1)) {
                         OPEN_DISPS(play->state.gfxCtx);
 
                         gSPDisplayList(POLY_OPA_DISP++, object_mask_ki_tan_DL_0004A0);
@@ -1300,7 +1302,7 @@ void EnTest3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList1, Gfx** dL
             (this->player.getItemDrawIdPlusOne - 1 == GID_PENDANT_OF_MEMORIES)) {
             D_80A41D60 = true;
         } else {
-            if (GameInteractor_Should(VB_DRAW_KAFEI_PENDANT, true, this)) {
+            if (GameInteractor_Should(VB_DRAW_KAFEI_PENDANT, true)) {
                 OPEN_DISPS(play->state.gfxCtx);
 
                 gSPDisplayList(POLY_OPA_DISP++, gKafeiPendantOfMemoriesDL);
@@ -1413,7 +1415,9 @@ void EnTest3_Draw(Actor* thisx, PlayState* play2) {
     }
 
     if ((this->player.getItemDrawIdPlusOne - 1) != GID_NONE) {
-        Player_DrawGetItem(play, &this->player);
+        if (GameInteractor_Should(VB_DRAW_KAFEI_GET_ITEM, true, thisx)) {
+            Player_DrawGetItem(play, &this->player);
+        }
     }
 
     CLOSE_DISPS(play->state.gfxCtx);

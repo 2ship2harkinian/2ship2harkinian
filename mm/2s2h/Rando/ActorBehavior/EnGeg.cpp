@@ -1,10 +1,35 @@
 #include "ActorBehavior.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/CustomMessage/CustomMessage.h"
+#include "2s2h/Enhancements/FrameInterpolation/FrameInterpolation.h"
 
 extern "C" {
 #include "variables.h"
 #include "overlays/actors/ovl_En_Geg/z_en_geg.h"
+}
+
+void drawRandoGeroMask() {
+    OPEN_DISPS(gPlayState->state.gfxCtx);
+    Matrix_Push();
+    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
+    Vec3s rot;
+    rot.x = 35000;
+    rot.y = -16100;
+    rot.z = 13674;
+    Vec3f pos;
+    pos.x = 100.0f;
+    pos.y = 0.0f;
+    pos.z = 0.0f;
+    Matrix_TranslateRotateZYX(&pos, &rot);
+    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_MOUNTAIN_VILLAGE_DON_GERO_MASK];
+    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_MOUNTAIN_VILLAGE_DON_GERO_MASK);
+    Rando::DrawItem(randoItemId, RC_MOUNTAIN_VILLAGE_DON_GERO_MASK);
+    Vec3f sparklePos;
+    Matrix_MultZero(&sparklePos);
+    sparklePos.y -= 3;
+    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    Matrix_Pop();
+    CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
 void Rando::ActorBehavior::InitEnGegBehavior() {
@@ -32,5 +57,12 @@ void Rando::ActorBehavior::InitEnGegBehavior() {
                                Rando::StaticData::GetItemName(randoItemId, true, RC_MOUNTAIN_VILLAGE_DON_GERO_MASK));
         CustomMessage::LoadCustomMessageIntoFont(entry);
         *loadFromMessageTable = false;
+    });
+
+    COND_VB_SHOULD(VB_DRAW_DON_GERO_MASK, IS_RANDO, {
+        if (*should) {
+            *should = false;
+            drawRandoGeroMask();
+        }
     });
 }
