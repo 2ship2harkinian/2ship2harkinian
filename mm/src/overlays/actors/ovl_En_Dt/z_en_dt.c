@@ -11,6 +11,7 @@
 #include "objects/object_dt/object_dt.h"
 #include "overlays/actors/ovl_En_Muto/z_en_muto.h"
 #include "overlays/actors/ovl_En_Baisen/z_en_baisen.h"
+#include "2s2h/GameInteractor/GameInteractor.h"
 
 #include "objects/object_dt/object_dt.h"
 #include "overlays/actors/ovl_En_Baisen/z_en_baisen.h"
@@ -247,7 +248,8 @@ void EnDt_Init(Actor* thisx, PlayState* play) {
     this->npcEnBaisen = NULL;
     Collider_InitAndSetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
 
-    if ((gSaveContext.save.day == 3) && gSaveContext.save.isNight) {
+    if (GameInteractor_Should(VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
+                              (gSaveContext.save.day == 3) && gSaveContext.save.isNight)) {
         EnDt_SetupFinalNightState(this, play);
     } else {
         s32 csId = this->actor.csId;
@@ -779,12 +781,15 @@ void EnDt_Update(Actor* thisx, PlayState* play) {
     SkelAnime_Update(&this->skelAnime);
     Actor_SetScale(&this->actor, 0.01f);
 
-    if ((this->state != 4) && (this->state != 5) && (gSaveContext.save.day == 3) && gSaveContext.save.isNight) {
+    if ((this->state != 4) && (this->state != 5) &&
+        GameInteractor_Should(VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
+                              (gSaveContext.save.day == 3) && gSaveContext.save.isNight)) {
         EnDt_SetupFinalNightState(this, play);
     }
 
     if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_RESOLVED_MAYOR_MEETING) &&
-        ((gSaveContext.save.day != 3) || ((gSaveContext.save.day == 3) && !gSaveContext.save.isNight))) {
+        !GameInteractor_Should(VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
+                               (gSaveContext.save.day == 3) && gSaveContext.save.isNight)) {
         Audio_PlaySequenceAtPos(SEQ_PLAYER_BGM_SUB, &gSfxDefaultPos, NA_BGM_MAYORS_OFFICE, 1000.0f);
         Actor_PlaySfx(&this->actor, NA_SE_EV_CROWD - SFX_FLAG);
     }
