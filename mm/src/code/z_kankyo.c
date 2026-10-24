@@ -25,6 +25,7 @@ typedef struct {
 #include "global.h"
 #include "sys_cfb.h"
 #include "BenPort.h"
+#include "2s2h/Enhancements/Graphics/Graphics.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 
@@ -3299,9 +3300,16 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
     Vec3f* posPtr;
     s32 pad[2];
     f32(*viewProjectionMtxF)[4];
+    // 2S2H [Enhancement] Per star state handed to the skybox star hook
+    Color_RGBA8 starColor;
+    bool primColorChanged;
+    s32 starCount;
+    SkyboxStarDraw starDraw;
 
     gfx = *gfxP;
     negateY = Environment_IsSceneUpsideDown(play);
+    // 2S2H [Enhancement] The enhancement may scale up how many stars are drawn
+    starCount = SkyboxStars_GetCount(sEnvSkyboxNumStars);
 
     Matrix_MtxToMtxF(play->view.viewingPtr, &play->billboardMtxF);
     Matrix_MtxToMtxF(&play->view.projection, &play->viewProjectionMtxF);
@@ -3335,7 +3343,7 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
     //! FAKE:
     if (play->view.viewingPtr && play->view.viewingPtr && play->view.viewingPtr) {}
 
-    for (i = 0; i < sEnvSkyboxNumStars; i++) {
+    for (i = 0; i < starCount; i++) {
         if (i < 16) {
             pos.x = play->view.eye.x + (s32)D_801DD880[i].x;
             pos.y = play->view.eye.y + (s32)D_801DD880[i].y;
@@ -3380,12 +3388,29 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
 
         if ((i < 15) || ((i == 15) && ((((void)0, gSaveContext.save.day) % 7) == 0))) {
             // 2S2H [Port] Switched from gDPSetColor to gDPSetPrimColor for Color_RGBA8 individual fields
-            Color_RGBA8 color = D_801DD8E0[i % ARRAY_COUNTU(D_801DD8E0)];
-            gDPSetPrimColor(gfx++, 0, 0, color.r, color.g, color.b, color.a);
+            starColor = D_801DD8E0[i % ARRAY_COUNTU(D_801DD8E0)];
+            primColorChanged = true;
         } else if (((i & 0x3F) == 0) || (i == 16)) {
-            Color_RGBA8 color = D_801DD900[phi_v1 % ARRAY_COUNTU(D_801DD900)];
-            gDPSetPrimColor(gfx++, 0, 0, color.r, color.g, color.b, color.a);
+            starColor = D_801DD900[phi_v1 % ARRAY_COUNTU(D_801DD900)];
             phi_v1++;
+            primColorChanged = true;
+        } else {
+            primColorChanged = false;
+        }
+
+        // 2S2H [Enhancement] Lets the star enhancement tint this star, or draw it entirely
+        starDraw = SkyboxStars_PrepareStar(&gfx, play, i, &pos, imgWidth, &starColor, D_801F4F28);
+
+        if (starDraw == SKYBOX_STAR_DRAW_STOP) {
+            break;
+        }
+
+        if (starDraw == SKYBOX_STAR_DRAW_OVERRIDE) {
+            continue;
+        }
+
+        if ((starDraw == SKYBOX_STAR_DRAW_VANILLA) && primColorChanged) {
+            gDPSetPrimColor(gfx++, 0, 0, starColor.r, starColor.g, starColor.b, starColor.a);
         }
 
         posPtr = &pos;
