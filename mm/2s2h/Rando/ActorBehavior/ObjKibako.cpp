@@ -8,6 +8,8 @@ extern "C" {
 #include "variables.h"
 #include "src/overlays/actors/ovl_Obj_Kibako/z_obj_kibako.h"
 #include "src/overlays/actors/ovl_Obj_Kibako2/z_obj_kibako2.h"
+#include "objects/object_kibako/object_kibako.h"
+#include "objects/object_kibako2/object_kibako2.h"
 }
 
 void ObjKibako_RandoDraw(Actor* actor, PlayState* play);
@@ -145,6 +147,10 @@ void IdentifyCrate(Actor* actor) {
 }
 
 void ObjKibako_RandoDraw(Actor* actor, PlayState* play) {
+    if (!CVarGetInteger("gRando.RandoContainers", 0)) {
+        Gfx_DrawDListOpa(play, (Gfx*)gSmallCrateDL);
+        return;
+    }
     if (!CVarGetInteger("gRando.CSMC", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gSmallJunkCrateDL);
         return;
@@ -186,6 +192,10 @@ void ObjKibako_RandoDraw(Actor* actor, PlayState* play) {
 }
 
 void ObjKibako2_RandoDraw(Actor* actor, PlayState* play) {
+    if (!CVarGetInteger("gRando.RandoContainers", 0)) {
+        Gfx_DrawDListOpa(play, (Gfx*)gLargeCrateDL);
+        return;
+    }
     if (!CVarGetInteger("gRando.CSMC", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gLargeJunkCrateDL);
         return;
