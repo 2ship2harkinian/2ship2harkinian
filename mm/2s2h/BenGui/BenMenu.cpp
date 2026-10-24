@@ -1759,6 +1759,13 @@ void BenMenu::AddEnhancements() {
         .Options(CheckboxOptions().Tooltip(
             "Fixes a bug where the Deku Butler loops the incorrect animation in the cutscene that plays after "
             "freeing the Deku Princess."));
+    AddWidget(path, "Fix Owl Save Scene Layers", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Fixes.OwlSaveSceneLayers")
+        .Options(CheckboxOptions()
+                     .Tooltip("Fixes owl saves loading areas in their uncleared state (e.g. Great Bay Coast after "
+                              "defeating Gyorg) in certain scenarios. This is a vanilla bug but more common with "
+                              "the Pause Save/Remember Save Location enhancements.")
+                     .DefaultValue(true));
 
     // Restorations
     path = { "Enhancements", "Restorations", SECTION_COLUMN_1 };
