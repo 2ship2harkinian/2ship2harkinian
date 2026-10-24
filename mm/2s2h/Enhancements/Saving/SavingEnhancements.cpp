@@ -3,7 +3,6 @@
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
 #include "2s2h/CustomMessage/CustomMessage.h"
-#include "2s2h/Rando/Rando.h"
 
 extern "C" {
 #include <variables.h>
@@ -123,13 +122,6 @@ extern "C" bool SavingEnhancements_CanSave() {
     // Hasn't gotten to clock town yet
     if (gPlayState->sceneId == SCENE_SPOT00 || gPlayState->sceneId == SCENE_LOST_WOODS ||
         gPlayState->sceneId == SCENE_OPENINGDAN) {
-        return false;
-    }
-
-    // Can't save once you've gone to the moon
-    if (IS_RANDO && (gPlayState->sceneId == SCENE_SOUGEN || gPlayState->sceneId == SCENE_LAST_LINK ||
-                     gPlayState->sceneId == SCENE_LAST_DEKU || gPlayState->sceneId == SCENE_LAST_GORON ||
-                     gPlayState->sceneId == SCENE_LAST_ZORA || gPlayState->sceneId == SCENE_LAST_BS)) {
         return false;
     }
 
