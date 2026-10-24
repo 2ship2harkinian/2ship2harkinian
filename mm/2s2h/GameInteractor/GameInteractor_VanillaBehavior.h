@@ -535,6 +535,22 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjEtcetera`
+    VB_DRAW_ETCETERA_ANIMATED,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjEtcetera`
+    VB_DRAW_ETCETERA_IDLE,
+
+    // #### `result`
+    // ```c
     // this->isOwlSave[fileIndex + FILE_NUM_OWL_SAVE_OFFSET]
     // ```
     // #### `args`
