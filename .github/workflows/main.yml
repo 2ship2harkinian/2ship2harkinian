@@ -8,8 +8,20 @@ concurrency:
 jobs:
 
   generate-2ship-otr:
-    runs-on: ubuntu-22.04
+    # Keep the build userspace on Jammy so AppImages retain the existing glibc baseline.
+    runs-on: ubuntu-24.04
+    container: ubuntu:22.04
+    defaults:
+      run:
+        shell: bash
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
+    - name: Prepare Ubuntu 22.04 build environment
+      run: |
+        apt-get update
+        apt-get install -y --no-install-recommends build-essential ca-certificates curl file git lsb-release pkg-config python3-pip sudo unzip wget zip zstd
+        python3 -m pip install --no-cache-dir cmake==3.31.6
     - name: Git Checkout
       uses: actions/checkout@v6
       with:
@@ -18,21 +30,22 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2.22
       with:
         save: ${{ github.ref_name == github.event.repository.default_branch }}
-        key: ${{ runner.os }}-otr-ccache-${{ github.ref }}-${{ github.sha }}
+        key: ${{ runner.os }}-jammy-container-v1-otr-ccache-${{ github.ref }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-otr-ccache-${{ github.ref }}
-          ${{ runner.os }}-otr-ccache
+          ${{ runner.os }}-jammy-container-v1-otr-ccache-${{ github.ref }}
+          ${{ runner.os }}-jammy-container-v1-otr-ccache
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y $(cat .github/workflows/apt-deps.txt) libzip-dev zipcmp zipmerge ziptool
     - name: Restore Cached deps folder
+      id: restore-cache-deps
       uses: actions/cache/restore@v5
       with:
-        key: ${{ runner.os }}-deps-${{ github.ref }}-${{ github.sha }}
+        key: ${{ runner.os }}-jammy-container-v1-otr-deps-${{ github.ref }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-deps-${{ github.ref }}-
-          ${{ runner.os }}-deps-
+          ${{ runner.os }}-jammy-container-v1-otr-deps-${{ github.ref }}-
+          ${{ runner.os }}-jammy-container-v1-otr-deps-
         path: deps
     - name: Create deps folder
       run: mkdir -p deps
@@ -50,7 +63,7 @@ jobs:
         sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
     - name: Install latest tinyxml2
       run: |
-        sudo apt-get remove libtinyxml2-dev
+        sudo apt-get remove -y libtinyxml2-dev
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
         if [ ! -d "deps/tinyxml2-10.0.0" ]; then
           wget https://github.com/leethomason/tinyxml2/archive/refs/tags/10.0.0.tar.gz
@@ -73,6 +86,12 @@ jobs:
         name: 2ship.o2r
         path: 2ship.o2r
         retention-days: 3
+    - name: Save Cache deps folder
+      if: ${{ github.ref_name == github.event.repository.default_branch }}
+      uses: actions/cache/save@v5
+      with:
+        key: ${{ steps.restore-cache-deps.outputs.cache-primary-key }}
+        path: deps
 
   build-macos:
     needs: generate-2ship-otr
@@ -118,8 +137,20 @@ jobs:
 
   build-linux:
     needs: generate-2ship-otr
-    runs-on: ubuntu-22.04
+    # Keep the build userspace on Jammy so AppImages retain the existing glibc baseline.
+    runs-on: ubuntu-24.04
+    container: ubuntu:22.04
+    defaults:
+      run:
+        shell: bash
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
+    - name: Prepare Ubuntu 22.04 build environment
+      run: |
+        apt-get update
+        apt-get install -y --no-install-recommends build-essential ca-certificates curl file git lsb-release pkg-config python3-pip sudo unzip wget zip zstd gcc-12 g++-12
+        python3 -m pip install --no-cache-dir cmake==3.31.6
     - name: Git Checkout
       uses: actions/checkout@v6
       with:
@@ -132,18 +163,18 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2.22
       with:
         save: ${{ github.ref_name == github.event.repository.default_branch }}
-        key: ${{ runner.os }}-ccache-${{ github.ref }}-${{ github.sha }}
+        key: ${{ runner.os }}-jammy-container-v1-appimage-ccache-${{ github.ref }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-ccache-${{ github.ref }}
-          ${{ runner.os }}-ccache
+          ${{ runner.os }}-jammy-container-v1-appimage-ccache-${{ github.ref }}
+          ${{ runner.os }}-jammy-container-v1-appimage-ccache
     - name: Restore Cached deps folder
       id: restore-cache-deps
       uses: actions/cache/restore@v5
       with:
-        key: ${{ runner.os }}-deps-${{ github.ref }}-${{ github.sha }}
+        key: ${{ runner.os }}-jammy-container-v1-appimage-deps-${{ github.ref }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-deps-${{ github.ref }}-
-          ${{ runner.os }}-deps-
+          ${{ runner.os }}-jammy-container-v1-appimage-deps-${{ github.ref }}-
+          ${{ runner.os }}-jammy-container-v1-appimage-deps-
         path: deps
     - name: Create deps folder
       run: mkdir -p deps
@@ -161,7 +192,7 @@ jobs:
         sudo cp -av /usr/local/lib/libSDL* /lib/x86_64-linux-gnu/
     - name: Install latest tinyxml2
       run: |
-        sudo apt-get remove libtinyxml2-dev
+        sudo apt-get remove -y libtinyxml2-dev
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
         if [ ! -d "deps/tinyxml2-10.0.0" ]; then
           wget https://github.com/leethomason/tinyxml2/archive/refs/tags/10.0.0.tar.gz
@@ -204,6 +235,11 @@ jobs:
       env:
         CC: gcc-12
         CXX: g++-12
+    - name: Check Ubuntu 22.04 binary compatibility
+      run: |
+        test "$(getconf GNU_LIBC_VERSION)" = "glibc 2.35"
+        ./2ship.appimage --appimage-extract > /dev/null
+        /lib64/ld-linux-x86-64.so.2 --list "$(readlink -f squashfs-root/AppRun)"
     - name: Upload build
       uses: actions/upload-artifact@v7
       with:
