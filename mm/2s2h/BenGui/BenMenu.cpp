@@ -1583,6 +1583,9 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "Color Pictograph", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Items.ColorPictograph")
         .Options(CheckboxOptions().Tooltip("Will take and display pictographs in color."));
+    AddWidget(path, "Hot Water Never Cools", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Items.HotWaterNeverCools")
+        .Options(CheckboxOptions().Tooltip("Prevents Hot Spring Water from cooling down into regular Spring Water."));
 
     // Time Savers
     path = { "Enhancements", "Time Savers", SECTION_COLUMN_1 };

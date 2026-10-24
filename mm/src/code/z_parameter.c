@@ -8690,6 +8690,10 @@ void Interface_UpdateBottleTimers(PlayState* play) {
                     gSaveContext.bottleTimerCurTimes[i] = SECONDS_TO_TIMER(0);
 
                     if (gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER) {
+                        if (!GameInteractor_Should(VB_COOL_HOT_WATER, true)) {
+                            continue;
+                        }
+
                         Inventory_UpdateItem(play, i + SLOT_BOTTLE_1, ITEM_SPRING_WATER);
                         Message_StartTextbox(play, 0xFA, NULL);
                     }
