@@ -586,14 +586,6 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*FileSelectState`
-    VB_FILE_SELECT_ROTATE_TO_NAME_ENTRY,
-
-    // #### `result`
-    // ```c
-    // true
-    // ```
-    // #### `args`
     // - `*ItemId`
     // - `s32` (slot)
     // - `s32` (isDpad)
