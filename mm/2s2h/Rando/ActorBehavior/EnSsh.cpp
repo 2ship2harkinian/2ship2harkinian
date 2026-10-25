@@ -38,43 +38,11 @@ void ApplyOceanSpiderHouseHint(u16* textId, bool* loadFromMessageTable) {
     *loadFromMessageTable = false;
 }
 
-void drawMaskOfTruthSpider() {
+void drawMaskOfTruth(Vec3f* pos, Vec3s* rot, f32 scale) {
     OPEN_DISPS(gPlayState->state.gfxCtx);
     Matrix_Push();
-    Matrix_Scale(10.0f, 10.0f, 10.0f, MTXMODE_APPLY);
-    Vec3s rot;
-    rot.x = 20000;
-    rot.y = -13000;
-    rot.z = -1000;
-    Vec3f pos;
-    pos.x = 20.0f;
-    pos.y = -50.0f;
-    pos.z = 10.0f;
-    Matrix_TranslateRotateZYX(&pos, &rot);
-    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH];
-    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
-    Rando::DrawItem(randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
-    Vec3f sparklePos;
-    Matrix_MultZero(&sparklePos);
-    sparklePos.y -= 3;
-    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
-    Matrix_Pop();
-    CLOSE_DISPS(gPlayState->state.gfxCtx);
-}
-
-void drawMaskOfTruthHuman() {
-    OPEN_DISPS(gPlayState->state.gfxCtx);
-    Matrix_Push();
-    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
-    Vec3s rot;
-    rot.x = -5000;
-    rot.y = -16000;
-    rot.z = -11000;
-    Vec3f pos;
-    pos.x = 20.0f;
-    pos.y = 36.0f;
-    pos.z = 0.0f;
-    Matrix_TranslateRotateZYX(&pos, &rot);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+    Matrix_TranslateRotateZYX(pos, rot);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH];
     auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
     Rando::DrawItem(randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
@@ -118,7 +86,15 @@ void Rando::ActorBehavior::InitEnSshBehavior() {
     COND_VB_SHOULD(VB_DRAW_MASK_OF_TRUTH_SPIDER, IS_RANDO, {
         if (*should) {
             *should = false;
-            drawMaskOfTruthSpider();
+            Vec3s rot;
+            rot.x = 20000;
+            rot.y = -13000;
+            rot.z = -1000;
+            Vec3f pos;
+            pos.x = 20.0f;
+            pos.y = -50.0f;
+            pos.z = 10.0f;
+            drawMaskOfTruth(&pos, &rot, 10.0f);
         }
     });
 
@@ -127,7 +103,15 @@ void Rando::ActorBehavior::InitEnSshBehavior() {
         if (enSth->sthFlags & STH_FLAG_DRAW_MASK_OF_TRUTH) {
             if (*should) {
                 *should = false;
-                drawMaskOfTruthHuman();
+                Vec3s rot;
+                rot.x = -5000;
+                rot.y = -16000;
+                rot.z = -11000;
+                Vec3f pos;
+                pos.x = 20.0f;
+                pos.y = 36.0f;
+                pos.z = 0.0f;
+                drawMaskOfTruth(&pos, &rot, 20.0f);
             }
         }
     });

@@ -515,37 +515,44 @@ void DrawSparkles(RandoItemId randoItemId, Actor* actor) {
     EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000, 16);
 }
 
-void Rando::DrawSparklesAtPos(RandoItemId randoItemId, Vec3f* pos) {
+bool ShouldDrawSparkles(RandoItemId randoItemId) {
+    bool result = false;
     switch (randoItemId) {
         case RI_NONE:
         case RI_ABILITY_SWIM:
         case RI_PROGRESSIVE_MAGIC:
         case RI_SINGLE_MAGIC:
         case RI_DOUBLE_MAGIC:
-        case RI_TIME_PROGRESSIVE: {
-            if (pos == NULL) {
-                return;
-            }
-
-            if (gGameState->frames % 2 == 0) {
-                return;
-            }
-
-            static Vec3f sVelocity = { 0.0f, 0.0f, 0.0f };
-            static Vec3f sAccel = { 0.0f, 0.0f, 0.0f };
-            static Color_RGBA8 sPrimColor = { 255, 255, 255, 255 };
-            static Color_RGBA8 sEnvColor = { 255, 128, 0, 255 };
-            Vec3f newPos;
-
-            newPos.x = Rand_CenteredFloat(10.0f) + pos->x;
-            newPos.y = (Rand_ZeroOne() * 10.0f) + pos->y;
-            newPos.z = Rand_CenteredFloat(10.0f) + pos->z;
-
-            EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000,
-                                            16);
-        } break;
-        default:
+        case RI_TIME_PROGRESSIVE:
+            result = true;
             break;
+        default:
+            result = false;
+    }
+    return result;
+}
+
+void Rando::DrawSparklesAtPos(RandoItemId randoItemId, Vec3f* pos) {
+    if (ShouldDrawSparkles(randoItemId)) {
+        if (pos == NULL) {
+            return;
+        }
+
+        if (gGameState->frames % 2 == 0) {
+            return;
+        }
+
+        static Vec3f sVelocity = { 0.0f, 0.0f, 0.0f };
+        static Vec3f sAccel = { 0.0f, 0.0f, 0.0f };
+        static Color_RGBA8 sPrimColor = { 255, 255, 255, 255 };
+        static Color_RGBA8 sEnvColor = { 255, 128, 0, 255 };
+        Vec3f newPos;
+
+        newPos.x = Rand_CenteredFloat(10.0f) + pos->x;
+        newPos.y = (Rand_ZeroOne() * 10.0f) + pos->y;
+        newPos.z = Rand_CenteredFloat(10.0f) + pos->z;
+
+        EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000, 16);
     }
 }
 
@@ -767,17 +774,8 @@ void Rando::DrawItem(RandoItemId randoItemId, RandoCheckId randoCheckId, Actor* 
             break;
     }
 
-    switch (randoItemId) {
-        case RI_NONE:
-        case RI_ABILITY_SWIM:
-        case RI_PROGRESSIVE_MAGIC:
-        case RI_SINGLE_MAGIC:
-        case RI_DOUBLE_MAGIC:
-        case RI_TIME_PROGRESSIVE:
-            DrawSparkles(randoItemId, actor);
-            break;
-        default:
-            break;
+    if (ShouldDrawSparkles(randoItemId)) {
+        DrawSparkles(randoItemId, actor);
     }
 }
 

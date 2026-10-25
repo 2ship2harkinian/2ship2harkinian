@@ -125,8 +125,12 @@ void drawPendantInHand(Actor* enTest3) {
     Matrix_RotateZYX(0, (gPlayState->gameplayFrames * 1000), 0, MTXMODE_APPLY);
     Matrix_Scale(0.1f, 0.1f, 0.1f, MTXMODE_APPLY);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES];
-    Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES),
-                    RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
+    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
+    Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
+    Vec3f sparklePos;
+    Matrix_MultZero(&sparklePos);
+    sparklePos.y -= 5;
+    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
