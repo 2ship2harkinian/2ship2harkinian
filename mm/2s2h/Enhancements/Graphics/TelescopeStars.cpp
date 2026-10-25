@@ -46,6 +46,14 @@ extern "C" {
 #define STAR_COUNT_MAX 3.0f
 // Free bytes the polyOpa buffer must keep before the star draw stops
 #define STAR_MIN_FREE_BYTES 8192
+// The added stars use a cheaper shape so that tripling a dense sky still fits in the display list
+// budget: a centre and eight rim vertices that alternate between the four spikes and the inner corners
+#define STAR_SIMPLE_RIM_COUNT 8
+#define STAR_SIMPLE_VTX_COUNT (1 + STAR_SIMPLE_RIM_COUNT)
+#define STAR_SIMPLE_CENTER_ALPHA 235.0f
+#define STAR_SIMPLE_CORNER_RADIUS 0.20f
+#define STAR_SIMPLE_CORNER_ALPHA 150.0f
+#define STAR_SIMPLE_TIP_RADIUS 0.52f
 
 #define STAR_CENTER_VTX 0
 #define STAR_CORE_INNER_VTX(i) (1 + (i))
@@ -62,10 +70,20 @@ static bool sStarVtxBuilt = false;
 static f32 sStarAlphaScale = -1.0f;
 static MtxF sStarBillboardMtxF;
 
-static f32 StarSizeScale() {
-    f32 intensity = CLAMP(CVarGetFloat(CVAR_STAR_INTENSITY, STAR_REFERENCE_INTENSITY), 0.0f, 1.0f);
+static Vtx sSimpleStarVtx[STAR_SIMPLE_VTX_COUNT];
+static bool sSimpleStarVtxBuilt = false;
+static f32 sSimpleStarAlphaScale = -1.0f;
+// Stars the scene asks for, which keep the detailed shape; the ones the multiplier adds use the cheap one
+static s32 sVanillaStarCount = 0;
+// Settings, read once per frame instead of once per star
+static bool sTelescopeStars = false;
+static bool sTwinkleEnabled = false;
+static f32 sTwinkleFrequency = 0.0f;
+static f32 sStarIntensity = STAR_REFERENCE_INTENSITY;
+static f32 sStarSizeMultiplier = 2.0f;
 
-    return intensity / STAR_REFERENCE_INTENSITY;
+static f32 StarSizeScale() {
+    return sStarIntensity / STAR_REFERENCE_INTENSITY;
 }
 
 // Same seed the star layout is built from, so a save always gets the same twinkle
@@ -92,7 +110,7 @@ static u32 StarHash(s32 starNum) {
 
 // Per star twinkle factor, oscillating between (1 - STAR_TWINKLE_DEPTH) and 1
 static f32 StarTwinkle(s32 starNum) {
-    f32 maxFrequency = CLAMP(CVarGetFloat(CVAR_STAR_TWINKLE_FREQUENCY, 1.0f), 0.0f, STAR_TWINKLE_MAX_FREQUENCY);
+    f32 maxFrequency = sTwinkleFrequency;
     u32 hash;
     f32 frequency;
     f32 turns;
@@ -199,10 +217,41 @@ static void EnsureStarGeometry(f32 alphaScale) {
     }
 }
 
-static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* pos, u32 size) {
+// Cheaper shape with the same silhouette: a fan from the centre to four spikes and four inner corners
+static void BuildSimpleStarGeometry(f32 alphaScale) {
+    const s32 angleStep = 0x10000 / STAR_SIMPLE_RIM_COUNT;
+    s32 i;
+
+    SetStarVtx(&sSimpleStarVtx[0], 0.0f, 0.0f, StarAlpha(STAR_SIMPLE_CENTER_ALPHA, alphaScale));
+
+    for (i = 0; i < STAR_SIMPLE_RIM_COUNT; i++) {
+        s16 angle = (s16)(angleStep * i);
+        f32 cosA = Math_CosS(angle);
+        f32 sinA = Math_SinS(angle);
+
+        // Every other rim vertex is a spike tip, the ones between are the inner corners
+        if ((i & 1) == 0) {
+            SetStarVtx(&sSimpleStarVtx[1 + i], cosA * STAR_SIMPLE_TIP_RADIUS, sinA * STAR_SIMPLE_TIP_RADIUS, 0);
+        } else {
+            SetStarVtx(&sSimpleStarVtx[1 + i], cosA * STAR_SIMPLE_CORNER_RADIUS, sinA * STAR_SIMPLE_CORNER_RADIUS,
+                       StarAlpha(STAR_SIMPLE_CORNER_ALPHA, alphaScale));
+        }
+    }
+
+    sSimpleStarAlphaScale = alphaScale;
+    sSimpleStarVtxBuilt = true;
+}
+
+static void EnsureSimpleStarGeometry(f32 alphaScale) {
+    if (!sSimpleStarVtxBuilt || (sSimpleStarAlphaScale != alphaScale)) {
+        BuildSimpleStarGeometry(alphaScale);
+    }
+}
+
+static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* pos, u32 size, bool simple) {
     Gfx* gfx = *gfxP;
     f32 alphaScale = StarSizeScale();
-    f32 sizeMultiplier = CLAMP(CVarGetFloat(CVAR_STAR_SIZE, 2.0f), 1.0f, 3.0f);
+    f32 sizeMultiplier = sStarSizeMultiplier;
     f32 eyeDist;
     f32 distRatio;
     f32 x;
@@ -254,34 +303,47 @@ static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* p
 
         MATRIX_FINALIZE_AND_LOAD(gfx++, play->state.gfxCtx);
 
-        // Too many vertices for one G_VTX command, so load them in two batches
-        gSPVertex(gfx++, (uintptr_t)sStarVtx, STAR_CORE_VTX_COUNT, 0);
-        gSPVertex(gfx++, (uintptr_t)(sStarVtx + STAR_CORE_VTX_COUNT), STAR_VTX_COUNT - STAR_CORE_VTX_COUNT,
-                  STAR_CORE_VTX_COUNT);
+        if (simple) {
+            EnsureSimpleStarGeometry(alphaScale);
+            gSPVertex(gfx++, (uintptr_t)sSimpleStarVtx, STAR_SIMPLE_VTX_COUNT, 0);
 
-        // Core fan
-        for (i = 0; i < STAR_CORE_SEGMENTS; i += 2) {
-            s32 next = (i + 1) % STAR_CORE_SEGMENTS;
-            s32 nextNext = (i + 2) % STAR_CORE_SEGMENTS;
+            // Fan from the centre to each pair of rim vertices
+            for (i = 0; i < STAR_SIMPLE_RIM_COUNT; i += 2) {
+                s32 next = 1 + ((i + 1) % STAR_SIMPLE_RIM_COUNT);
+                s32 nextNext = 1 + ((i + 2) % STAR_SIMPLE_RIM_COUNT);
 
-            gSP2Triangles(gfx++, STAR_CENTER_VTX, STAR_CORE_INNER_VTX(i), STAR_CORE_INNER_VTX(next), 0, STAR_CENTER_VTX,
-                          STAR_CORE_INNER_VTX(next), STAR_CORE_INNER_VTX(nextNext), 0);
-        }
+                gSP2Triangles(gfx++, 0, 1 + i, next, 0, 0, next, nextNext, 0);
+            }
+        } else {
+            // Too many vertices for one G_VTX command, so load them in two batches
+            gSPVertex(gfx++, (uintptr_t)sStarVtx, STAR_CORE_VTX_COUNT, 0);
+            gSPVertex(gfx++, (uintptr_t)(sStarVtx + STAR_CORE_VTX_COUNT), STAR_VTX_COUNT - STAR_CORE_VTX_COUNT,
+                      STAR_CORE_VTX_COUNT);
 
-        // Core outer band, which softens the glow edge
-        for (i = 0; i < STAR_CORE_SEGMENTS; i++) {
-            s32 next = (i + 1) % STAR_CORE_SEGMENTS;
+            // Core fan
+            for (i = 0; i < STAR_CORE_SEGMENTS; i += 2) {
+                s32 next = (i + 1) % STAR_CORE_SEGMENTS;
+                s32 nextNext = (i + 2) % STAR_CORE_SEGMENTS;
 
-            gSP2Triangles(gfx++, STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(i), STAR_CORE_OUTER_VTX(next), 0,
-                          STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(next), STAR_CORE_INNER_VTX(next), 0);
-        }
+                gSP2Triangles(gfx++, STAR_CENTER_VTX, STAR_CORE_INNER_VTX(i), STAR_CORE_INNER_VTX(next), 0,
+                              STAR_CENTER_VTX, STAR_CORE_INNER_VTX(next), STAR_CORE_INNER_VTX(nextNext), 0);
+            }
 
-        // Spikes, base band then tip band
-        for (i = 0; i < 4; i++) {
-            gSP2Triangles(gfx++, STAR_ARM_VTX(i, 0), STAR_ARM_VTX(i, 1), STAR_ARM_VTX(i, 2), 0, STAR_ARM_VTX(i, 0),
-                          STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 3), 0);
-            gSP2Triangles(gfx++, STAR_ARM_VTX(i, 3), STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 4), 0, STAR_ARM_VTX(i, 3),
-                          STAR_ARM_VTX(i, 4), STAR_ARM_VTX(i, 5), 0);
+            // Core outer band, which softens the glow edge
+            for (i = 0; i < STAR_CORE_SEGMENTS; i++) {
+                s32 next = (i + 1) % STAR_CORE_SEGMENTS;
+
+                gSP2Triangles(gfx++, STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(i), STAR_CORE_OUTER_VTX(next), 0,
+                              STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(next), STAR_CORE_INNER_VTX(next), 0);
+            }
+
+            // Spikes, base band then tip band
+            for (i = 0; i < 4; i++) {
+                gSP2Triangles(gfx++, STAR_ARM_VTX(i, 0), STAR_ARM_VTX(i, 1), STAR_ARM_VTX(i, 2), 0, STAR_ARM_VTX(i, 0),
+                              STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 3), 0);
+                gSP2Triangles(gfx++, STAR_ARM_VTX(i, 3), STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 4), 0, STAR_ARM_VTX(i, 3),
+                              STAR_ARM_VTX(i, 4), STAR_ARM_VTX(i, 5), 0);
+            }
         }
 
         Matrix_Pop();
@@ -291,7 +353,18 @@ static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* p
 }
 
 extern "C" s32 SkyboxStars_GetCount(s32 vanillaCount) {
-    f32 multiplier = CLAMP(CVarGetFloat(CVAR_STAR_COUNT, STAR_COUNT_MIN), STAR_COUNT_MIN, STAR_COUNT_MAX);
+    f32 multiplier;
+
+    // Once per frame, so the star loop never touches the config
+    sTelescopeStars = CVarGetInteger(CVAR_TELESCOPE_STARS, 0) != 0;
+    sTwinkleEnabled = CVarGetInteger(CVAR_STAR_TWINKLE, 0) != 0;
+    sTwinkleFrequency = CLAMP(CVarGetFloat(CVAR_STAR_TWINKLE_FREQUENCY, 1.0f), 0.0f, STAR_TWINKLE_MAX_FREQUENCY);
+    sStarIntensity = CLAMP(CVarGetFloat(CVAR_STAR_INTENSITY, STAR_REFERENCE_INTENSITY), 0.0f, 1.0f);
+    sStarSizeMultiplier = CLAMP(CVarGetFloat(CVAR_STAR_SIZE, 2.0f), 1.0f, 3.0f);
+    multiplier = CLAMP(CVarGetFloat(CVAR_STAR_COUNT, STAR_COUNT_MIN), STAR_COUNT_MIN, STAR_COUNT_MAX);
+
+    // Stars the scene asked for keep the detailed shape, the ones the multiplier adds use the cheap one
+    sVanillaStarCount = vanillaCount;
 
     return (s32)(vanillaCount * multiplier);
 }
@@ -299,8 +372,8 @@ extern "C" s32 SkyboxStars_GetCount(s32 vanillaCount) {
 extern "C" SkyboxStarDraw SkyboxStars_PrepareStar(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
                                                   Color_RGBA8* color, f32 fade) {
     Gfx* gfx = *gfxP;
-    bool telescope = CVarGetInteger(CVAR_TELESCOPE_STARS, 0) != 0;
-    f32 tint = (CVarGetInteger(CVAR_STAR_TWINKLE, 0) != 0) ? StarTwinkle(index) : 1.0f;
+    bool telescope = sTelescopeStars;
+    f32 tint = sTwinkleEnabled ? StarTwinkle(index) : 1.0f;
 
     if (telescope) {
         // Telescope stars cost far more display list and matrix space than vanilla ones, so stop before
@@ -320,7 +393,8 @@ extern "C" SkyboxStarDraw SkyboxStars_PrepareStar(Gfx** gfxP, PlayState* play, s
                         (u8)CLAMP((f32)color->a * fade * tint, 0.0f, 255.0f));
         *gfxP = gfx;
 
-        DrawTelescopeStar(gfxP, play, index, pos, width);
+        // The stars the multiplier adds are drawn with the cheap shape so that they still fit
+        DrawTelescopeStar(gfxP, play, index, pos, width, index >= sVanillaStarCount);
 
         return SKYBOX_STAR_DRAW_OVERRIDE;
     }
