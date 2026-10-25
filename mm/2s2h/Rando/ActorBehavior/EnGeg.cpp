@@ -17,8 +17,8 @@ void drawRandoGeroMask() {
     rot.y = -16100;
     rot.z = 13674;
     Vec3f pos;
-    pos.x = 100.0f;
-    pos.y = 0.0f;
+    pos.x = 90.0f;
+    pos.y = 30.0f;
     pos.z = 0.0f;
     Matrix_TranslateRotateZYX(&pos, &rot);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_MOUNTAIN_VILLAGE_DON_GERO_MASK];
