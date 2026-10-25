@@ -651,6 +651,22 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - *EnSth
+    VB_DRAW_MASK_OF_TRUTH_HUMAN,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_DRAW_MASK_OF_TRUTH_SPIDER,
+
+    // #### `result`
+    // ```c
     // (play->sceneId != SCENE_LOST_WOODS) || (gSaveContext.sceneLayer != 1)
     // ```
     // #### `args`
