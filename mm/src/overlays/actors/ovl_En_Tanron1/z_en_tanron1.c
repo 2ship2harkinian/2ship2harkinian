@@ -345,7 +345,8 @@ void func_80BB5318(EnTanron1* this, PlayState* play) {
                             }
                             ptr->unk_3C = BgCheck_EntityRaycastFloor1(&play->colCtx, &sp98, &ptr->unk_00);
                             sp9C = ptr->unk_00.y;
-                            WaterBox_GetSurface1(play, &play->colCtx, ptr->unk_00.x, ptr->unk_00.z, &sp9C, &waterBox);
+                            BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, ptr->unk_00.x, ptr->unk_00.z, &sp9C,
+                                                             &waterBox);
                             if ((sp9C < ptr->unk_00.y) && (ptr->unk_3C < sp9C)) {
                                 ptr->unk_3C = sp9C;
                             }

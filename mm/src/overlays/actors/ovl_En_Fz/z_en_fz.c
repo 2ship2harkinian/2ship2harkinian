@@ -18,36 +18,37 @@ void EnFz_Destroy(Actor* thisx, PlayState* play);
 void EnFz_Update(Actor* thisx, PlayState* play);
 void EnFz_Draw(Actor* thisx, PlayState* play);
 
-void func_80932784(EnFz* this, PlayState* play);
-void func_80932AE8(EnFz* this);
-void func_80932AF4(EnFz* this);
-void func_80932BD4(EnFz* this);
-void func_809330D4(EnFz* this);
-void func_80933104(EnFz* this, PlayState* play);
-void func_80933184(EnFz* this);
-void func_809331F8(EnFz* this, PlayState* play);
-void func_80933248(EnFz* this);
-void func_80933274(EnFz* this, PlayState* play);
-void func_80933324(EnFz* this);
-void func_80933368(EnFz* this, PlayState* play);
-void func_809333A4(EnFz* this);
-void func_809333D8(EnFz* this, PlayState* play);
-void func_80933414(EnFz* this);
-void func_80933444(EnFz* this, PlayState* play);
-void func_80933480(EnFz* this, PlayState* play);
-void func_809334B8(EnFz* this, PlayState* play);
-void func_809336C0(EnFz* this, PlayState* play);
-void func_80933760(EnFz* this, PlayState* play);
-void func_80933790(EnFz* this);
-void func_809337D4(EnFz* this, PlayState* play);
-void func_8093389C(EnFz* this);
-void func_809338E0(EnFz* this, PlayState* play);
-void func_80933AF4(EnFz* this);
-void func_80933B38(EnFz* this, PlayState* play);
-void func_80934018(EnFz* this, Vec3f* a, Vec3f* b, Vec3f* c, f32 arg4);
-void func_809340BC(EnFz* this, Vec3f* a, Vec3f* b, Vec3f* c, f32 arg4, f32 arg5, s16 arg6, u8 arg7);
-void func_80934178(EnFz* this, PlayState* play);
-void func_80934464(EnFz* this, PlayState* play);
+void EnFz_UpdateTargetPos(EnFz* this, PlayState* play);
+void EnFz_SpawnMistHidden(EnFz* this);
+void EnFz_SpawnMistChanging(EnFz* this);
+void EnFz_SpawnMistFullSize(EnFz* this);
+void EnFz_SetupDisappear(EnFz* this);
+void EnFz_Disappear(EnFz* this, PlayState* play);
+void EnFz_SetupWait(EnFz* this);
+void EnFz_Wait(EnFz* this, PlayState* play);
+void EnFz_SetupAppear(EnFz* this);
+void EnFz_Appear(EnFz* this, PlayState* play);
+void EnFz_SetupAimForSkate(EnFz* this);
+void EnFz_AimForSkate(EnFz* this, PlayState* play);
+void EnFz_SetupSkateTowardPlayer(EnFz* this);
+void EnFz_SkateTowardPlayer(EnFz* this, PlayState* play);
+void EnFz_SetupSkatingAimFreeze(EnFz* this);
+void EnFz_SkatingAimFreeze(EnFz* this, PlayState* play);
+void EnFz_SetupSkatingFreeze(EnFz* this, PlayState* play);
+void EnFz_SkatingFreeze(EnFz* this, PlayState* play);
+void EnFz_SetupDie(EnFz* this, PlayState* play);
+void EnFz_Die(EnFz* this, PlayState* play);
+void EnFz_SetupMelt(EnFz* this);
+void EnFz_Melt(EnFz* this, PlayState* play);
+void EnFz_SetupIdleStationary(EnFz* this);
+void EnFz_IdleStationary(EnFz* this, PlayState* play);
+void EnFz_SetupPassive(EnFz* this);
+void EnFz_Passive(EnFz* this, PlayState* play);
+void EnFz_SpawnMistAura(EnFz* this, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 xyScale);
+void EnFz_SpawnBreath(EnFz* this, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 xyScale, f32 xyScaleTarget,
+                      s16 primAlpha, u8 damaging);
+void EnFz_UpdateEffects(EnFz* this, PlayState* play);
+void EnFz_DrawEffects(EnFz* this, PlayState* play);
 
 ActorProfile En_Fz_Profile = {
     /**/ ACTOR_EN_FZ,
@@ -61,7 +62,7 @@ ActorProfile En_Fz_Profile = {
     /**/ EnFz_Draw,
 };
 
-static s16 D_809346F0[] = { 0, 0x2000, 0x4000, 0 };
+static s16 sTurningLimits[] = { 0, 0x2000, 0x4000, 0 };
 
 static ColliderCylinderInitType1 sCylinderInit1 = {
     {
@@ -101,6 +102,7 @@ static ColliderCylinderInitType1 sCylinderInit2 = {
     { 35, 80, 0, { 0, 0, 0 } },
 };
 
+// Used by the breath attack
 static ColliderCylinderInitType1 sCylinderInit3 = {
     {
         COL_MATERIAL_NONE,
@@ -111,7 +113,7 @@ static ColliderCylinderInitType1 sCylinderInit3 = {
     },
     {
         ELEM_MATERIAL_UNK0,
-        { 0x20000000, 0x02, 0x04 },
+        { 0x20000000, 0x02, 0x04 }, // DMG_UNBLOCKABLE
         { 0x00000000, 0x00, 0x00 },
         ATELEM_ON | ATELEM_SFX_NORMAL,
         ACELEM_NONE,
@@ -120,39 +122,48 @@ static ColliderCylinderInitType1 sCylinderInit3 = {
     { 20, 30, -15, { 0, 0, 0 } },
 };
 
+typedef enum EnFzDamageEffect {
+    /* 0x0 */ FZ_DMGEFF_NONE,
+    /* 0x2 */ FZ_DMGEFF_FIRE = 0x2,
+    /* 0x4 */ FZ_DMGEFF_LIGHT = 0x4,
+    /* 0xD */ FZ_DMGEFF_BOUNCE = 0xD,
+    /* 0xE */ FZ_DMGEFF_E,
+    /* 0xF */ FZ_DMGEFF_CHIP
+} EnFzDamageEffect;
+
 static DamageTable sDamageTable = {
-    /* Deku Nut       */ DMG_ENTRY(0, 0x0),
-    /* Deku Stick     */ DMG_ENTRY(0, 0xD),
-    /* Horse trample  */ DMG_ENTRY(0, 0x0),
-    /* Explosives     */ DMG_ENTRY(2, 0xF),
-    /* Zora boomerang */ DMG_ENTRY(0, 0x0),
-    /* Normal arrow   */ DMG_ENTRY(0, 0xD),
-    /* UNK_DMG_0x06   */ DMG_ENTRY(2, 0xF),
-    /* Hookshot       */ DMG_ENTRY(3, 0xF),
-    /* Goron punch    */ DMG_ENTRY(2, 0xF),
-    /* Sword          */ DMG_ENTRY(1, 0xF),
-    /* Goron pound    */ DMG_ENTRY(3, 0xF),
-    /* Fire arrow     */ DMG_ENTRY(2, 0x2),
-    /* Ice arrow      */ DMG_ENTRY(0, 0x0),
-    /* Light arrow    */ DMG_ENTRY(2, 0x4),
-    /* Goron spikes   */ DMG_ENTRY(1, 0xF),
-    /* Deku spin      */ DMG_ENTRY(0, 0x0),
-    /* Deku bubble    */ DMG_ENTRY(0, 0x0),
-    /* Deku launch    */ DMG_ENTRY(0, 0x0),
-    /* UNK_DMG_0x12   */ DMG_ENTRY(0, 0x0),
-    /* Zora barrier   */ DMG_ENTRY(0, 0x0),
-    /* Normal shield  */ DMG_ENTRY(0, 0x0),
-    /* Light ray      */ DMG_ENTRY(0, 0xE),
-    /* Thrown object  */ DMG_ENTRY(1, 0xF),
-    /* Zora punch     */ DMG_ENTRY(1, 0xF),
-    /* Spin attack    */ DMG_ENTRY(1, 0xF),
-    /* Sword beam     */ DMG_ENTRY(0, 0x0),
-    /* Normal Roll    */ DMG_ENTRY(0, 0x0),
-    /* UNK_DMG_0x1B   */ DMG_ENTRY(0, 0x0),
-    /* UNK_DMG_0x1C   */ DMG_ENTRY(0, 0x0),
-    /* Unblockable    */ DMG_ENTRY(0, 0x0),
-    /* UNK_DMG_0x1E   */ DMG_ENTRY(0, 0x0),
-    /* Powder Keg     */ DMG_ENTRY(1, 0xF),
+    /* Deku Nut       */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Deku Stick     */ DMG_ENTRY(0, FZ_DMGEFF_BOUNCE),
+    /* Horse trample  */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Explosives     */ DMG_ENTRY(2, FZ_DMGEFF_CHIP),
+    /* Zora boomerang */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Normal arrow   */ DMG_ENTRY(0, FZ_DMGEFF_BOUNCE),
+    /* UNK_DMG_0x06   */ DMG_ENTRY(2, FZ_DMGEFF_CHIP),
+    /* Hookshot       */ DMG_ENTRY(3, FZ_DMGEFF_CHIP),
+    /* Goron punch    */ DMG_ENTRY(2, FZ_DMGEFF_CHIP),
+    /* Sword          */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
+    /* Goron pound    */ DMG_ENTRY(3, FZ_DMGEFF_CHIP),
+    /* Fire arrow     */ DMG_ENTRY(2, FZ_DMGEFF_FIRE),
+    /* Ice arrow      */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Light arrow    */ DMG_ENTRY(2, FZ_DMGEFF_LIGHT),
+    /* Goron spikes   */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
+    /* Deku spin      */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Deku bubble    */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Deku launch    */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* UNK_DMG_0x12   */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Zora barrier   */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Normal shield  */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Light ray      */ DMG_ENTRY(0, FZ_DMGEFF_E), // not coded in damage handle, not in OOT
+    /* Thrown object  */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
+    /* Zora punch     */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
+    /* Spin attack    */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
+    /* Sword beam     */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Normal Roll    */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* UNK_DMG_0x1B   */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* UNK_DMG_0x1C   */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Unblockable    */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* UNK_DMG_0x1E   */ DMG_ENTRY(0, FZ_DMGEFF_NONE),
+    /* Powder Keg     */ DMG_ENTRY(1, FZ_DMGEFF_CHIP),
 };
 
 static InitChainEntry sInitChain[] = {
@@ -167,7 +178,7 @@ void EnFz_Init(Actor* thisx, PlayState* play) {
 
     Actor_ProcessInitChain(&this->actor, sInitChain);
     this->actor.colChkInfo.damageTable = &sDamageTable;
-    this->actor.colChkInfo.health = 3;
+    this->actor.colChkInfo.health = 3; // decreased from 6 in OOT
 
     Collider_InitCylinder(play, &this->collider1);
     Collider_SetCylinderType1(play, &this->collider1, &this->actor, &sCylinderInit1);
@@ -181,56 +192,56 @@ void EnFz_Init(Actor* thisx, PlayState* play) {
     this->actor.velocity.y = 0.0f;
     this->actor.colChkInfo.mass = MASS_IMMOVABLE;
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
-    this->unk_BC8 = 0;
-    this->unk_BCF = 0;
-    this->unk_BCC = 1;
-    this->unk_BCD = 0;
-    this->unk_BCE = 0;
-    this->unk_BD7 = 1;
-    this->unk_BD8 = 0;
+    this->unusedTimer = 0;
+    this->hitCounter = 0;
+    this->isBgEnabled = true;
+    this->isMoving = false;
+    this->isColliderActive = false;
+    this->drawBody = true;
+    this->isDying = false;
     this->actor.speed = 0.0f;
     this->actor.cullingVolumeScale = 400.0f;
-    this->unk_BAC = this->actor.world.pos.y;
-    this->unk_BB4 = this->actor.world.pos.y;
-    this->unk_BA8 = this->actor.world.pos.x;
-    this->unk_BB0 = this->actor.world.pos.z;
+    this->originPos.x = this->actor.world.pos.x;
+    this->originPos.y = this->actor.world.pos.y;
+    this->originPos.z = this->actor.world.pos.z;
+    this->originPosY = this->actor.world.pos.y;
     this->actor.velocity.y = this->actor.gravity;
-    this->unk_BB8 = 135.0f;
+    this->unkBB8 = 135.0f;
 
-    if (ENFZ_GET_8000(&this->actor)) {
-        this->unk_BC0 = 0;
+    if (ENFZ_GET_TRACK_TYPE(&this->actor)) {
+        this->envAlpha = 0;
         this->actor.scale.y = 0.0f;
-        func_80933184(this);
+        EnFz_SetupWait(this);
     } else {
-        this->unk_BC0 = 255;
-        if (this->actor.shape.rot.z == 0) {
-            this->unk_BC6 = (s32)Rand_ZeroFloat(64.0f) + 192;
+        this->envAlpha = 255;
+        if (ENFZ_GETZ_CLOCK(thisx) == 0) {
+            this->internalClock = 192 + (s32)Rand_ZeroFloat(64.0f);
         } else {
-            if (this->actor.shape.rot.z < 0) {
-                this->actor.shape.rot.z = 1;
-            } else if (this->actor.shape.rot.z > 0x10) {
-                this->actor.shape.rot.z = 0x10;
+            if (ENFZ_GETZ_CLOCK(thisx) < 0) {
+                ENFZ_GETZ_CLOCK(thisx) = 1;
+            } else if (ENFZ_GETZ_CLOCK(thisx) > 0x10) {
+                ENFZ_GETZ_CLOCK(thisx) = 0x10;
             }
-            this->actor.shape.rot.z += -1;
-            this->unk_BC6 = this->actor.shape.rot.z * 0x10;
+            ENFZ_GETZ_CLOCK(thisx) -= 1;
+            this->internalClock = ENFZ_GETZ_CLOCK(thisx) * 0x10;
         }
+        this->actor.shape.rot.z = 0; // reset after parameter use
 
-        this->actor.shape.rot.z = 0;
-        if (ENFZ_GET_4000(&this->actor)) {
-            this->unk_BC0 = 0;
+        if (ENFZ_GET_APPEAR_TYPE(&this->actor)) {
+            this->envAlpha = 0;
             this->actor.scale.y = 0.0f;
-            func_80933184(this);
-        } else if (ENFZ_GET_F(&this->actor) == ENFZ_F_3) {
-            func_80933AF4(this);
+            EnFz_SetupWait(this);
+        } else if (ENFZ_GET_POWER(&this->actor) == FZ_POWER_PASSIVE) {
+            EnFz_SetupPassive(this);
         } else {
-            func_8093389C(this);
+            EnFz_SetupIdleStationary(this);
         }
     }
 
     this->drawDmgEffTimer = 0;
     this->drawDmgEffScale = 0.0f;
     this->drawDmgEffAlpha = 0.0f;
-    func_80932784(this, play);
+    EnFz_UpdateTargetPos(this, play);
 }
 
 void EnFz_Destroy(Actor* thisx, PlayState* play) {
@@ -240,7 +251,7 @@ void EnFz_Destroy(Actor* thisx, PlayState* play) {
     Collider_DestroyCylinder(play, &this->collider2);
     Collider_DestroyCylinder(play, &this->collider3);
 
-    if ((this->actor.parent != NULL) && (this->unk_BC4 == 0) && (this->actor.parent->id == ACTOR_EN_WIZ) &&
+    if ((this->actor.parent != NULL) && (this->wizrobeFlag == 0) && (this->actor.parent->id == ACTOR_EN_WIZ) &&
         (this->actor.parent->update != NULL) && (((EnWiz*)this->actor.parent)->freezard != NULL)) {
         EnWiz* wiz = (EnWiz*)this->actor.parent;
 
@@ -248,436 +259,451 @@ void EnFz_Destroy(Actor* thisx, PlayState* play) {
     }
 }
 
-void func_80932784(EnFz* this, PlayState* play) {
-    Vec3f sp5C;
-    Vec3f sp50;
-    Vec3f sp44;
+void EnFz_UpdateTargetPos(EnFz* this, PlayState* play) {
+    Vec3f pos;
+    Vec3f hitPos;
+    Vec3f baseVelocity;
     s32 bgId;
-    CollisionPoly* sp3C;
+    CollisionPoly* hitPoly;
 
-    sp5C.x = this->actor.world.pos.x;
-    sp5C.y = this->actor.world.pos.y + 20.0f;
-    sp5C.z = this->actor.world.pos.z;
+    pos.x = this->actor.world.pos.x;
+    pos.y = this->actor.world.pos.y + 20.0f;
+    pos.z = this->actor.world.pos.z;
 
-    Matrix_Translate(sp5C.x, sp5C.y, sp5C.z, MTXMODE_NEW);
+    Matrix_Translate(pos.x, pos.y, pos.z, MTXMODE_NEW);
     Matrix_RotateZYX(this->actor.shape.rot.x, this->actor.shape.rot.y, this->actor.shape.rot.z, MTXMODE_APPLY);
 
-    sp44.x = sp44.y = 0.0f;
-    sp44.z = 440.0f;
+    baseVelocity.x = baseVelocity.y = 0.0f;
+    baseVelocity.z = 440.0f;
 
-    Matrix_MultVec3f(&sp44, &this->unk_22C);
-    if (BgCheck_EntityLineTest1(&play->colCtx, &sp5C, &this->unk_22C, &sp50, &sp3C, true, false, false, true, &bgId)) {
-        Math_Vec3f_Copy(&this->unk_22C, &sp50);
+    Matrix_MultVec3f(&baseVelocity, &this->wallHitPos);
+    if (BgCheck_EntityLineTest1(&play->colCtx, &pos, &this->wallHitPos, &hitPos, &hitPoly, true, false, false, true,
+                                &bgId)) {
+        Math_Vec3f_Copy(&this->wallHitPos, &hitPos);
     }
 
-    sp5C.x = this->actor.world.pos.x - this->unk_22C.x;
-    sp5C.z = this->actor.world.pos.z - this->unk_22C.z;
-    this->unk_238 = SQ(sp5C.x) + SQ(sp5C.z);
+    pos.x = this->actor.world.pos.x - this->wallHitPos.x;
+    pos.z = this->actor.world.pos.z - this->wallHitPos.z;
+    this->distToTargetSq = SQ(pos.x) + SQ(pos.z);
 }
 
-s32 func_809328A4(EnFz* this, Vec3f* arg1) {
-    f32 temp_f0 = this->actor.world.pos.x - arg1->x;
-    f32 temp_f2 = this->actor.world.pos.z - arg1->z;
+s32 EnFz_ReachedTarget(EnFz* this, Vec3f* vec) {
+    f32 distX = this->actor.world.pos.x - vec->x;
+    f32 distZ = this->actor.world.pos.z - vec->z;
 
-    if (this->unk_238 <= (SQ(temp_f0) + SQ(temp_f2))) {
+    if (this->distToTargetSq <= (SQ(distX) + SQ(distZ))) {
         return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
-void func_809328F4(EnFz* this, PlayState* play, Vec3f* arg2, s32 arg3, f32 arg4) {
+// Spawn ice chunks on damage taken
+void EnFz_Damaged(EnFz* this, PlayState* play, Vec3f* hitPos, s32 numEffects, f32 randPosRange) {
     s32 i;
-    Vec3f spA8;
-    Vec3f sp9C;
-    Vec3f sp90;
-    Color_RGBA8 sp8C;
-    Color_RGBA8 sp88;
-    f32 temp_f24;
-    s32 temp_s1;
+    Vec3f pos;
+    Vec3f velocity;
+    Vec3f accel;
+    Color_RGBA8 primColor;
+    Color_RGBA8 envColor;
+    f32 scale;
+    s32 life;
 
-    sp90.x = sp90.z = 0.0f;
-    sp90.y = -1.0f;
-    sp8C.r = 155;
-    sp8C.g = 255;
-    sp8C.b = 255;
-    sp8C.a = 255;
-    sp88.r = 200;
-    sp88.g = 200;
-    sp88.b = 200;
+    accel.x = accel.z = 0.0f;
+    accel.y = -1.0f;
+    primColor.r = 155;
+    primColor.g = 255;
+    primColor.b = 255;
+    primColor.a = 255;
+    envColor.r = 200;
+    envColor.g = 200;
+    envColor.b = 200;
 
-    for (i = 0; i < arg3; i++) {
-        temp_f24 = Rand_CenteredFloat(0.3f) + 0.6f;
-        temp_s1 = (s32)Rand_CenteredFloat(5.0f) + 12;
-        spA8.x = Rand_CenteredFloat(arg4) + arg2->x;
-        spA8.y = Rand_ZeroFloat(arg4) + arg2->y;
-        spA8.z = Rand_CenteredFloat(arg4) + arg2->z;
-        sp9C.x = Rand_CenteredFloat(10.0f);
-        sp9C.y = Rand_ZeroFloat(10.0f) + 2.0f;
-        sp9C.z = Rand_CenteredFloat(10.0f);
-        EffectSsEnIce_Spawn(play, &spA8, temp_f24, &sp9C, &sp90, &sp8C, &sp88, temp_s1);
+    for (i = 0; i < numEffects; i++) {
+        scale = 0.6f + Rand_CenteredFloat(0.3f);
+        life = 12 + (s32)Rand_CenteredFloat(5.0f);
+        pos.x = hitPos->x + Rand_CenteredFloat(randPosRange);
+        pos.y = hitPos->y + Rand_ZeroFloat(randPosRange);
+        pos.z = hitPos->z + Rand_CenteredFloat(randPosRange);
+        velocity.x = Rand_CenteredFloat(10.0f);
+        velocity.y = Rand_ZeroFloat(10.0f) + 2.0f;
+        velocity.z = Rand_CenteredFloat(10.0f);
+        EffectSsEnIce_Spawn(play, &pos, scale, &velocity, &accel, &primColor, &envColor, life);
     }
 
-    CollisionCheck_SpawnShieldParticles(play, arg2);
+    CollisionCheck_SpawnShieldParticles(play, hitPos);
 }
 
-void func_80932AE8(EnFz* this) {
+void EnFz_SpawnMistHidden(EnFz* this) {
 }
 
-void func_80932AF4(EnFz* this) {
-    Vec3f sp44;
-    Vec3f sp38;
-    Vec3f sp2C;
+void EnFz_SpawnMistChanging(EnFz* this) {
+    Vec3f pos;
+    Vec3f velocity;
+    Vec3f accel;
 
-    if (!(this->unk_BC6 & 0xF)) {
-        sp44.x = Rand_CenteredFloat(40.0f) + this->actor.world.pos.x;
-        sp44.y = Rand_CenteredFloat(40.0f) + this->actor.world.pos.y + 30.0f;
-        sp44.z = Rand_CenteredFloat(40.0f) + this->actor.world.pos.z;
-        sp2C.x = sp2C.z = 0.0f;
-        sp2C.y = 0.1f;
-        sp38.x = sp38.y = sp38.z = 0.0f;
-        func_80934018(this, &sp44, &sp38, &sp2C, Rand_ZeroFloat(7.5f) + 15.0f);
-    }
-}
-
-void func_80932BD4(EnFz* this) {
-    Vec3f sp44;
-    Vec3f sp38;
-    Vec3f sp2C;
-
-    if (!(this->unk_BC6 & 3)) {
-        sp44.x = Rand_CenteredFloat(40.0f) + this->actor.world.pos.x;
-        sp44.y = this->unk_BB4;
-        sp44.z = Rand_CenteredFloat(40.0f) + this->actor.world.pos.z;
-        sp2C.x = sp2C.z = 0.0f;
-        sp2C.y = 0.1f;
-        sp38.x = sp38.y = sp38.z = 0.0f;
-        func_80934018(this, &sp44, &sp38, &sp2C, Rand_ZeroFloat(7.5f) + 15.0f);
+    if ((this->internalClock % 16) == 0) {
+        pos.x = this->actor.world.pos.x + Rand_CenteredFloat(40.0f);
+        pos.y = this->actor.world.pos.y + Rand_CenteredFloat(40.0f) + 30.0f;
+        pos.z = this->actor.world.pos.z + Rand_CenteredFloat(40.0f);
+        accel.x = accel.z = 0.0f;
+        accel.y = 0.1f;
+        velocity.x = velocity.y = velocity.z = 0.0f;
+        EnFz_SpawnMistAura(this, &pos, &velocity, &accel, 15.0f + Rand_ZeroFloat(7.5f));
     }
 }
 
-void func_80932C98(EnFz* this, PlayState* play) {
-    Vec3f sp3C;
+void EnFz_SpawnMistFullSize(EnFz* this) {
+    Vec3f pos;
+    Vec3f velocity;
+    Vec3f accel;
 
-    if (this->unk_BCD != 0) {
-        if ((this->actor.bgCheckFlags & BGCHECKFLAG_WALL) ||
-            !Actor_TestFloorInDirection(&this->actor, play, 60.0f, this->actor.world.rot.y)) {
-            this->actor.bgCheckFlags &= ~BGCHECKFLAG_WALL;
-            this->unk_BCD = 0;
-            this->unk_BBC = 0.0f;
-            this->actor.speed = 0.0f;
-        }
+    if ((this->internalClock % 4) == 0) {
+        pos.x = this->actor.world.pos.x + Rand_CenteredFloat(40.0f);
+        pos.y = this->originPosY;
+        pos.z = this->actor.world.pos.z + Rand_CenteredFloat(40.0f);
+        accel.x = accel.z = 0.0f;
+        accel.y = 0.1f;
+        velocity.x = velocity.y = velocity.z = 0.0f;
+        EnFz_SpawnMistAura(this, &pos, &velocity, &accel, Rand_ZeroFloat(7.5f) + 15.0f);
+    }
+}
+
+void EnFz_ApplyDamage(EnFz* this, PlayState* play) {
+    Vec3f currentPos;
+
+    if (this->isMoving && ((this->actor.bgCheckFlags & BGCHECKFLAG_WALL) ||
+                           !Actor_TestFloorInDirection(&this->actor, play, 60.0f, this->actor.world.rot.y))) {
+        this->actor.bgCheckFlags &= ~BGCHECKFLAG_WALL;
+        this->isMoving = false;
+        this->speedXZ = 0.0f;
+        this->actor.speed = 0.0f;
     }
 
+    // Unfinished Wizrobe collaboration?
     if (this->actor.parent != NULL) {
-        if ((this->unk_BC4 != 5) && (this->actor.parent->id == ACTOR_EN_WIZ)) {
+        if ((this->wizrobeFlag != 5) && (this->actor.parent->id == ACTOR_EN_WIZ)) {
             Actor* parent = this->actor.parent;
 
             if ((parent->update == NULL) || (parent->colChkInfo.health <= 0)) {
                 this->actor.colChkInfo.health = 0;
-                this->unk_BC4 = 5;
+                this->wizrobeFlag = 5;
                 Actor_PlaySfx(&this->actor, NA_SE_EN_FREEZAD_DEAD);
                 Actor_PlaySfx(&this->actor, NA_SE_EV_ICE_BROKEN);
-                sp3C.x = this->actor.world.pos.x;
-                sp3C.y = this->actor.world.pos.y;
-                sp3C.z = this->actor.world.pos.z;
-                func_809328F4(this, play, &sp3C, 30, 10.0f);
-                func_809336C0(this, play);
+                currentPos.x = this->actor.world.pos.x;
+                currentPos.y = this->actor.world.pos.y;
+                currentPos.z = this->actor.world.pos.z;
+                EnFz_Damaged(this, play, &currentPos, 30, 10.0f);
+                EnFz_SetupDie(this, play);
                 return;
             }
 
-            if ((this->actor.colChkInfo.health != 0) && (this->unk_BC4 == 1)) {
+            if ((this->actor.colChkInfo.health != 0) && (this->wizrobeFlag == 1)) {
                 this->actor.colChkInfo.health = 0;
-                this->unk_BC4 = 5;
+                this->wizrobeFlag = 5;
                 Actor_PlaySfx(&this->actor, NA_SE_EN_FREEZAD_DEAD);
                 Actor_PlaySfx(&this->actor, NA_SE_EV_ICE_BROKEN);
-                sp3C.x = this->actor.world.pos.x;
-                sp3C.y = this->actor.world.pos.y;
-                sp3C.z = this->actor.world.pos.z;
-                func_809328F4(this, play, &sp3C, 30, 10.0f);
-                func_809336C0(this, play);
+                currentPos.x = this->actor.world.pos.x;
+                currentPos.y = this->actor.world.pos.y;
+                currentPos.z = this->actor.world.pos.z;
+                EnFz_Damaged(this, play, &currentPos, 30, 10.0f);
+                EnFz_SetupDie(this, play);
                 return;
             }
         }
     }
 
-    if (this->unk_BCE != 0) {
-        if (ENFZ_GET_8000(&this->actor) && (this->collider1.base.atFlags & AT_HIT)) {
-            this->unk_BCD = 0;
-            this->unk_BBC = 0.0f;
+    if (this->isColliderActive) {
+        if (ENFZ_GET_TRACK_TYPE(&this->actor) && (this->collider1.base.atFlags & AT_HIT)) {
+            this->isMoving = false;
+            this->speedXZ = 0.0f;
             this->collider1.base.acFlags &= ~AC_HIT;
             this->actor.speed = 0.0f;
-            this->unk_BCA = 10;
-            func_809330D4(this);
+            this->mainTimer = 10;
+            EnFz_SetupDisappear(this);
         } else if (this->collider2.base.acFlags & AC_BOUNCED) {
             this->collider2.base.acFlags &= ~AC_BOUNCED;
             this->collider1.base.acFlags &= ~AC_HIT;
         } else if (this->collider1.base.acFlags & AC_HIT) {
             this->collider1.base.acFlags &= ~AC_HIT;
             switch (this->actor.colChkInfo.damageEffect) {
-                case 4:
-                    this->drawDmgEffTimer = 40;
+                case FZ_DMGEFF_LIGHT:
+                    this->drawDmgEffTimer = 2 * 20;
                     this->drawDmgEffAlpha = 1.0f;
-
-                case 15:
+                    FALLTHROUGH;
+                case FZ_DMGEFF_CHIP:
                     Actor_ApplyDamage(&this->actor);
                     Actor_SetColorFilter(&this->actor, COLORFILTER_COLORFLAG_RED, 255, COLORFILTER_BUFFLAG_XLU, 8);
                     if (this->actor.colChkInfo.health != 0) {
                         Actor_PlaySfx(&this->actor, NA_SE_EN_FREEZAD_DAMAGE);
-                        sp3C.x = this->actor.world.pos.x;
-                        sp3C.y = this->actor.world.pos.y;
-                        sp3C.z = this->actor.world.pos.z;
-                        func_809328F4(this, play, &sp3C, 10, 0.0f);
-                        this->unk_BCF++;
+                        currentPos.x = this->actor.world.pos.x;
+                        currentPos.y = this->actor.world.pos.y;
+                        currentPos.z = this->actor.world.pos.z;
+                        EnFz_Damaged(this, play, &currentPos, 10, 0.0f);
+                        this->hitCounter++;
                         break;
                     }
                     Actor_PlaySfx(&this->actor, NA_SE_EN_FREEZAD_DEAD);
                     Actor_PlaySfx(&this->actor, NA_SE_EV_ICE_BROKEN);
-                    sp3C.x = this->actor.world.pos.x;
-                    sp3C.y = this->actor.world.pos.y;
-                    sp3C.z = this->actor.world.pos.z;
-                    func_809328F4(this, play, &sp3C, 30, 10.0f);
-                    func_809336C0(this, play);
+                    currentPos.x = this->actor.world.pos.x;
+                    currentPos.y = this->actor.world.pos.y;
+                    currentPos.z = this->actor.world.pos.z;
+                    EnFz_Damaged(this, play, &currentPos, 30, 10.0f);
+                    EnFz_SetupDie(this, play);
                     break;
 
-                case 2:
+                case FZ_DMGEFF_FIRE:
                     Actor_PlaySfx(&this->actor, NA_SE_EN_FREEZAD_DEAD);
-                    func_80933790(this);
+                    EnFz_SetupMelt(this);
                     break;
             }
         }
     }
 }
 
-void func_80933014(EnFz* this) {
-    s16 temp_a1 = this->actor.yawTowardsPlayer;
-    s32 temp_a2 = ENFZ_GET_3000(&this->actor);
-    s16 temp;
-    s16 temp2;
-    s32 temp_v1;
+void EnFz_SetYawTowardsPlayer(EnFz* this) {
+    s16 yaw = this->actor.yawTowardsPlayer;
+    s32 limitIndex = ENFZ_GET_ROTATION_LIMIT(&this->actor);
 
-    if (!ENFZ_GET_8000(&this->actor)) {
-        temp_v1 = this->actor.home.rot.y;
-        if (temp_a2 != 3) {
-            temp2 = temp_a1 - temp_v1;
-            if (D_809346F0[temp_a2] < ABS_ALT(temp2)) {
-                temp = (temp2 > 0) ? D_809346F0[temp_a2] : -D_809346F0[temp_a2];
-                temp_a1 = this->actor.home.rot.y + temp;
+    if (!ENFZ_GET_TRACK_TYPE(&this->actor)) {
+        s32 homeYaw = this->actor.home.rot.y;
+
+        if (limitIndex != 3) {
+            s16 homeYawDiff = yaw - homeYaw;
+
+            if (sTurningLimits[limitIndex] < ABS_ALT(homeYawDiff)) {
+                s16 angleLimit = (homeYawDiff > 0) ? sTurningLimits[limitIndex] : -sTurningLimits[limitIndex];
+
+                yaw = this->actor.home.rot.y + angleLimit;
             }
         }
     }
-    Math_SmoothStepToS(&this->actor.shape.rot.y, temp_a1, 10, 0x7D0, 0);
+    Math_SmoothStepToS(&this->actor.shape.rot.y, yaw, 10, 0x7D0, 0);
     this->actor.world.rot.y = this->actor.shape.rot.y;
 }
 
-void func_809330D4(EnFz* this) {
-    this->unk_BD6 = 2;
-    this->unk_BCE = 0;
+/**
+ * Disappearing into the ground to re-appear at actor.home
+ */
+void EnFz_SetupDisappear(EnFz* this) {
+    this->state = FZ_STATE_CHANGING;
+    this->isColliderActive = false;
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
-    this->actionFunc = func_80933104;
+    this->actionFunc = EnFz_Disappear;
 }
 
-void func_80933104(EnFz* this, PlayState* play) {
-    this->unk_BC0 -= 16;
-    if (this->unk_BC0 > 255) {
-        this->unk_BC0 = 0;
+void EnFz_Disappear(EnFz* this, PlayState* play) {
+    this->envAlpha -= 16;
+    if (this->envAlpha > 255) {
+        this->envAlpha = 0;
     }
 
     if (Math_SmoothStepToF(&this->actor.scale.y, 0, 1.0f, 0.0005f, 0.0f) == 0.0f) {
-        func_80933184(this);
+        EnFz_SetupWait(this);
     }
 }
 
-void func_80933184(EnFz* this) {
-    this->unk_BD6 = 0;
-    this->unk_BD2 = 0;
-    this->unk_BD0 = 0;
-    this->unk_BCA = 100;
+void EnFz_SetupWait(EnFz* this) {
+    this->state = FZ_STATE_HIDDEN;
+    this->unkBD2 = 0;
+    this->unkBD0 = 0;
+    this->mainTimer = 5 * 20;
 
-    this->actor.world.pos.x = this->unk_BA8;
-    this->actor.world.pos.y = this->unk_BAC;
-    this->actor.world.pos.z = this->unk_BB0;
+    this->actor.world.pos.x = this->originPos.x;
+    this->actor.world.pos.y = this->originPos.y;
+    this->actor.world.pos.z = this->originPos.z;
 
-    if (ENFZ_GET_4000(&this->actor)) {
-        this->unk_BD6 = 2;
-        this->unk_BCA = 10;
-        this->unk_BD2 = 4000;
-        this->actionFunc = func_80933274;
+    if (ENFZ_GET_APPEAR_TYPE(&this->actor)) {
+        this->state = FZ_STATE_CHANGING;
+        this->mainTimer = 10; // slightly shorter timer for EnFz_Appear
+        this->unkBD2 = 4000;
+        this->actionFunc = EnFz_Appear; // skip SetupAppear
     } else {
-        this->actionFunc = func_809331F8;
+        // ENFZ_GET_TRACK_TYPE
+        this->actionFunc = EnFz_Wait;
     }
 }
 
-void func_809331F8(EnFz* this, PlayState* play) {
-    if ((this->unk_BCA == 0) && (this->actor.xzDistToPlayer < 400.0f)) {
-        func_80933248(this);
+/**
+ * Waiting in hiding for the player go get close
+ */
+void EnFz_Wait(EnFz* this, PlayState* play) {
+    if ((this->mainTimer == 0) && (this->actor.xzDistToPlayer < 400.0f)) {
+        EnFz_SetupAppear(this);
     }
 }
 
-void func_80933248(EnFz* this) {
-    this->unk_BD6 = 2;
-    this->unk_BCA = 20;
-    this->unk_BD2 = 4000;
-    this->actionFunc = func_80933274;
+void EnFz_SetupAppear(EnFz* this) {
+    this->state = FZ_STATE_CHANGING;
+    this->mainTimer = 20;
+    this->unkBD2 = 4000;
+    this->actionFunc = EnFz_Appear;
 }
 
-void func_80933274(EnFz* this, PlayState* play) {
-    if (this->unk_BCA == 0) {
+/**
+ * Appearing out of the ground to attack player
+ */
+void EnFz_Appear(EnFz* this, PlayState* play) {
+    if (this->mainTimer == 0) {
 
-        this->unk_BC0 += 8;
-        if (this->unk_BC0 > 255) {
-            this->unk_BC0 = 255;
+        this->envAlpha += 8;
+        if (this->envAlpha > 255) {
+            this->envAlpha = 255;
         }
 
         if (Math_SmoothStepToF(&this->actor.scale.y, 0.008f, 1.0f, 0.0005f, 0.0f) == 0.0f) {
-            if (ENFZ_GET_4000(&this->actor)) {
-                func_8093389C(this);
-            } else {
-                func_80933324(this);
+            if (ENFZ_GET_APPEAR_TYPE(&this->actor)) {
+                EnFz_SetupIdleStationary(this);
+            } else { // ENFZ_GET_TRACK_TYPE
+                EnFz_SetupAimForSkate(this);
             }
         }
     }
 }
 
-void func_80933324(EnFz* this) {
-    this->unk_BD6 = 1;
-    this->unk_BCA = 40;
-    this->unk_BCC = 1;
-    this->unk_BCE = 1;
+void EnFz_SetupAimForSkate(EnFz* this) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->mainTimer = 2 * 20;
+    this->isBgEnabled = true;
+    this->isColliderActive = true;
     this->actor.flags |= ACTOR_FLAG_ATTENTION_ENABLED;
     this->actor.gravity = -1.0f;
-    this->actionFunc = func_80933368;
+    this->actionFunc = EnFz_AimForSkate;
 }
 
-void func_80933368(EnFz* this, PlayState* play) {
-    func_80933014(this);
-    if (this->unk_BCA == 0) {
-        func_809333A4(this);
+void EnFz_AimForSkate(EnFz* this, PlayState* play) {
+    EnFz_SetYawTowardsPlayer(this);
+    if (this->mainTimer == 0) {
+        EnFz_SetupSkateTowardPlayer(this);
     }
 }
 
-void func_809333A4(EnFz* this) {
-    this->unk_BD6 = 1;
-    this->unk_BCD = 1;
-    this->unk_BCA = 100;
-    this->unk_BBC = 4.0f;
-    this->actionFunc = func_809333D8;
+void EnFz_SetupSkateTowardPlayer(EnFz* this) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->isMoving = true;
+    this->mainTimer = 5 * 20;
+    this->speedXZ = 4.0f;
+    this->actionFunc = EnFz_SkateTowardPlayer;
 }
 
-void func_809333D8(EnFz* this, PlayState* play) {
-    if ((this->unk_BCA == 0) || (this->unk_BCD == 0)) {
-        func_80933414(this);
+void EnFz_SkateTowardPlayer(EnFz* this, PlayState* play) {
+    // isMoving gets set false in EnFz_ApplyDamage
+    if ((this->mainTimer == 0) || !this->isMoving) {
+        EnFz_SetupSkatingAimFreeze(this);
     }
 }
 
-void func_80933414(EnFz* this) {
-    this->unk_BD6 = 1;
-    this->unk_BBC = 0.0f;
+void EnFz_SetupSkatingAimFreeze(EnFz* this) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->speedXZ = 0.0f;
     this->actor.speed = 0.0f;
-    this->unk_BCA = 40;
-    this->actionFunc = func_80933444;
+    this->mainTimer = 2 * 20;
+    this->actionFunc = EnFz_SkatingAimFreeze;
 }
 
-void func_80933444(EnFz* this, PlayState* play) {
-    func_80933014(this);
-    if (this->unk_BCA == 0) {
-        func_80933480(this, play);
+void EnFz_SkatingAimFreeze(EnFz* this, PlayState* play) {
+    EnFz_SetYawTowardsPlayer(this);
+    if (this->mainTimer == 0) {
+        EnFz_SetupSkatingFreeze(this, play);
     }
 }
 
-void func_80933480(EnFz* this, PlayState* play) {
-    this->unk_BD6 = 1;
-    this->unk_BCA = 80;
-    this->actionFunc = func_809334B8;
-    func_80932784(this, play);
+void EnFz_SetupSkatingFreeze(EnFz* this, PlayState* play) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->mainTimer = 4 * 20;
+    this->actionFunc = EnFz_SkatingFreeze;
+    EnFz_UpdateTargetPos(this, play);
 }
 
-void func_809334B8(EnFz* this, PlayState* play) {
-    Vec3f sp64;
-    Vec3f sp58;
-    Vec3f sp4C;
-    Vec3f sp40;
-    u8 sp3F;
-    s16 sp3C;
+void EnFz_SkatingFreeze(EnFz* this, PlayState* play) {
+    Vec3f baseVelocity;
+    Vec3f pos;
+    Vec3f velocity;
+    Vec3f accel;
 
-    if (this->unk_BCA == 0) {
-        func_809330D4(this);
+    if (this->mainTimer == 0) {
+        EnFz_SetupDisappear(this);
         return;
     }
 
-    if (this->unk_BCA > 10) {
-        sp3F = 0;
-        sp3C = 150;
+    if (this->mainTimer > 10) {
+        u8 damaging = false;
+        s16 primAlpha = 150;
+
         Actor_PlaySfx_Flagged(&this->actor, NA_SE_EN_FREEZAD_BREATH - SFX_FLAG);
-        if ((this->unk_BCA - 10) < 16) {
-            sp3C = (this->unk_BCA * 10) - 100;
+        if ((this->mainTimer - 10) < 16) {
+            primAlpha = (this->mainTimer * 10) - 100;
         }
 
-        sp40.x = sp40.z = 0.0f;
-        sp40.y = 0.6f;
+        accel.x = accel.z = 0.0f;
+        accel.y = 0.6f;
 
-        sp58.x = this->actor.world.pos.x;
-        sp58.y = this->actor.world.pos.y + 20.0f;
-        sp58.z = this->actor.world.pos.z;
+        pos.x = this->actor.world.pos.x;
+        pos.y = this->actor.world.pos.y + 20.0f;
+        pos.z = this->actor.world.pos.z;
 
         Matrix_RotateYS(this->actor.shape.rot.y, MTXMODE_NEW);
 
-        sp64.x = 0.0f;
-        sp64.y = -2.0f;
-        sp64.z = ((ENFZ_GET_F(&this->actor) == ENFZ_F_1)   ? 10.0f
-                  : (ENFZ_GET_F(&this->actor) == ENFZ_F_2) ? 20.0f
-                                                           : 0.0f) +
-                 20;
+        baseVelocity.x = 0.0f;
+        baseVelocity.y = -2.0f;
+        baseVelocity.z = ((ENFZ_GET_POWER(&this->actor) == FZ_POWER_1)   ? 10.0f
+                          : (ENFZ_GET_POWER(&this->actor) == FZ_POWER_2) ? 20.0f
+                                                                         : 0.0f) +
+                         20;
 
-        Matrix_MultVec3f(&sp64, &sp4C);
+        Matrix_MultVec3f(&baseVelocity, &velocity);
 
-        if ((this->unk_BCA & 7) == 0) {
-            sp3F = 1;
+        if ((this->mainTimer % 8) == 0) {
+            damaging = true;
         }
 
-        func_809340BC(this, &sp58, &sp4C, &sp40, 2.0f, 25.0f, sp3C, sp3F);
+        EnFz_SpawnBreath(this, &pos, &velocity, &accel, 2.0f, 25.0f, primAlpha, damaging);
 
-        sp58.x += sp4C.x * 0.5f;
-        sp58.y += sp4C.y * 0.5f;
-        sp58.z += sp4C.z * 0.5f;
-
-        func_809340BC(this, &sp58, &sp4C, &sp40, 2.0f, 25.0f, sp3C, 0);
+        //! @bug: this does nothing, the above function already assigned all unused effects
+        pos.x += velocity.x * 0.5f;
+        pos.y += velocity.y * 0.5f;
+        pos.z += velocity.z * 0.5f;
+        EnFz_SpawnBreath(this, &pos, &velocity, &accel, 2.0f, 25.0f, primAlpha, false);
     }
 }
 
-void func_809336C0(EnFz* this, PlayState* play) {
-    this->unk_BD6 = 0;
-    this->unk_BBC = 0.0f;
+void EnFz_SetupDie(EnFz* this, PlayState* play) {
+    this->state = FZ_STATE_HIDDEN;
+    this->speedXZ = 0.0f;
     this->actor.gravity = 0.0f;
     this->actor.velocity.y = 0.0f;
     this->actor.speed = 0.0f;
-    this->unk_BCC = 1;
-    this->unk_BCE = 0;
-    this->unk_BD8 = 1;
+    this->isBgEnabled = true;
+    this->isColliderActive = false;
+    this->isDying = true;
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
-    this->unk_BD7 = 0;
-    this->unk_BCA = 60;
+    this->drawBody = false;
+    this->mainTimer = 3 * 20;
     Actor_ChangeCategory(play, &play->actorCtx, &this->actor, ACTORCAT_PROP);
-    Item_DropCollectibleRandom(play, &this->actor, &this->actor.world.pos, 0xA0);
-    this->actionFunc = func_80933760;
+    Item_DropCollectibleRandom(play, &this->actor, &this->actor.world.pos, (0xA << 4)); // drop table 0xA
+    this->actionFunc = EnFz_Die;
 }
 
-void func_80933760(EnFz* this, PlayState* play) {
-    if (this->unk_BCA == 0) {
+void EnFz_Die(EnFz* this, PlayState* play) {
+    if (this->mainTimer == 0) {
         Actor_Kill(&this->actor);
     }
 }
 
-void func_80933790(EnFz* this) {
-    this->unk_BD6 = 3;
-    this->unk_BCE = 0;
-    this->unk_BD8 = 1;
+/**
+ * Fire arrow specific death
+ */
+void EnFz_SetupMelt(EnFz* this) {
+    this->state = FZ_STATE_MELTING;
+    this->isColliderActive = false;
+    this->isDying = true;
     this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
     this->actor.speed = 0.0f;
-    this->unk_BBC = 0.0f;
-    this->actionFunc = func_809337D4;
+    this->speedXZ = 0.0f;
+    this->actionFunc = EnFz_Melt;
 }
 
-void func_809337D4(EnFz* this, PlayState* play) {
+void EnFz_Melt(EnFz* this, PlayState* play) {
     Math_StepToF(&this->actor.scale.y, 0.0006f, 0.0006f);
 
     if (this->actor.scale.y < 0.006f) {
@@ -686,92 +712,98 @@ void func_809337D4(EnFz* this, PlayState* play) {
     }
 
     if (this->actor.scale.y < 0.004f) {
-        this->unk_BC0 -= 20;
-        if (this->unk_BC0 > 255) {
-            this->unk_BC0 = 0;
+        this->envAlpha -= 20;
+        if (this->envAlpha > 255) {
+            this->envAlpha = 0;
         }
     }
 
-    if (this->unk_BC0 == 0) {
-        func_809336C0(this, play);
+    if (this->envAlpha == 0) {
+        EnFz_SetupDie(this, play);
     }
 }
 
-void func_8093389C(EnFz* this) {
-    this->unk_BD6 = 1;
-    this->unk_BCA = 40;
-    this->unk_BCC = 1;
-    this->unk_BCE = 1;
+void EnFz_SetupIdleStationary(EnFz* this) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->mainTimer = 2 * 20;
+    this->isBgEnabled = true;
+    this->isColliderActive = true;
     this->actor.flags |= ACTOR_FLAG_ATTENTION_ENABLED;
     this->actor.gravity = -1.0f;
-    this->actionFunc = func_809338E0;
+    this->actionFunc = EnFz_IdleStationary;
 }
 
-void func_809338E0(EnFz* this, PlayState* play) {
-    Vec3f sp64;
-    Vec3f sp58;
-    Vec3f sp4C;
-    Vec3f sp40;
-    u8 sp3F;
-    s16 sp3C;
+void EnFz_IdleStationary(EnFz* this, PlayState* play) {
+    Vec3f baseVelocity;
+    Vec3f pos;
+    Vec3f velocity;
+    Vec3f accel;
+    u8 damaging;
+    s16 primAlpha;
 
-    if (this->unk_BC6 & (0x80 | 0x40)) {
-        func_80933014(this);
-        func_80932784(this, play);
+    if (this->internalClock & 0xC0) {
+        EnFz_SetYawTowardsPlayer(this);
+        EnFz_UpdateTargetPos(this, play);
         return;
     }
 
-    sp3F = 0;
-    sp3C = 150;
+    damaging = false;
+    primAlpha = 150;
     Actor_PlaySfx_Flagged(&this->actor, NA_SE_EN_FREEZAD_BREATH - SFX_FLAG);
 
-    if ((this->unk_BC6 & 0x3F) >= 0x30) {
-        sp3C = 630 - ((this->unk_BC6 & 0x3F) * 10);
+    if ((this->internalClock & 0x3F) >= 0x30) {
+        primAlpha = 630 - ((this->internalClock & 0x3F) * 10);
     }
 
-    sp40.x = sp40.z = 0.0f;
-    sp40.y = 0.6f;
+    accel.x = accel.z = 0.0f;
+    accel.y = 0.6f;
 
-    sp58.x = this->actor.world.pos.x;
-    sp58.y = this->actor.world.pos.y + 20.0f;
-    sp58.z = this->actor.world.pos.z;
+    pos.x = this->actor.world.pos.x;
+    pos.y = this->actor.world.pos.y + 20.0f;
+    pos.z = this->actor.world.pos.z;
 
     Matrix_RotateYS(this->actor.shape.rot.y, MTXMODE_NEW);
 
-    sp64.x = 0.0f;
-    sp64.y = -2.0f;
-    sp64.z = ((ENFZ_GET_F(&this->actor) == ENFZ_F_1)   ? 10.0f
-              : (ENFZ_GET_F(&this->actor) == ENFZ_F_2) ? 20.0f
-                                                       : 0.0f) +
-             20;
+    baseVelocity.x = 0.0f;
+    baseVelocity.y = -2.0f;
+    baseVelocity.z = ((ENFZ_GET_POWER(&this->actor) == FZ_POWER_1)   ? 10.0f
+                      : (ENFZ_GET_POWER(&this->actor) == FZ_POWER_2) ? 20.0f
+                                                                     : 0.0f) +
+                     20;
 
-    Matrix_MultVec3f(&sp64, &sp4C);
+    Matrix_MultVec3f(&baseVelocity, &velocity);
 
-    if (!(this->unk_BC6 & 7)) {
-        sp3F = 1;
+    if ((this->internalClock % 8) == 0) {
+        damaging = true;
     }
 
-    func_809340BC(this, &sp58, &sp4C, &sp40, 2.0f, 25.0f, sp3C, sp3F);
-    sp58.x += sp4C.x * 0.5f;
-    sp58.y += sp4C.y * 0.5f;
-    sp58.z += sp4C.z * 0.5f;
-    func_809340BC(this, &sp58, &sp4C, &sp40, 2.0f, 25.0f, sp3C, 0);
+    EnFz_SpawnBreath(this, &pos, &velocity, &accel, 2.0f, 25.0f, primAlpha, damaging);
+
+    //! @bug: this does nothing, the above function already assigned all unused effects
+    pos.x += velocity.x * 0.5f;
+    pos.y += velocity.y * 0.5f;
+    pos.z += velocity.z * 0.5f;
+    EnFz_SpawnBreath(this, &pos, &velocity, &accel, 2.0f, 25.0f, primAlpha, false);
 }
 
-void func_80933AF4(EnFz* this) {
-    this->unk_BD6 = 1;
-    this->unk_BCA = 40;
-    this->unk_BCC = 1;
-    this->unk_BCE = 1;
+/**
+ * Unfinished and unused, specified by Init as separate power
+ * still spawns as a functional non-attacking variant
+ */
+void EnFz_SetupPassive(EnFz* this) {
+    this->state = FZ_STATE_FULLSIZE;
+    this->mainTimer = 2 * 20;
+    this->isBgEnabled = true;
+    this->isColliderActive = true;
     this->actor.flags |= ACTOR_FLAG_ATTENTION_ENABLED;
     this->actor.gravity = -1.0f;
-    this->actionFunc = func_80933B38;
+    this->actionFunc = EnFz_Passive;
 }
 
-void func_80933B38(EnFz* this, PlayState* play) {
+void EnFz_Passive(EnFz* this, PlayState* play) {
 }
 
-void func_80933B48(EnFz* this, PlayState* play) {
+void EnFz_UpdateLightArrowEffects(EnFz* this, PlayState* play) {
     if (this->drawDmgEffTimer != 0) {
         if (this->drawDmgEffTimer > 0) {
             this->drawDmgEffTimer--;
@@ -787,32 +819,29 @@ void func_80933B48(EnFz* this, PlayState* play) {
 }
 
 void EnFz_Update(Actor* thisx, PlayState* play) {
-    static EnFzUnkFunc D_809347AC[] = { func_80932AE8, func_80932AF4, func_80932BD4, func_80932BD4 };
+    static EnFzUnkFunc sMistSpawnFunctions[] = {
+        EnFz_SpawnMistHidden,
+        EnFz_SpawnMistChanging,
+        EnFz_SpawnMistFullSize,
+        EnFz_SpawnMistFullSize,
+    };
     s32 pad;
     EnFz* this = (EnFz*)thisx;
 
-    this->unk_BC6++;
-    if (this->unk_BC8 != 0) {
-        this->unk_BC8--;
-    }
-
-    if (this->unk_BCA != 0) {
-        this->unk_BCA--;
-    }
-
-    if (this->unk_BD9 != 0) {
-        this->unk_BD9--;
-    }
+    this->internalClock++;
+    DECR(this->unusedTimer);
+    DECR(this->mainTimer);
+    DECR(this->attackTimer);
 
     Actor_SetFocus(&this->actor, 50.0f);
-    func_80932C98(this, play);
+    EnFz_ApplyDamage(this, play);
 
     this->actionFunc(this, play);
 
-    if (this->unk_BD8 == 0) {
+    if (!this->isDying) {
         Collider_UpdateCylinder(&this->actor, &this->collider1);
         Collider_UpdateCylinder(&this->actor, &this->collider2);
-        if (this->unk_BCE != 0) {
+        if (this->isColliderActive) {
             if (this->actor.colorFilterTimer == 0) {
                 CollisionCheck_SetAC(play, &play->colChkCtx, &this->collider1.base);
                 CollisionCheck_SetAC(play, &play->colChkCtx, &this->collider2.base);
@@ -821,31 +850,31 @@ void EnFz_Update(Actor* thisx, PlayState* play) {
         }
     }
 
-    Math_StepToF(&this->actor.speed, this->unk_BBC, 0.2f);
+    Math_StepToF(&this->actor.speed, this->speedXZ, 0.2f);
     Actor_MoveWithGravity(&this->actor);
-    if (this->unk_BCC != 0) {
+    if (this->isBgEnabled) {
         Actor_UpdateBgCheckInfo(play, &this->actor, 20.0f, 20.0f, 20.0f, UPDBGCHECKINFO_FLAG_1 | UPDBGCHECKINFO_FLAG_4);
     }
 
-    D_809347AC[this->unk_BD6](this);
-    func_80933B48(this, play);
-    func_80934178(this, play);
+    sMistSpawnFunctions[this->state](this);
+    EnFz_UpdateLightArrowEffects(this, play);
+    EnFz_UpdateEffects(this, play);
 }
 
 void EnFz_Draw(Actor* thisx, PlayState* play) {
-    static Gfx* D_809347BC[] = { object_fz_DL_001130, object_fz_DL_0021A0, object_fz_DL_002CA0 };
+    static Gfx* sBodyDisplayLists[] = { gFreezardBodyIntactDL, gFreezardBodyHornBrokenDL, gFreezardBodyHeadBrokenDL };
     s32 pad;
     EnFz* this = (EnFz*)thisx;
-    s32 sp9C = 3 - this->actor.colChkInfo.health;
+    s32 bodyDlIndex = 3 - this->actor.colChkInfo.health;
 
     OPEN_DISPS(play->state.gfxCtx);
 
     if (this->actor.colChkInfo.health == 0) {
-        sp9C = 2;
+        bodyDlIndex = 2;
     }
 
-    if (this->unk_BD7 != 0) {
-        func_800B8118(&this->actor, play, 0);
+    if (this->drawBody) {
+        func_800B8118(&this->actor, play, false);
         Gfx_SetupDL25_Xlu(play->state.gfxCtx);
 
         gSPSegment(POLY_XLU_DISP++, 0x08,
@@ -855,14 +884,14 @@ void EnFz_Draw(Actor* thisx, PlayState* play) {
         gDPSetCombineLERP(POLY_XLU_DISP++, TEXEL1, PRIMITIVE, PRIM_LOD_FRAC, TEXEL0, TEXEL1, TEXEL0, PRIMITIVE, TEXEL0,
                           PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, COMBINED, 0, ENVIRONMENT, 0);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 155, 255, 255, 255);
-        gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, this->unk_BC0);
-        gSPDisplayList(POLY_XLU_DISP++, D_809347BC[sp9C]);
+        gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, this->envAlpha);
+        gSPDisplayList(POLY_XLU_DISP++, sBodyDisplayLists[bodyDlIndex]);
     }
 
-    func_80934464(this, play);
+    EnFz_DrawEffects(this, play);
 
     if (this->drawDmgEffTimer > 0) {
-        s32 pad2[6];
+        s32 pad2[6]; // what in tarnation
         Vec3f bodyPartsPos[2];
         s32 pad3;
 
@@ -880,119 +909,127 @@ void EnFz_Draw(Actor* thisx, PlayState* play) {
     CLOSE_DISPS(play->state.gfxCtx);
 }
 
-void func_80934018(EnFz* this, Vec3f* a, Vec3f* b, Vec3f* c, f32 arg4) {
+/**
+ * The rising cloud of mist coming from the Freezard's body
+ */
+void EnFz_SpawnMistAura(EnFz* this, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 xyScale) {
     s16 i;
-    EnFzStruct* ptr = &this->unk_23C[0];
+    EnFzEffect* effect = &this->effects[0];
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_23C); i++, ptr++) {
-        if (ptr->unk_00 == 0) {
-            ptr->unk_00 = 1;
-            ptr->unk_04 = *a;
-            ptr->unk_10 = *b;
-            ptr->unk_1C = *c;
-            ptr->unk_2E = 0;
-            ptr->unk_30 = arg4 / 1000.0f;
-            ptr->unk_2C = 0;
-            ptr->unk_01 = 0;
+    for (i = 0; i < ARRAY_COUNT(this->effects); i++, effect++) {
+        if (effect->type == FZ_EFFECT_DISABLED) {
+            effect->type = FZ_EFFECT_MIST_AURA;
+            effect->pos = *pos;
+            effect->velocity = *velocity;
+            effect->accel = *accel;
+            effect->primAlphaState = 0;
+            effect->xyScale = xyScale / 1000.0f;
+            effect->primAlpha = 0;
+            effect->timer = 0;
             break;
         }
     }
 }
 
-void func_809340BC(EnFz* this, Vec3f* a, Vec3f* b, Vec3f* c, f32 arg4, f32 arg5, s16 arg6, u8 arg7) {
+/**
+ * The breath attack stream is made up of small steam effects
+ */
+void EnFz_SpawnBreath(EnFz* this, Vec3f* pos, Vec3f* velocity, Vec3f* accel, f32 xyScale, f32 xyScaleTarget,
+                      s16 primAlpha, u8 damaging) {
     s16 i;
-    EnFzStruct* ptr = &this->unk_23C[0];
+    EnFzEffect* effect = &this->effects[0];
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_23C); i++, ptr++) {
-        if (ptr->unk_00 == 0) {
-            ptr->unk_00 = 2;
-            ptr->unk_04 = *a;
-            ptr->unk_10 = *b;
-            ptr->unk_1C = *c;
-            ptr->unk_2E = 0;
-            ptr->unk_30 = arg4 / 1000.0f;
-            ptr->unk_34 = arg5 / 1000.0f;
-            ptr->unk_2C = arg6;
-            ptr->unk_01 = 0;
-            ptr->unk_38 = arg7;
+    for (i = 0; i < ARRAY_COUNT(this->effects); i++, effect++) {
+        if (effect->type == FZ_EFFECT_DISABLED) {
+            effect->type = FZ_EFFECT_BREATH;
+            effect->pos = *pos;
+            effect->velocity = *velocity;
+            effect->accel = *accel;
+            effect->primAlphaState = 0;
+            effect->xyScale = xyScale / 1000.0f;
+            effect->xyScaleTarget = xyScaleTarget / 1000.0f;
+            effect->primAlpha = primAlpha;
+            effect->timer = 0;
+            effect->damaging = damaging;
             break;
         }
     }
 }
 
-void func_80934178(EnFz* this, PlayState* play) {
+void EnFz_UpdateEffects(EnFz* this, PlayState* play) {
     s16 i;
-    EnFzStruct* ptr = this->unk_23C;
-    Vec3f sp64;
+    EnFzEffect* effect = this->effects;
+    Vec3f pos;
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_23C); i++, ptr++) {
-        if (ptr->unk_00 != 0) {
-            ptr->unk_04.x += ptr->unk_10.x;
-            ptr->unk_04.y += ptr->unk_10.y;
-            ptr->unk_04.z += ptr->unk_10.z;
+    for (i = 0; i < ARRAY_COUNT(this->effects); i++, effect++) {
+        if (effect->type != FZ_EFFECT_DISABLED) {
+            effect->pos.x += effect->velocity.x;
+            effect->pos.y += effect->velocity.y;
+            effect->pos.z += effect->velocity.z;
 
-            ptr->unk_01++;
+            effect->timer++;
 
-            ptr->unk_10.x += ptr->unk_1C.x;
-            ptr->unk_10.y += ptr->unk_1C.y;
-            ptr->unk_10.z += ptr->unk_1C.z;
+            effect->velocity.x += effect->accel.x;
+            effect->velocity.y += effect->accel.y;
+            effect->velocity.z += effect->accel.z;
 
-            if (ptr->unk_00 == 1) {
-                if (ptr->unk_2E == 0) {
-                    ptr->unk_2C += 10;
-                    if (ptr->unk_2C >= 100) {
-                        ptr->unk_2E++;
+            if (effect->type == FZ_EFFECT_MIST_AURA) {
+                if (effect->primAlphaState == 0) {
+                    effect->primAlpha += 10;
+                    if (effect->primAlpha >= 100) {
+                        effect->primAlphaState++;
                     }
                 } else {
-                    ptr->unk_2C -= 3;
-                    if (ptr->unk_2C <= 0) {
-                        ptr->unk_2C = 0;
-                        ptr->unk_00 = 0;
+                    effect->primAlpha -= 3;
+                    if (effect->primAlpha <= 0) {
+                        effect->primAlpha = 0;
+                        effect->type = FZ_EFFECT_DISABLED;
                     }
                 }
-            } else if (ptr->unk_00 == 2) {
-                Math_ApproachF(&ptr->unk_30, ptr->unk_34, 0.1f, ptr->unk_34 / 10.0f);
-                if (ptr->unk_2E == 0) {
-                    if (ptr->unk_01 >= 7) {
-                        ptr->unk_2E++;
+            } else if (effect->type == FZ_EFFECT_BREATH) {
+                Math_ApproachF(&effect->xyScale, effect->xyScaleTarget, 0.1f, effect->xyScaleTarget / 10.0f);
+                if (effect->primAlphaState == 0) {
+                    if (effect->timer >= 7) {
+                        effect->primAlphaState++;
                     }
                 } else {
-                    ptr->unk_10.x *= 0.75f;
-                    ptr->unk_1C.y = 2.0f;
-                    ptr->unk_10.z *= 0.75f;
-                    ptr->unk_2C -= 17;
-                    if (ptr->unk_2C <= 0) {
-                        ptr->unk_2C = 0;
-                        ptr->unk_00 = 0;
+                    effect->velocity.x *= 0.75f;
+                    effect->accel.y = 2.0f;
+                    effect->velocity.z *= 0.75f;
+                    effect->primAlpha -= 17;
+                    if (effect->primAlpha <= 0) {
+                        effect->primAlpha = 0;
+                        effect->type = FZ_EFFECT_DISABLED;
                     }
                 }
 
-                if ((this->unk_BD9 == 0) && (ptr->unk_2C > 100) && (ptr->unk_38 != 0)) {
-                    this->collider3.dim.pos.x = ptr->unk_04.x;
-                    this->collider3.dim.pos.y = ptr->unk_04.y;
-                    this->collider3.dim.pos.z = ptr->unk_04.z;
+                // note: attackTimer is never set, always zero
+                if ((this->attackTimer == 0) && (effect->primAlpha > 100) && effect->damaging) {
+                    this->collider3.dim.pos.x = effect->pos.x;
+                    this->collider3.dim.pos.y = effect->pos.y;
+                    this->collider3.dim.pos.z = effect->pos.z;
                     CollisionCheck_SetAT(play, &play->colChkCtx, &this->collider3.base);
                 }
 
-                sp64.x = ptr->unk_04.x;
-                sp64.y = ptr->unk_04.y + 10.0f;
-                sp64.z = ptr->unk_04.z;
+                pos.x = effect->pos.x;
+                pos.y = effect->pos.y + 10.0f;
+                pos.z = effect->pos.z;
 
-                if ((ptr->unk_2E != 2) && func_809328A4(this, &sp64)) {
-                    ptr->unk_2E = 2;
-                    ptr->unk_10.x = 0.0f;
-                    ptr->unk_10.z = 0.0f;
+                if ((effect->primAlphaState != 2) && EnFz_ReachedTarget(this, &pos)) {
+                    effect->primAlphaState = 2;
+                    effect->velocity.x = 0.0f;
+                    effect->velocity.z = 0.0f;
                 }
             }
         }
     }
 }
 
-void func_80934464(EnFz* this, PlayState* play) {
+void EnFz_DrawEffects(EnFz* this, PlayState* play) {
     GraphicsContext* gfxCtx = play->state.gfxCtx;
     s16 i;
-    u8 flag = 0;
-    EnFzStruct* ptr = this->unk_23C;
+    u8 materialLoaded = false;
+    EnFzEffect* effect = this->effects;
 
     OPEN_DISPS(gfxCtx);
 
@@ -1001,24 +1038,27 @@ void func_80934464(EnFz* this, PlayState* play) {
     gDPSetColorDither(POLY_XLU_DISP++, G_CD_BAYER);
     gDPSetAlphaDither(POLY_XLU_DISP++, G_AD_PATTERN);
 
-    for (i = 0; i < ARRAY_COUNT(this->unk_23C); i++, ptr++) {
-        if (ptr->unk_00 > 0) {
-            FrameInterpolation_RecordOpenChild(ptr, i);
+    for (i = 0; i < ARRAY_COUNT(this->effects); i++, effect++) {
+        if (effect->type > FZ_EFFECT_DISABLED) {
+            FrameInterpolation_RecordOpenChild(effect, i);
             gDPPipeSync(POLY_XLU_DISP++);
 
-            if (flag == 0) {
+            if (materialLoaded == false) {
+                // surely there is a better way to make sure this only goes off if there are effects than to force
+                // another branch per loop
                 gSPDisplayList(POLY_XLU_DISP++, gFrozenSteamMaterialDL);
-                flag++;
+                materialLoaded++;
             }
 
-            gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, ptr->unk_2C);
+            gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 195, 225, 235, effect->primAlpha);
             gSPSegment(POLY_XLU_DISP++, 0x08,
-                       Gfx_TwoTexScrollEx(play->state.gfxCtx, 0, (ptr->unk_01 + (i * 3)) * 3,
-                                          (ptr->unk_01 + (i * 3)) * 15, 0x20, 0x40, 1, 0, 0, 0x20, 0x20, 3, 15, 0, 0));
+                       Gfx_TwoTexScrollEx(play->state.gfxCtx, 0, (effect->timer + (i * 3)) * 3,
+                                          (effect->timer + (i * 3)) * 15, 0x20, 0x40, 1, 0, 0, 0x20, 0x20, 3, 15, 0,
+                                          0));
 
-            Matrix_Translate(ptr->unk_04.x, ptr->unk_04.y, ptr->unk_04.z, MTXMODE_NEW);
+            Matrix_Translate(effect->pos.x, effect->pos.y, effect->pos.z, MTXMODE_NEW);
             Matrix_ReplaceRotation(&play->billboardMtxF);
-            Matrix_Scale(ptr->unk_30, ptr->unk_30, 1.0f, MTXMODE_APPLY);
+            Matrix_Scale(effect->xyScale, effect->xyScale, 1.0f, MTXMODE_APPLY);
 
             MATRIX_FINALIZE_AND_LOAD(POLY_XLU_DISP++, gfxCtx);
             gSPDisplayList(POLY_XLU_DISP++, gFrozenSteamModelDL);

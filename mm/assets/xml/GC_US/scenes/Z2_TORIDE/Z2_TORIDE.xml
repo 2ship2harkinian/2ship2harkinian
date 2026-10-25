@@ -1,5 +1,7 @@
 <Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="misc/scene_texture_05.xml" OutPath="misc/scene_texture_05/"/>
+
     <File Name="Z2_TORIDE" Segment="2" Game="MM">
         <Scene Name="Z2_TORIDE" Offset="0x0"/>
     </File>

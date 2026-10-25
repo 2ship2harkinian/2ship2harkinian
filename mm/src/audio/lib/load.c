@@ -322,7 +322,7 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
 }
 
 s32 AudioLoad_IsFontLoadComplete(s32 fontId) {
-    if (fontId == 0xFF) {
+    if (fontId == 0xFFFF) {
         return true;
     } else if (gAudioCtx.fontLoadStatus[fontId] >= LOAD_STATUS_COMPLETE) {
         return true;
@@ -359,7 +359,7 @@ s32 AudioLoad_IsSampleLoadComplete(s32 sampleBankId) {
 }
 
 void AudioLoad_SetFontLoadStatus(s32 fontId, s32 loadStatus) {
-    if ((fontId != 0xFF) && (gAudioCtx.fontLoadStatus[fontId] != LOAD_STATUS_PERMANENT)) {
+    if ((fontId != 0xFFFF) && (gAudioCtx.fontLoadStatus[fontId] != LOAD_STATUS_PERMANENT)) {
         gAudioCtx.fontLoadStatus[fontId] = loadStatus;
     }
 }
@@ -516,7 +516,7 @@ void AudioLoad_AsyncLoadFont(s32 fontId, s32 arg1, s32 retData, OSMesgQueue* ret
     AudioLoad_AsyncLoad(FONT_TABLE, fontId, 0, retData, retQueue);
 }
 
-u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts, u8* buff) {
+u16* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts, u16* buff) {
     // 2S2H [Custom Audio] There was a second check for `seqId == 0xFF`. Removed because it is no longer useful.
     if (seqId == NA_BGM_DISABLED) {
         return NULL;
@@ -618,7 +618,7 @@ s32 AudioLoad_SyncInitSeqPlayerInternal(s32 playerIndex, s32 seqId, s32 arg2) {
 
     AudioScript_SequencePlayerDisable(seqPlayer);
 
-    fontId = 0xFF;
+    fontId = 0xFFFF;
     // Resetting all sounds in a state where there is silence, IE map select will crash. This feels like a band-aid fix
     // bit it works.
     if (seqId == 0x7FF) {
@@ -646,10 +646,10 @@ s32 AudioLoad_SyncInitSeqPlayerInternal(s32 playerIndex, s32 seqId, s32 arg2) {
     AudioScript_ResetSequencePlayer(seqPlayer);
     seqPlayer->seqId = seqId;
 
-    if (fontId != 0xFF) {
+    if (fontId != 0xFFFF) {
         seqPlayer->defaultFont = AudioLoad_GetRealTableIndex(FONT_TABLE, fontId);
     } else {
-        seqPlayer->defaultFont = 0xFF;
+        seqPlayer->defaultFont = 0xFFFF;
     }
 
     seqPlayer->seqData = seqData;
@@ -1347,6 +1347,10 @@ void AudioLoad_Init(void* heap, size_t heapSize) {
     free(customSeqList);
 
     numFonts = fntListSize;
+
+    // Every sound font load is a permanent cache entry, so the table needs room for every font and sequence
+    gAudioCtx.permanentEntriesCapacity = gFontMapSize + gSequenceMapSize;
+    gAudioCtx.permanentEntries = calloc(gAudioCtx.permanentEntriesCapacity, sizeof(AudioCacheEntry));
 
     // #end region
     gAudioCtx.soundFontList = AudioHeap_Alloc(&gAudioCtx.initPool, numFonts * sizeof(SoundFont));

@@ -64,18 +64,18 @@
         <Texture Name="gKoumeRobeTex" OutName="koume_robe" Format="rgba16" Width="16" Height="16" Offset="0x17F60" />
         <Texture Name="gKoumeRobePatternTex" OutName="koume_robe_pattern" Format="rgba16" Width="16" Height="16" Offset="0x18160" />
         <Texture Name="gKoumeRobeTrimTex" OutName="koume_robe_trim" Format="rgba16" Width="16" Height="16" Offset="0x18360" />
-        <Texture Name="gKoumeSkinTex" OutName="koume_skin" Format="ci8" Width="16" Height="8" Offset="0x18560" />
-        <Texture Name="gKoumeMouthTex" OutName="koume_mouth" Format="ci8" Width="8" Height="8" Offset="0x185E0" />
+        <Texture Name="gKoumeSkinTex" OutName="koume_skin" Format="ci8" Width="16" Height="8" Offset="0x18560" TlutOffset="0x16B60"/>
+        <Texture Name="gKoumeMouthTex" OutName="koume_mouth" Format="ci8" Width="8" Height="8" Offset="0x185E0" TlutOffset="0x16D60"/>
         <Texture Name="gKoumeHairTex" OutName="koume_hair" Format="rgba16" Width="8" Height="32" Offset="0x18620" />
         <Texture Name="gKoumeBraidEndTex" OutName="koume_braid_end" Format="rgba16" Width="8" Height="8" Offset="0x18820" />
-        <Texture Name="gKoumeEarTex" OutName="koume_ear" Format="ci8" Width="8" Height="8" Offset="0x188A0" />
+        <Texture Name="gKoumeEarTex" OutName="koume_ear" Format="ci8" Width="8" Height="8" Offset="0x188A0" TlutOffset="0x16F60"/>
         <Texture Name="gKoumeCollarNeckTex" OutName="koume_collar_neck" Format="rgba16" Width="4" Height="8" Offset="0x188E0" />
-        <Texture Name="gKoumeFingerTex" OutName="koume_finger" Format="ci8" Width="8" Height="16" Offset="0x18920" />
+        <Texture Name="gKoumeFingerTex" OutName="koume_finger" Format="ci8" Width="8" Height="16" Offset="0x18920" TlutOffset="0x17160"/>
         <Texture Name="gKoumeBroomHandleTex" OutName="koume_broom_handle" Format="rgba16" Width="8" Height="8" Offset="0x189A0" />
         <Texture Name="gKoumeBroomHeadTex" OutName="koume_broom_head" Format="rgba16" Width="16" Height="32" Offset="0x18A20" />
         <Texture Name="gKoumeJewelHolderTex" OutName="koume_jewel_holder" Format="rgba16" Width="16" Height="8" Offset="0x18E20" />
-        <Texture Name="gKoumeNeckTex" OutName="koume_neck" Format="ci8" Width="8" Height="8" Offset="0x18F20" />
-        <Texture Name="gKoumeNostrilsTex" OutName="koume_nostrils" Format="ci8" Width="8" Height="8" Offset="0x18F60" />
+        <Texture Name="gKoumeNeckTex" OutName="koume_neck" Format="ci8" Width="8" Height="8" Offset="0x18F20" TlutOffset="0x17360"/>
+        <Texture Name="gKoumeNostrilsTex" OutName="koume_nostrils" Format="ci8" Width="8" Height="8" Offset="0x18F60" TlutOffset="0x17560"/>
         <Texture Name="gKoumeEyeOpenTex" OutName="koume_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x18FA0" />
         <Texture Name="gKoumeEyeHalfTex" OutName="koume_eye_half" Format="rgba16" Width="32" Height="32" Offset="0x197A0" />
         <Texture Name="gKoumeEyeClosedTex" OutName="koume_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x19FA0" />

@@ -439,9 +439,9 @@ extern "C" Gfx* Gfx_DrawTexRectIA8_DropShadowOffsetOverride(Gfx* pkt, TexturePtr
                                                rects);
 }
 
-const char* kCosmeticRainbowSyncCvar = "gCosmetics.RainbowSync";
-const char* kCosmeticRainbowSpeedCvar = "gCosmetics.RainbowSpeed";
-const char* kCosmeticRandomizeOnSeedGenCvar = "gCosmetics.RandomizeOnSeedGen";
+const char* kCosmeticRainbowSyncCvar = CVAR_COSMETIC("RainbowSync");
+const char* kCosmeticRainbowSpeedCvar = CVAR_COSMETIC("RainbowSpeed");
+const char* kCosmeticRandomizeOnSeedGenCvar = CVAR_COSMETIC("RandomizeOnSeedGen");
 int sCosmeticRainbowHue = 0;
 
 void CosmeticEditorResetSillyOptions();

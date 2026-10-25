@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <File Name="object_dai" Segment="6">
         <Texture Name="object_dai_Tex_000000" OutName="tex_000000" Format="i4" Width="32" Height="32" Offset="0x0" />
         <DList Name="object_dai_DL_000230" Offset="0x230" />
@@ -22,11 +25,11 @@
         <DList Name="object_dai_DL_0089D8" Offset="0x89D8" />
         <DList Name="object_dai_DL_008B00" Offset="0x8B00" />
         <Texture Name="object_dai_TLUT_008C58" OutName="tlut_008C58" Format="rgba16" Width="16" Height="16" Offset="0x8C58" />
-        <Texture Name="object_dai_Tex_008E58" OutName="tex_008E58" Format="ci8" Width="32" Height="32" Offset="0x8E58" />
-        <Texture Name="object_dai_Tex_009258" OutName="tex_009258" Format="ci8" Width="8" Height="8" Offset="0x9258" />
-        <Texture Name="object_dai_Tex_009298" OutName="tex_009298" Format="ci8" Width="32" Height="16" Offset="0x9298" />
+        <Texture Name="object_dai_Tex_008E58" OutName="tex_008E58" Format="ci8" Width="32" Height="32" Offset="0x8E58" TlutOffset="0x8C58"/>
+        <Texture Name="object_dai_Tex_009258" OutName="tex_009258" Format="ci8" Width="8" Height="8" Offset="0x9258" TlutOffset="0x8C58"/>
+        <Texture Name="object_dai_Tex_009298" OutName="tex_009298" Format="ci8" Width="32" Height="16" Offset="0x9298" TlutOffset="0x8C58"/>
         <Texture Name="object_dai_Tex_009498" OutName="tex_009498" Format="rgba16" Width="16" Height="16" Offset="0x9498" />
-        <Texture Name="object_dai_Tex_009698" OutName="tex_009698" Format="ci8" Width="8" Height="8" Offset="0x9698" />
+        <Texture Name="object_dai_Tex_009698" OutName="tex_009698" Format="ci8" Width="8" Height="8" Offset="0x9698" TlutOffset="0x8C58"/>
         <DList Name="object_dai_DL_00C538" Offset="0xC538" />
         <DList Name="object_dai_DL_00C5D8" Offset="0xC5D8" />
         <DList Name="object_dai_DL_00C9B8" Offset="0xC9B8" />
@@ -45,15 +48,15 @@
         <DList Name="object_dai_DL_00E560" Offset="0xE560" />
         <DList Name="object_dai_DL_00E698" Offset="0xE698" />
         <Texture Name="object_dai_TLUT_00E8F0" OutName="tlut_00E8F0" Format="rgba16" Width="16" Height="16" Offset="0xE8F0" />
-        <Texture Name="object_dai_Tex_00EAF0" OutName="tex_00EAF0" Format="ci8" Width="16" Height="16" Offset="0xEAF0" />
-        <Texture Name="object_dai_Tex_00EBF0" OutName="tex_00EBF0" Format="ci8" Width="16" Height="16" Offset="0xEBF0" />
-        <Texture Name="object_dai_Tex_00ECF0" OutName="tex_00ECF0" Format="ci8" Width="32" Height="32" Offset="0xECF0" />
-        <Texture Name="object_dai_Tex_00F0F0" OutName="tex_00F0F0" Format="ci8" Width="32" Height="16" Offset="0xF0F0" />
-        <Texture Name="object_dai_Tex_00F2F0" OutName="tex_00F2F0" Format="ci8" Width="32" Height="32" Offset="0xF2F0" />
-        <Texture Name="object_dai_Tex_00F6F0" OutName="tex_00F6F0" Format="ci8" Width="8" Height="8" Offset="0xF6F0" />
-        <Texture Name="object_dai_Tex_00F730" OutName="tex_00F730" Format="ci8" Width="8" Height="16" Offset="0xF730" />
-        <Texture Name="object_dai_Tex_00F7B0" OutName="tex_00F7B0" Format="ci8" Width="32" Height="64" Offset="0xF7B0" />
-        <Texture Name="object_dai_Tex_00FFB0" OutName="tex_00FFB0" Format="ci8" Width="16" Height="16" Offset="0xFFB0" />
+        <Texture Name="object_dai_Tex_00EAF0" OutName="tex_00EAF0" Format="ci8" Width="16" Height="16" Offset="0xEAF0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00EBF0" OutName="tex_00EBF0" Format="ci8" Width="16" Height="16" Offset="0xEBF0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00ECF0" OutName="tex_00ECF0" Format="ci8" Width="32" Height="32" Offset="0xECF0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00F0F0" OutName="tex_00F0F0" Format="ci8" Width="32" Height="16" Offset="0xF0F0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00F2F0" OutName="tex_00F2F0" Format="ci8" Width="32" Height="32" Offset="0xF2F0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00F6F0" OutName="tex_00F6F0" Format="ci8" Width="8" Height="8" Offset="0xF6F0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00F730" OutName="tex_00F730" Format="ci8" Width="8" Height="16" Offset="0xF730" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00F7B0" OutName="tex_00F7B0" Format="ci8" Width="32" Height="64" Offset="0xF7B0" TlutOffset="0xE8F0"/>
+        <Texture Name="object_dai_Tex_00FFB0" OutName="tex_00FFB0" Format="ci8" Width="16" Height="16" Offset="0xFFB0" TlutOffset="0xE8F0"/>
         <Texture Name="object_dai_Tex_0100B0" OutName="tex_0100B0" Format="rgba16" Width="8" Height="8" Offset="0x100B0" />
         <Texture Name="object_dai_Tex_010130" OutName="tex_010130" Format="rgba16" Width="16" Height="16" Offset="0x10130" />
         <Texture Name="object_dai_Tex_010330" OutName="tex_010330" Format="rgba16" Width="8" Height="8" Offset="0x10330" />

@@ -154,7 +154,7 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // CHECK_WEEKEVENTREG(WEEKEVENTREG_73_80) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
+    // CHECK_WEEKEVENTREG(WEEKEVENTREG_ENTERED_BOMBERS_CODE) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
     // ```
     // #### `args`
     // - `*EnBomBowlMan` (unused)
@@ -805,6 +805,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // gSaveContext.minigameScore < 20
+    // ```
+    // #### `args`
+    // - None
+    VB_FAIL_FISHERMAN_JUMPING_GAME,
+
+    // #### `result`
+    // ```c
     // (gSaveContext.save.saveInfo.inventory.items[SLOT_OCARINA] == ITEM_NONE) && (play->envCtx.sceneTimeSpeed != 0)
     // ```
     // #### `args`
@@ -819,6 +827,22 @@ typedef enum {
     // #### `args`
     // - None
     VB_FD_ALWAYS_WIELD_SWORD,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*FileSelectState`
+    VB_FILE_SELECT_ROTATE_TO_NAME_ENTRY,
+
+    // #### `result`
+    // ```c
+    // this->myPotIndex == 4
+    // ```
+    // #### `args`
+    // - None
+    VB_FIND_ROCK_SIRLOIN,
 
     // #### `result`
     // ```c
@@ -1376,6 +1400,22 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // gSaveContext.timerCurTimes[TIMER_ID_MINIGAME_2] == SECONDS_TO_TIMER(0)
+    // ```
+    // #### `args`
+    // - None
+    VB_JUMPING_GAME_END,
+
+    // #### `result`
+    // ```c
+    // this->unk_2FC > 100
+    // ```
+    // #### `args`
+    // - `s32` (torch burn time)
+    VB_JUMPING_GAME_TORCH_RUN_OUT,
+
+    // #### `result`
+    // ```c
     // true
     // ```
     // #### `args`
@@ -1485,7 +1525,8 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // WaterBox_GetSurface1(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) && ((sp44 - sp48) > 50.0f)
+    // BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) &&
+    // ((sp44 - sp48) > 50.0f)
     // ```
     // #### `args`
     // - None
@@ -2184,6 +2225,15 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // false
+    // ```
+    // #### `args`
+    // - `*s32` (spawn time)
+    // - `s32` (index)
+    VB_SET_ALIEN_SPEED,
+
+    // #### `result`
+    // ```c
     // true
     // ```
     // #### `args`
@@ -2370,7 +2420,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*s32` (which boss remains to return, see `func_808B849C`)
+    // - `*s32` (which boss remains to return, see `DoorWarp1_GetRemains`)
     VB_SPAWN_BOSS_REMAINS,
 
     // #### `result`
@@ -2635,6 +2685,14 @@ typedef enum {
     // #### `args`
     // - `*f32` (speed)
     VB_ZTARGET_SPEED_CHECK,
+
+    // #### `result`
+    // ```c
+    // this->unk152 > 0
+    // ```
+    // #### `args`
+    // - `*EnItem00`
+    VB_UPDATE_ITEM00
 } GIVanillaBehavior;
 
 #endif

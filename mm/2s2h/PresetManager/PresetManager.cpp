@@ -28,6 +28,7 @@ nlohmann::json defaultsPresetJ = R"(
     "ClearCVars": [
         "gCheats",
         "gCollisionViewer",
+        "gCosmetic",
         "gDeveloperTools",
         "gEnhancements",
         "gEventLog",
@@ -57,6 +58,12 @@ nlohmann::json curatedPresetJ = R"(
         },
         "gCheats": {
             "EasyFrameAdvance": 1
+        },
+        "gCosmetic": {
+            "Silly": {
+                "DullRupees": 1,
+                "GoronNeckLength": 12000.0
+            }
         },
         "gDeveloperTools": {
             "BetterMapSelect": {
@@ -101,6 +108,7 @@ nlohmann::json curatedPresetJ = R"(
                 "SkipBottlePickupMessages": 1
             },
             "DifficultyOptions": {
+                "GibdoTradeSequence": 1,
                 "GoronRace": 1,
                 "JinxedTimer": 20,
                 "LowerBankRewardThresholds": 1
@@ -139,6 +147,7 @@ nlohmann::json curatedPresetJ = R"(
                 "FastTransformation": 1,
                 "FierceDeitysAnywhere": 1,
                 "BlastMaskCooldown": 0.0,
+                "GoronRollingFastSpikes": 1,
                 "PersistentBunnyHood": {
                     "Enabled": 1
                 }
@@ -154,11 +163,11 @@ nlohmann::json curatedPresetJ = R"(
                 "PowderKegCertification": 1,
                 "RomaniTargetPractice": 5,
                 "SkipBalladOfWindfish": 1,
-                "SkipHorseRace": 1,
                 "SkipLittleBeaver": 1,
                 "SwampArcheryScore": 1580,
                 "SwordsmanSchoolScore": 6,
-                "TownArcheryScore": 25
+                "TownArcheryScore": 25,
+                "TreasureChestShopShowFullMaze": 2
             },
             "Mods": {
                 "AlternateAssetsHotkey": 0
@@ -213,6 +222,7 @@ nlohmann::json curatedPresetJ = R"(
                 "DampeDiggingSkip": 1,
                 "FastChests": 1,
                 "FasterBottles": 1,
+                "FasterRupeeAccumulator": 1,
                 "FasterSceneTransitions": 1,
                 "GalleryTwofer": 1,
                 "MarineLabHP": 1,

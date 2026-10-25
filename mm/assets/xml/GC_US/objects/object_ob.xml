@@ -26,18 +26,18 @@
         <Texture Name="gMoonChildTwinmoldsMaskSkinTLUT" OutName="moonchild_twinmolds_mask_skin_tlut" Format="rgba16" Width="4" Height="4" Offset="0x9080" />
         <Texture Name="gMoonChildTwinmoldsMaskSnoutTLUT" OutName="moonchild_twinmolds_snout_tlut" Format="rgba16" Width="4" Height="4" Offset="0x90A0" />
         <Texture Name="gMoonChildOdolwasMaskPlumeTex" OutName="moonchild_odolwas_mask_plume" Format="rgba16" Width="16" Height="16" Offset="0x90C0" />
-        <Texture Name="gMoonChildOdolwasMaskFaceTex" OutName="moonchild_odolwas_mask_face" Format="ci4" Width="64" Height="64" Offset="0x92C0" />
-        <Texture Name="gMoonChildOdolwasMaskEarTex" OutName="moonchild_odolwas_mask_ear" Format="ci4" Width="64" Height="64" Offset="0x9AC0" />
+        <Texture Name="gMoonChildOdolwasMaskFaceTex" OutName="moonchild_odolwas_mask_face" Format="ci4" Width="64" Height="64" Offset="0x92C0" TlutOffset="0x8FE0"/>
+        <Texture Name="gMoonChildOdolwasMaskEarTex" OutName="moonchild_odolwas_mask_ear" Format="ci4" Width="64" Height="64" Offset="0x9AC0" TlutOffset="0x9000"/>
         <Texture Name="gMoonChildGyorgsTwinmoldsMaskEyeTex" OutName="moonchild_gyorgs_twinmolds_mask_eye" Format="rgba16" Width="32" Height="32" Offset="0xA2C0" />
-        <Texture Name="gMoonChildGyorgsMaskSkinTex" OutName="moonchild_gyorgs_mask_skin" Format="ci4" Width="64" Height="64" Offset="0xAAC0" />
-        <Texture Name="gMoonChildGyorgsMaskMouthTex" OutName="moonchild_gyorgs_mask_mouth" Format="ci4" Width="64" Height="64" Offset="0xB2C0" />
-        <Texture Name="gMoonChildGyorgsMaskToothHornTex" OutName="moonchild_gyorgs_mask_tooth_horn" Format="ci4" Width="16" Height="16" Offset="0xBAC0" />
+        <Texture Name="gMoonChildGyorgsMaskSkinTex" OutName="moonchild_gyorgs_mask_skin" Format="ci4" Width="64" Height="64" Offset="0xAAC0" TlutOffset="0x9020"/>
+        <Texture Name="gMoonChildGyorgsMaskMouthTex" OutName="moonchild_gyorgs_mask_mouth" Format="ci4" Width="64" Height="64" Offset="0xB2C0" TlutOffset="0x9040"/>
+        <Texture Name="gMoonChildGyorgsMaskToothHornTex" OutName="moonchild_gyorgs_mask_tooth_horn" Format="ci4" Width="16" Height="16" Offset="0xBAC0" TlutOffset="0x9060"/>
         <Texture Name="gMoonChildGohtsMaskEyeTex" OutName="moonchild_gohts_mask_eye" Format="rgba16" Width="32" Height="64" Offset="0xBB40" />
         <Texture Name="gMoonChildGohtsMaskTopPatternTex" OutName="moonchild_gohts_mask_top_pattern" Format="rgba16" Width="32" Height="64" Offset="0xCB40" />
         <Texture Name="gMoonChildGohtsTwinmoldsMaskPatternTex" OutName="moonchild_goht_twinmold_mask_pattern" Format="rgba16" Width="32" Height="64" Offset="0xDB40" />
         <Texture Name="gMoonChildGohtsMaskSpikeTwinmoldsMaskMandibleTex" OutName="moonchild_gohts_mask_spike_twinmolds_mask_mandible" Format="rgba16" Width="32" Height="32" Offset="0xEB40" />
-        <Texture Name="gMoonChildTwinmoldsMaskSkinTex" OutName="moonchild_twinmolds_mask_skin" Format="ci4" Width="64" Height="64" Offset="0xF340" />
-        <Texture Name="gMoonChildTwinmoldsMaskSnoutTex" OutName="moonchild_twinmolds_mask_snout" Format="ci4" Width="64" Height="64" Offset="0xFB40" />
+        <Texture Name="gMoonChildTwinmoldsMaskSkinTex" OutName="moonchild_twinmolds_mask_skin" Format="ci4" Width="64" Height="64" Offset="0xF340" TlutOffset="0x9080"/>
+        <Texture Name="gMoonChildTwinmoldsMaskSnoutTex" OutName="moonchild_twinmolds_mask_snout" Format="ci4" Width="64" Height="64" Offset="0xFB40" TlutOffset="0x90A0"/>
 
         <!-- Moonchild Moving Animations -->
         <Animation Name="gMoonChildWalkingAnim" Offset="0x10880" /> <!-- Original name is "mjk_run" -->
@@ -63,13 +63,13 @@
 
         <!-- Moonchild Textures -->
         <Texture Name="gMoonChildTLUT" OutName="moonchild_tlut" Format="rgba16" Width="16" Height="16" Offset="0x15B28" />
-        <Texture Name="gMoonChildFingersTex" OutName="moonchild_fingers" Format="ci8" Width="16" Height="16" Offset="0x15D28" />
-        <Texture Name="gMoonChildThighSkinTex" OutName="moonchild_thigh_skin" Format="ci8" Width="8" Height="8" Offset="0x15E28" />
-        <Texture Name="gMoonChildTshirtDetailTex" OutName="moonchild_tshirt_detail" Format="ci8" Width="16" Height="32" Offset="0x15E68" />
-        <Texture Name="gMoonChildHairTex" OutName="moonchild_hair" Format="ci8" Width="8" Height="16" Offset="0x16068" />
-        <Texture Name="gMoonChildEarTex" OutName="moonchild_ear" Format="ci8" Width="8" Height="8" Offset="0x160E8" />
-        <Texture Name="gMoonChildBackHairTex" OutName="moonchild_back_hair" Format="ci8" Width="8" Height="16" Offset="0x16128" />
-        <Texture Name="gMoonChildTshirtNecklineTex" OutName="moonchild_tshirt_neckline" Format="ci8" Width="16" Height="32" Offset="0x161A8" />
+        <Texture Name="gMoonChildFingersTex" OutName="moonchild_fingers" Format="ci8" Width="16" Height="16" Offset="0x15D28" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildThighSkinTex" OutName="moonchild_thigh_skin" Format="ci8" Width="8" Height="8" Offset="0x15E28" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildTshirtDetailTex" OutName="moonchild_tshirt_detail" Format="ci8" Width="16" Height="32" Offset="0x15E68" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildHairTex" OutName="moonchild_hair" Format="ci8" Width="8" Height="16" Offset="0x16068" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildEarTex" OutName="moonchild_ear" Format="ci8" Width="8" Height="8" Offset="0x160E8" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildBackHairTex" OutName="moonchild_back_hair" Format="ci8" Width="8" Height="16" Offset="0x16128" TlutOffset="0x15B28"/>
+        <Texture Name="gMoonChildTshirtNecklineTex" OutName="moonchild_tshirt_neckline" Format="ci8" Width="16" Height="32" Offset="0x161A8" TlutOffset="0x15B28"/>
 
         <!-- Moonchild Limbs -->
         <Limb Name="gMoonChildRootLimb" Type="Standard" EnumName="MOONCHILD_LIMB_ROOT" Offset="0x163A8" />

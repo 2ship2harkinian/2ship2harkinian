@@ -84,8 +84,8 @@ static const ALIGN_ASSET(2) char object_rz_DL_00B288[] = dobject_rz_DL_00B288;
 #define dobject_rz_TLUT_00B450 "__OTR__objects/object_rz/object_rz_TLUT_00B450"
 static const ALIGN_ASSET(2) char object_rz_TLUT_00B450[] = dobject_rz_TLUT_00B450;
 
-#define dobject_rz_Tex_00B650 "__OTR__objects/object_rz/object_rz_Tex_00B650"
-static const ALIGN_ASSET(2) char object_rz_Tex_00B650[] = dobject_rz_Tex_00B650;
+#define dobject_rz_TLUT_00B650 "__OTR__objects/object_rz/object_rz_TLUT_00B650"
+static const ALIGN_ASSET(2) char object_rz_TLUT_00B650[] = dobject_rz_TLUT_00B650;
 
 #define dobject_rz_Tex_00B850 "__OTR__objects/object_rz/object_rz_Tex_00B850"
 static const ALIGN_ASSET(2) char object_rz_Tex_00B850[] = dobject_rz_Tex_00B850;

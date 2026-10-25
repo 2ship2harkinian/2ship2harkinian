@@ -149,7 +149,7 @@ u16 sPersistentCycleWeekEventRegs[ARRAY_COUNT(gSaveContext.save.saveInfo.weekEve
     /* 48 */ 0,
     /* 49 */ 0,
     /* 50 */ PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_50_02) | PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_50_04),
-    /* 51 */ PERSISTENT_WEEKEVENTREG_ALT(WEEKEVENTREG_51_04),
+    /* 51 */ PERSISTENT_WEEKEVENTREG_ALT(WEEKEVENTREG_HIT_LAUNDRY_POOL_BELL),
     /* 52 */ 0,
     /* 53 */ PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_BUSINESS_SCRUB_HEART_PIECE) |
         PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_53_40),
@@ -1015,6 +1015,7 @@ void Sram_InitNewSave(void) {
     memcpy(&gSaveContext.save.shipSaveInfo.commitHash, &gGitCommitHash,
            sizeof(gSaveContext.save.shipSaveInfo.commitHash));
     gSaveContext.save.shipSaveInfo.pauseSaveEntrance = -1;
+    gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
     gSaveContext.save.shipSaveInfo.saveType = SAVETYPE_VANILLA;
     gSaveContext.save.shipSaveInfo.fileCreatedAt = 0;
     gSaveContext.save.shipSaveInfo.fileCompletedAt = 0;
@@ -1247,6 +1248,7 @@ void Sram_InitDebugSave(void) {
     memcpy(&gSaveContext.save.shipSaveInfo.commitHash, &gGitCommitHash,
            sizeof(gSaveContext.save.shipSaveInfo.commitHash));
     gSaveContext.save.shipSaveInfo.pauseSaveEntrance = -1;
+    gSaveContext.save.shipSaveInfo.persistentBunnyHood = false;
     gSaveContext.save.shipSaveInfo.saveType = SAVETYPE_VANILLA;
     gSaveContext.save.shipSaveInfo.fileCreatedAt = 0;
     gSaveContext.save.shipSaveInfo.fileCompletedAt = 0;

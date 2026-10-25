@@ -13,7 +13,7 @@ typedef struct ObjWturn {
     /* 0x000 */ Actor actor;
     /* 0x144 */ ObjWturnActionFunc actionFunc;
     /* 0x148 */ s16 subCamId;
-    /* 0x14A */ s16 unk_14A;
+    /* 0x14A */ s16 fallingFrame;
 } ObjWturn; // size = 0x14C
 
 #endif // Z_OBJ_WTURN_H

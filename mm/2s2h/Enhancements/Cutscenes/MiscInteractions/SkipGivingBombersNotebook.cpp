@@ -20,7 +20,8 @@ void EnBomBowlMan_WaitForPlayer(EnBomBowlMan* enBomBowlMan, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     if (GameInteractor_Should(VB_BE_ELIGIBLE_FOR_BOMBERS_NOTEBOOK,
-                              CHECK_WEEKEVENTREG(WEEKEVENTREG_73_80) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK),
+                              CHECK_WEEKEVENTREG(WEEKEVENTREG_ENTERED_BOMBERS_CODE) &&
+                                  !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK),
                               enBomBowlMan)) {
         if (player->actor.world.pos.x < 1510.0f && player->transformation != PLAYER_FORM_DEKU &&
             enBomBowlMan->actor.xzDistToPlayer < 75.0f && Message_GetState(&gPlayState->msgCtx) == TEXT_STATE_NONE) {

@@ -1,10 +1,13 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <File Name="object_link_boy" Segment="6">
         <Texture Name="object_link_boy_TLUT_000000" OutName="tlut_000000" Format="rgba16" Width="16" Height="16" Offset="0x0" />
         <Texture Name="object_link_boy_TLUT_000200" OutName="tlut_000200" Format="rgba16" Width="16" Height="16" Offset="0x200" />
         <Texture Name="gLinkFierceDeityHandHoldingTLUT" OutName="hand_holding_tlut" Format="rgba16" Width="16" Height="16" Offset="0x400" />
         <Texture Name="object_link_boy_Tex_000600" OutName="tex_000600" Format="ci8" Width="16" Height="32" Offset="0x600" TlutOffset="0x0" />
-        <Texture Name="object_link_boy_Tex_000800" OutName="tex_000800" Format="ci8" Width="16" Height="32" Offset="0x800" />
+        <Texture Name="object_link_boy_Tex_000800" OutName="tex_000800" Format="ci8" Width="16" Height="32" Offset="0x800" TlutOffset="0x200"/>
         <Texture Name="gLinkFierceDeityHandHoldingTex" OutName="hand_holding" Format="ci8" Width="16" Height="16" Offset="0xA00" TlutOffset="0x400" />
         <Texture Name="object_link_boy_Tex_000B00" OutName="tex_000B00" Format="i8" Width="16" Height="16" Offset="0xB00" />
 
@@ -43,19 +46,19 @@
         <Texture Name="gLinkFierceDeityHandTLUT" OutName="hand_tlut" Format="rgba16" Width="4" Height="4" Offset="0x81C8" />
         <Texture Name="object_link_boy_TLUT_0081E8" OutName="tlut_0081E8" Format="rgba16" Width="4" Height="4" Offset="0x81E8" />
         <Texture Name="object_link_boy_Tex_008208" OutName="tex_008208" Format="rgba16" Width="16" Height="16" Offset="0x8208" />
-        <Texture Name="object_link_boy_Tex_008408" OutName="tex_008408" Format="ci4" Width="16" Height="16" Offset="0x8408" />
+        <Texture Name="object_link_boy_Tex_008408" OutName="tex_008408" Format="ci4" Width="16" Height="16" Offset="0x8408" TlutOffset="0x8108"/>
         <Texture Name="object_link_boy_Tex_008488" OutName="tex_008488" Format="rgba16" Width="16" Height="32" Offset="0x8488" />
         <Texture Name="object_link_boy_Tex_008888" OutName="tex_008888" Format="rgba16" Width="32" Height="16" Offset="0x8888" />
-        <Texture Name="object_link_boy_Tex_008C88" OutName="tex_008C88" Format="ci4" Width="16" Height="16" Offset="0x8C88" />
-        <Texture Name="object_link_boy_Tex_008D08" OutName="tex_008D08" Format="ci4" Width="32" Height="32" Offset="0x8D08" />
-        <Texture Name="object_link_boy_Tex_008F08" OutName="tex_008F08" Format="ci4" Width="64" Height="64" Offset="0x8F08" />
+        <Texture Name="object_link_boy_Tex_008C88" OutName="tex_008C88" Format="ci4" Width="16" Height="16" Offset="0x8C88" TlutOffset="0x8128"/>
+        <Texture Name="object_link_boy_Tex_008D08" OutName="tex_008D08" Format="ci4" Width="32" Height="32" Offset="0x8D08" TlutOffset="0x8148"/>
+        <Texture Name="object_link_boy_Tex_008F08" OutName="tex_008F08" Format="ci4" Width="64" Height="64" Offset="0x8F08" TlutOffset="0x8168"/>
         <Texture Name="gLinkFierceDeityEyesTex" OutName="eyes" Format="rgba16" Width="64" Height="32" Offset="0x9708" />
-        <Texture Name="object_link_boy_Tex_00A708" OutName="tex_00A708" Format="ci4" Width="32" Height="32" Offset="0xA708" />
+        <Texture Name="object_link_boy_Tex_00A708" OutName="tex_00A708" Format="ci4" Width="32" Height="32" Offset="0xA708" TlutOffset="0x8188"/>
         <Texture Name="gLinkFierceDeityMouthTex" OutName="mouth" Format="rgba16" Width="32" Height="16" Offset="0xA908" />
         <Texture Name="gLinkFierceDeityEarTex" OutName="ear" Format="rgba16" Width="16" Height="16" Offset="0xAD08" />
-        <Texture Name="object_link_boy_Tex_00AF08" OutName="tex_00AF08" Format="ci4" Width="32" Height="32" Offset="0xAF08" />
+        <Texture Name="object_link_boy_Tex_00AF08" OutName="tex_00AF08" Format="ci4" Width="32" Height="32" Offset="0xAF08" TlutOffset="0x81A8"/>
         <Texture Name="gLinkFierceDeityHandTex" OutName="hand" Format="ci4" Width="16" Height="16" Offset="0xB108" TlutOffset="0x81C8" />
-        <Texture Name="object_link_boy_Tex_00B188" OutName="tex_00B188" Format="ci4" Width="64" Height="64" Offset="0xB188" />
+        <Texture Name="object_link_boy_Tex_00B188" OutName="tex_00B188" Format="ci4" Width="64" Height="64" Offset="0xB188" TlutOffset="0x81E8"/>
 
         <!-- TODO this texture should be 50x75 but the u64 type of textures makes this not match currently -->
         <Texture Name="object_link_boy_Tex_00B988" OutName="tex_00B988" Format="rgba16" Width="50" Height="74" Offset="0xB988" />

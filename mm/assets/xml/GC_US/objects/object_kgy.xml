@@ -28,16 +28,16 @@
         <DList Name="object_kgy_DL_00B978" Offset="0xB978" />
         <Texture Name="object_kgy_TLUT_00BC28" OutName="tlut_00BC28" Format="rgba16" Width="16" Height="16" Offset="0xBC28" />
         <Texture Name="object_kgy_Tex_00BE28" OutName="tex_00BE28" Format="rgba16" Width="32" Height="32" Offset="0xBE28" />
-        <Texture Name="object_kgy_Tex_00C628" OutName="tex_00C628" Format="ci8" Width="16" Height="16" Offset="0xC628" />
-        <Texture Name="object_kgy_Tex_00C728" OutName="tex_00C728" Format="ci8" Width="16" Height="16" Offset="0xC728" />
-        <Texture Name="object_kgy_Tex_00C828" OutName="tex_00C828" Format="ci8" Width="32" Height="32" Offset="0xC828" />
-        <Texture Name="object_kgy_Tex_00CC28" OutName="tex_00CC28" Format="ci8" Width="32" Height="32" Offset="0xCC28" />
+        <Texture Name="object_kgy_Tex_00C628" OutName="tex_00C628" Format="ci8" Width="16" Height="16" Offset="0xC628" TlutOffset="0xBC28"/>
+        <Texture Name="object_kgy_Tex_00C728" OutName="tex_00C728" Format="ci8" Width="16" Height="16" Offset="0xC728" TlutOffset="0xBC28"/>
+        <Texture Name="object_kgy_Tex_00C828" OutName="tex_00C828" Format="ci8" Width="32" Height="32" Offset="0xC828" TlutOffset="0xBC28"/>
+        <Texture Name="object_kgy_Tex_00CC28" OutName="tex_00CC28" Format="ci8" Width="32" Height="32" Offset="0xCC28" TlutOffset="0xBC28"/>
         <Texture Name="object_kgy_Tex_00D028" OutName="tex_00D028" Format="rgba16" Width="32" Height="32" Offset="0xD028" />
-        <Texture Name="object_kgy_Tex_00D828" OutName="tex_00D828" Format="ci8" Width="16" Height="16" Offset="0xD828" />
+        <Texture Name="object_kgy_Tex_00D828" OutName="tex_00D828" Format="ci8" Width="16" Height="16" Offset="0xD828" TlutOffset="0xBC28"/>
         <Texture Name="object_kgy_Tex_00D928" OutName="tex_00D928" Format="rgba16" Width="32" Height="32" Offset="0xD928" />
-        <Texture Name="object_kgy_Tex_00E128" OutName="tex_00E128" Format="ci8" Width="16" Height="16" Offset="0xE128" />
+        <Texture Name="object_kgy_Tex_00E128" OutName="tex_00E128" Format="ci8" Width="16" Height="16" Offset="0xE128" TlutOffset="0xBC28"/>
         <Texture Name="object_kgy_Tex_00E228" OutName="tex_00E228" Format="i8" Width="32" Height="32" Offset="0xE228" />
-        <Texture Name="object_kgy_Tex_00E628" OutName="tex_00E628" Format="ci8" Width="16" Height="16" Offset="0xE628" />
+        <Texture Name="object_kgy_Tex_00E628" OutName="tex_00E628" Format="ci8" Width="16" Height="16" Offset="0xE628" TlutOffset="0xBC28"/>
         <DList Name="object_kgy_DL_00E8E8" Offset="0xE8E8" />
         <DList Name="object_kgy_DL_00E8F0" Offset="0xE8F0" /> <!-- Original name is "swordA_model" -->
         <TextureAnimation Name="object_kgy_Matanimheader_00EE58" Offset="0xEE58" />

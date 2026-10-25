@@ -516,8 +516,8 @@ void EnBomChu_Update(Actor* thisx, PlayState* play) {
 
         waterY = this->actor.world.pos.y;
 
-        if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterY,
-                                 &waterBox)) {
+        if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                             &waterY, &waterBox)) {
             this->actor.depthInWater = waterY - this->actor.world.pos.y;
 
             if (this->actor.depthInWater < 0.0f) {

@@ -53,10 +53,9 @@
         <DList Name="gIronKnuckleWaistArmorRightDL" Offset="0x106E0" />
         <Texture Name="gIronKnuckleChainMailTLUT" OutName="iron_knuckle_chain_mail_tlut" Format="rgba16" Width="16" Height="16" Offset="0x10A30" />
         <Texture Name="gIronKnuckleRivet1Tex" OutName="iron_knuckle_rivet_1" Format="ia16" Width="16" Height="16" Offset="0x10C30" />
-        <Texture Name="gIronKnuckleHair1Tex" OutName="iron_knuckle_hair_1" Format="ci8" Width="16" Height="16" Offset="0x10E30" />
-        <Texture Name="gIronKnuckleAxePomelJewel1Tex" OutName="iron_knuckle_axe_pomel_1_jewel" Format="ci8" Width="16" Height="16" Offset="0x10F30" />
-        <!-- Odd size-->
-        <Texture Name="gIronKnuckleAxeTLUT" OutName="iron_knuckle_axe_tlut" Format="rgba16" Width="183" Height="1" Offset="0x11030" />
+        <Texture Name="gIronKnuckleHair1Tex" OutName="iron_knuckle_hair_1" Format="ci8" Width="16" Height="16" Offset="0x10E30" TlutOffset="0x10A30"/>
+        <Texture Name="gIronKnuckleAxePomelJewel1Tex" OutName="iron_knuckle_axe_pomel_1_jewel" Format="ci8" Width="16" Height="16" Offset="0x10F30" TlutOffset="0x10A30"/>
+        <Texture Name="gIronKnuckleAxeTLUT" OutName="iron_knuckle_axe_tlut" Format="rgba16" Width="8" Height="23" Offset="0x11030" />
         <Texture Name="gIronKnuckleFireTex" OutName="iron_knuckle_fire" Format="i4" Width="32" Height="64" Offset="0x111A0" />
         <!-- 2S2H [Port] Additional entry for authentic overflowed texture usage. This entry has its offset off by "one pixel" due to ZAPD not allowing duplicates -->
         <Texture Name="gIronKnuckleFireTex_Overflow" OutName="iron_knuckle_fire_overflow" Format="i8" Width="32" Height="64" Offset="0x1119F" />
@@ -65,16 +64,15 @@
         <Texture Name="gIronKnuckleChainMailTex" OutName="iron_knuckle_chain_mail" Format="rgba16" Width="16" Height="16" Offset="0x11BA0" />
         <Texture Name="gIronKnuckleArmorEmblemTex" OutName="iron_knuckle_emblem" Format="ia16" Width="32" Height="32" Offset="0x11DA0" />
         <Texture Name="gIronKnuckleGerudoEyeTex" OutName="iron_knuckle_gerudo_eye" Format="rgba16" Width="32" Height="32" Offset="0x125A0" />
-        <Texture Name="gIronKnuckleChestJewelTex" OutName="iron_knuckle_chest_jewel" Format="ci8" Width="16" Height="16" Offset="0x12DA0" />
+        <Texture Name="gIronKnuckleChestJewelTex" OutName="iron_knuckle_chest_jewel" Format="ci8" Width="16" Height="16" Offset="0x12DA0" TlutOffset="0x11030"/>
         <Texture Name="gIronKnuckleArmorRivet2Tex" OutName="iron_knuckle_armor_rivet_2" Format="ia8" Width="16" Height="16" Offset="0x12EA0" />
-        <!-- Odd size-->
-        <Texture Name="gIronKnuckleArmorTLUT" OutName="iron_knuckle_armor_tlut" Format="rgba16" Width="120" Height="1" Offset="0x12FA0" />
-        <Texture Name="gIronKnuckleForeheadJewelTex" OutName="iron_knuckle_forehead_jewel" Format="ci8" Width="16" Height="16" Offset="0x13090" />
-        <Texture Name="gIronKnuckleGerudoSkinTex" OutName="iron_knuckle_gerudo_skin" Format="ci8" Width="8" Height="8" Offset="0x13190" />
-        <Texture Name="gIronKnuckleHair2Tex" OutName="iron_knuckle_hair_2" Format="ci8" Width="16" Height="16" Offset="0x131D0" />
-        <Texture Name="gIronKnuckleEarTex" OutName="iron_knuckle_ear" Format="ci8" Width="8" Height="16" Offset="0x132D0" />
-        <Texture Name="gIronKnuckleForeheadDecal1Tex" OutName="iron_knuckle_forehead_decal_1" Format="ci8" Width="8" Height="16" Offset="0x13350" />
-        <Texture Name="gIronKnuckleForeheadDecal2Tex" OutName="iron_knuckle_forehead_decal_2" Format="ci8" Width="16" Height="16" Offset="0x133D0" />
+        <Texture Name="gIronKnuckleArmorTLUT" OutName="iron_knuckle_armor_tlut" Format="rgba16" Width="8" Height="15" Offset="0x12FA0" />
+        <Texture Name="gIronKnuckleForeheadJewelTex" OutName="iron_knuckle_forehead_jewel" Format="ci8" Width="16" Height="16" Offset="0x13090" TlutOffset="0x12FA0"/>
+        <Texture Name="gIronKnuckleGerudoSkinTex" OutName="iron_knuckle_gerudo_skin" Format="ci8" Width="8" Height="8" Offset="0x13190" TlutOffset="0x12FA0"/>
+        <Texture Name="gIronKnuckleHair2Tex" OutName="iron_knuckle_hair_2" Format="ci8" Width="16" Height="16" Offset="0x131D0" TlutOffset="0x12FA0"/>
+        <Texture Name="gIronKnuckleEarTex" OutName="iron_knuckle_ear" Format="ci8" Width="8" Height="16" Offset="0x132D0" TlutOffset="0x12FA0"/>
+        <Texture Name="gIronKnuckleForeheadDecal1Tex" OutName="iron_knuckle_forehead_decal_1" Format="ci8" Width="8" Height="16" Offset="0x13350" TlutOffset="0x12FA0"/>
+        <Texture Name="gIronKnuckleForeheadDecal2Tex" OutName="iron_knuckle_forehead_decal_2" Format="ci8" Width="16" Height="16" Offset="0x133D0" TlutOffset="0x12FA0"/>
         <Limb Name="gIronKnuckleRootLimb" Type="Standard" EnumName="IRON_KNUCKLE_LIMB_ROOT" Offset="0x134D0" />
         <Limb Name="gIronKnuckleTassetCenterLimb" EnumName="IRON_KNUCKLE_LIMB_TASSET_CENTER" Type="Standard" Offset="0x134DC" />
         <Limb Name="gIronKnuckleTassetRightLimb" EnumName="IRON_KNUCKLE_LIMB_TASSET_RIGHT" Type="Standard" Offset="0x134E8" />

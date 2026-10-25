@@ -25,18 +25,18 @@
 
         <!-- Treasure Chest Shop Gal Textures -->
         <Texture Name="gTreasureChestShopGalTLUT" OutName="treasure_cheat_shop_gal_tlut" Format="rgba16" Width="16" Height="16" Offset="0x68D8" />
-        <Texture Name="gTreasureChestShopGalHairTex" OutName="treasure_cheat_shop_gal_hair" Format="ci8" Width="32" Height="32" Offset="0x6AD8" />
-        <Texture Name="gTreasureChestShopGalHair2Tex" OutName="treasure_cheat_shop_gal_hair2" Format="ci8" Width="8" Height="16" Offset="0x6ED8" />
-        <Texture Name="gTreasureChestShopGalEyeOpenUpTex" OutName="treasure_cheat_shop_gal_eye_open_up" Format="ci8" Width="32" Height="32" Offset="0x6F58" />
-        <Texture Name="gTreasureChestShopGalEyeHalfUpTex" OutName="treasure_cheat_shop_gal_eye_half_up" Format="ci8" Width="32" Height="32" Offset="0x7358" />
-        <Texture Name="gTreasureChestShopGalEyeClosedTex" OutName="treasure_cheat_shop_gal_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x7758" />
-        <Texture Name="gTreasureChestShopGalEyeOpenDownTex" OutName="treasure_cheat_shop_gal_eye_open_down" Format="ci8" Width="32" Height="32" Offset="0x7B58" />
-        <Texture Name="gTreasureChestShopGalEyeHalfDownTex" OutName="treasure_cheat_shop_gal_eye_half_down" Format="ci8" Width="32" Height="32" Offset="0x7F58" />
-        <Texture Name="gTreasureChestShopGalMouthTex" OutName="treasure_cheat_shop_gal_mouth" Format="ci8" Width="32" Height="32" Offset="0x8358" />
-        <Texture Name="gTreasureChestShopGalEarAndBellyButtonTex" OutName="treasure_cheat_shop_gal_ear_and_belly_button" Format="ci8" Width="16" Height="16" Offset="0x8758" />
-        <Texture Name="gTreasureChestShopGalSkinTex" OutName="treasure_cheat_shop_gal_skin" Format="ci8" Width="16" Height="16" Offset="0x8858" />
-        <Texture Name="gTreasureChestShopGalClothesTex" OutName="treasure_cheat_shop_gal_clothes" Format="ci8" Width="32" Height="32" Offset="0x8958" />
-        <Texture Name="gTreasureChestShopGalFingersTex" OutName="treasure_cheat_shop_gal_fingers" Format="ci8" Width="16" Height="16" Offset="0x8D58" /> 
+        <Texture Name="gTreasureChestShopGalHairTex" OutName="treasure_cheat_shop_gal_hair" Format="ci8" Width="32" Height="32" Offset="0x6AD8" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalHair2Tex" OutName="treasure_cheat_shop_gal_hair2" Format="ci8" Width="8" Height="16" Offset="0x6ED8" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEyeOpenUpTex" OutName="treasure_cheat_shop_gal_eye_open_up" Format="ci8" Width="32" Height="32" Offset="0x6F58" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEyeHalfUpTex" OutName="treasure_cheat_shop_gal_eye_half_up" Format="ci8" Width="32" Height="32" Offset="0x7358" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEyeClosedTex" OutName="treasure_cheat_shop_gal_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x7758" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEyeOpenDownTex" OutName="treasure_cheat_shop_gal_eye_open_down" Format="ci8" Width="32" Height="32" Offset="0x7B58" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEyeHalfDownTex" OutName="treasure_cheat_shop_gal_eye_half_down" Format="ci8" Width="32" Height="32" Offset="0x7F58" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalMouthTex" OutName="treasure_cheat_shop_gal_mouth" Format="ci8" Width="32" Height="32" Offset="0x8358" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalEarAndBellyButtonTex" OutName="treasure_cheat_shop_gal_ear_and_belly_button" Format="ci8" Width="16" Height="16" Offset="0x8758" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalSkinTex" OutName="treasure_cheat_shop_gal_skin" Format="ci8" Width="16" Height="16" Offset="0x8858" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalClothesTex" OutName="treasure_cheat_shop_gal_clothes" Format="ci8" Width="32" Height="32" Offset="0x8958" TlutOffset="0x68D8"/>
+        <Texture Name="gTreasureChestShopGalFingersTex" OutName="treasure_cheat_shop_gal_fingers" Format="ci8" Width="16" Height="16" Offset="0x8D58" TlutOffset="0x68D8"/> 
         
         <!-- Treasure Chest Shop Gal Limbs -->
         <Limb Name="gTreasureChestShopGalRootLimb" Type="Standard" EnumName="TREASURE_CHEST_SHOP_GAL_LIMB_ROOT" Offset="0x8E58" />
@@ -93,16 +93,16 @@
         
         <!-- Mayor's receptionist Textures -->
         <Texture Name="object_bg_TLUT_00F6F0" OutName="tlut_00F6F0" Format="rgba16" Width="16" Height="16" Offset="0xF6F0" />
-        <Texture Name="object_bg_Tex_00F8F0" OutName="tex_00F8F0" Format="ci8" Width="32" Height="32" Offset="0xF8F0" />
-        <Texture Name="object_bg_Tex_00FCF0" OutName="tex_00FCF0" Format="ci8" Width="32" Height="32" Offset="0xFCF0" />
-        <Texture Name="object_bg_Tex_0100F0" OutName="tex_0100F0" Format="ci8" Width="32" Height="32" Offset="0x100F0" />
-        <Texture Name="object_bg_Tex_0104F0" OutName="tex_0104F0" Format="ci8" Width="16" Height="32" Offset="0x104F0" />
-        <Texture Name="object_bg_Tex_0106F0" OutName="tex_0106F0" Format="ci8" Width="16" Height="16" Offset="0x106F0" />
-        <Texture Name="object_bg_Tex_0107F0" OutName="tex_0107F0" Format="ci8" Width="64" Height="32" Offset="0x107F0" />
-        <Texture Name="object_bg_Tex_010FF0" OutName="tex_010FF0" Format="ci8" Width="16" Height="16" Offset="0x10FF0" />
-        <Texture Name="object_bg_Tex_0110F0" OutName="tex_0110F0" Format="ci8" Width="32" Height="32" Offset="0x110F0" />
-        <Texture Name="object_bg_Tex_0114F0" OutName="tex_0114F0" Format="ci8" Width="16" Height="16" Offset="0x114F0" />
-        <Texture Name="object_bg_Tex_0115F0" OutName="tex_0115F0" Format="ci8" Width="32" Height="32" Offset="0x115F0" />
+        <Texture Name="object_bg_Tex_00F8F0" OutName="tex_00F8F0" Format="ci8" Width="32" Height="32" Offset="0xF8F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_00FCF0" OutName="tex_00FCF0" Format="ci8" Width="32" Height="32" Offset="0xFCF0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0100F0" OutName="tex_0100F0" Format="ci8" Width="32" Height="32" Offset="0x100F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0104F0" OutName="tex_0104F0" Format="ci8" Width="16" Height="32" Offset="0x104F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0106F0" OutName="tex_0106F0" Format="ci8" Width="16" Height="16" Offset="0x106F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0107F0" OutName="tex_0107F0" Format="ci8" Width="64" Height="32" Offset="0x107F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_010FF0" OutName="tex_010FF0" Format="ci8" Width="16" Height="16" Offset="0x10FF0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0110F0" OutName="tex_0110F0" Format="ci8" Width="32" Height="32" Offset="0x110F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0114F0" OutName="tex_0114F0" Format="ci8" Width="16" Height="16" Offset="0x114F0" TlutOffset="0xF6F0"/>
+        <Texture Name="object_bg_Tex_0115F0" OutName="tex_0115F0" Format="ci8" Width="32" Height="32" Offset="0x115F0" TlutOffset="0xF6F0"/>
 
         <!-- Mayor's receptionist Limbs -->
         <Limb Name="object_bg_Standardlimb_0119F0" Type="Standard" EnumName="OBJECT_BG_2_LIMB_01" Offset="0x119F0" />

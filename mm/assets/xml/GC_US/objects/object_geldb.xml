@@ -14,7 +14,7 @@
         <Texture Name="gGerudoRed1TLUT" OutName="gerudo_red_1_tlut" Format="rgba16" Width="16" Height="16" Offset="0x28B0" />
         <Texture Name="gGerudoRedSkinShadowTex" OutName="gerudo_red_skin_shadow" Format="ci8" Width="8" Height="8" Offset="0x2AB0" TlutOffset="0x28B0" />
         <Texture Name="gGerudoRedDarkRedFabricTex" OutName="gerudo_red_dark_red_fabric" Format="ci8" Width="8" Height="8" Offset="0x2AF0" TlutOffset="0x28B0" />
-        <Texture Name="gGerudoRedYellowJewel1Tex" OutName="gerudo_red_yellow_jewel_1" Format="ci8" Width="16" Height="16" Offset="0x2B30" /> <!-- also used for gauntlets and greaves -->
+        <Texture Name="gGerudoRedYellowJewel1Tex" OutName="gerudo_red_yellow_jewel_1" Format="ci8" Width="16" Height="16" Offset="0x2B30" TlutOffset="0x28B0"/> <!-- also used for gauntlets and greaves -->
         <Texture Name="gGerudoRedGerudoPatternFabricTex" OutName="gerudo_red_gerudo_pattern_fabric" Format="i8" Width="16" Height="16" Offset="0x2C30" />
         <Texture Name="gGerudoRedMidriffTex" OutName="gerudo_red_midriff" Format="ci8" Width="16" Height="16" Offset="0x2D30" TlutOffset="0x28B0" />
         <Texture Name="gGerudoTrousersTex" OutName="gerudo_red_trousers" Format="i8" Width="16" Height="16" Offset="0x2E30" />
@@ -30,17 +30,17 @@
         <DList Name="gGerudoRedLeftThighDL" Offset="0x5D60" />
         <DList Name="gGerudoRedLeftLowerLegDL" Offset="0x5E60" />
         <Texture Name="gGerudoRed2TLUT" OutName="gerudo_red_2_tlut" Format="rgba16" Width="18" Height="14" Offset="0x60E0" />
-        <Texture Name="gGerudoRedSkinGradientTex" OutName="gerudo_red_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x62D8" /> <!-- also used on head -->
-        <Texture Name="gGerudoRedEarTex" OutName="gerudo_red_ear" Format="ci8" Width="8" Height="16" Offset="0x6318" />
+        <Texture Name="gGerudoRedSkinGradientTex" OutName="gerudo_red_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x62D8" TlutOffset="0x60E0"/> <!-- also used on head -->
+        <Texture Name="gGerudoRedEarTex" OutName="gerudo_red_ear" Format="ci8" Width="8" Height="16" Offset="0x6318" TlutOffset="0x60E0"/>
         <Texture Name="gGerudoRedEyeOpenTex" OutName="gerudo_red_eye_open" Format="ci8" Width="32" Height="32" Offset="0x6398" TlutOffset="0x60E0" />
         <Texture Name="gGerudoRedVeilFabricTex" OutName="gerudo_red_veil_fabric" Format="i8" Width="16" Height="16" Offset="0x6798" />
-        <Texture Name="gGerudoRedShoeUpperTex" OutName="gerudo_red_shoe_upper" Format="ci8" Width="8" Height="16" Offset="0x6898" />
-        <Texture Name="gGerudoRedShoeSoleTex" OutName="gerudo_red_shoe_sole" Format="ci8" Width="8" Height="8" Offset="0x6918" />
+        <Texture Name="gGerudoRedShoeUpperTex" OutName="gerudo_red_shoe_upper" Format="ci8" Width="8" Height="16" Offset="0x6898" TlutOffset="0x60E0"/>
+        <Texture Name="gGerudoRedShoeSoleTex" OutName="gerudo_red_shoe_sole" Format="ci8" Width="8" Height="8" Offset="0x6918" TlutOffset="0x60E0"/>
         <Texture Name="gGerudoRedEyeHalfTex" OutName="gerudo_red_eye_half" Format="ci8" Width="32" Height="32" Offset="0x6958" TlutOffset="0x60E0" />
         <Texture Name="gGerudoRedMail2Tex" OutName="gerudo_red_mail_2" Format="i8" Width="8" Height="16" Offset="0x6D58" />
-        <Texture Name="gGerudoRedHairTex" OutName="gerudo_red_hair" Format="ci8" Width="16" Height="16" Offset="0x6DD8" />
-        <Texture Name="gGerudoRedFingersTex" OutName="gerudo_red_fingers" Format="ci8" Width="16" Height="16" Offset="0x6ED8" />
-        <Texture Name="gGerudoRedYellowJewel2Tex" OutName="gerudo_red_yellow_jewel_2" Format="ci8" Width="16" Height="16" Offset="0x6FD8" /> <!-- used for head and sword guards -->
+        <Texture Name="gGerudoRedHairTex" OutName="gerudo_red_hair" Format="ci8" Width="16" Height="16" Offset="0x6DD8" TlutOffset="0x60E0"/>
+        <Texture Name="gGerudoRedFingersTex" OutName="gerudo_red_fingers" Format="ci8" Width="16" Height="16" Offset="0x6ED8" TlutOffset="0x60E0"/>
+        <Texture Name="gGerudoRedYellowJewel2Tex" OutName="gerudo_red_yellow_jewel_2" Format="ci8" Width="16" Height="16" Offset="0x6FD8" TlutOffset="0x60E0"/> <!-- used for head and sword guards -->
         <Texture Name="gGerudoRedEyeClosedTex" OutName="gerudo_red_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x70D8" TlutOffset="0x60E0" />
         <DList Name="gGerudoRedLeftFootDL" Offset="0x92F8" />
         <DList Name="gGerudoRedRightFootDL" Offset="0x94B8" />

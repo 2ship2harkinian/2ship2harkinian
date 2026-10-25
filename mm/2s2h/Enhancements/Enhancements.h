@@ -13,6 +13,12 @@ enum TimeStopOptions {
     TIME_STOP_TEMPLES_DUNGEONS,
 };
 
+enum FastTransformationOptions {
+    FAST_TRANSFORM_OFF,
+    FAST_TRANSFORM_ON,
+    FAST_TRANSFORM_AFTER_FIRST,
+};
+
 enum ClockTypeOptions {
     CLOCK_TYPE_ORIGINAL,
     CLOCK_TYPE_3DS,
@@ -60,6 +66,12 @@ enum GoronRaceDifficultyOptions {
     GORON_RACE_DIFFICULTY_VANILLA,
     GORON_RACE_DIFFICULTY_BALANCED,
     GORON_RACE_DIFFICULTY_SKIP,
+};
+
+enum TorchTimeLimitOptions {
+    TORCH_TIME_LIMIT_NORMAL,
+    TORCH_TIME_LIMIT_DOUBLE,
+    TORCH_TIME_LIMIT_INFINITY,
 };
 
 enum TreasureChestShopMazeOptions {

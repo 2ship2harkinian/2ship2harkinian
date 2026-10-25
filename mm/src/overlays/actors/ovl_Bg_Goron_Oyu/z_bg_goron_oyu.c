@@ -98,8 +98,8 @@ void BgGoronOyu_UpdateWaterBoxInfo(BgGoronOyu* this, PlayState* play) {
     WaterBox* waterBox;
     f32 ySurface;
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z, &ySurface,
-                             &waterBox)) {
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->dyna.actor.world.pos.x,
+                                         this->dyna.actor.world.pos.z, &ySurface, &waterBox)) {
         Math_Vec3s_ToVec3f(&this->waterBoxPos, &waterBox->minPos);
         this->waterBoxXLength = waterBox->xLength;
         this->waterBoxZLength = waterBox->zLength;

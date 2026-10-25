@@ -497,7 +497,7 @@ u32 AudioThread_GetExternalLoadQueueMsg(u32* retMsg) {
     return msg >> 0x18;
 }
 
-u8* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts, u8* buff) {
+u16* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts, u16* buff) {
     return AudioLoad_GetFontsForSequence(seqId, outNumFonts, buff);
 }
 

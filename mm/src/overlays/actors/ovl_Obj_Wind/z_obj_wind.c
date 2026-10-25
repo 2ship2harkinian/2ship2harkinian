@@ -39,8 +39,8 @@ void ObjWind_Init(Actor* thisx, PlayState* play) {
     f32 ySurface;
 
     Actor_ProcessInitChain(&this->actor, sInitChain);
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &ySurface,
-                             &waterbox) &&
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &ySurface, &waterbox) &&
         (this->actor.world.pos.y < ySurface)) {
         this->isUnderWater = true;
     }

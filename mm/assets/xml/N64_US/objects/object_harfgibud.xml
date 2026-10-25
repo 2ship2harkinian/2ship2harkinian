@@ -29,16 +29,16 @@
 
         <Texture Name="gPamelasFatherGibdoTLUT" OutName="pamelas_father_gibdo__tlut" Format="rgba16" Width="16" Height="16" Offset="0x70A0" />
         <Texture Name="gPamelasFatherGibdoBandageWrappingsTex" OutName="gibdo_bandage_wrappings" Format="i8" Width="64" Height="32" Offset="0x72A0" />
-        <Texture Name="gPamelasFatherGibdoSkinGradientTex" OutName="gibdo_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x7AA0" />
-        <Texture Name="gPamelasFatherGibdoSideHairTex" OutName="gibdo_side_hair" Format="ci8" Width="8" Height="16" Offset="0x7AE0" />
-        <Texture Name="gPamelasFatherGibdoEarTex" OutName="gibdo_ear" Format="ci8" Width="8" Height="8" Offset="0x7B60" />
-        <Texture Name="gPamelasFatherGibdoLipTex" OutName="gibdo_lip" Format="ci8" Width="8" Height="8" Offset="0x7BA0" />
-        <Texture Name="gPamelasFatherGibdoBloodshotEyeTex" OutName="gibdo_bloodshot_eye" Format="ci8" Width="32" Height="32" Offset="0x7BE0" />
-        <Texture Name="gPamelasFatherGibdoHairTex" OutName="gibdo_hair" Format="ci8" Width="16" Height="16" Offset="0x7FE0" />
+        <Texture Name="gPamelasFatherGibdoSkinGradientTex" OutName="gibdo_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x7AA0" TlutOffset="0x70A0"/>
+        <Texture Name="gPamelasFatherGibdoSideHairTex" OutName="gibdo_side_hair" Format="ci8" Width="8" Height="16" Offset="0x7AE0" TlutOffset="0x70A0"/>
+        <Texture Name="gPamelasFatherGibdoEarTex" OutName="gibdo_ear" Format="ci8" Width="8" Height="8" Offset="0x7B60" TlutOffset="0x70A0"/>
+        <Texture Name="gPamelasFatherGibdoLipTex" OutName="gibdo_lip" Format="ci8" Width="8" Height="8" Offset="0x7BA0" TlutOffset="0x70A0"/>
+        <Texture Name="gPamelasFatherGibdoBloodshotEyeTex" OutName="gibdo_bloodshot_eye" Format="ci8" Width="32" Height="32" Offset="0x7BE0" TlutOffset="0x70A0"/>
+        <Texture Name="gPamelasFatherGibdoHairTex" OutName="gibdo_hair" Format="ci8" Width="16" Height="16" Offset="0x7FE0" TlutOffset="0x70A0"/>
         <Texture Name="gPamelasFatherGibdoEyebrowTex" OutName="gibdo_eyebrow" Format="rgba16" Width="16" Height="16" Offset="0x80E0" />
         <Texture Name="gPamelasFatherGibdoLabCoatSleeveTex" OutName="gibdo_lab_coat_sleeve" Format="i8" Width="8" Height="8" Offset="0x82E0" />
         <Texture Name="gPamelasFatherGibdoShirtPieceTex" OutName="gibdo_shirt_piece" Format="rgba16" Width="8" Height="8" Offset="0x8320" />
-        <Texture Name="gPamelasFatherGibdoFingernailTex" OutName="gibdo_fingernail" Format="ci8" Width="16" Height="8" Offset="0x83A0" />
+        <Texture Name="gPamelasFatherGibdoFingernailTex" OutName="gibdo_fingernail" Format="ci8" Width="16" Height="8" Offset="0x83A0" TlutOffset="0x70A0"/>
         <Texture Name="gPamelasFatherGibdoLabCoatCuffTex" OutName="gibdo_lab_coat_cuff" Format="i8" Width="8" Height="8" Offset="0x8420" />
 
         <Limb Name="gPamelasFatherGibdoRootLimb" Type="Standard" EnumName="PAMELAS_FATHER_GIBDO_LIMB_ROOT" Offset="0x8460" />
@@ -86,12 +86,12 @@
         <DList Name="gPamelasFatherHumanAbdomenDL" Offset="0x103C0" />
 
         <Texture Name="gPamelasFatherHumanTLUT" OutName="human_tlut" Format="rgba16" Width="16" Height="16" Offset="0x10578" />
-        <Texture Name="gPamelasFatherHumanSkinGradientTex" OutName="human_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x10778" />
-        <Texture Name="gPamelasFatherHumanHandTex" OutName="human_hand" Format="ci8" Width="16" Height="16" Offset="0x107B8" />
-        <Texture Name="gPamelasFatherHumanSideHairTex" OutName="human_side_hair" Format="ci8" Width="8" Height="16" Offset="0x108B8" />
-        <Texture Name="gPamelasFatherHumanEarTex" OutName="human_ear" Format="ci8" Width="8" Height="8" Offset="0x10938" />
-        <Texture Name="gPamelasFatherHumanBeltTex" OutName="human_belt" Format="ci8" Width="32" Height="16" Offset="0x10978" />
-        <Texture Name="gPamelasFatherHumanLipTex" OutName="human_lip" Format="ci8" Width="8" Height="8" Offset="0x10B78" />
+        <Texture Name="gPamelasFatherHumanSkinGradientTex" OutName="human_skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x10778" TlutOffset="0x10578"/>
+        <Texture Name="gPamelasFatherHumanHandTex" OutName="human_hand" Format="ci8" Width="16" Height="16" Offset="0x107B8" TlutOffset="0x10578"/>
+        <Texture Name="gPamelasFatherHumanSideHairTex" OutName="human_side_hair" Format="ci8" Width="8" Height="16" Offset="0x108B8" TlutOffset="0x10578"/>
+        <Texture Name="gPamelasFatherHumanEarTex" OutName="human_ear" Format="ci8" Width="8" Height="8" Offset="0x10938" TlutOffset="0x10578"/>
+        <Texture Name="gPamelasFatherHumanBeltTex" OutName="human_belt" Format="ci8" Width="32" Height="16" Offset="0x10978" TlutOffset="0x10578"/>
+        <Texture Name="gPamelasFatherHumanLipTex" OutName="human_lip" Format="ci8" Width="8" Height="8" Offset="0x10B78" TlutOffset="0x10578"/>
         <Texture Name="gPamelasFatherHumanShirtTex" OutName="human_shirt" Format="rgba16" Width="8" Height="16" Offset="0x10BB8" />
         <Texture Name="gPamelasFatherHumanEyebrowTex" OutName="human_eyebrow" Format="rgba16" Width="16" Height="16" Offset="0x10CB8" />
         <Texture Name="gPamelasFatherHumanLabCoatTex" OutName="human_lab_coat" Format="i8" Width="8" Height="8" Offset="0x10EB8" />

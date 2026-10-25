@@ -70,6 +70,7 @@ const char* curForm;
 UIWidgets::Colors formColor;
 uint32_t formObject;
 static std::unordered_map<RandoItemId, const char*> randoItemIdComboboxMap;
+extern std::unordered_map<RandoCheckId, bool> checksInLogic;
 
 InventorySlot selectedInventorySlot = SLOT_NONE;
 std::vector<ItemId> safeItemsForInventorySlot[SLOT_MASK_FIERCE_DEITY + 1] = {};
@@ -2353,6 +2354,17 @@ void DrawRandoTab() {
 
         std::string fileName = inputSeed + ".json";
         Rando::Spoiler::SaveToFile(fileName, spoiler);
+    }
+
+    if (UIWidgets::Button("Grant All Available Checks", { .size = UIWidgets::Sizes::Inline })) {
+        for (auto& checkInLogic : checksInLogic) {
+            RandoSaveCheck& randoSaveCheck = RANDO_SAVE_CHECKS[checkInLogic.first];
+            if (randoSaveCheck.randoItemId == RI_TRAP) {
+                randoSaveCheck.obtained = randoSaveCheck.cycleObtained = true;
+            } else {
+                randoSaveCheck.eligible = true;
+            }
+        }
     }
 
     static ImGuiTextFilter rcFilter;

@@ -313,8 +313,8 @@ void func_80B289DC(EnFish2* this, PlayState* play) {
                 this->actor.velocity.y = 0.0f;
                 this->actor.gravity = 0.0f;
             }
-        } else if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
-                                        &this->unk_334, &waterBox)) {
+        } else if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x,
+                                                    this->actor.world.pos.z, &this->unk_334, &waterBox)) {
             if ((this->unk_334 != BGCHECK_Y_MIN) && (this->actor.world.pos.y < (this->unk_334 - this->unk_2D8))) {
                 this->actor.velocity.y = this->actor.world.rot.x * 0.001f * -0.1f;
                 if (this->actionFunc == func_80B297FC) {
@@ -392,8 +392,9 @@ void func_80B28C14(EnFish2* this, PlayState* play) {
         }
     }
 
-    if ((this->unk_334 == BGCHECK_Y_MIN) && !WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x,
-                                                                  this->actor.world.pos.z, &this->unk_334, &waterbox)) {
+    if ((this->unk_334 == BGCHECK_Y_MIN) &&
+        !BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                          &this->unk_334, &waterbox)) {
         this->unk_334 = this->actor.world.pos.y;
     }
 
@@ -927,8 +928,8 @@ void func_80B2A498(EnFish2* this, PlayState* play) {
         (Animation_OnFrame(&this->skelAnime, 13.0f) || Animation_OnFrame(&this->skelAnime, 31.0f))) {
         WaterBox* waterBox;
 
-        if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &this->unk_334,
-                                 &waterBox)) {
+        if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                             &this->unk_334, &waterBox)) {
             Vec3f sp6C;
             s32 i;
 
@@ -1021,8 +1022,8 @@ void EnFish2_Update(Actor* thisx, PlayState* play2) {
                 this->actor.world.pos.y = this->unk_2D4 + 0.1f;
             }
 
-            if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
-                                     &this->unk_334, &sp6C)) {
+            if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                                 &this->unk_334, &sp6C)) {
                 if ((this->unk_334 != BGCHECK_Y_MIN) && (this->unk_334 - this->unk_2D8 < this->actor.world.pos.y)) {
                     this->actor.world.pos.y = this->unk_334 - this->unk_2D8;
                 }
@@ -1034,8 +1035,8 @@ void EnFish2_Update(Actor* thisx, PlayState* play2) {
                 f32 phi_f20 = 0;
                 WaterBox* sp4C;
 
-                if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
-                                         &this->unk_334, &sp4C)) {
+                if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x,
+                                                     this->actor.world.pos.z, &this->unk_334, &sp4C)) {
                     phi_f20 = D_80B2B3A8[temp_s0_2] + (this->unk_334 - this->unk_2D8);
                     phi_f2 = D_80B2B3A8[temp_s0_2 + 1] + this->unk_2D4;
                 }
@@ -1157,7 +1158,8 @@ void func_80B2AF80(EnFish2* this, PlayState* play) {
                 ptr->unk_04.y += 1.0f + ((Rand_ZeroOne() - 0.3f) * 1.2f);
                 ptr->unk_04.z += (0.3f + (Rand_ZeroOne() * 0.5f)) - 0.55f;
                 sp8C = ptr->unk_04.y;
-                if (!WaterBox_GetSurface1(play, &play->colCtx, ptr->unk_04.x, ptr->unk_04.z, &sp8C, &waterBox)) {
+                if (!BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, ptr->unk_04.x, ptr->unk_04.z, &sp8C,
+                                                      &waterBox)) {
                     ptr->unk_00 = 0;
                 } else if (sp8C < ptr->unk_04.y) {
                     Vec3f sp7C;

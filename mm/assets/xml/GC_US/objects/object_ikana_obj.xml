@@ -37,7 +37,7 @@
         <!-- <Blob Name="object_ikana_obj_Blob_008550" Size="0x40" Offset="0x8550" /> -->
         <Texture Name="object_ikana_obj_TLUT_008590" OutName="tlut_008590" Format="rgba16" Width="4" Height="4" Offset="0x8590" />
         <Texture Name="object_ikana_obj_Tex_0085B0" OutName="tex_0085B0" Format="rgba16" Width="16" Height="16" Offset="0x85B0" />
-        <Texture Name="object_ikana_obj_Tex_0087B0" OutName="tex_0087B0" Format="ci4" Width="64" Height="64" Offset="0x87B0" />
+        <Texture Name="object_ikana_obj_Tex_0087B0" OutName="tex_0087B0" Format="ci4" Width="64" Height="64" Offset="0x87B0" TlutOffset="0x8530"/>
         <Texture Name="gStoneTowerTemplePunchablePillarTex" OutName="stone_tower_temple_punchable_pillar" Format="rgba16" Width="32" Height="64" Offset="0x8FB0" />
         <Texture Name="gStoneTowerTempleMirrorFrameTex" OutName="stone_tower_temple_mirror_frame" Format="rgba16" Width="16" Height="16" Offset="0x9FB0" />
         <Texture Name="object_ikana_obj_Tex_00A1B0" OutName="tex_00A1B0" Format="rgba16" Width="16" Height="16" Offset="0xA1B0" />
@@ -45,7 +45,7 @@
         <Texture Name="object_ikana_obj_Tex_00ABB0" OutName="tex_00ABB0" Format="rgba16" Width="32" Height="32" Offset="0xABB0" />
         <Texture Name="object_ikana_obj_Tex_00B3B0" OutName="tex_00B3B0" Format="rgba16" Width="16" Height="16" Offset="0xB3B0" />
         <Texture Name="object_ikana_obj_Tex_00B5B0" OutName="tex_00B5B0" Format="rgba16" Width="32" Height="32" Offset="0xB5B0" />
-        <Texture Name="object_ikana_obj_Tex_00BDB0" OutName="tex_00BDB0" Format="ci4" Width="16" Height="128" Offset="0xBDB0" />
+        <Texture Name="object_ikana_obj_Tex_00BDB0" OutName="tex_00BDB0" Format="ci4" Width="16" Height="128" Offset="0xBDB0" TlutOffset="0x8590"/>
         <Texture Name="object_ikana_obj_Tex_00C1B0" OutName="tex_00C1B0" Format="rgba16" Width="16" Height="64" Offset="0xC1B0" />
         <Texture Name="object_ikana_obj_Tex_00C9B0" OutName="tex_00C9B0" Format="ia8" Width="32" Height="64" Offset="0xC9B0" />
         <Texture Name="object_ikana_obj_Tex_00D1B0" OutName="tex_00D1B0" Format="rgba16" Width="16" Height="64" Offset="0xD1B0" />

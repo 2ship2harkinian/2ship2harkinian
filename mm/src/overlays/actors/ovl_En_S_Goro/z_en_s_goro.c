@@ -682,7 +682,7 @@ u16 EnSGoro_BombshopGoron_NextTextId(EnSGoro* this, PlayState* play) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
                     return 0x673;
                 }
-                this->powderKegPrice = play->msgCtx.unk1206C;
+                this->powderKegPrice = play->msgCtx.firstChoicePrice;
                 if (gSaveContext.save.saveInfo.playerData.rupees < this->powderKegPrice) {
                     this->actionFlags |= EN_S_GORO_ACTIONFLAG_LASTMESSAGE;
                     this->actionFlags |= EN_S_GORO_ACTIONFLAG_TIRED;

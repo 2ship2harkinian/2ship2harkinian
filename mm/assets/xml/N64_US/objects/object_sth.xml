@@ -25,11 +25,11 @@
         <DList Name="gSthPelvisDL" Offset="0x2B20" />
 
         <Texture Name="gSthTLUT" OutName="sth_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2D08" />
-        <Texture Name="gSthSkinTex" OutName="skin" Format="ci8" Width="8" Height="8" Offset="0x2F08" />
-        <Texture Name="gSthFingerTex" OutName="figer" Format="ci8" Width="8" Height="8" Offset="0x2F48" />
+        <Texture Name="gSthSkinTex" OutName="skin" Format="ci8" Width="8" Height="8" Offset="0x2F08" TlutOffset="0x2D08"/>
+        <Texture Name="gSthFingerTex" OutName="figer" Format="ci8" Width="8" Height="8" Offset="0x2F48" TlutOffset="0x2D08"/>
         <!-- Shirt and pants get painted with color in the draw func. -->
         <Texture Name="gSthShirtTex" OutName="shirt" Format="i8" Width="16" Height="16" Offset="0x2F88" />
-        <Texture Name="gSthBeltBuckleTex" OutName="belt_buckle" Format="ci8" Width="8" Height="8" Offset="0x3088" />
+        <Texture Name="gSthBeltBuckleTex" OutName="belt_buckle" Format="ci8" Width="8" Height="8" Offset="0x3088" TlutOffset="0x2D08"/>
         <Texture Name="gSthPantsTex" OutName="pants" Format="i8" Width="8" Height="8" Offset="0x30C8" />
       
         <Limb Name="gSthPelvisLimb" Type="Standard" EnumName="STH_LIMB_PELVIS" Offset="0x3108" />

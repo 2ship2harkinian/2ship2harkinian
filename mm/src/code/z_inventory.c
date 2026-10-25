@@ -721,8 +721,8 @@ s16 Inventory_GetSkullTokenCount(s16 sceneIndex) {
 void Inventory_SaveLotteryCodeGuess(PlayState* play) {
     u16 lotteryCodeGuess;
 
-    lotteryCodeGuess = ((play->msgCtx.unk12054[0] & 0xF) << 8);  // First Digit
-    lotteryCodeGuess |= ((play->msgCtx.unk12054[1] & 0xF) << 4); // Second Digit
-    lotteryCodeGuess |= (play->msgCtx.unk12054[2] & 0xF);        // Third Digit
+    lotteryCodeGuess = ((play->msgCtx.codeGuessDigits[0] & 0xF) << 8);  // First Digit
+    lotteryCodeGuess |= ((play->msgCtx.codeGuessDigits[1] & 0xF) << 4); // Second Digit
+    lotteryCodeGuess |= (play->msgCtx.codeGuessDigits[2] & 0xF);        // Third Digit
     HS_SET_LOTTERY_CODE_GUESS(lotteryCodeGuess);
 }

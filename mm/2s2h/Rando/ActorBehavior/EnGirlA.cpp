@@ -59,7 +59,7 @@ void EnGirlA_RandoRestock(PlayState* play, EnGirlA* enGirlA) {
 }
 
 s32 EnGirlA_RandoCanBuyFunc(PlayState* play, EnGirlA* enGirlA) {
-    if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.unk1206C) {
+    if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.firstChoicePrice) {
         return CANBUY_RESULT_NEED_RUPEES;
     }
 
@@ -78,7 +78,7 @@ void EnGirlA_RandoBuyFunc(PlayState* play, EnGirlA* enGirlA) {
     RandoCheckId randoCheckId = (RandoCheckId)enGirlA->actor.world.rot.z;
     RandoItemId randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, randoCheckId);
     randoSaveCheck.obtained = randoSaveCheck.cycleObtained = true;
-    Rupees_ChangeBy(-play->msgCtx.unk1206C);
+    Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
     if (randoItemId == RI_TRAP) {
         RollTrapType();
     } else if (randoItemId == RI_JUNK) {

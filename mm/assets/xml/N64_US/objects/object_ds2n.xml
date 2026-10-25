@@ -36,12 +36,12 @@
         <Texture Name="gDs2nEyeClosedTex" OutName="eye_closed" Format="ci8" Width="32" Height="32" Offset="0x50D8" TlutOffset="0x40D8"/>
 
         <Texture Name="gDs2nFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x54D8" TlutOffset="0x3ED8" />
-        <Texture Name="gDs2nSkinGradientTex" OutName="skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x55D8" />
+        <Texture Name="gDs2nSkinGradientTex" OutName="skin_gradient" Format="ci8" Width="8" Height="8" Offset="0x55D8" TlutOffset="0x3CD8"/>
         <Texture Name="gDs2nHairTex" OutName="hair" Format="rgba16" Width="16" Height="16" Offset="0x5618" />
-        <Texture Name="gDs2nHairlineTex" OutName="hairline" Format="ci8" Width="16" Height="16" Offset="0x5818" />
-        <Texture Name="gDs2nShirtButtonsTex" OutName="shirt_buttons" Format="ci8" Width="16" Height="32" Offset="0x5918" />
+        <Texture Name="gDs2nHairlineTex" OutName="hairline" Format="ci8" Width="16" Height="16" Offset="0x5818" TlutOffset="0x3CD8"/>
+        <Texture Name="gDs2nShirtButtonsTex" OutName="shirt_buttons" Format="ci8" Width="16" Height="32" Offset="0x5918" TlutOffset="0x3CD8"/>
         <Texture Name="gDs2nVestTex" OutName="vest" Format="rgba16" Width="16" Height="16" Offset="0x5B18" />
-        <Texture Name="gDs2nShirtTex" OutName="shirt" Format="ci8" Width="16" Height="16" Offset="0x5D18" />
+        <Texture Name="gDs2nShirtTex" OutName="shirt" Format="ci8" Width="16" Height="16" Offset="0x5D18" TlutOffset="0x3CD8"/>
         <Texture Name="gDs2nEyeOpenTex" OutName="eye_open" Format="ci8" Width="32" Height="32" Offset="0x5E18" TlutOffset="0x40D8" />
 
         <Texture Name="gDs2nMouthOpenTex" OutName="mouth_open" Format="ci8" Width="32" Height="16" Offset="0x6218" TlutOffset="0x3CD8" />

@@ -126,13 +126,13 @@
         <Texture Name="gGreatBayTempleObjectGearTex" OutName="great_bay_temple_object_gear" Format="rgba16" Width="16" Height="32" Offset="0xFDD0" />
         <Texture Name="gGreatBayTempleObjectPaddleTex" OutName="great_bay_temple_object_paddle" Format="rgba16" Width="32" Height="64" Offset="0x101D0" />
         <Texture Name="gGreatBayTempleObjectSwitchKnobTex" OutName="great_bay_temple_object_switch_knob" Format="rgba16" Width="32" Height="32" Offset="0x111D0" />
-        <Texture Name="gGreatBayTempleObjectOneWaySwitchTex" OutName="great_bay_temple_object_one_way_switch" Format="ci4" Width="8" Height="16" Offset="0x119D0" />
+        <Texture Name="gGreatBayTempleObjectOneWaySwitchTex" OutName="great_bay_temple_object_one_way_switch" Format="ci4" Width="8" Height="16" Offset="0x119D0" TlutOffset="0xD410"/>
         <Texture Name="gGreatBayTempleObjectSwitchSideTex" OutName="great_bay_temple_object_switch_side" Format="rgba16" Width="32" Height="32" Offset="0x11A10" />
         <Texture Name="gGreatBayTempleObjectUnusedGearTex" OutName="great_bay_temple_object_unused_gear" Format="ci4" Width="48" Height="36" Offset="0x12210" TlutOffset="0xD530" />
         <Texture Name="gGreatBayTempleObjectUnusedDarkMetalTex" OutName="great_bay_temple_object_unused_dark_metal" Format="ci4" Width="32" Height="32" Offset="0x12570" TlutOffset="0xD630" />
         <Texture Name="gGreatBayTempleObjectUnusedShaftTex" OutName="great_bay_temple_object_unused_shaft" Format="rgba16" Width="32" Height="64" Offset="0x12770" />
         <Texture Name="gGreatBayTempleObjectUnusedPaddleTex" OutName="great_bay_temple_object_unused_paddle" Format="ci4" Width="32" Height="128" Offset="0x13770" TlutOffset="0xD670" />
-        <Texture Name="gGreatBayTempleObjectLargeSeesawPlatformTex" OutName="great_bay_temple_object_large_seesaw_platform" Format="ci4" Width="64" Height="64" Offset="0x13F70" />
+        <Texture Name="gGreatBayTempleObjectLargeSeesawPlatformTex" OutName="great_bay_temple_object_large_seesaw_platform" Format="ci4" Width="64" Height="64" Offset="0x13F70" TlutOffset="0xD850"/>
         <Texture Name="gGreatBayTempleObjectHorizontalWaterFoamTex" OutName="great_bay_temple_object_horizontal_water_foam" Format="rgba16" Width="32" Height="32" Offset="0x14770" />
         <Texture Name="gGreatBayTempleObjectIceTex" OutName="great_bay_temple_object_ice" Format="rgba16" Width="32" Height="32" Offset="0x14F70" />
         <Texture Name="gGreatBayTempleObjectIceStalactiteRimMaskTex" OutName="great_bay_temple_object_ice_stalactite_rim_mask" Format="ia8" Width="32" Height="64" Offset="0x15770" />

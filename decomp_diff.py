@@ -35,18 +35,39 @@ def fetch_url(url):
             text = data.decode("utf-8", errors="surrogateescape")
             return text.splitlines(keepends=False)
 
+def find_local_path(file):
+    if not file.startswith("z_"):
+        return None
+
+    overlay_name = file[2:-2]
+    overlay_dir = "ovl_" + overlay_name.replace("_", " ").title().replace(" ", "_")
+
+    overlays_dir = os.path.join(os.path.dirname(__file__), "mm", "src", "overlays")
+    overlays_subdirs = os.listdir(overlays_dir)
+
+    for subdir in overlays_subdirs:
+        path = os.path.join(overlays_dir, subdir, overlay_dir, file)
+        if os.path.exists(path):
+            return path
+
+    return None
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python decomp_diff.py <local_file> [decomp_relative_path]", file=sys.stderr)
         sys.exit(2)
 
     local_path = sys.argv[1]
-    if not os.path.exists(local_path):
-        print(f"Local file not found: {local_path}", file=sys.stderr)
-        sys.exit(2)
 
     if not local_path.endswith((".c", ".h")):
         print("Can only compare .c and .h files", file=sys.stderr)
+        sys.exit(2)
+
+    if not os.path.exists(local_path):
+        local_path = find_local_path(local_path)
+
+    if local_path is None or not os.path.exists(local_path):
+        print(f"Local file not found: {sys.argv[1]}", file=sys.stderr)
         sys.exit(2)
 
     # Read local file (new)

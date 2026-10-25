@@ -1,5 +1,7 @@
 <Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <File Name="ovl_Oceff_Storm" BaseAddress="0x80981760" RangeStart="0x830" RangeEnd="0x1BC0">
         <Texture Name="sSongOfStormsEffectTex" OutName="song_of_storms_effect" Format="i8" Width="64" Height="64" Offset="0x830"/>
         <DList Name="sSongOfStormsMaterialDL" Offset="0x1830"/>

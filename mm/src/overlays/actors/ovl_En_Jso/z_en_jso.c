@@ -1232,28 +1232,28 @@ void EnJso_TellHint(EnJso* this, PlayState* play) {
 
                 case EN_JSO_HINT_VARIABLE_1:
                     textId = 0x139D; // Hint about Pamela's family being in the house with the waterwheel
-                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
                         textId = 0x13A1; // Hint about using the Song of Healing on Pamela's father
                     }
                     break;
 
                 case EN_JSO_HINT_VARIABLE_2:
                     textId = 0x139E; // Hint about Pamela leaving her house to check something
-                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
                         textId = 0x13A2; // Hint about the well being connected to Ikana Castle
                     }
                     break;
 
                 case EN_JSO_HINT_VARIABLE_3:
                     textId = 0x139F; // Hint about restoring the river by going into Sharp's cave
-                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
                         textId = 0x13A3; // Hint about the Gibdos in the well wanting items
                     }
                     break;
 
                 case EN_JSO_HINT_VARIABLE_4:
                     textId = 0x13A0; // Hint about needing the Song of Storms to pacify Sharp
-                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+                    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
                         textId = 0x13A4; // Hint about the items the Gibdos want being in the well
                     }
                     break;
@@ -1662,7 +1662,7 @@ void EnJso_Draw(Actor* thisx, PlayState* play) {
     Gfx_SetupDL25_Xlu(play->state.gfxCtx);
     Gfx_SetupDL25_Opa(play->state.gfxCtx);
 
-    gSPSegment(POLY_OPA_DISP++, 0x0C, D_801AEFA0);
+    gSPSegment(POLY_OPA_DISP++, 0x0C, gActorSetupOpaDL);
     SkelAnime_DrawFlexOpa(play, this->skelAnime.skeleton, this->skelAnime.jointTable, this->skelAnime.dListCount,
                           EnJso_OverrideLimbDraw, EnJso_PostLimbDraw, &this->actor);
 

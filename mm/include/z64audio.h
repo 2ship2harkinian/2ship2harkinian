@@ -154,7 +154,8 @@ typedef struct SequencePlayer {
     /* 0x003 */ u8 muteFlags;
     // 2S2H [Custom Audio]. Was originally u8 seqId. Made 16 bit to allow for more than 255 sequences.
     /* 0x004 */ u16 seqId;
-    /* 0x005 */ u8 defaultFont;
+    // 2S2H [Custom Audio]. Was originally u8 defaultFont. Made 16 bit to allow for more than 255 sound fonts.
+    /* 0x005 */ u16 defaultFont;
     /* 0x006 */ u8 unk_06[1];
     /* 0x007 */ s8 playerIndex;
     /* 0x008 */ u16 tempo; // tatums per minute
@@ -235,7 +236,8 @@ typedef struct SequenceChannel {
     /* 0x04 */ u8 targetReverbVol; // or dry/wet mix
     /* 0x05 */ u8 notePriority; // 0-3
     /* 0x06 */ u8 someOtherPriority;
-    /* 0x07 */ u8 fontId;
+    // 2S2H [Custom Audio]. Was originally u8 fontId. Made 16 bit to allow for more than 255 sound fonts.
+    /* 0x07 */ u16 fontId;
     /* 0x08 */ u8 reverbIndex;
     /* 0x09 */ u8 bookOffset;
     /* 0x0A */ u8 newPan;
@@ -384,7 +386,8 @@ typedef struct {
     /* 0x00 */ u8 priority;
     /* 0x01 */ u8 waveId;
     /* 0x02 */ u8 harmonicIndex; // the harmonic index for the synthetic wave contained in gWaveSamples (also matches the base 2 logarithm of the harmonic order)
-    /* 0x03 */ u8 fontId;
+    // 2S2H [Custom Audio]. Was originally u8 fontId. Made 16 bit to allow for more than 255 sound fonts.
+    /* 0x03 */ u16 fontId;
     /* 0x04 */ u8 status;
     /* 0x05 */ u8 stereoHeadsetEffects;
     /* 0x06 */ s16 adsrVolScaleUnused;
@@ -623,7 +626,9 @@ typedef struct {
     /* 0x2B60 */ AudioCache fontCache; // Cache to store soundFonts
     /* 0x2C70 */ AudioCache sampleBankCache; // Cache for loading entire sample banks
     /* 0x2D80 */ AudioAllocPool permanentPool; // Pool to stores audio data that is always loaded in. Primarily used for sfxs
-    /* 0x2D90 */ AudioCacheEntry permanentEntries[32]; // indificual entries to the permanent pool
+    // 2S2H [Custom Audio] Allow for new soundfonts. Was originally permanentEntries[32], sized in AudioLoad_Init
+    /* 0x2D90 */ AudioCacheEntry* permanentEntries; // indificual entries to the permanent pool
+    /*        */ s32 permanentEntriesCapacity;
     /* 0x3690 */ AudioSampleCache persistentSampleCache; // Stores individual samples persistently
     /* 0x40A4 */ AudioSampleCache temporarySampleCache; // Stores individual samples temporarily
     /* 0x4338 */ AudioSessionPoolSplit sessionPoolSplit; // splits session pool into the cache pool and misc pool
@@ -693,7 +698,7 @@ typedef struct {
     uint8_t medium;
     uint8_t cachePolicy;
     int32_t numFonts;
-    uint8_t fonts[16];
+    uint16_t fonts[16];
 } SequenceData;
 
 #endif

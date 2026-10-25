@@ -45,14 +45,14 @@
         <Texture Name="gOdolwaEarBangleAndShieldTLUT" OutName="odolwa_ear_bangle_and_shield_tlut" Format="rgba16" Width="4" Height="4" Offset="0x86D8" />
         <Texture Name="gOdolwaClothTLUT" OutName="odolwa_cloth_tlut" Format="rgba16" Width="4" Height="4" Offset="0x86F8" />
         <Texture Name="gOdolwaTorsoTLUT" OutName="odolwa_torso_tlut" Format="rgba16" Width="4" Height="4" Offset="0x8718" />
-        <Texture Name="gOdolwaPantsAndSwordHiltTex" OutName="odolwa_pants_and_sword_hilt" Format="ci4" Width="64" Height="64" Offset="0x8738" />
-        <Texture Name="gOdolwaFaceAndShoeTex" OutName="odolwa_face_and_shoe" Format="ci4" Width="64" Height="64" Offset="0x8F38" />
-        <Texture Name="gOdolwaSkinTex" OutName="odolwa_skin" Format="ci4" Width="64" Height="64" Offset="0x9738" />
-        <Texture Name="gOdolwaEarBangleAndShieldTex" OutName="odolwa_ear_bangle_and_shield" Format="ci4" Width="64" Height="64" Offset="0x9F38" />
+        <Texture Name="gOdolwaPantsAndSwordHiltTex" OutName="odolwa_pants_and_sword_hilt" Format="ci4" Width="64" Height="64" Offset="0x8738" TlutOffset="0x8678"/>
+        <Texture Name="gOdolwaFaceAndShoeTex" OutName="odolwa_face_and_shoe" Format="ci4" Width="64" Height="64" Offset="0x8F38" TlutOffset="0x8698"/>
+        <Texture Name="gOdolwaSkinTex" OutName="odolwa_skin" Format="ci4" Width="64" Height="64" Offset="0x9738" TlutOffset="0x86B8"/>
+        <Texture Name="gOdolwaEarBangleAndShieldTex" OutName="odolwa_ear_bangle_and_shield" Format="ci4" Width="64" Height="64" Offset="0x9F38" TlutOffset="0x86D8"/>
         <Texture Name="gOdolwaEarringTex" OutName="odolwa_earring" Format="rgba16" Width="16" Height="16" Offset="0xA738" />
         <Texture Name="gOdolwaPlumeTex" OutName="odolwa_plume" Format="rgba16" Width="16" Height="16" Offset="0xA938" />
-        <Texture Name="gOdolwaClothTex" OutName="odolwa_cloth" Format="ci4" Width="64" Height="64" Offset="0xAB38" />
-        <Texture Name="gOdolwaTorsoTex" OutName="odolwa_torso" Format="ci4" Width="64" Height="64" Offset="0xB338" />
+        <Texture Name="gOdolwaClothTex" OutName="odolwa_cloth" Format="ci4" Width="64" Height="64" Offset="0xAB38" TlutOffset="0x86F8"/>
+        <Texture Name="gOdolwaTorsoTex" OutName="odolwa_torso" Format="ci4" Width="64" Height="64" Offset="0xB338" TlutOffset="0x8718"/>
         <Texture Name="gOdolwaSwordBladeTex" OutName="odolwa_sword_blade" Format="rgba16" Width="16" Height="16" Offset="0xBB38" />
 
         <!-- Assets for the trail that follows Odolwa's sword when he slashes -->
@@ -82,7 +82,7 @@
         <!-- Assets for the blocks that fall from the ceiling during the Odolwa fight -->
         <DList Name="gOdolwaFallingBlockDL" Offset="0xE3E8" /> <!-- Original name is "iwa01_model" ("rock; boulder") -->
         <Texture Name="gOdolwaFallingBlockTLUT" OutName="odolwa_falling_block_tlut" Format="rgba16" Width="4" Height="4" Offset="0xE558" />
-        <Texture Name="gOdolwaFallingBlockTex" OutName="odolwa_falling_block" Format="ci4" Width="64" Height="64" Offset="0xE578" />
+        <Texture Name="gOdolwaFallingBlockTex" OutName="odolwa_falling_block" Format="ci4" Width="64" Height="64" Offset="0xE578" TlutOffset="0xE558"/>
         
         <!-- Odolwa Limbs -->
         <Limb Name="gOdolwaRootLimb" Type="Standard" EnumName="ODOLWA_LIMB_ROOT" Offset="0xED78" />
@@ -193,7 +193,7 @@
 
         <!-- Odolwa Bug Textures -->
         <Texture Name="gOdolwaBugUndersideTLUT" OutName="odolwa_bug_underside_tlut" Format="rgba16" Width="4" Height="4" Offset="0x21700" />
-        <Texture Name="gOdolwaBugUndersideTex" OutName="odolwa_bug_underside" Format="ci4" Width="16" Height="32" Offset="0x21720" />
+        <Texture Name="gOdolwaBugUndersideTex" OutName="odolwa_bug_underside" Format="ci4" Width="16" Height="32" Offset="0x21720" TlutOffset="0x21700"/>
         <Texture Name="gOdolwaBugBodyTex" OutName="odolwa_bug_body" Format="rgba16" Width="32" Height="32" Offset="0x21820" />
         <Texture Name="gOdolwaBugLegTex" OutName="odolwa_bug_leg" Format="rgba16" Width="8" Height="8" Offset="0x22020" />
 

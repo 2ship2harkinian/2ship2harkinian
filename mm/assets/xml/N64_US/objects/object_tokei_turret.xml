@@ -2,7 +2,7 @@
     <!-- Object for the turret in South Clock Town that the carpenters build during the 3 day period. -->
     <File Name="object_tokei_turret" Segment="6">
         <Texture Name="gClockTownTurretTLUT" OutName="clock_town_turret_tlut" Format="rgba16" Width="4" Height="4" Offset="0x0" />
-        <Texture Name="gClockTownTurretTextTex" OutName="clock_town_turret_text" Format="ci4" Width="64" Height="64" Offset="0x20" />
+        <Texture Name="gClockTownTurretTextTex" OutName="clock_town_turret_text" Format="ci4" Width="64" Height="64" Offset="0x20" TlutOffset="0x0"/>
         <Texture Name="gClockTownTurretFabricTex" OutName="clock_town_turret_fabric" Format="rgba16" Width="32" Height="32" Offset="0x820" />
         <Texture Name="gClockTownTurretWoodTex" OutName="clock_town_turret_wood" Format="rgba16" Width="16" Height="32" Offset="0x1020" />
         <Texture Name="gClockTownFlagsTex" OutName="clock_town_flags" Format="rgba16" Width="128" Height="16" Offset="0x1420" />

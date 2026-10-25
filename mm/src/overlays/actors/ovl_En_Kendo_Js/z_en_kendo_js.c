@@ -16,25 +16,25 @@ void EnKendoJs_Destroy(Actor* thisx, PlayState* play);
 void EnKendoJs_Update(Actor* thisx, PlayState* play);
 void EnKendoJs_Draw(Actor* thisx, PlayState* play);
 
-void func_80B26538(EnKendoJs* this);
-void func_80B2654C(EnKendoJs* this, PlayState* play);
-void func_80B26AE8(EnKendoJs* this);
-void func_80B26AFC(EnKendoJs* this, PlayState* play);
-void func_80B2701C(EnKendoJs* this);
-void func_80B27030(EnKendoJs* this, PlayState* play);
-void func_80B2714C(EnKendoJs* this);
-void func_80B27188(EnKendoJs* this, PlayState* play);
-void func_80B273D0(EnKendoJs* this);
-void func_80B2740C(EnKendoJs* this, PlayState* play);
-void func_80B274BC(EnKendoJs* this, PlayState* play);
-void func_80B276C4(EnKendoJs* this);
-void func_80B276D8(EnKendoJs* this, PlayState* play);
-void func_80B27760(EnKendoJs* this);
-void func_80B27774(EnKendoJs* this, PlayState* play);
-void func_80B2783C(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetupAwaitingTalk(EnKendoJs* this);
+void EnKendoJs_AwaitTalk(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetupMessageStateHandler(EnKendoJs* this);
+void EnKendoJs_HandleMessageState(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetupNoviceCourse(EnKendoJs* this);
+void EnKendoJs_MovePlayerToStartNoviceCourse(EnKendoJs* this, PlayState* play);
+void EnKendoJs_StartNoviceCourse(EnKendoJs* this);
+void EnKendoJs_NoviceCourse(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetupExpertCourse(EnKendoJs* this);
+void EnKendoJs_MovePlayerToStartExpertCourse(EnKendoJs* this, PlayState* play);
+void EnKendoJs_ExpertCourse(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetupPrize(EnKendoJs* this);
+void EnKendoJs_AwardPrize(EnKendoJs* this, PlayState* play);
+void EnKendoJs_AfterPrizeAccepted(EnKendoJs* this);
+void EnKendoJs_AwaitFinalMessage(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SetExpertCourseCamera(EnKendoJs* this, PlayState* play);
 s32 EnKendoJs_MovePlayerToPos(PlayState* play, Vec3f targetPos);
-void func_80B279F0(EnKendoJs* this, PlayState* play, s32 arg2);
-void func_80B27A90(EnKendoJs* this, PlayState* play);
+void EnKendoJs_SpawnLog(EnKendoJs* this, PlayState* play, s32 position);
+void EnKendoJs_RetractLogs(EnKendoJs* this, PlayState* play);
 
 ActorProfile En_Kendo_Js_Profile = {
     /**/ ACTOR_EN_KENDO_JS,
@@ -71,40 +71,67 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 typedef enum EnKendoJsAnimation {
-    /* 0 */ ENKENDOJS_ANIM_0,
-    /* 1 */ ENKENDOJS_ANIM_1,
-    /* 2 */ ENKENDOJS_ANIM_2,
-    /* 3 */ ENKENDOJS_ANIM_3,
-    /* 4 */ ENKENDOJS_ANIM_4,
+    /* 0 */ ENKENDOJS_ANIM_SLAPPING_KNEE, // unused
+    /* 1 */ ENKENDOJS_ANIM_DEFAULT,
+    /* 2 */ ENKENDOJS_ANIM_FLAILING,
+    /* 3 */ ENKENDOJS_ANIM_STOP_FLAILING,
+    /* 4 */ ENKENDOJS_ANIM_COWERING,
     /* 5 */ ENKENDOJS_ANIM_MAX
 } EnKendoJsAnimation;
 
 static AnimationInfo sAnimationInfo[ENKENDOJS_ANIM_MAX] = {
-    { &object_js_Anim_000C7C, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f }, // ENKENDOJS_ANIM_0
-    { &object_js_Anim_000F4C, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f }, // ENKENDOJS_ANIM_1
-    { &object_js_Anim_00016C, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f }, // ENKENDOJS_ANIM_2
-    { &object_js_Anim_0003DC, 1.0f, 0.0f, 0.0f, ANIMMODE_ONCE, -8.0f }, // ENKENDOJS_ANIM_3
-    { &object_js_Anim_000AD4, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f }, // ENKENDOJS_ANIM_4
+    { &gSwordmasterSlappingKneeAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f }, // unused
+    { &gSwordmasterDefaultAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f },
+    { &gSwordmasterFlailingAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f },
+    { &gSwordmasterStopFlailingAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_ONCE, -8.0f },
+    { &gSwordmasterCoweringAnim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f },
 };
 
-s16 D_80B27CE0[][3] = {
+#define ENKENDOJS_START_MSG(this, play, textId)       \
+    Message_StartTextbox(play, textId, &this->actor); \
+    this->curTextId = textId;
+
+s16 sNonHumanTextIds[][3] = {
     { 0x2731, 0x2732, 0x2733 },
     { 0x2734, 0x2735, 0x2736 },
     { 0x2737, 0x2738, 0x2739 },
 };
 
-s16 D_80B27CF4[][3] = {
+s16 sHumanTextIds[][3] = {
     { 0x2710, 0x2712, 0x2714 },
     { 0x2711, 0x2713, 0x2715 },
 };
 
-s16 D_80B27D00[] = {
+s16 sNoviceCourseProgressTextIds[] = {
     0x271C, 0x271E, 0x2720, 0x2722, 0x2724, 0x2726, 0x2728,
 };
 
-s16 D_80B27D10[] = {
+s16 sNoviceCourseTryAgainTextIds[] = {
     0x271B, 0x271D, 0x271F, 0x2721, 0x2723, 0x2725, 0x2727,
 };
+
+typedef enum EnKendoJsCourseState {
+    /* 0 */ ENKENDOJS_COURSE_PAUSED,
+    /* 1 */ ENKENDOJS_COURSE_ACTIVE,
+    /* 2 */ ENKENDOJS_COURSE_RETRY,
+} EnKendoJsCourseState;
+
+typedef enum EnKendoJsNoviceCourseLesson {
+    /* 0 */ ENKENDOJS_NOVICE_SIDE_JUMP,
+    /* 1 */ ENKENDOJS_NOVICE_ROLL,
+    /* 2 */ ENKENDOJS_NOVICE_BACKFLIP,
+    /* 3 */ ENKENDOJS_NOVICE_SWORD_ATTACK,
+    /* 4 */ ENKENDOJS_NOVICE_SWORD_TARGET,
+    /* 5 */ ENKENDOJS_NOVICE_SWORD_THRUST,
+    /* 6 */ ENKENDOJS_NOVICE_JUMP_ATTACK,
+    /* 7 */ ENKENDOJS_NOVICE_FINISHED,
+} EnKendoJsNoviceCourseLesson;
+
+typedef enum EnKendoJsNoviceCourseActionResult {
+    /* 0 */ ENKENDOJS_RESULT_CORRECT,
+    /* 1 */ ENKENDOJS_RESULT_INCORRECT,
+    /* 2 */ ENKENDOJS_RESULT_PENDING,
+} EnKendoJsNoviceCourseActionResult;
 
 void EnKendoJs_Init(Actor* thisx, PlayState* play) {
     s32 pad;
@@ -116,25 +143,25 @@ void EnKendoJs_Init(Actor* thisx, PlayState* play) {
     Collider_SetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&this->actor.colChkInfo, DamageTable_Get(0x16), &sColChkInfoInit);
 
-    SkelAnime_InitFlex(play, &this->skelAnime, &object_js_Skel_006990, &object_js_Anim_000F4C, this->jointTable,
+    SkelAnime_InitFlex(play, &this->skelAnime, &gSwordmasterSkel, &gSwordmasterDefaultAnim, this->jointTable,
                        this->morphTable, OBJECT_JS_LIMB_MAX);
 
     if ((CURRENT_DAY == 3) && ((CURRENT_TIME > CLOCK_TIME(23, 0)) || (CURRENT_TIME < CLOCK_TIME(6, 0)))) {
-        if (ENKENDOJS_GET_FF(&this->actor) != ENKENDOJS_FF_1) {
+        if (ENKENDOJS_GET_LOCATION(&this->actor) != ENKENDOJS_IN_BACK_ROOM) {
             Actor_Spawn(&play->actorCtx, play, ACTOR_EN_KANBAN, this->actor.home.pos.x, this->actor.home.pos.y,
                         this->actor.home.pos.z - 10.0f, this->actor.home.rot.x, this->actor.home.rot.y,
                         this->actor.home.rot.z, 0x10);
             Actor_Kill(&this->actor);
         } else {
-            Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_4);
+            Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_COWERING);
         }
-    } else if (ENKENDOJS_GET_FF(&this->actor) == ENKENDOJS_FF_1) {
+    } else if (ENKENDOJS_GET_LOCATION(&this->actor) == ENKENDOJS_IN_BACK_ROOM) {
         Actor_Kill(&this->actor);
     }
 
     Actor_UpdateBgCheckInfo(play, &this->actor, 0.0f, 0.0f, 0.0f, UPDBGCHECKINFO_FLAG_4);
 
-    if (ENKENDOJS_GET_FF(&this->actor) != ENKENDOJS_FF_1) {
+    if (ENKENDOJS_GET_LOCATION(&this->actor) != ENKENDOJS_IN_BACK_ROOM) {
         Path* path = &play->setupPathList[ENKENDOJS_GET_PATH_INDEX(&this->actor)];
 
         this->pathPoints = Lib_SegmentedToVirtual(path->points);
@@ -144,127 +171,117 @@ void EnKendoJs_Init(Actor* thisx, PlayState* play) {
     this->actor.focus.pos = this->actor.world.pos;
     this->actor.focus.pos.y += 30.0f;
     this->actor.child = NULL;
-    this->unk_28A = false;
-    this->unk_28C = 0;
-    this->unk_28E = 0;
-    this->unk_286 = 0;
-    func_80B26538(this);
+    this->hasSpoken = false;
+    this->numLogs = 0;
+    this->isSlashingLog = false;
+    this->courseState = ENKENDOJS_COURSE_PAUSED;
+    EnKendoJs_SetupAwaitingTalk(this);
 }
 
 void EnKendoJs_Destroy(Actor* thisx, PlayState* play) {
     EnKendoJs* this = (EnKendoJs*)thisx;
 
     Collider_DestroyCylinder(play, &this->collider);
-    CLEAR_WEEKEVENTREG(WEEKEVENTREG_82_08);
+    CLEAR_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME);
 }
 
-void func_80B26538(EnKendoJs* this) {
-    this->actionFunc = func_80B2654C;
+void EnKendoJs_SetupAwaitingTalk(EnKendoJs* this) {
+    this->actionFunc = EnKendoJs_AwaitTalk;
 }
 
-void func_80B2654C(EnKendoJs* this, PlayState* play) {
-    s32 phi_v0;
-    s32 sp30;
+void EnKendoJs_AwaitTalk(EnKendoJs* this, PlayState* play) {
+    s32 mainIndex;
+    s32 dayIndex;
 
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         if (CURRENT_DAY != 0) {
-            sp30 = CURRENT_DAY - 1;
+            dayIndex = CURRENT_DAY - 1;
         } else {
-            sp30 = 0;
+            dayIndex = 0;
         }
 
-        if (ENKENDOJS_GET_FF(&this->actor) == ENKENDOJS_FF_1) {
-            Message_StartTextbox(play, 0x273C, &this->actor);
-            this->unk_288 = 0x273C;
+        if (ENKENDOJS_GET_LOCATION(&this->actor) == ENKENDOJS_IN_BACK_ROOM) {
+            ENKENDOJS_START_MSG(this, play, 0x273C);
         } else if (GET_PLAYER_FORM != PLAYER_FORM_HUMAN) {
             switch (GET_PLAYER_FORM) {
                 case PLAYER_FORM_DEKU:
-                    phi_v0 = 0;
+                    mainIndex = 0;
                     break;
 
                 case PLAYER_FORM_GORON:
-                    phi_v0 = 1;
+                    mainIndex = 1;
                     break;
 
                 case PLAYER_FORM_ZORA:
-                    phi_v0 = 2;
+                    mainIndex = 2;
                     break;
 
                 default:
-                    phi_v0 = 0;
+                    mainIndex = 0;
                     break;
             }
 
-            Message_StartTextbox(play, D_80B27CE0[phi_v0][sp30], &this->actor);
-            this->unk_288 = D_80B27CE0[phi_v0][sp30];
+            ENKENDOJS_START_MSG(this, play, sNonHumanTextIds[mainIndex][dayIndex]);
         } else if ((Player_GetMask(play) != PLAYER_MASK_NONE) && (Player_GetMask(play) < PLAYER_MASK_GIANT)) {
-            u16 sp2E = Player_GetMask(play) + 0x273C;
+            u16 maskMessage = Player_GetMask(play) + 0x273C;
 
             //! FAKE:
             if (1) {}
 
-            Message_StartTextbox(play, sp2E, &this->actor);
-            this->unk_288 = sp2E;
+            ENKENDOJS_START_MSG(this, play, maskMessage);
         } else {
-            if (!this->unk_28A) {
-                this->unk_28A = true;
-                phi_v0 = 0;
+            if (!this->hasSpoken) {
+                this->hasSpoken = true;
+                mainIndex = 0;
             } else {
-                phi_v0 = 1;
+                mainIndex = 1;
             }
-            Message_StartTextbox(play, D_80B27CF4[phi_v0][sp30], &this->actor);
-            this->unk_288 = D_80B27CF4[phi_v0][sp30];
+            ENKENDOJS_START_MSG(this, play, sHumanTextIds[mainIndex][dayIndex]);
         }
 
-        func_80B26AE8(this);
+        EnKendoJs_SetupMessageStateHandler(this);
     } else {
         Actor_OfferTalk(&this->actor, play, 100.0f);
     }
 }
 
-void func_80B26758(EnKendoJs* this, PlayState* play) {
-    if (Message_ShouldAdvance(play) && (this->unk_288 == 0x2716)) {
+void EnKendoJs_HandleMessageChoices(EnKendoJs* this, PlayState* play) {
+    if (Message_ShouldAdvance(play) && (this->curTextId == 0x2716)) {
         switch (play->msgCtx.choiceIndex) {
             case 0:
                 if (GET_CUR_EQUIP_VALUE(EQUIP_TYPE_SWORD) == EQUIP_VALUE_SWORD_NONE) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
-                    Message_StartTextbox(play, 0x272C, &this->actor);
-                    this->unk_288 = 0x272C;
-                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_2);
-                } else if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.unk1206C) {
+                    ENKENDOJS_START_MSG(this, play, 0x272C);
+                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_FLAILING);
+                } else if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.firstChoicePrice) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
-                    Message_StartTextbox(play, 0x2718, &this->actor);
-                    this->unk_288 = 0x2718;
+                    ENKENDOJS_START_MSG(this, play, 0x2718);
                 } else {
                     Audio_PlaySfx_MessageDecide();
-                    Rupees_ChangeBy(-play->msgCtx.unk1206C);
-                    Message_StartTextbox(play, 0x2719, &this->actor);
-                    this->unk_288 = 0x2719;
+                    Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
+                    ENKENDOJS_START_MSG(this, play, 0x2719);
                 }
                 break;
 
             case 1:
                 if (GET_CUR_EQUIP_VALUE(EQUIP_TYPE_SWORD) == EQUIP_VALUE_SWORD_NONE) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
-                    Message_StartTextbox(play, 0x272C, &this->actor);
-                    this->unk_288 = 0x272C;
-                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_2);
-                } else if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.unk12070) {
+                    ENKENDOJS_START_MSG(this, play, 0x272C);
+                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_FLAILING);
+                } else if (gSaveContext.save.saveInfo.playerData.rupees < play->msgCtx.secondChoicePrice) {
                     Audio_PlaySfx(NA_SE_SY_ERROR);
-                    Message_StartTextbox(play, 0x2718, &this->actor);
-                    this->unk_288 = 0x2718;
+                    ENKENDOJS_START_MSG(this, play, 0x2718);
                 } else {
                     Audio_PlaySfx_MessageDecide();
-                    Rupees_ChangeBy(-play->msgCtx.unk12070);
-                    Message_StartTextbox(play, 0x273A, &this->actor);
-                    this->unk_288 = 0x273A;
+                    Rupees_ChangeBy(-play->msgCtx.secondChoicePrice);
+                    ENKENDOJS_START_MSG(this, play, 0x273A);
                 }
                 break;
 
             case 2:
                 Audio_PlaySfx_MessageCancel();
-                Message_StartTextbox(play, 0x2717, &this->actor);
-                this->unk_288 = 0x2717;
+                ENKENDOJS_START_MSG(this, play, 0x2717);
+                break;
 
             default:
                 break;
@@ -272,52 +289,50 @@ void func_80B26758(EnKendoJs* this, PlayState* play) {
     }
 }
 
-void func_80B269A4(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_HandleMessageEvents(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     if (!Message_ShouldAdvance(play)) {
         return;
     }
 
-    switch (this->unk_288) {
+    switch (this->curTextId) {
         case 0x2710:
         case 0x2711:
         case 0x2712:
         case 0x2713:
         case 0x2714:
         case 0x2715:
-            Message_StartTextbox(play, 0x2716, &this->actor);
-            this->unk_288 = 0x2716;
+            ENKENDOJS_START_MSG(this, play, 0x2716);
             break;
 
         case 0x2719:
             Message_CloseTextbox(play);
             player->stateFlags1 |= PLAYER_STATE1_20;
-            func_80B2701C(this);
+            EnKendoJs_SetupNoviceCourse(this);
             break;
 
         case 0x271A:
             Message_CloseTextbox(play);
-            func_80B2714C(this);
+            EnKendoJs_StartNoviceCourse(this);
             break;
 
         case 0x273A:
-            Message_StartTextbox(play, 0x273B, &this->actor);
-            this->unk_288 = 0x273B;
+            ENKENDOJS_START_MSG(this, play, 0x273B);
             break;
 
         case 0x273B:
             Message_CloseTextbox(play);
             Interface_InitMinigame(play);
             player->stateFlags1 |= PLAYER_STATE1_20;
-            func_80B273D0(this);
+            EnKendoJs_SetupExpertCourse(this);
             break;
 
         case 0x272D:
             Message_CloseTextbox(play);
             gSaveContext.minigameStatus = MINIGAME_STATUS_END;
-            func_80B276C4(this);
-            func_80B276D8(this, play);
+            EnKendoJs_SetupPrize(this);
+            EnKendoJs_AwardPrize(this, play);
             break;
 
         default:
@@ -325,34 +340,34 @@ void func_80B269A4(EnKendoJs* this, PlayState* play) {
     }
 }
 
-void func_80B26AE8(EnKendoJs* this) {
-    this->actionFunc = func_80B26AFC;
+void EnKendoJs_SetupMessageStateHandler(EnKendoJs* this) {
+    this->actionFunc = EnKendoJs_HandleMessageState;
 }
 
-void func_80B26AFC(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_HandleMessageState(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     switch (Message_GetState(&play->msgCtx)) {
         case TEXT_STATE_CHOICE:
-            func_80B26758(this, play);
+            EnKendoJs_HandleMessageChoices(this, play);
             break;
 
         case TEXT_STATE_EVENT:
-            func_80B269A4(this, play);
+            EnKendoJs_HandleMessageEvents(this, play);
             break;
 
         case TEXT_STATE_DONE:
             if (Message_ShouldAdvance(play)) {
-                if (this->unk_288 == 0x272C) {
-                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_3);
+                if (this->curTextId == 0x272C) {
+                    Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_STOP_FLAILING);
                 }
 
-                if ((this->unk_288 == 0x272E) || (this->unk_288 == 0x272F) || (this->unk_288 == 0x2730)) {
+                if ((this->curTextId == 0x272E) || (this->curTextId == 0x272F) || (this->curTextId == 0x2730)) {
                     gSaveContext.minigameStatus = MINIGAME_STATUS_END;
                 }
 
                 player->stateFlags1 &= ~PLAYER_STATE1_20;
-                func_80B26538(this);
+                EnKendoJs_SetupAwaitingTalk(this);
             }
 
         case TEXT_STATE_NONE:
@@ -364,132 +379,128 @@ void func_80B26AFC(EnKendoJs* this, PlayState* play) {
     }
 }
 
-s32 func_80B26BF8(EnKendoJs* this, PlayState* play) {
+s32 EnKendoJs_GetNoviceCourseActionResult(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
-    switch (this->unk_284) {
-        case 0:
-            if (func_80122FCC(play)) {
-                return 0;
+    switch (this->minigameRound.noviceRound) {
+        case ENKENDOJS_NOVICE_SIDE_JUMP:
+            if (Player_IsSideJumping(play)) {
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
             if ((player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) ||
                 (player->stateFlags3 & PLAYER_STATE3_8000000) || (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                return 1;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
             break;
 
-        case 1:
+        case ENKENDOJS_NOVICE_ROLL:
             if ((player->stateFlags3 & PLAYER_STATE3_8000000)) {
-                return 0;
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
             if ((player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) ||
                 (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                return 1;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
             break;
 
-        case 2:
-            if (func_80122F9C(play)) {
-                return 0;
+        case ENKENDOJS_NOVICE_BACKFLIP:
+            if (Player_IsBackJumping(play)) {
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
             if ((player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) ||
                 (player->stateFlags3 & PLAYER_STATE3_8000000) || (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                return 1;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
-            this->unk_28E = 0;
+            this->isSlashingLog = false;
             break;
 
-        case 3:
-            if ((this->unk_28E == 1) && ((player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_SLASH_1H) ||
-                                         (player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_COMBO_1H))) {
-                this->unk_28E = 0;
-                return 0;
+        case ENKENDOJS_NOVICE_SWORD_ATTACK:
+            if ((this->isSlashingLog == true) && ((player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_SLASH_1H) ||
+                                                  (player->meleeWeaponAnimation == PLAYER_MWA_RIGHT_COMBO_1H))) {
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
-            if ((this->unk_28E == 1) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
+            if ((this->isSlashingLog == true) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
                 (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                this->unk_28E = 0;
-                return 1;
-            }
-            break;
-
-        case 4:
-            if ((this->unk_28E == 1) && ((player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_SLASH_1H) ||
-                                         (player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_COMBO_1H))) {
-                this->unk_28E = 0;
-                return 0;
-            }
-
-            if ((this->unk_28E == 1) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
-                (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                this->unk_28E = 0;
-                return 1;
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
             break;
 
-        case 5:
-            if ((this->unk_28E == 1) && (player->meleeWeaponAnimation == PLAYER_MWA_STAB_1H)) {
-                this->unk_28E = 0;
-                return 0;
+        case ENKENDOJS_NOVICE_SWORD_TARGET:
+            if ((this->isSlashingLog == true) && ((player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_SLASH_1H) ||
+                                                  (player->meleeWeaponAnimation == PLAYER_MWA_FORWARD_COMBO_1H))) {
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
-            if ((this->unk_28E == 1) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
+            if ((this->isSlashingLog == true) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
                 (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                this->unk_28E = 0;
-                return 1;
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
             break;
 
-        case 6:
-            if ((this->unk_28E == 1) && ((player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_START) ||
-                                         (player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_FINISH))) {
-                this->unk_28E = 0;
-                return 0;
+        case ENKENDOJS_NOVICE_SWORD_THRUST:
+            if ((this->isSlashingLog == true) && (player->meleeWeaponAnimation == PLAYER_MWA_STAB_1H)) {
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_CORRECT;
             }
 
-            if ((this->unk_28E == 1) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
+            if ((this->isSlashingLog == true) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
                 (player->stateFlags2 & PLAYER_STATE2_80000)) {
-                this->unk_28E = 0;
-                return 1;
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_INCORRECT;
+            }
+            break;
+
+        case ENKENDOJS_NOVICE_JUMP_ATTACK:
+            if ((this->isSlashingLog == true) && ((player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_START) ||
+                                                  (player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_FINISH))) {
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_CORRECT;
+            }
+
+            if ((this->isSlashingLog == true) || (player->stateFlags3 & PLAYER_STATE3_8000000) ||
+                (player->stateFlags2 & PLAYER_STATE2_80000)) {
+                this->isSlashingLog = false;
+                return ENKENDOJS_RESULT_INCORRECT;
             }
             break;
 
         default:
             break;
     }
-    return 2;
+    return ENKENDOJS_RESULT_PENDING;
 }
 
-void func_80B26EB4(EnKendoJs* this, PlayState* play) {
-    Message_StartTextbox(play, D_80B27D00[this->unk_284], &this->actor);
-    this->unk_288 = D_80B27D00[this->unk_284];
-    this->unk_284++;
+void EnKendoJs_NoviceCourseProgress(EnKendoJs* this, PlayState* play) {
+    ENKENDOJS_START_MSG(this, play, sNoviceCourseProgressTextIds[this->minigameRound.noviceRound]);
+    this->minigameRound.noviceRound++;
 }
 
-void func_80B26F14(EnKendoJs* this, PlayState* play) {
-    Message_StartTextbox(play, D_80B27D10[this->unk_284], &this->actor);
-    this->unk_288 = D_80B27D10[this->unk_284];
+void EnKendoJs_NoviceCourseTryAgain(EnKendoJs* this, PlayState* play) {
+    ENKENDOJS_START_MSG(this, play, sNoviceCourseTryAgainTextIds[this->minigameRound.noviceRound]);
 }
 
-s32 func_80B26F6C(EnKendoJs* this, PlayState* play) {
+s32 EnKendoJs_HasMoreAdviceToTryAgain(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
-    switch (this->unk_288) {
+    switch (this->curTextId) {
         case 0x271D:
             if (Player_GetMeleeWeaponHeld(player) != PLAYER_MELEEWEAPON_NONE) {
-                Message_StartTextbox(play, 0x272A, &this->actor);
-                this->unk_288 = 0x272A;
+                ENKENDOJS_START_MSG(this, play, 0x272A);
                 return true;
             }
             break;
 
         case 0x2721:
-            if (this->unk_292 != 0) {
-                Message_StartTextbox(play, 0x272B, &this->actor);
-                this->unk_288 = 0x272B;
+            if (this->isPlayerLockedOn) {
+                ENKENDOJS_START_MSG(this, play, 0x272B);
                 return true;
             }
             break;
@@ -500,151 +511,147 @@ s32 func_80B26F6C(EnKendoJs* this, PlayState* play) {
     return false;
 }
 
-void func_80B2701C(EnKendoJs* this) {
-    this->actionFunc = func_80B27030;
+void EnKendoJs_SetupNoviceCourse(EnKendoJs* this) {
+    this->actionFunc = EnKendoJs_MovePlayerToStartNoviceCourse;
 }
 
-void func_80B27030(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_MovePlayerToStartNoviceCourse(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
-    Vec3f sp20 = this->actor.world.pos;
+    Vec3f startPos = this->actor.world.pos;
 
-    sp20.z += 200.0f;
+    startPos.z += 200.0f;
 
-    if (EnKendoJs_MovePlayerToPos(play, sp20)) {
+    if (EnKendoJs_MovePlayerToPos(play, startPos)) {
         this->actor.flags |= ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
         if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
             this->actor.flags &= ~ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
             player->stateFlags1 &= ~PLAYER_STATE1_20;
-            func_80B279F0(this, play, 0);
-            Message_StartTextbox(play, 0x271A, &this->actor);
-            this->unk_288 = 0x271A;
-            func_80B26AE8(this);
+            EnKendoJs_SpawnLog(this, play, 0);
+            ENKENDOJS_START_MSG(this, play, 0x271A);
+            EnKendoJs_SetupMessageStateHandler(this);
         } else {
             Actor_OfferTalk(&this->actor, play, 800.0f);
         }
     }
 }
 
-void func_80B2714C(EnKendoJs* this) {
-    SET_WEEKEVENTREG(WEEKEVENTREG_82_08);
-    this->unk_28C = 1;
-    this->unk_290 = 0;
-    this->unk_284 = 0;
-    this->unk_286 = 1;
-    this->actionFunc = func_80B27188;
+void EnKendoJs_StartNoviceCourse(EnKendoJs* this) {
+    SET_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME);
+    this->numLogs = 1;
+    this->timer = 0;
+    this->minigameRound.noviceRound = ENKENDOJS_NOVICE_SIDE_JUMP;
+    this->courseState = ENKENDOJS_COURSE_ACTIVE;
+    this->actionFunc = EnKendoJs_NoviceCourse;
 }
 
-void func_80B27188(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_NoviceCourse(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     if ((Message_GetState(&play->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(play)) {
-        if (this->unk_288 == 0x2729) {
-            func_80B26F14(this, play);
-        } else if (!func_80B26F6C(this, play)) {
-            if (this->skelAnime.animation == &object_js_Anim_00016C) {
-                Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_3);
+        if (this->curTextId == 0x2729) {
+            EnKendoJs_NoviceCourseTryAgain(this, play);
+        } else if (!EnKendoJs_HasMoreAdviceToTryAgain(this, play)) {
+            if (this->skelAnime.animation == &gSwordmasterFlailingAnim) {
+                Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_STOP_FLAILING);
             }
-            this->unk_286 = 2;
+            this->courseState = ENKENDOJS_COURSE_RETRY;
             Message_CloseTextbox(play);
             player->stateFlags1 &= ~PLAYER_STATE1_20;
         }
-    } else if (this->unk_286 == 2) {
-        this->unk_286 = 1;
+    } else if (this->courseState == ENKENDOJS_COURSE_RETRY) {
+        this->courseState = ENKENDOJS_COURSE_ACTIVE;
     }
 
-    if (this->unk_286 == 1) {
-        switch (func_80B26BF8(this, play)) {
-            case 0:
-                this->unk_286 = 0;
+    if (this->courseState == ENKENDOJS_COURSE_ACTIVE) {
+        switch (EnKendoJs_GetNoviceCourseActionResult(this, play)) {
+            case ENKENDOJS_RESULT_CORRECT:
+                this->courseState = ENKENDOJS_COURSE_PAUSED;
                 Actor_PlaySfx(&this->actor, NA_SE_SY_TRE_BOX_APPEAR);
                 player->stateFlags1 |= PLAYER_STATE1_20;
-                func_80B26EB4(this, play);
+                EnKendoJs_NoviceCourseProgress(this, play);
                 break;
 
-            case 1:
+            case ENKENDOJS_RESULT_INCORRECT:
                 Actor_PlaySfx(&this->actor, NA_SE_SY_ERROR);
-                this->unk_286 = 0;
+                this->courseState = ENKENDOJS_COURSE_PAUSED;
                 player->stateFlags1 |= PLAYER_STATE1_20;
-                Message_StartTextbox(play, 0x2729, &this->actor);
-                this->unk_288 = 0x2729;
-                Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_2);
+                ENKENDOJS_START_MSG(this, play, 0x2729);
+                Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_FLAILING);
                 break;
 
             default:
-                if (this->unk_28C == 0) {
-                    this->unk_290++;
-                    if (this->unk_290 == 30) {
-                        this->unk_290 = 0;
-                        func_80B279F0(this, play, 0);
+                if (this->numLogs == 0) {
+                    this->timer++;
+                    if (this->timer == 30) {
+                        this->timer = 0;
+                        EnKendoJs_SpawnLog(this, play, 0);
                     }
                 }
                 break;
         }
 
-        if ((this->skelAnime.animation == &object_js_Anim_0003DC) &&
+        if ((this->skelAnime.animation == &gSwordmasterStopFlailingAnim) &&
             Animation_OnFrame(&this->skelAnime, this->skelAnime.endFrame)) {
-            Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_1);
+            Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENKENDOJS_ANIM_DEFAULT);
         }
 
-        if (this->unk_284 == 7) {
-            CLEAR_WEEKEVENTREG(WEEKEVENTREG_82_08);
-            func_80B26AE8(this);
+        if (this->minigameRound.noviceRound == ENKENDOJS_NOVICE_FINISHED) {
+            CLEAR_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME);
+            EnKendoJs_SetupMessageStateHandler(this);
         }
     }
 }
 
-void func_80B273D0(EnKendoJs* this) {
-    SET_WEEKEVENTREG(WEEKEVENTREG_82_08);
-    this->unk_290 = 120;
-    this->unk_284 = 0;
-    this->unk_286 = 1;
-    this->actionFunc = func_80B2740C;
+void EnKendoJs_SetupExpertCourse(EnKendoJs* this) {
+    SET_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME);
+    this->timer = 120;
+    this->minigameRound.expertRound = 0;
+    this->courseState = ENKENDOJS_COURSE_ACTIVE;
+    this->actionFunc = EnKendoJs_MovePlayerToStartExpertCourse;
 }
 
-void func_80B2740C(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_MovePlayerToStartExpertCourse(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
-    Vec3f sp18 = this->actor.world.pos;
+    Vec3f startPos = this->actor.world.pos;
 
-    sp18.z += 300.0f;
+    startPos.z += 300.0f;
 
-    if (EnKendoJs_MovePlayerToPos(play, sp18)) {
-        this->unk_28C = 0;
+    if (EnKendoJs_MovePlayerToPos(play, startPos)) {
+        this->numLogs = 0;
         player->stateFlags1 &= ~PLAYER_STATE1_20;
-        this->actionFunc = func_80B274BC;
+        this->actionFunc = EnKendoJs_ExpertCourse;
     }
 }
 
-void func_80B274BC(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_ExpertCourse(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
-    if (this->unk_290 >= 140) {
-        if (this->unk_284 == 5) {
+    if (this->timer >= 140) {
+        if (this->minigameRound.expertRound == 5) {
             if (gSaveContext.minigameScore == 30) {
-                Message_StartTextbox(play, 0x272D, &this->actor);
-                this->unk_288 = 0x272D;
+                ENKENDOJS_START_MSG(this, play, 0x272D);
             } else {
-                Message_StartTextbox(play, 0x272E, &this->actor);
-                this->unk_288 = 0x272E;
+                ENKENDOJS_START_MSG(this, play, 0x272E);
             }
             player->stateFlags1 |= PLAYER_STATE1_20;
-            CLEAR_WEEKEVENTREG(WEEKEVENTREG_82_08);
-            func_80B26AE8(this);
+            CLEAR_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME);
+            EnKendoJs_SetupMessageStateHandler(this);
             return;
         }
 
         Audio_PlaySfx(NA_SE_SY_FOUND);
-        func_80B279F0(this, play, ((u8)Rand_Next() % 3) + 1);
-        func_80B279F0(this, play, ((u8)Rand_Next() % 3) + 4);
-        this->unk_290 = 0;
-        this->unk_284++;
-    } else if (this->unk_290 == 120) {
-        func_80B27A90(this, play);
-        this->unk_290++;
+        EnKendoJs_SpawnLog(this, play, ((u8)Rand_Next() % 3) + 1);
+        EnKendoJs_SpawnLog(this, play, ((u8)Rand_Next() % 3) + 4);
+        this->timer = 0;
+        this->minigameRound.expertRound++;
+    } else if (this->timer == 120) {
+        EnKendoJs_RetractLogs(this, play);
+        this->timer++;
     } else {
-        this->unk_290++;
+        this->timer++;
     }
 
-    if (this->unk_28E == 1) {
+    if (this->isSlashingLog == true) {
         if ((player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_START) ||
             (player->meleeWeaponAnimation == PLAYER_MWA_JUMPSLASH_FINISH)) {
             play->interfaceCtx.minigamePoints = 3;
@@ -657,19 +664,19 @@ void func_80B274BC(EnKendoJs* this, PlayState* play) {
             play->interfaceCtx.minigamePoints = 1;
         }
         Actor_PlaySfx(&this->actor, NA_SE_SY_TRE_BOX_APPEAR);
-        this->unk_28E = 0;
+        this->isSlashingLog = false;
     }
-    func_80B2783C(this, play);
+    EnKendoJs_SetExpertCourseCamera(this, play);
 }
 
-void func_80B276C4(EnKendoJs* this) {
-    this->actionFunc = func_80B276D8;
+void EnKendoJs_SetupPrize(EnKendoJs* this) {
+    this->actionFunc = EnKendoJs_AwardPrize;
 }
 
-void func_80B276D8(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_AwardPrize(EnKendoJs* this, PlayState* play) {
     if (Actor_HasParent(&this->actor, play)) {
         this->actor.parent = NULL;
-        func_80B27760(this);
+        EnKendoJs_AfterPrizeAccepted(this);
     } else if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_SWORDSMANS_SCHOOL_HEART_PIECE)) {
         Actor_OfferGetItem(&this->actor, play, GI_HEART_PIECE, 800.0f, 100.0f);
     } else {
@@ -677,42 +684,40 @@ void func_80B276D8(EnKendoJs* this, PlayState* play) {
     }
 }
 
-void func_80B27760(EnKendoJs* this) {
-    this->actionFunc = func_80B27774;
+void EnKendoJs_AfterPrizeAccepted(EnKendoJs* this) {
+    this->actionFunc = EnKendoJs_AwaitFinalMessage;
 }
 
-void func_80B27774(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_AwaitFinalMessage(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     if (Actor_TalkOfferAccepted(&this->actor, &play->state)) {
         if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_SWORDSMANS_SCHOOL_HEART_PIECE)) {
             SET_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_SWORDSMANS_SCHOOL_HEART_PIECE);
-            Message_StartTextbox(play, 0x272F, &this->actor);
-            this->unk_288 = 0x272F;
+            ENKENDOJS_START_MSG(this, play, 0x272F);
         } else {
-            Message_StartTextbox(play, 0x2730, &this->actor);
-            this->unk_288 = 0x2730;
+            ENKENDOJS_START_MSG(this, play, 0x2730);
         }
-        func_80B26AE8(this);
+        EnKendoJs_SetupMessageStateHandler(this);
         player->stateFlags1 &= ~PLAYER_STATE1_20;
     } else {
         Actor_OfferTalkExchangeEquiCylinder(&this->actor, play, 1000.0f, PLAYER_IA_MINUS1);
     }
 }
 
-void func_80B2783C(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_SetExpertCourseCamera(EnKendoJs* this, PlayState* play) {
     if (this->actor.csId != CS_ID_NONE) {
         Camera_ChangeActorCsCamIndex(play->cameraPtrs[CAM_ID_MAIN],
                                      CutsceneManager_GetCutsceneEntry(this->actor.csId)->csCamId);
     }
 }
 
-void func_80B27880(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_KeepPlayerInTrainingArea(EnKendoJs* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
-    f32 temp_f0 = this->actor.world.pos.z + 70.0f;
+    f32 zClamp = this->actor.world.pos.z + 70.0f;
 
-    if ((ENKENDOJS_GET_FF(&this->actor) != ENKENDOJS_FF_1) && (player->actor.world.pos.z < temp_f0)) {
-        player->actor.world.pos.z = temp_f0;
+    if ((ENKENDOJS_GET_LOCATION(&this->actor) != ENKENDOJS_IN_BACK_ROOM) && (player->actor.world.pos.z < zClamp)) {
+        player->actor.world.pos.z = zClamp;
     }
 }
 
@@ -742,31 +747,31 @@ s32 EnKendoJs_MovePlayerToPos(PlayState* play, Vec3f targetPos) {
     return false;
 }
 
-void func_80B279AC(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_UpdateCollider(EnKendoJs* this, PlayState* play) {
     Collider_UpdateCylinder(&this->actor, &this->collider);
     CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
 }
 
-void func_80B279F0(EnKendoJs* this, PlayState* play, s32 arg2) {
-    f32 x = this->pathPoints[arg2].x;
-    f32 y = this->pathPoints[arg2].y;
-    f32 z = this->pathPoints[arg2].z;
+void EnKendoJs_SpawnLog(EnKendoJs* this, PlayState* play, s32 position) {
+    f32 x = this->pathPoints[position].x;
+    f32 y = this->pathPoints[position].y;
+    f32 z = this->pathPoints[position].z;
 
     Actor_SpawnAsChild(&play->actorCtx, &this->actor, play, ACTOR_EN_MARUTA, x, y, z, 0, 0, 0, 0);
-    this->unk_28C++;
+    this->numLogs++;
 }
 
-void func_80B27A90(EnKendoJs* this, PlayState* play) {
+void EnKendoJs_RetractLogs(EnKendoJs* this, PlayState* play) {
     Actor* actor = play->actorCtx.actorLists[ACTORCAT_PROP].first;
 
     while (actor != NULL) {
         if (actor->id == ACTOR_EN_MARUTA) {
-            ((EnMaruta*)actor)->unk_220 = 1;
+            ((EnMaruta*)actor)->isRetracting = true;
         }
         actor = actor->next;
     }
 
-    this->unk_28C = 0;
+    this->numLogs = 0;
 }
 
 void EnKendoJs_Update(Actor* thisx, PlayState* play) {
@@ -776,8 +781,8 @@ void EnKendoJs_Update(Actor* thisx, PlayState* play) {
 
     SkelAnime_Update(&this->skelAnime);
     Actor_TrackPlayer(play, &this->actor, &this->headRot, &this->torsoRot, this->actor.focus.pos);
-    func_80B279AC(this, play);
-    func_80B27880(this, play);
+    EnKendoJs_UpdateCollider(this, play);
+    EnKendoJs_KeepPlayerInTrainingArea(this, play);
 }
 
 s32 EnKendoJs_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, Actor* thisx) {

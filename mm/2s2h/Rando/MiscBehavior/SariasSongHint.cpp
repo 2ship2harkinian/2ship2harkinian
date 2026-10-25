@@ -266,7 +266,7 @@ void Rando::MiscBehavior::SariasSongHint() {
             entry.msg = "Call out to an old friend for help? You can only do this once.\x02\x11\xC2Yes\x11No";
         } else if (playedSariasSongState == 2) {
             RandoCheckId randoCheckId = GetProgressiveCheckInLogic();
-            entry.textboxType = TEXTBOX_TYPE_2;
+            entry.textboxType = TEXTBOX_TYPE_BLUE_FADED;
 
             if (randoCheckId == RC_UNKNOWN) {
                 entry.msg = "... You call out but there is no response ...";

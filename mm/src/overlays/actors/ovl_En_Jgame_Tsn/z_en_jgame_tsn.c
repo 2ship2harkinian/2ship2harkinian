@@ -6,6 +6,7 @@
 
 #include "z_en_jgame_tsn.h"
 #include "overlays/actors/ovl_Obj_Jgame_Light/z_obj_jgame_light.h"
+#include "2s2h/GameInteractor/GameInteractor.h"
 
 #define FLAGS                                                                                  \
     (ACTOR_FLAG_ATTENTION_ENABLED | ACTOR_FLAG_FRIENDLY | ACTOR_FLAG_UPDATE_CULLING_DISABLED | \
@@ -167,7 +168,7 @@ void func_80C13BB8(EnJgameTsn* this, PlayState* play) {
                 Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENJGAMETSN_ANIM_1);
                 Message_StartTextbox(play, 0x10A2, &this->actor);
                 this->unk_300 = 0x10A2;
-            } else if (gSaveContext.minigameScore < 20) {
+            } else if (GameInteractor_Should(VB_FAIL_FISHERMAN_JUMPING_GAME, gSaveContext.minigameScore < 20)) {
                 Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, ENJGAMETSN_ANIM_1);
                 Message_StartTextbox(play, 0x10A2, &this->actor);
                 this->unk_300 = 0x10A2;
@@ -323,7 +324,8 @@ void func_80C14230(EnJgameTsn* this, PlayState* play) {
     s32 i;
     s32 rand;
 
-    if ((this->unk_2FC > 100) || func_80C14BCC(this, play)) {
+    if (GameInteractor_Should(VB_JUMPING_GAME_TORCH_RUN_OUT, this->unk_2FC > 100, this->unk_2FC) ||
+        func_80C14BCC(this, play)) {
         rand = Rand_Next() % 3;
 
         this->unk_2FC = 0;
@@ -364,7 +366,8 @@ void func_80C14230(EnJgameTsn* this, PlayState* play) {
         func_80C14030(this);
     }
 
-    if (gSaveContext.timerCurTimes[TIMER_ID_MINIGAME_2] == SECONDS_TO_TIMER(0)) {
+    if (GameInteractor_Should(VB_JUMPING_GAME_END,
+                              gSaveContext.timerCurTimes[TIMER_ID_MINIGAME_2] == SECONDS_TO_TIMER(0))) {
         Message_StartTextbox(play, 0x10A1, &this->actor);
         this->unk_300 = 0x10A1;
         player->stateFlags1 |= PLAYER_STATE1_20;

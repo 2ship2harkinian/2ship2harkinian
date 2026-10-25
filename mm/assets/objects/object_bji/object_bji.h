@@ -72,8 +72,8 @@ static const ALIGN_ASSET(2) char object_bji_TLUT_003D30[] = dobject_bji_TLUT_003
 #define dobject_bji_TLUT_003F30 "__OTR__objects/object_bji/object_bji_TLUT_003F30"
 static const ALIGN_ASSET(2) char object_bji_TLUT_003F30[] = dobject_bji_TLUT_003F30;
 
-#define dobject_bji_Tex_004130 "__OTR__objects/object_bji/object_bji_Tex_004130"
-static const ALIGN_ASSET(2) char object_bji_Tex_004130[] = dobject_bji_Tex_004130;
+#define dobject_bji_TLUT_004130 "__OTR__objects/object_bji/object_bji_TLUT_004130"
+static const ALIGN_ASSET(2) char object_bji_TLUT_004130[] = dobject_bji_TLUT_004130;
 
 #define dobject_bji_TLUT_004330 "__OTR__objects/object_bji/object_bji_TLUT_004330"
 static const ALIGN_ASSET(2) char object_bji_TLUT_004330[] = dobject_bji_TLUT_004330;

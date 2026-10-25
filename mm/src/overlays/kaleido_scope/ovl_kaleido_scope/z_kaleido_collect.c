@@ -860,15 +860,19 @@ void KaleidoScope_UpdateQuestCursor(PlayState* play) {
                                 pauseCtx->itemDescriptionOn = true;
                                 if (pauseCtx->cursorYIndex[PAUSE_QUEST] < 2) {
                                     if (pauseCtx->cursorItem[PAUSE_QUEST] < ITEM_REMAINS_ODOLWA) {
-                                        func_801514B0(play, 0x1737 + pauseCtx->cursorItem[PAUSE_QUEST], 1);
+                                        Message_PauseMenu_ShowDescription(
+                                            play, 0x1737 + pauseCtx->cursorItem[PAUSE_QUEST], 1);
                                     } else {
-                                        func_801514B0(play, 0x173B + pauseCtx->cursorItem[PAUSE_QUEST], 3);
+                                        Message_PauseMenu_ShowDescription(
+                                            play, 0x173B + pauseCtx->cursorItem[PAUSE_QUEST], 3);
                                     }
                                 } else {
                                     if (pauseCtx->cursorItem[PAUSE_QUEST] < ITEM_REMAINS_ODOLWA) {
-                                        func_801514B0(play, 0x1737 + pauseCtx->cursorItem[PAUSE_QUEST], 1);
+                                        Message_PauseMenu_ShowDescription(
+                                            play, 0x1737 + pauseCtx->cursorItem[PAUSE_QUEST], 1);
                                     } else {
-                                        func_801514B0(play, 0x173B + pauseCtx->cursorItem[PAUSE_QUEST], 1);
+                                        Message_PauseMenu_ShowDescription(
+                                            play, 0x173B + pauseCtx->cursorItem[PAUSE_QUEST], 1);
                                     }
                                 }
                             }

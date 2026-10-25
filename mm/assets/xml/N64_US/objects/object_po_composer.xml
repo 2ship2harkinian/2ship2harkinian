@@ -1,4 +1,5 @@
 ﻿<Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
 
     <!-- Assets for the composer brothers Flat and Sharp -->
@@ -22,9 +23,9 @@
         <Texture Name="gPoeComposerSoulTex" OutName="composer_soul" Format="i8" Width="32" Height="64" Offset="0x3DC0" />
 
         <!-- Display Lists -->
-        <DList Name="object_po_composer_DL_004600" Offset="0x4600" />
+        <DList Name="gPoeComposerSoulDL" Offset="0x4600" /> <!-- Unused, left over from OOT -->
         <DList Name="gPoeComposerSharpHeadDL" Offset="0x6A70" />
-        <DList Name="object_po_composer_DL_006D80" Offset="0x6D80" />
+        <DList Name="gPoeComposerBatonDL" Offset="0x6D80" />
         <DList Name="gPoeComposerLanternBaseDL" Offset="0x6E08" />
         <DList Name="gPoeComposerLanternTopDL" Offset="0x6EA8" />
         <DList Name="gPoeComposerLanternGlassDL" Offset="0x6F38" />
@@ -32,18 +33,20 @@
         <DList Name="gPoeComposerBurnDL" Offset="0x7BC0" />
 
         <!-- Textures -->
-        <Texture Name="object_po_composer_Tex_007E80" OutName="tex_007E80" Format="rgba16" Width="16" Height="16" Offset="0x7E80" />
-        <Texture Name="object_po_composer_Tex_008080" OutName="tex_008080" Format="rgba16" Width="16" Height="16" Offset="0x8080" />
-        <Texture Name="object_po_composer_Tex_008280" OutName="tex_008280" Format="rgba16" Width="16" Height="16" Offset="0x8280" />
-        <Texture Name="object_po_composer_Tex_008480" OutName="tex_008480" Format="rgba16" Width="16" Height="16" Offset="0x8480" />
-        <Texture Name="object_po_composer_Tex_008680" OutName="tex_008680" Format="rgba16" Width="16" Height="32" Offset="0x8680" />
-        <Texture Name="object_po_composer_Tex_008A80" OutName="tex_008A80" Format="rgba16" Width="16" Height="16" Offset="0x8A80" />
-        <Texture Name="object_po_composer_Tex_008C80" OutName="tex_008C80" Format="rgba16" Width="16" Height="16" Offset="0x8C80" />
-        <Texture Name="object_po_composer_Tex_008E80" OutName="tex_008E80" Format="rgba16" Width="16" Height="16" Offset="0x8E80" />
-        <Texture Name="object_po_composer_Tex_009080" OutName="tex_009080" Format="rgba16" Width="16" Height="16" Offset="0x9080" />
-        <Texture Name="object_po_composer_Tex_009280" OutName="tex_009280" Format="rgba16" Width="16" Height="16" Offset="0x9280" />
-        <Texture Name="object_po_composer_Tex_009480" OutName="tex_009480" Format="rgba16" Width="16" Height="16" Offset="0x9480" />
-        <Texture Name="object_po_composer_Tex_009680" OutName="tex_009680" Format="rgba16" Width="16" Height="16" Offset="0x9680" />
+        <Texture Name="gPoeComposerArmTex" OutName="arm" Format="rgba16" Width="16" Height="16" Offset="0x7E80" />
+        <Texture Name="gPoeComposerLanternBaseTex" OutName="lantern_base" Format="rgba16" Width="16" Height="16" Offset="0x8080" />
+        <Texture Name="gPoeComposerCoatTex" OutName="coat" Format="rgba16" Width="16" Height="16" Offset="0x8280" /> <!-- Also used for Lantern top -->
+        <Texture Name="gPoeComposerLanternGlassTex" OutName="lantern_glass" Format="rgba16" Width="16" Height="16" Offset="0x8480" />
+        <Texture Name="gPoeComposerClothPaternTex" OutName="cloth" Format="rgba16" Width="16" Height="32" Offset="0x8680" /> <!-- And hat -->
+        <Texture Name="gPoeComposerEyeTex" OutName="eye" Format="rgba16" Width="16" Height="16" Offset="0x8A80" />
+        <!-- Sharp's hair curl is also smeared and re-used as flat's golden hair -->
+        <Texture Name="gPoeComposerSharpHairCurlTex" OutName="sharp_hair" Format="rgba16" Width="16" Height="16" Offset="0x8C80" />
+        <Texture Name="gPoeComposerMoustacheTex" OutName="moustache" Format="rgba16" Width="16" Height="16" Offset="0x8E80" />
+        <Texture Name="gPoeComposerHatEmblemSharpTex" OutName="hat_emblem_sharp" Format="rgba16" Width="16" Height="16" Offset="0x9080" />
+        <Texture Name="gPoeComposerHatEmblemFlatTex" OutName="hat_emblem_flat" Format="rgba16" Width="16" Height="16" Offset="0x9280" />
+        <!-- From OOT, can't fight them in this game -->
+        <Texture Name="gPoeComposerCharedBodyTex" OutName="chared_body" Format="rgba16" Width="16" Height="16" Offset="0x9480" />
+        <Texture Name="gPoeComposerBroachTex" OutName="broach" Format="rgba16" Width="16" Height="16" Offset="0x9680" />
 
         <!-- Limbs -->
         <Limb Name="gPoeComposerUpperBodyLimb" Type="Standard" EnumName="POE_COMPOSER_LIMB_UPPER_BODY" Offset="0x9880" />

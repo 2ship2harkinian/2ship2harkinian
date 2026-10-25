@@ -684,9 +684,9 @@ void KaleidoScope_UpdateMaskCursor(PlayState* play) {
                         // Give description on item through a message box
                         pauseCtx->itemDescriptionOn = true;
                         if (pauseCtx->cursorYIndex[PAUSE_MASK] < 2) {
-                            func_801514B0(play, 0x1700 + pauseCtx->cursorItem[PAUSE_MASK], 3);
+                            Message_PauseMenu_ShowDescription(play, 0x1700 + pauseCtx->cursorItem[PAUSE_MASK], 3);
                         } else {
-                            func_801514B0(play, 0x1700 + pauseCtx->cursorItem[PAUSE_MASK], 1);
+                            Message_PauseMenu_ShowDescription(play, 0x1700 + pauseCtx->cursorItem[PAUSE_MASK], 1);
                         }
                     }
                 }

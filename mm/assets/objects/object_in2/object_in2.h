@@ -60,8 +60,8 @@ static const ALIGN_ASSET(2) char object_in2_DL_0049F0[] = dobject_in2_DL_0049F0;
 #define dobject_in2_DL_004AF8 "__OTR__objects/object_in2/object_in2_DL_004AF8"
 static const ALIGN_ASSET(2) char object_in2_DL_004AF8[] = dobject_in2_DL_004AF8;
 
-#define dobject_in2_Tex_004C28 "__OTR__objects/object_in2/object_in2_Tex_004C28"
-static const ALIGN_ASSET(2) char object_in2_Tex_004C28[] = dobject_in2_Tex_004C28;
+#define dobject_in2_TLUT_004C28 "__OTR__objects/object_in2/object_in2_TLUT_004C28"
+static const ALIGN_ASSET(2) char object_in2_TLUT_004C28[] = dobject_in2_TLUT_004C28;
 
 #define dobject_in2_TLUT_004E28 "__OTR__objects/object_in2/object_in2_TLUT_004E28"
 static const ALIGN_ASSET(2) char object_in2_TLUT_004E28[] = dobject_in2_TLUT_004E28;

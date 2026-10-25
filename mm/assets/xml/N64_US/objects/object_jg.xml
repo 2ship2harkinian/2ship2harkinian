@@ -50,22 +50,22 @@
 
         <!-- Goron Elder Textures -->
         <Texture Name="gGoronElderTLUT" OutName="goron_elder_palette" Format="rgba16" Width="16" Height="16" Offset="0x14380" />
-        <Texture Name="gGoronElderSkinTex" OutName="goron_elder_skin" Format="ci8" Width="8" Height="8" Offset="0x14580" />
-        <Texture Name="gGoronElderToesTex" OutName="goron_elder_toes" Format="ci8" Width="32" Height="16" Offset="0x145C0" />
-        <Texture Name="gGoronElderFootBottomTex" OutName="goron_elder_foot_bottom" Format="ci8" Width="32" Height="32" Offset="0x147C0" />
-        <Texture Name="gGoronElderVeinsTex" OutName="goron_elder_veins" Format="ci8" Width="32" Height="32" Offset="0x14BC0" />
-        <Texture Name="gGoronElderSpotsTex" OutName="goron_elder_spots" Format="ci8" Width="16" Height="16" Offset="0x14FC0" />
+        <Texture Name="gGoronElderSkinTex" OutName="goron_elder_skin" Format="ci8" Width="8" Height="8" Offset="0x14580" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderToesTex" OutName="goron_elder_toes" Format="ci8" Width="32" Height="16" Offset="0x145C0" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderFootBottomTex" OutName="goron_elder_foot_bottom" Format="ci8" Width="32" Height="32" Offset="0x147C0" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderVeinsTex" OutName="goron_elder_veins" Format="ci8" Width="32" Height="32" Offset="0x14BC0" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderSpotsTex" OutName="goron_elder_spots" Format="ci8" Width="16" Height="16" Offset="0x14FC0" TlutOffset="0x14380"/>
         <Texture Name="gGoronElderLowerLipTex" OutName="goron_elder_lower_lip" Format="rgba16" Width="8" Height="16" Offset="0x150C0" />
         <Texture Name="gGoronElderLipTex" OutName="goron_elder_lip" Format="rgba16" Width="8" Height="8" Offset="0x151C0" />
         <Texture Name="gGoronElderHairTex" OutName="goron_elder_hair" Format="rgba16" Width="16" Height="32" Offset="0x15240" />
-        <Texture Name="gGoronElderNostrilAndBellyButtonTex" OutName="goron_elder_nostril_and_belly_button" Format="ci8" Width="8" Height="8" Offset="0x15640" />
-        <Texture Name="gGoronElderCheekTex" OutName="goron_elder_cheek" Format="ci8" Width="8" Height="8" Offset="0x15680" />
-        <Texture Name="gGoronElderBrowTex" OutName="goron_elder_brow" Format="ci8" Width="8" Height="8" Offset="0x156C0" />
+        <Texture Name="gGoronElderNostrilAndBellyButtonTex" OutName="goron_elder_nostril_and_belly_button" Format="ci8" Width="8" Height="8" Offset="0x15640" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderCheekTex" OutName="goron_elder_cheek" Format="ci8" Width="8" Height="8" Offset="0x15680" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderBrowTex" OutName="goron_elder_brow" Format="ci8" Width="8" Height="8" Offset="0x156C0" TlutOffset="0x14380"/>
         <Texture Name="gGoronElderHairEndTex" OutName="goron_elder_hair_end" Format="rgba16" Width="32" Height="64" Offset="0x15700" />
-        <Texture Name="gGoronElderFingersTex" OutName="goron_elder_fingers" Format="ci8" Width="16" Height="16" Offset="0x16700" />
-        <Texture Name="gGoronElderGoronRubyTattooTex" OutName="goron_elder_goron_ruby_tattoo" Format="ci8" Width="16" Height="32" Offset="0x16800" />
-        <Texture Name="gGoronElderChestTex" OutName="goron_elder_chest" Format="ci8" Width="32" Height="32" Offset="0x16A00" />
-        <Texture Name="gGoronElderBackTex" OutName="goron_elder_back" Format="ci8" Width="32" Height="64" Offset="0x16E00" />
+        <Texture Name="gGoronElderFingersTex" OutName="goron_elder_fingers" Format="ci8" Width="16" Height="16" Offset="0x16700" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderGoronRubyTattooTex" OutName="goron_elder_goron_ruby_tattoo" Format="ci8" Width="16" Height="32" Offset="0x16800" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderChestTex" OutName="goron_elder_chest" Format="ci8" Width="32" Height="32" Offset="0x16A00" TlutOffset="0x14380"/>
+        <Texture Name="gGoronElderBackTex" OutName="goron_elder_back" Format="ci8" Width="32" Height="64" Offset="0x16E00" TlutOffset="0x14380"/>
 
         <!-- Goron Elder Animations -->
         <Animation Name="gGoronElderDepressedAnim" Offset="0x18CE4" /> <!-- Original name is "jg_u_m_loop" -->

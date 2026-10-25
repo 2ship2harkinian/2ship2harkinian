@@ -18,8 +18,9 @@ struct PlayState;
 #define COLPOLY_NORMAL_FRAC (1.0f / SHT_MAX)
 #define COLPOLY_SNORMAL(x) ((s16)((x) * SHT_MAX))
 #define COLPOLY_GET_NORMAL(n) ((n)*COLPOLY_NORMAL_FRAC)
-#define COLPOLY_VIA_FLAG_TEST(vIA, flags) ((vIA) & (((flags)&7) << 13))
-#define COLPOLY_VTX_INDEX(vI) ((vI)&0x1FFF)
+#define COLPOLY_VTX_CHECK_FLAGS_ANY(vI, flags) ((vI) & (((flags) & 7) << 13))
+#define COLPOLY_VTX_FLAGS_MASKED(vI) ((vI) & 0xE000)
+#define COLPOLY_VTX_INDEX(vI) ((vI) & 0x1FFF)
 #define COLPOLY_VTX(vtxId, flags) ((((flags) & 7) << 13) | ((vtxId) & 0x1FFF))
 
 #define DYNAPOLY_INVALIDATE_LOOKUP (1 << 0)
@@ -35,15 +36,19 @@ struct PlayState;
 #define BGCHECK_SUBDIV_MIN 150.0f
 
 // Macros for `WaterBox.properties`
-#define WATERBOX_LIGHT_INDEX_NONE 0x1F // warns and defaults to 0
-#define WATERBOX_ROOM(p) ((((s32)p) >> 13) & 0x3F)
-#define WATERBOX_ROOM_ALL 0x3F // value for "room index" indicating "all rooms"
-#define WATERBOX_FLAG_19 (1 << 19)
-#define WATERBOX_PROPERTIES(bgCamIndex, lightIndex, room, setFlag19) \
+#define WATERBOX_PROPERTIES(bgCamIndex, lightIndex, roomIndex, isDisabled) \
     ((((bgCamIndex) & 0xFF) <<  0) | \
      (((lightIndex) & 0x1F) <<  8) | \
-     (((room)       & 0x3F) << 13) | \
-     (((setFlag19)  &    1) << 19))
+     (((roomIndex)  & 0x3F) << 13) | \
+     (((isDisabled) &    1) << 19))
+
+#define WATERBOX_LIGHT_INDEX_NONE 0x1F // Generates a printf warning when built for debug (OOT only) and defaults to 0
+#define WATERBOX_ROOM(properties) (((properties) >> 13) & 0x3F) // retrieves the room the waterbox is active in
+#define WATERBOX_ROOM_ALL 0x3F // value for "roomIndex" indicating "all rooms"
+
+// The original intended purpose of this flag may not be disabling a waterbox. See func_800CA6F0 (unused) which by
+// contrast only considers waterboxes with this flag set.
+#define WATERBOX_IS_DISABLED (1 << 19) // Disables collision for the WaterBox
 
 // bccFlags (bgcheck check flags)
 #define BGCHECK_CHECK_WALL (1 << 0)
@@ -60,11 +65,17 @@ struct PlayState;
 #define BGCHECK_IGNORE_WALL (1 << 1)
 #define BGCHECK_IGNORE_FLOOR (1 << 2)
 
+// flags for flags_vIA
 // xpFlags (poly exclusion flags)
 #define COLPOLY_IGNORE_NONE 0
 #define COLPOLY_IGNORE_CAMERA (1 << 0)
 #define COLPOLY_IGNORE_ENTITY (1 << 1)
 #define COLPOLY_IGNORE_PROJECTILES (1 << 2)
+
+// flags for flags_vIB
+#define COLPOLY_IS_FLOOR_CONVEYOR (1 << 0)
+#define COLPOLY_IS_FLOOR_DEKU_FLOWER (1 << 1)
+#define COLPOLY_VIB_FLAG_4 (1 << 2)
 
 // CollisionContext flags
 #define BGCHECK_FLAG_REVERSE_CONVEYOR_FLOW 1
@@ -138,14 +149,10 @@ typedef struct {
 } BgCamFuncData; // size = 0x12
 
 typedef struct {
-    /* 0x0 */ Vec3s minPos;
+    /* 0x0 */ Vec3s minPos; // y = water surface. Water is effectively infinitely deep.
     /* 0x6 */ s16 xLength;
     /* 0x8 */ s16 zLength;
     /* 0xC */ u32 properties;
-    // 0x0008_0000 = ?
-    // 0x0007_E000 = room index, 0x3F = all rooms
-    // 0x0000_1F00 = lighting setting index
-    // 0x0000_00FF = bgCam index
 } WaterBox; // size = 0x10
 
 typedef enum FloorType {
@@ -298,12 +305,12 @@ typedef struct CollisionHeader {
     /* 0x1C */ SurfaceType* surfaceTypeList;
     /* 0x20 */ BgCamInfo* bgCamList;
     /* 0x24 */ u16 numWaterBoxes;
-    /* 0x28 */ WaterBox* waterBoxes;
+    /* 0x28 */ WaterBox* waterBoxes; // an unsorted list of non-overlapping waterboxes
 } CollisionHeader; // size = 0x2C
 
 typedef struct {
     /* 0x0 */ s16 polyId;
-    /* 0x2 */ u16 next; // index of the next SSNode in the list, or SS_NULL if last element 
+    /* 0x2 */ u16 next; // index of the next SSNode in the list, or SS_NULL if last element
 } SSNode; // size = 0x4
 
 // represents a linked list of type SSNode
@@ -615,20 +622,20 @@ u32 SurfaceType_IsHookshotSurface(CollisionContext* colCtx, CollisionPoly* poly,
 s32 SurfaceType_IsIgnoredByEntities(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 s32 SurfaceType_IsIgnoredByProjectiles(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 s32 SurfaceType_IsFloorConveyor(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
-s32 func_800C9DDC(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
+s32 SurfaceType_IsFloorDekuFlower(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 ConveyorSpeed SurfaceType_GetConveyorSpeed(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 u32 SurfaceType_GetConveyorDirection(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 u32 SurfaceType_IsWallDamage(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
-s32 WaterBox_GetSurfaceImpl(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox, s32* bgId);
-s32 WaterBox_GetSurface1(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox);
-s32 WaterBox_GetSurface1_2(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox);
-s32 WaterBox_GetSurface2(struct PlayState* play, CollisionContext* colCtx, Vec3f* pos, f32 surfaceCheckDist, WaterBox** outWaterBox, s32* bgId);
-f32 func_800CA568(CollisionContext* colCtx, s32 waterBoxId, s32 bgId);
+s32 BgCheck_GetWaterSurface(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox, s32* outBgId);
+s32 BgCheck_GetWaterSurfaceNoBgIdAlt(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox);
+s32 BgCheck_GetWaterSurfaceNoBgId(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox);
+s32 BgCheck_FindWaterBox(struct PlayState* play, CollisionContext* colCtx, Vec3f* pos, f32 surfaceCheckDist, WaterBox** outWaterBox, s32* outBgId);
+f32 WaterBox_GetSurface(CollisionContext* colCtx, s32 waterBoxId, s32 bgId);
 u16 WaterBox_GetBgCamSetting(CollisionContext* colCtx, WaterBox* waterBox, s32 bgId);
 void WaterBox_GetSceneBgCamSetting(CollisionContext* colCtx, WaterBox* waterBox);
 u32 WaterBox_GetLightSettingIndex(CollisionContext* colCtx, WaterBox* waterBox);
-s32 func_800CA6F0(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox, s32* bgId);
-s32 func_800CA9D0(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* ySurface, WaterBox** outWaterBox);
+s32 func_800CA6F0(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox, s32* outBgId);
+s32 func_800CA9D0(struct PlayState* play, CollisionContext* colCtx, f32 x, f32 z, f32* outWaterSurface, WaterBox** outWaterBox);
 s32 func_800CAA14(CollisionPoly* polyA, CollisionPoly* polyB, Vec3f* pointA, Vec3f* pointB, Vec3f* closestPoint);
 
 #ifdef __cplusplus

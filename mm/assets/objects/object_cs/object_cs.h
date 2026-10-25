@@ -9,59 +9,59 @@ static const ALIGN_ASSET(2) char object_cs_DL_000040[] = dobject_cs_DL_000040;
 #define dobject_cs_Tex_0000C0 "__OTR__objects/object_cs/object_cs_Tex_0000C0"
 static const ALIGN_ASSET(2) char object_cs_Tex_0000C0[] = dobject_cs_Tex_0000C0;
 
-#define dobject_cs_Anim_001708 "__OTR__objects/object_cs/object_cs_Anim_001708"
-static const ALIGN_ASSET(2) char object_cs_Anim_001708[] = dobject_cs_Anim_001708;
+#define dgBomberJumpAnim "__OTR__objects/object_cs/gBomberJumpAnim"
+static const ALIGN_ASSET(2) char gBomberJumpAnim[] = dgBomberJumpAnim;
 
-#define dobject_cs_Anim_001A1C "__OTR__objects/object_cs/object_cs_Anim_001A1C"
-static const ALIGN_ASSET(2) char object_cs_Anim_001A1C[] = dobject_cs_Anim_001A1C;
+#define dgBomberHoldCuccoAnim "__OTR__objects/object_cs/gBomberHoldCuccoAnim"
+static const ALIGN_ASSET(2) char gBomberHoldCuccoAnim[] = dgBomberHoldCuccoAnim;
 
-#define dobject_cs_Anim_002044 "__OTR__objects/object_cs/object_cs_Anim_002044"
-static const ALIGN_ASSET(2) char object_cs_Anim_002044[] = dobject_cs_Anim_002044;
+#define dgBomberBlowgunAnim "__OTR__objects/object_cs/gBomberBlowgunAnim"
+static const ALIGN_ASSET(2) char gBomberBlowgunAnim[] = dgBomberBlowgunAnim;
 
-#define dobject_cs_Anim_0026B0 "__OTR__objects/object_cs/object_cs_Anim_0026B0"
-static const ALIGN_ASSET(2) char object_cs_Anim_0026B0[] = dobject_cs_Anim_0026B0;
+#define dgBomberSaluteAnim "__OTR__objects/object_cs/gBomberSaluteAnim"
+static const ALIGN_ASSET(2) char gBomberSaluteAnim[] = dgBomberSaluteAnim;
 
-#define dobject_cs_Anim_002930 "__OTR__objects/object_cs/object_cs_Anim_002930"
-static const ALIGN_ASSET(2) char object_cs_Anim_002930[] = dobject_cs_Anim_002930;
+#define dgBomberClimbAnim "__OTR__objects/object_cs/gBomberClimbAnim"
+static const ALIGN_ASSET(2) char gBomberClimbAnim[] = dgBomberClimbAnim;
 
-#define dobject_cs_Anim_0031C4 "__OTR__objects/object_cs/object_cs_Anim_0031C4"
-static const ALIGN_ASSET(2) char object_cs_Anim_0031C4[] = dobject_cs_Anim_0031C4;
+#define dgBomberLookAroundAnim "__OTR__objects/object_cs/gBomberLookAroundAnim"
+static const ALIGN_ASSET(2) char gBomberLookAroundAnim[] = dgBomberLookAroundAnim;
 
-#define dobject_cs_Anim_00349C "__OTR__objects/object_cs/object_cs_Anim_00349C"
-static const ALIGN_ASSET(2) char object_cs_Anim_00349C[] = dobject_cs_Anim_00349C;
+#define dgBomberSurpriseAnim "__OTR__objects/object_cs/gBomberSurpriseAnim"
+static const ALIGN_ASSET(2) char gBomberSurpriseAnim[] = dgBomberSurpriseAnim;
 
-#define dobject_cs_Anim_0036B0 "__OTR__objects/object_cs/object_cs_Anim_0036B0"
-static const ALIGN_ASSET(2) char object_cs_Anim_0036B0[] = dobject_cs_Anim_0036B0;
+#define dgBomberRunAnim "__OTR__objects/object_cs/gBomberRunAnim"
+static const ALIGN_ASSET(2) char gBomberRunAnim[] = dgBomberRunAnim;
 
-#define dobject_cs_Anim_003EE4 "__OTR__objects/object_cs/object_cs_Anim_003EE4"
-static const ALIGN_ASSET(2) char object_cs_Anim_003EE4[] = dobject_cs_Anim_003EE4;
+#define dgBomberTurnAroundAnim "__OTR__objects/object_cs/gBomberTurnAroundAnim"
+static const ALIGN_ASSET(2) char gBomberTurnAroundAnim[] = dgBomberTurnAroundAnim;
 
-#define dobject_cs_Anim_00433C "__OTR__objects/object_cs/object_cs_Anim_00433C"
-static const ALIGN_ASSET(2) char object_cs_Anim_00433C[] = dobject_cs_Anim_00433C;
+#define dgBomberTalkShowingNumberAnim "__OTR__objects/object_cs/gBomberTalkShowingNumberAnim"
+static const ALIGN_ASSET(2) char gBomberTalkShowingNumberAnim[] = dgBomberTalkShowingNumberAnim;
 
-#define dobject_cs_Anim_00478C "__OTR__objects/object_cs/object_cs_Anim_00478C"
-static const ALIGN_ASSET(2) char object_cs_Anim_00478C[] = dobject_cs_Anim_00478C;
+#define dgBomberShowNumberAnim "__OTR__objects/object_cs/gBomberShowNumberAnim"
+static const ALIGN_ASSET(2) char gBomberShowNumberAnim[] = dgBomberShowNumberAnim;
 
-#define dobject_cs_Anim_004960 "__OTR__objects/object_cs/object_cs_Anim_004960"
-static const ALIGN_ASSET(2) char object_cs_Anim_004960[] = dobject_cs_Anim_004960;
+#define dgBomberHideUnderBoxAnim "__OTR__objects/object_cs/gBomberHideUnderBoxAnim"
+static const ALIGN_ASSET(2) char gBomberHideUnderBoxAnim[] = dgBomberHideUnderBoxAnim;
 
-#define dobject_cs_Anim_004C1C "__OTR__objects/object_cs/object_cs_Anim_004C1C"
-static const ALIGN_ASSET(2) char object_cs_Anim_004C1C[] = dobject_cs_Anim_004C1C;
+#define dgBomberSitAnim "__OTR__objects/object_cs/gBomberSitAnim"
+static const ALIGN_ASSET(2) char gBomberSitAnim[] = dgBomberSitAnim;
 
-#define dobject_cs_Anim_005128 "__OTR__objects/object_cs/object_cs_Anim_005128"
-static const ALIGN_ASSET(2) char object_cs_Anim_005128[] = dobject_cs_Anim_005128;
+#define dgBomberDazedAnim "__OTR__objects/object_cs/gBomberDazedAnim"
+static const ALIGN_ASSET(2) char gBomberDazedAnim[] = dgBomberDazedAnim;
 
-#define dobject_cs_Anim_0053F4 "__OTR__objects/object_cs/object_cs_Anim_0053F4"
-static const ALIGN_ASSET(2) char object_cs_Anim_0053F4[] = dobject_cs_Anim_0053F4;
+#define dgBomberTalkHandsOnHipsAnim "__OTR__objects/object_cs/gBomberTalkHandsOnHipsAnim"
+static const ALIGN_ASSET(2) char gBomberTalkHandsOnHipsAnim[] = dgBomberTalkHandsOnHipsAnim;
 
-#define dobject_cs_Anim_0057C8 "__OTR__objects/object_cs/object_cs_Anim_0057C8"
-static const ALIGN_ASSET(2) char object_cs_Anim_0057C8[] = dobject_cs_Anim_0057C8;
+#define dgBomberTalkNormalAnim "__OTR__objects/object_cs/gBomberTalkNormalAnim"
+static const ALIGN_ASSET(2) char gBomberTalkNormalAnim[] = dgBomberTalkNormalAnim;
 
-#define dobject_cs_Anim_005DC4 "__OTR__objects/object_cs/object_cs_Anim_005DC4"
-static const ALIGN_ASSET(2) char object_cs_Anim_005DC4[] = dobject_cs_Anim_005DC4;
+#define dgBomberArmSwipeAnim "__OTR__objects/object_cs/gBomberArmSwipeAnim"
+static const ALIGN_ASSET(2) char gBomberArmSwipeAnim[] = dgBomberArmSwipeAnim;
 
-#define dobject_cs_Anim_0060E8 "__OTR__objects/object_cs/object_cs_Anim_0060E8"
-static const ALIGN_ASSET(2) char object_cs_Anim_0060E8[] = dobject_cs_Anim_0060E8;
+#define dgBomberTauntAnim "__OTR__objects/object_cs/gBomberTauntAnim"
+static const ALIGN_ASSET(2) char gBomberTauntAnim[] = dgBomberTauntAnim;
 
 #define dgBomberIdleAnim "__OTR__objects/object_cs/gBomberIdleAnim"
 static const ALIGN_ASSET(2) char gBomberIdleAnim[] = dgBomberIdleAnim;
@@ -174,35 +174,35 @@ static const ALIGN_ASSET(2) char object_cs_Tex_00C220[] = dobject_cs_Tex_00C220;
 #define dobject_cs_Blob_00C320 "__OTR__objects/object_cs/object_cs_Blob_00C320"
 static const ALIGN_ASSET(2) char object_cs_Blob_00C320[] = dobject_cs_Blob_00C320;
 
-#define dobject_cs_Tex_00C520 "__OTR__objects/object_cs/object_cs_Tex_00C520"
-static const ALIGN_ASSET(2) char object_cs_Tex_00C520[] = dobject_cs_Tex_00C520;
+#define dgBomberEyeOpenTex "__OTR__objects/object_cs/gBomberEyeOpenTex"
+static const ALIGN_ASSET(2) char gBomberEyeOpenTex[] = dgBomberEyeOpenTex;
 
-#define dobject_cs_Tex_00CD20 "__OTR__objects/object_cs/object_cs_Tex_00CD20"
-static const ALIGN_ASSET(2) char object_cs_Tex_00CD20[] = dobject_cs_Tex_00CD20;
+#define dgBomberEyeHalfTex "__OTR__objects/object_cs/gBomberEyeHalfTex"
+static const ALIGN_ASSET(2) char gBomberEyeHalfTex[] = dgBomberEyeHalfTex;
 
-#define dobject_cs_Tex_00D520 "__OTR__objects/object_cs/object_cs_Tex_00D520"
-static const ALIGN_ASSET(2) char object_cs_Tex_00D520[] = dobject_cs_Tex_00D520;
+#define dgBomberEyeClosedTex "__OTR__objects/object_cs/gBomberEyeClosedTex"
+static const ALIGN_ASSET(2) char gBomberEyeClosedTex[] = dgBomberEyeClosedTex;
 
-#define dobject_cs_Tex_00DD20 "__OTR__objects/object_cs/object_cs_Tex_00DD20"
-static const ALIGN_ASSET(2) char object_cs_Tex_00DD20[] = dobject_cs_Tex_00DD20;
+#define dgBomberNumber4Tex "__OTR__objects/object_cs/gBomberNumber4Tex"
+static const ALIGN_ASSET(2) char gBomberNumber4Tex[] = dgBomberNumber4Tex;
 
 #define dobject_cs_Tex_00E120 "__OTR__objects/object_cs/object_cs_Tex_00E120"
 static const ALIGN_ASSET(2) char object_cs_Tex_00E120[] = dobject_cs_Tex_00E120;
 
-#define dobject_cs_Tex_00E220 "__OTR__objects/object_cs/object_cs_Tex_00E220"
-static const ALIGN_ASSET(2) char object_cs_Tex_00E220[] = dobject_cs_Tex_00E220;
+#define dgBomberWhiteShirtBackTex "__OTR__objects/object_cs/gBomberWhiteShirtBackTex"
+static const ALIGN_ASSET(2) char gBomberWhiteShirtBackTex[] = dgBomberWhiteShirtBackTex;
 
-#define dobject_cs_Tex_00E620 "__OTR__objects/object_cs/object_cs_Tex_00E620"
-static const ALIGN_ASSET(2) char object_cs_Tex_00E620[] = dobject_cs_Tex_00E620;
+#define dgBomberNumber1Tex "__OTR__objects/object_cs/gBomberNumber1Tex"
+static const ALIGN_ASSET(2) char gBomberNumber1Tex[] = dgBomberNumber1Tex;
 
-#define dobject_cs_Tex_00EA20 "__OTR__objects/object_cs/object_cs_Tex_00EA20"
-static const ALIGN_ASSET(2) char object_cs_Tex_00EA20[] = dobject_cs_Tex_00EA20;
+#define dgBomberNumber2Tex "__OTR__objects/object_cs/gBomberNumber2Tex"
+static const ALIGN_ASSET(2) char gBomberNumber2Tex[] = dgBomberNumber2Tex;
 
-#define dobject_cs_Tex_00EE20 "__OTR__objects/object_cs/object_cs_Tex_00EE20"
-static const ALIGN_ASSET(2) char object_cs_Tex_00EE20[] = dobject_cs_Tex_00EE20;
+#define dgBomberNumber3Tex "__OTR__objects/object_cs/gBomberNumber3Tex"
+static const ALIGN_ASSET(2) char gBomberNumber3Tex[] = dgBomberNumber3Tex;
 
-#define dobject_cs_Tex_00F220 "__OTR__objects/object_cs/object_cs_Tex_00F220"
-static const ALIGN_ASSET(2) char object_cs_Tex_00F220[] = dobject_cs_Tex_00F220;
+#define dgBomberNumber5Tex "__OTR__objects/object_cs/gBomberNumber5Tex"
+static const ALIGN_ASSET(2) char gBomberNumber5Tex[] = dgBomberNumber5Tex;
 
 #define dobject_cs_Tex_00F620 "__OTR__objects/object_cs/object_cs_Tex_00F620"
 static const ALIGN_ASSET(2) char object_cs_Tex_00F620[] = dobject_cs_Tex_00F620;
@@ -210,17 +210,17 @@ static const ALIGN_ASSET(2) char object_cs_Tex_00F620[] = dobject_cs_Tex_00F620;
 #define dobject_cs_Matanimheader_00F6D4 "__OTR__objects/object_cs/object_cs_Matanimheader_00F6D4"
 static const ALIGN_ASSET(2) char object_cs_Matanimheader_00F6D4[] = dobject_cs_Matanimheader_00F6D4;
 
-#define dobject_cs_Skel_00F82C "__OTR__objects/object_cs/object_cs_Skel_00F82C"
-static const ALIGN_ASSET(2) char object_cs_Skel_00F82C[] = dobject_cs_Skel_00F82C;
+#define dgBomberSkel "__OTR__objects/object_cs/gBomberSkel"
+static const ALIGN_ASSET(2) char gBomberSkel[] = dgBomberSkel;
 
-#define dobject_cs_Anim_00FAF4 "__OTR__objects/object_cs/object_cs_Anim_00FAF4"
-static const ALIGN_ASSET(2) char object_cs_Anim_00FAF4[] = dobject_cs_Anim_00FAF4;
+#define dgBomberHandsOnHipsAnim "__OTR__objects/object_cs/gBomberHandsOnHipsAnim"
+static const ALIGN_ASSET(2) char gBomberHandsOnHipsAnim[] = dgBomberHandsOnHipsAnim;
 
-#define dobject_cs_Anim_01007C "__OTR__objects/object_cs/object_cs_Anim_01007C"
-static const ALIGN_ASSET(2) char object_cs_Anim_01007C[] = dobject_cs_Anim_01007C;
+#define dgBomberWalkAnim "__OTR__objects/object_cs/gBomberWalkAnim"
+static const ALIGN_ASSET(2) char gBomberWalkAnim[] = dgBomberWalkAnim;
 
-#define dobject_cs_Anim_010B68 "__OTR__objects/object_cs/object_cs_Anim_010B68"
-static const ALIGN_ASSET(2) char object_cs_Anim_010B68[] = dobject_cs_Anim_010B68;
+#define dgBomberCaughtAnim "__OTR__objects/object_cs/gBomberCaughtAnim"
+static const ALIGN_ASSET(2) char gBomberCaughtAnim[] = dgBomberCaughtAnim;
 
 typedef enum ObjectCsLimb {
     /* 0x00 */ OBJECT_CS_LIMB_NONE,

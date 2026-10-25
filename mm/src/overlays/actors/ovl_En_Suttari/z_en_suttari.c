@@ -1027,7 +1027,7 @@ void func_80BAC6E8(EnSuttari* this, PlayState* play) {
         } else if ((gSaveContext.save.day == 3) && (CURRENT_TIME <= CLOCK_TIME(19, 0)) &&
                    !CHECK_WEEKEVENTREG(WEEKEVENTREG_61_08) &&
                    !CHECK_WEEKEVENTREG(WEEKEVENTREG_RECOVERED_STOLEN_BOMB_BAG) &&
-                   CHECK_WEEKEVENTREG(WEEKEVENTREG_51_08)) {
+                   CHECK_WEEKEVENTREG(WEEKEVENTREG_KAFEI_ENTRUSTED_LINK)) {
             this->animIndex = SUTTARI_ANIM_2;
             Actor_ChangeAnimationByInfo(&this->skelAnime, sAnimationInfo, this->animIndex);
             this->actionFunc = func_80BACEE0;

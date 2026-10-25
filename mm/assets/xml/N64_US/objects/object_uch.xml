@@ -37,10 +37,10 @@
 
         <!-- Alien Textures -->
         <Texture Name="gAlienTLUT" OutName="alien_tlut" Format="rgba16" Width="16" Height="16" Offset="0x3D80" />
-        <Texture Name="gAlienTorsoTex" OutName="alien_torso" Format="ci8" Width="16" Height="16" Offset="0x3F80" />
-        <Texture Name="gAlienHandsAndTorsoUndersideTex" OutName="alien_hands_and_torso_underside" Format="ci8" Width="16" Height="16" Offset="0x4080" />
-        <Texture Name="gAlienHeadFrontAndArmsTex" OutName="alien_head_front_and_arms" Format="ci8" Width="16" Height="32" Offset="0x4180" />
-        <Texture Name="gAlienHeadBackTex" OutName="alien_head_back" Format="ci8" Width="16" Height="32" Offset="0x4380" />
+        <Texture Name="gAlienTorsoTex" OutName="alien_torso" Format="ci8" Width="16" Height="16" Offset="0x3F80" TlutOffset="0x3D80"/>
+        <Texture Name="gAlienHandsAndTorsoUndersideTex" OutName="alien_hands_and_torso_underside" Format="ci8" Width="16" Height="16" Offset="0x4080" TlutOffset="0x3D80"/>
+        <Texture Name="gAlienHeadFrontAndArmsTex" OutName="alien_head_front_and_arms" Format="ci8" Width="16" Height="32" Offset="0x4180" TlutOffset="0x3D80"/>
+        <Texture Name="gAlienHeadBackTex" OutName="alien_head_back" Format="ci8" Width="16" Height="32" Offset="0x4380" TlutOffset="0x3D80"/>
         <Texture Name="gAlienEyeTex" OutName="alien_eye" Format="rgba16" Width="32" Height="32" Offset="0x4580" />
 
         <!-- Alien Limbs -->

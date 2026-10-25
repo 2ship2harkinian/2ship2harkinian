@@ -57,13 +57,13 @@
         <Texture Name="gGekkoEyeTex" OutName="gekko_eye" Format="rgba16" Width="16" Height="16" Offset="0xC6A8" />
         <Texture Name="gGekkoSpots1Tex" OutName="gekko_spots_1" Format="rgba16" Width="16" Height="16" Offset="0xC8A8" />
         <Texture Name="gGekkoBellyTex" OutName="gekko_belly" Format="rgba16" Width="16" Height="32" Offset="0xCAA8" />
-        <Texture Name="gGekkoSpots2Tex" OutName="gekko_spots_2" Format="ci8" Width="16" Height="32" Offset="0xCEA8" />
+        <Texture Name="gGekkoSpots2Tex" OutName="gekko_spots_2" Format="ci8" Width="16" Height="32" Offset="0xCEA8" TlutOffset="0xC028"/>
         <Texture Name="gGekkoToothTex" OutName="gekko_tooth" Format="rgba16" Width="16" Height="16" Offset="0xD0A8" />
         <Texture Name="gGekkoMouthTex" OutName="gekko_mouth" Format="rgba16" Width="16" Height="8" Offset="0xD2A8" />
         <Texture Name="gGekkoEyebrowTex" OutName="gekko_eyebrow" Format="rgba16" Width="8" Height="8" Offset="0xD3A8" />
         <Texture Name="gGekkoFinTex" OutName="gekko_fin" Format="rgba16" Width="32" Height="16" Offset="0xD428" />
-        <Texture Name="gGekkoSpots3Tex" OutName="gekko_spots_3" Format="ci8" Width="32" Height="32" Offset="0xD828" />
-        <Texture Name="gGekkoSwirlTex" OutName="gekko_swirl" Format="ci8" Width="16" Height="32" Offset="0xDC28" />
+        <Texture Name="gGekkoSpots3Tex" OutName="gekko_spots_3" Format="ci8" Width="32" Height="32" Offset="0xD828" TlutOffset="0xC228"/>
+        <Texture Name="gGekkoSwirlTex" OutName="gekko_swirl" Format="ci8" Width="16" Height="32" Offset="0xDC28" TlutOffset="0xC428"/>
         
         <Limb Name="gGekkoRootLimb" Type="Standard" EnumName="GEKKO_LIMB_ROOT" Offset="0xDE28" />
         <Limb Name="gGekkoWaistLimb" Type="Standard" EnumName="GEKKO_LIMB_WAIST" Offset="0xDE34" />

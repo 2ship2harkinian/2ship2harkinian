@@ -1,6 +1,6 @@
 set(CVAR_PREFIX_RANDOMIZER_ENHANCEMENT "gRandoEnhancements")
 set(CVAR_PREFIX_RANDOMIZER_SETTING "gRandoSettings")
-set(CVAR_PREFIX_COSMETIC "gCosmetics")
+set(CVAR_PREFIX_COSMETIC "gCosmetic")
 set(CVAR_PREFIX_AUDIO "gAudioEditor")
 set(CVAR_PREFIX_CHEAT "gCheats")
 set(CVAR_PREFIX_ENHANCEMENT "gEnhancements")

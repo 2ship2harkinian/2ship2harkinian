@@ -7,8 +7,8 @@
         <Texture Name="object_ikninside_obj_Tex_003120" OutName="tex_003120" Format="rgba16" Width="32" Height="64" Offset="0x3120" />
         <DList Name="object_ikninside_obj_DL_004440" Offset="0x4440" /> <!-- Original name is "w2_ikn_marutobira_model" -->
         <Texture Name="object_ikninside_obj_TLUT_004620" OutName="tlut_004620" Format="rgba16" Width="16" Height="16" Offset="0x4620" />
-        <Texture Name="object_ikninside_obj_Tex_004820" OutName="tex_004820" Format="ci8" Width="32" Height="64" Offset="0x4820" />
-        <Texture Name="object_ikninside_obj_Tex_005020" OutName="tex_005020" Format="ci8" Width="16" Height="32" Offset="0x5020" />
+        <Texture Name="object_ikninside_obj_Tex_004820" OutName="tex_004820" Format="ci8" Width="32" Height="64" Offset="0x4820" TlutOffset="0x4620"/>
+        <Texture Name="object_ikninside_obj_Tex_005020" OutName="tex_005020" Format="ci8" Width="16" Height="32" Offset="0x5020" TlutOffset="0x4620"/>
         <DList Name="object_ikninside_obj_DL_005260" Offset="0x5260" /> <!-- Original name is "w2_ikn_zenetu_model" -->
         <Texture Name="object_ikninside_obj_Tex_0052F0" OutName="tex_0052F0" Format="ia16" Width="16" Height="64" Offset="0x52F0" />
         <!-- <Blob Name="object_ikninside_obj_Blob_005AF0" Size="0x220" Offset="0x5AF0" /> -->

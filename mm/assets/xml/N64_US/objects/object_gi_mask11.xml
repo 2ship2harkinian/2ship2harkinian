@@ -11,11 +11,11 @@
 
         <!-- Circus Leader Mask Textures -->
         <Texture Name="gGiCircusLeaderMaskEyebrowTex" OutName="gi_circus_leader_mask_eyebrow" Format="rgba32" Width="16" Height="16" Offset="0x13D0" />
-        <Texture Name="gGiCircusLeaderMaskHairTex" OutName="gi_circus_leader_mask_hair" Format="ci8" Width="8" Height="8" Offset="0x17D0" />
-        <Texture Name="gGiCircusLeaderMaskEarTex" OutName="gi_circus_leader_mask_ear" Format="ci8" Width="8" Height="8" Offset="0x1810" />
-        <Texture Name="gGiCircusLeaderMaskEyeTex" OutName="gi_circus_leader_mask_eye" Format="ci8" Width="32" Height="32" Offset="0x1850" />
-        <Texture Name="gGiCircusLeaderMaskHairlineTex" OutName="gi_circus_leader_mask_hairline" Format="ci8" Width="16" Height="16" Offset="0x1C50" />
-        <Texture Name="gGiCircusLeaderMaskSideBurnTex" OutName="gi_circus_leader_mask_sideburn" Format="ci8" Width="16" Height="16" Offset="0x1D50" />
-        <Texture Name="gGiCircusLeaderMaskSkinTex" OutName="gi_circus_leader_mask_skin" Format="ci8" Width="8" Height="8" Offset="0x1E50" />
+        <Texture Name="gGiCircusLeaderMaskHairTex" OutName="gi_circus_leader_mask_hair" Format="ci8" Width="8" Height="8" Offset="0x17D0" TlutOffset="0x11D0"/>
+        <Texture Name="gGiCircusLeaderMaskEarTex" OutName="gi_circus_leader_mask_ear" Format="ci8" Width="8" Height="8" Offset="0x1810" TlutOffset="0x11D0"/>
+        <Texture Name="gGiCircusLeaderMaskEyeTex" OutName="gi_circus_leader_mask_eye" Format="ci8" Width="32" Height="32" Offset="0x1850" TlutOffset="0x11D0"/>
+        <Texture Name="gGiCircusLeaderMaskHairlineTex" OutName="gi_circus_leader_mask_hairline" Format="ci8" Width="16" Height="16" Offset="0x1C50" TlutOffset="0x11D0"/>
+        <Texture Name="gGiCircusLeaderMaskSideBurnTex" OutName="gi_circus_leader_mask_sideburn" Format="ci8" Width="16" Height="16" Offset="0x1D50" TlutOffset="0x11D0"/>
+        <Texture Name="gGiCircusLeaderMaskSkinTex" OutName="gi_circus_leader_mask_skin" Format="ci8" Width="8" Height="8" Offset="0x1E50" TlutOffset="0x11D0"/>
     </File>
 </Root>

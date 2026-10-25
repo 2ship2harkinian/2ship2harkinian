@@ -14,23 +14,23 @@ void Rando::ActorBehavior::InitDoorWarp1VBehavior() {
      * whether to go to the Giants' Chamber). In rando, use rando checks instead
      */
     COND_VB_SHOULD(VB_SPAWN_BOSS_REMAINS, IS_RANDO, {
-        s32* ret = va_arg(args, s32*);
+        s32* remains = va_arg(args, s32*);
         if ((gPlayState->sceneId == SCENE_MITURIN_BS) &&
             !RANDO_SAVE_CHECKS[RC_WOODFALL_TEMPLE_BOSS_WARP].cycleObtained) {
             // Odolwa's Lair
-            *ret = 1;
+            *remains = 1;
         } else if ((gPlayState->sceneId == SCENE_HAKUGIN_BS) &&
                    !RANDO_SAVE_CHECKS[RC_SNOWHEAD_TEMPLE_BOSS_WARP].cycleObtained) {
             // Goht's Lair
-            *ret = 2;
+            *remains = 2;
         } else if ((gPlayState->sceneId == SCENE_SEA_BS) &&
                    !RANDO_SAVE_CHECKS[RC_GREAT_BAY_TEMPLE_BOSS_WARP].cycleObtained) {
             // Gyorg's Lair
-            *ret = 3;
+            *remains = 3;
         } else if ((gPlayState->sceneId == SCENE_INISIE_BS) &&
                    !RANDO_SAVE_CHECKS[RC_STONE_TOWER_TEMPLE_INVERTED_BOSS_WARP].cycleObtained) {
             // Twinmold's Lair
-            *ret = 4;
+            *remains = 4;
         }
         *should = false;
     });

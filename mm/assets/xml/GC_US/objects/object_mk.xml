@@ -19,16 +19,16 @@
         <DList Name="gMarineResearcherLeftHandDL" Offset="0x5B10" />
         <DList Name="gMarineResearcherLowerTorsoDL" Offset="0x5C60" />
         <Texture Name="gMarineResearcherTLUT" OutName="marine_researcher_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5DE0" />
-        <Texture Name="gMarineResearcherChestSkinTex" OutName="marine_researcher_chest_skin" Format="ci8" Width="8" Height="8" Offset="0x5FE0" />
-        <Texture Name="gMarineResearcherMouthTex" OutName="marine_researcher_mouth" Format="ci8" Width="16" Height="16" Offset="0x6020" />
-        <Texture Name="gMarineResearcherLipsTex" OutName="marine_researcher_lips" Format="ci8" Width="8" Height="8" Offset="0x6120" />
-        <Texture Name="gMarineResearcherJacketTex" OutName="marine_researcher_jacket" Format="ci8" Width="8" Height="8" Offset="0x6160" />
-        <Texture Name="gMarineResearcherHairTex" OutName="marine_researcher_hair" Format="ci8" Width="8" Height="16" Offset="0x61A0" />
+        <Texture Name="gMarineResearcherChestSkinTex" OutName="marine_researcher_chest_skin" Format="ci8" Width="8" Height="8" Offset="0x5FE0" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherMouthTex" OutName="marine_researcher_mouth" Format="ci8" Width="16" Height="16" Offset="0x6020" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherLipsTex" OutName="marine_researcher_lips" Format="ci8" Width="8" Height="8" Offset="0x6120" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherJacketTex" OutName="marine_researcher_jacket" Format="ci8" Width="8" Height="8" Offset="0x6160" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherHairTex" OutName="marine_researcher_hair" Format="ci8" Width="8" Height="16" Offset="0x61A0" TlutOffset="0x5DE0"/>
         <Texture Name="gMarineResearcherEyeTex" OutName="marine_researcher_eye" Format="rgba16" Width="32" Height="32" Offset="0x6220" />
-        <Texture Name="gMarineResearcherNostrilTex" OutName="marine_researcher_nostril" Format="ci8" Width="8" Height="8" Offset="0x6A20" />
-        <Texture Name="gMarineResearcherEarTex" OutName="marine_researcher_ear" Format="ci8" Width="8" Height="8" Offset="0x6A60" />
-        <Texture Name="gMarineResearcherShirtTex" OutName="marine_researcher_shirt" Format="ci8" Width="8" Height="8" Offset="0x6AA0" />
-        <Texture Name="gMarineResearcherFingersTex" OutName="marine_researcher_fingers" Format="ci8" Width="16" Height="16" Offset="0x6AE0" />
+        <Texture Name="gMarineResearcherNostrilTex" OutName="marine_researcher_nostril" Format="ci8" Width="8" Height="8" Offset="0x6A20" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherEarTex" OutName="marine_researcher_ear" Format="ci8" Width="8" Height="8" Offset="0x6A60" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherShirtTex" OutName="marine_researcher_shirt" Format="ci8" Width="8" Height="8" Offset="0x6AA0" TlutOffset="0x5DE0"/>
+        <Texture Name="gMarineResearcherFingersTex" OutName="marine_researcher_fingers" Format="ci8" Width="16" Height="16" Offset="0x6AE0" TlutOffset="0x5DE0"/>
         <Limb Name="gMarineResearcherLowerTorsoLimb" Type="Standard" EnumName="MARINE_RESEARCHER_LIMB_LOWER_TORSO" Offset="0x6BE0" />
         <Limb Name="gMarineResearcherMidTorsoLimb" Type="Standard" EnumName="MARINE_RESEARCHER_LIMB_MID_TORSO" Offset="0x6BEC" />
         <Limb Name="gMarineResearcherLeftShoulderLimb" Type="Standard" EnumName="MARINE_RESEARCHER_LIMB_LEFT_SHOULDER" Offset="0x6BF8" />

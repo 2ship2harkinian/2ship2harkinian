@@ -123,6 +123,7 @@ inline void to_json(json& j, const ShipSaveInfo& shipSaveInfo) {
     j = json{
         { "dpadEquips", shipSaveInfo.dpadEquips },
         { "pauseSaveEntrance", shipSaveInfo.pauseSaveEntrance },
+        { "persistentBunnyHood", shipSaveInfo.persistentBunnyHood },
         { "saveType", shipSaveInfo.saveType },
         { "fileCreatedAt", shipSaveInfo.fileCreatedAt },
         { "fileCompletedAt", shipSaveInfo.fileCompletedAt },
@@ -139,6 +140,7 @@ inline void to_json(json& j, const ShipSaveInfo& shipSaveInfo) {
 inline void from_json(const json& j, ShipSaveInfo& shipSaveInfo) {
     j.at("dpadEquips").get_to(shipSaveInfo.dpadEquips);
     j.at("pauseSaveEntrance").get_to(shipSaveInfo.pauseSaveEntrance);
+    j.at("persistentBunnyHood").get_to(shipSaveInfo.persistentBunnyHood);
     j.at("saveType").get_to(shipSaveInfo.saveType);
     j.at("fileCreatedAt").get_to(shipSaveInfo.fileCreatedAt);
     j.at("fileCompletedAt").get_to(shipSaveInfo.fileCompletedAt);

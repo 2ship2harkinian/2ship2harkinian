@@ -1050,8 +1050,8 @@ void EnPp_Dead(EnPp* this, PlayState* play) {
 
     isUnderWater = false;
     if ((this->action == EN_PP_ACTION_DEAD) &&
-        (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterSurface,
-                              &waterBox))) {
+        (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                          &waterSurface, &waterBox))) {
         if (this->actor.world.pos.y < waterSurface) {
             for (i = 0; i < 5; i++) {
                 Math_Vec3f_Copy(&splashPos, &this->actor.world.pos);
@@ -1218,8 +1218,8 @@ void EnPp_Fragment_Move(EnPp* this, PlayState* play) {
         this->actor.shape.rot.z += this->fragmentAngularVelocity.z;
     }
 
-    if (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterSurface,
-                             &waterBox) &&
+    if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                         &waterSurface, &waterBox) &&
         (this->actor.world.pos.y < (waterSurface + 5.0f))) {
         this->timer = 0;
         if (EN_PP_GET_TYPE(&this->actor) == EN_PP_TYPE_FRAGMENT_BODY) {
@@ -1418,8 +1418,8 @@ void EnPp_Update(Actor* thisx, PlayState* play) {
     }
 
     if ((this->action < EN_PP_ACTION_DEAD) &&
-        (WaterBox_GetSurface1(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &waterSurface,
-                              &waterBox)) &&
+        (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                          &waterSurface, &waterBox)) &&
         (this->actor.world.pos.y < waterSurface)) {
         EnPp_SetupDead(this, play);
         return;
