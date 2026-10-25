@@ -64,8 +64,8 @@ If you're having an issue with crashing, you can also change the API manually in
 Custom assets are packed in `.o2r` or `.otr` files. To use custom assets, place them in the `mods` folder.
 
 If you're interested in creating and/or packing your own custom asset `.o2r`/`.otr` files, check out the following tools:
-* [**retro - OTR and O2R generator**](https://github.com/HarbourMasters64/retro)
-* [**fast64 - Blender plugin (Note that MM is not fully supported at this time)**](https://github.com/HarbourMasters/fast64)
+* [**retro - OTR and O2R generator**](https://github.com/HarbourMasters/retro/releases/latest)
+* [**fast64 - Blender plugin**](https://github.com/HarbourMasters/fast64)
 
 # Development
 

@@ -436,7 +436,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_NOTEBOOK_MET_GORMAN, HAS_NOTEBOOK && (FIRST_DAY() || SECOND_DAY())),
             CHECK(RC_CLOCK_TOWN_NOTEBOOK_MET_MADAME_AROMA, HAS_NOTEBOOK && IS_NIGHT3()),
             CHECK(RC_CLOCK_TOWN_NOTEBOOK_MET_TOTO, HAS_NOTEBOOK && HAS_ITEM(ITEM_MASK_ROMANI) && (BETWEEN(TIME_NIGHT1_PM_10_00, TIME_NIGHT1_AM_05_00) || BETWEEN(TIME_NIGHT2_PM_10_00, TIME_NIGHT2_AM_05_00))),
-            CHECK(RC_MILK_BAR_CIRCUS_LEADER_MASK, HAS_ITEM(ITEM_OCARINA_OF_TIME) && HAS_ITEM(ITEM_MASK_ROMANI) &&
+            CHECK(RC_MILK_BAR_CIRCUS_LEADER_MASK, HAS_ITEM(ITEM_MASK_ROMANI) &&
                                                                                     (BETWEEN(TIME_NIGHT1_PM_10_00, TIME_NIGHT1_AM_05_00) ||
                                                                                     BETWEEN(TIME_NIGHT2_PM_10_00, TIME_NIGHT2_AM_05_00))
                                                                                  && (canPlaySong(OCARINA_SONG_WIND_FISH_HUMAN) &&
