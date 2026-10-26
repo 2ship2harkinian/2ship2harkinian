@@ -7,6 +7,7 @@
 #include "z_en_elf.h"
 #include "2s2h/BenGui/CosmeticEditor.h"
 #include <libultraship/bridge/consolevariablebridge.h>
+#include "2s2h/GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED | ACTOR_FLAG_DRAW_CULLING_DISABLED | ACTOR_FLAG_UPDATE_DURING_OCARINA)
 
@@ -678,20 +679,24 @@ void func_8088DD34(EnElf* this, PlayState* play) {
 
     if ((this->fairyFlags & 0x1000) && (heightDiff > 0.0f) && (heightDiff < 60.0f) &&
         !func_8088C804(&this->actor.world.pos, &playerActor->world.pos, 10.0f)) {
-        Health_ChangeBy(play, 0x80);
-        if (this->fairyFlags & 0x200) {
-            Magic_Add(play, MAGIC_FILL_TO_CAPACITY);
-        }
-        gSaveContext.jinxTimer = 0;
-        this->unk_254 = 50.0f;
-        this->unk_248 = playerActor->shape.rot.y;
-        this->unk_24C = -0x1000;
-        this->unk_224.y = 30.0f;
-        this->unk_250 = 0.0f;
-        this->unk_246 = 0;
-        EnElf_SetupAction(this, func_8088E0F0);
-        if (this->fairyFlags & 0x400) {
-            Flags_SetCollectible(play, this->collectibleFlag);
+        if (GameInteractor_Should(VB_GIVE_ITEM_FROM_ELF, true, this)) {
+            Health_ChangeBy(play, 0x80);
+            if (this->fairyFlags & 0x200) {
+                Magic_Add(play, MAGIC_FILL_TO_CAPACITY);
+            }
+            gSaveContext.jinxTimer = 0;
+            this->unk_254 = 50.0f;
+            this->unk_248 = playerActor->shape.rot.y;
+            this->unk_24C = -0x1000;
+            this->unk_224.y = 30.0f;
+            this->unk_250 = 0.0f;
+            this->unk_246 = 0;
+            EnElf_SetupAction(this, func_8088E0F0);
+            if (this->fairyFlags & 0x400) {
+                Flags_SetCollectible(play, this->collectibleFlag);
+            }
+        } else {
+            Actor_Kill(&this->actor);
         }
         return;
     }

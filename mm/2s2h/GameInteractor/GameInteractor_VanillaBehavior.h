@@ -900,6 +900,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - `*EnElf`
+    VB_GIVE_ITEM_FROM_ELF,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*EnElforg`
     VB_GIVE_ITEM_FROM_ELFORG,
 
