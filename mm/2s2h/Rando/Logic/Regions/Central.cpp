@@ -258,7 +258,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(SOUTH_CLOCK_TOWN, 5),             ENTRANCE(WEST_CLOCK_TOWN, 1), true), // To lower
             EXIT(ENTRANCE(SOUTH_CLOCK_TOWN, 3),             ENTRANCE(WEST_CLOCK_TOWN, 2), true), // To upper
             EXIT(ENTRANCE(SWORDMANS_SCHOOL, 0),             ENTRANCE(WEST_CLOCK_TOWN, 3), FIRST_DAY() || SECOND_DAY() || BETWEEN(TIME_DAY3_AM_06_00, TIME_NIGHT3_PM_11_00) || AFTER(TIME_NIGHT3_AM_12_00)),
-            EXIT(ENTRANCE(CURIOSITY_SHOP, 0),               ENTRANCE(WEST_CLOCK_TOWN, 4), BETWEEN(TIME_NIGHT1_PM_10_00, TIME_DAY2_AM_06_00) || BETWEEN(TIME_NIGHT2_PM_10_00, TIME_DAY3_AM_06_00) || AFTER(TIME_NIGHT3_PM_10_00)),
+            EXIT(ENTRANCE(CURIOSITY_SHOP, 0),               ENTRANCE(WEST_CLOCK_TOWN, 4), BETWEEN(TIME_NIGHT1_PM_10_00, TIME_NIGHT1_AM_05_00) || BETWEEN(TIME_NIGHT2_PM_10_00, TIME_NIGHT2_AM_05_00) || BETWEEN(TIME_NIGHT3_PM_10_00, TIME_NIGHT3_AM_05_00)),
             EXIT(ENTRANCE(TRADING_POST, 0),                 ENTRANCE(WEST_CLOCK_TOWN, 5), true),
             EXIT(ENTRANCE(BOMB_SHOP, 0),                    ENTRANCE(WEST_CLOCK_TOWN, 6), true),
             EXIT(ENTRANCE(POST_OFFICE, 0),                  ENTRANCE(WEST_CLOCK_TOWN, 7), BETWEEN(TIME_DAY1_PM_03_00, TIME_NIGHT1_AM_12_00) || (RANDO_EVENTS[RE_MAIL_LETTER_TO_KAFEI] && BETWEEN(TIME_NIGHT2_PM_06_00, TIME_NIGHT2_AM_12_00)) || IS_NIGHT3()),
@@ -292,6 +292,11 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(WEST_CLOCK_TOWN, 4),              ENTRANCE(CURIOSITY_SHOP, 0), true),
         },
+        .timeStayRestrictions = {
+            STAY(TIME_NIGHT1_AM_5_00, false),
+            STAY(TIME_NIGHT2_AM_5_00, false),
+            STAY(TIME_NIGHT3_AM_5_00, false),
+        }
     };
     Regions[RR_HONEY_AND_DARLING] = RandoRegion{ .sceneId = SCENE_BOWLING,
         .checks = {
