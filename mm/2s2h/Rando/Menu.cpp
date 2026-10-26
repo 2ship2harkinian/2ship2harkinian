@@ -767,6 +767,8 @@ static void DrawCheckPoolTab() {
     CheckPoolCheckbox("Tingle Maps", RO_SHUFFLE_TINGLE_SHOPS, RCTYPE_TINGLE_SHOP,
                       "Maps sold by Tingle are checks, with randomized prices.");
     CheckPoolCheckbox("Cows", RO_SHUFFLE_COWS, RCTYPE_COW, "Playing Epona's Song to a cow is a check.");
+    CheckPoolCheckbox("Notebook Entries", RO_SHUFFLE_NOTEBOOK_ENTRIES, RCTYPE_NOTEBOOK_ENTRY,
+                      "Bombers' Notebook entries from NPC events are checks.");
     UIWidgets::EndCard();
 
     UIWidgets::BeginCard("checkPoolCreatures");
@@ -781,8 +783,6 @@ static void DrawCheckPoolTab() {
                       "Items sitting out in the world (hearts, rupees, arrows, etc.) are checks.");
     CheckPoolCheckbox("Wonder Items", RO_SHUFFLE_WONDER_ITEMS, RCTYPE_WONDER_ITEM,
                       "Invisible touch/shoot triggers scattered around the world are checks.");
-    CheckPoolCheckbox("Notebook Entries", RO_SHUFFLE_NOTEBOOK_ENTRIES, RCTYPE_NOTEBOOK_ENTRY,
-                      "Bombers' Notebook entries from NPC events are checks.");
     int32_t skulltulasShuffled =
         CVarGetInteger(Rando::StaticData::Options[RO_SKULLTULA_SHUFFLED].cvar, SPIDER_HOUSE_TOKENS_REQUIRED);
     CheckPoolCheckbox("Gold Skulltulas", RO_SHUFFLE_GOLD_SKULLTULAS, RCTYPE_SKULL_TOKEN,
