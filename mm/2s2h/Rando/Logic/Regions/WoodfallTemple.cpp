@@ -90,7 +90,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(WOODFALL, 3),                     ENTRANCE(WOODFALL_TEMPLE, 2), true),
         },
         .events = {
-            EVENT(RE_ACCESS_DEKU_PRINCESS, true),
+            EVENT(RE_ACCESS_DEKU_PRINCESS,  CAN_USE_SWORD),
         },
         .oneWayEntrances = {
             ENTRANCE(WOODFALL_TEMPLE, 1), // From boss room
