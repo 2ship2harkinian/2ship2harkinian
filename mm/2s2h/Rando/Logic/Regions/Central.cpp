@@ -293,9 +293,9 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(WEST_CLOCK_TOWN, 4),              ENTRANCE(CURIOSITY_SHOP, 0), true),
         },
         .timeStayRestrictions = {
-            STAY(TIME_NIGHT1_AM_5_00, false),
-            STAY(TIME_NIGHT2_AM_5_00, false),
-            STAY(TIME_NIGHT3_AM_5_00, false),
+            STAY(TIME_NIGHT1_AM_05_00, false),
+            STAY(TIME_NIGHT2_AM_05_00, false),
+            STAY(TIME_NIGHT3_AM_05_00, false),
         }
     };
     Regions[RR_HONEY_AND_DARLING] = RandoRegion{ .sceneId = SCENE_BOWLING,
