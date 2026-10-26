@@ -267,7 +267,7 @@ void Rando::GiveItem(RandoItemId randoItemId) {
         case RI_NOTEBOOK_BREMEN_MASK: {
             s32 flag = gBombersNotebookWeekEventFlags[randoItemId - RI_NOTEBOOK_BOMBERS];
             // Avoid giving the check associated with the actual notebook event flag
-            WEEKEVENTREG((flag) >> 8) = GET_WEEKEVENTREG((flag) >> 8) | ((flag) & 0xFF);
+            WEEKEVENTREG((flag) >> 8) = GET_WEEKEVENTREG((flag) >> 8) | ((flag)&0xFF);
             Item_Give(gPlayState, Rando::StaticData::Items[randoItemId].itemId);
             break;
         }
