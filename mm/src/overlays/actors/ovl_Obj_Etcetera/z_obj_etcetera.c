@@ -5,7 +5,6 @@
  */
 
 #include "z_obj_etcetera.h"
-#include "2s2h/GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED)
 
@@ -126,9 +125,7 @@ void ObjEtcetera_DoNormalOscillation(ObjEtcetera* this, PlayState* play) {
 void ObjEtcetera_StartRustleAnimation(ObjEtcetera* this) {
     Animation_Change(&this->skelAnime, &gDekuFlowerRustleAnim, 1.0f, 0.0f,
                      Animation_GetLastFrame(&gDekuFlowerRustleAnim), ANIMMODE_ONCE, 0.0f);
-    if (GameInteractor_Should(VB_DRAW_ETCETERA_ANIMATED, true, &this->dyna.actor)) {
-        this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
-    }
+    this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
     this->actionFunc = ObjEtcetera_PlayRustleAnimation;
 }
 
@@ -140,9 +137,7 @@ void ObjEtcetera_Idle(ObjEtcetera* this, PlayState* play) {
         // Player is launching out of the Deku Flower
         Animation_Change(&this->skelAnime, &gDekuFlowerBounceAnim, 1.0f, 0.0f,
                          Animation_GetLastFrame(&gDekuFlowerBounceAnim), ANIMMODE_ONCE, 0.0f);
-        if (GameInteractor_Should(VB_DRAW_ETCETERA_ANIMATED, true, &this->dyna.actor)) {
-            this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
-        }
+        this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
         this->actionFunc = ObjEtcetera_DoBounceOscillation;
         Actor_SetScale(&this->dyna.actor, 0.01f);
         this->dyna.actor.scale.y = 0.02f;
@@ -197,9 +192,7 @@ void ObjEtcetera_PlayRustleAnimation(ObjEtcetera* this, PlayState* play) {
     }
 
     if (SkelAnime_Update(&this->skelAnime)) {
-        if (GameInteractor_Should(VB_DRAW_ETCETERA_IDLE, true, &this->dyna.actor)) {
-            this->dyna.actor.draw = ObjEtcetera_DrawIdle;
-        }
+        this->dyna.actor.draw = ObjEtcetera_DrawIdle;
         this->actionFunc = ObjEtcetera_Idle;
     }
 
@@ -229,9 +222,7 @@ void ObjEtcetera_DoBounceOscillation(ObjEtcetera* this, PlayState* play) {
     if (this->oscillationTimer > 0) {
         this->oscillationTimer--;
     } else {
-        if (GameInteractor_Should(VB_DRAW_ETCETERA_IDLE, true, &this->dyna.actor)) {
-            this->dyna.actor.draw = ObjEtcetera_DrawIdle;
-        }
+        this->dyna.actor.draw = ObjEtcetera_DrawIdle;
         this->actionFunc = ObjEtcetera_Idle;
         Actor_SetScale(&this->dyna.actor, 0.01f);
         this->dyna.actor.scale.y = 0.02f;
@@ -300,9 +291,7 @@ void ObjEtcetera_Setup(ObjEtcetera* this, PlayState* play) {
         switch (type) {
             case DEKU_FLOWER_TYPE_PINK:
             case DEKU_FLOWER_TYPE_GOLD:
-                if (GameInteractor_Should(VB_DRAW_ETCETERA_IDLE, true, &this->dyna.actor)) {
-                    this->dyna.actor.draw = ObjEtcetera_DrawIdle;
-                }
+                this->dyna.actor.draw = ObjEtcetera_DrawIdle;
                 this->actionFunc = ObjEtcetera_Idle;
                 Actor_SetScale(&this->dyna.actor, 0.01f);
                 this->dyna.actor.scale.y = 0.02f;
@@ -314,9 +303,7 @@ void ObjEtcetera_Setup(ObjEtcetera* this, PlayState* play) {
             case DEKU_FLOWER_TYPE_GOLD_WITH_INITIAL_BOUNCE:
                 Animation_Change(&this->skelAnime, &gDekuFlowerBounceAnim, 1.0f, 0.0f,
                                  Animation_GetLastFrame(&gDekuFlowerBounceAnim), ANIMMODE_ONCE, 0.0f);
-                if (GameInteractor_Should(VB_DRAW_ETCETERA_ANIMATED, true, &this->dyna.actor)) {
-                    this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
-                }
+                this->dyna.actor.draw = ObjEtcetera_DrawAnimated;
                 this->actionFunc = ObjEtcetera_DoBounceOscillation;
                 Actor_SetScale(&this->dyna.actor, 0.0f);
                 this->oscillationTimer = 30;

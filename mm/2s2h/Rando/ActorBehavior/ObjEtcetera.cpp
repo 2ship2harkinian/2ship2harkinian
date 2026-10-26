@@ -253,13 +253,14 @@ RandoCheckId IdentifyEtceteraBasedOnParent(Actor* actor) {
     if (parent->id == ACTOR_OBJ_ROTLIFT) {
         ObjRotlift* lift = (ObjRotlift*)parent;
         if (GetActorListIndex(parent) == 5) {
-            if (lift->dekuFlowers[0] == flower) {
+            if (lift->dekuFlowers[0] ==
+                NULL) { // The first flower in the array is only null for the first flower spawned
                 randoCheckId = RC_MOON_TRIAL_DEKU_ROTATING_PLATFORM_SET_1_DEKU_FLOWER_1;
             } else {
                 randoCheckId = RC_MOON_TRIAL_DEKU_ROTATING_PLATFORM_SET_1_DEKU_FLOWER_2;
             }
         } else if (GetActorListIndex(parent) == 6) {
-            if (lift->dekuFlowers[0] == flower) {
+            if (lift->dekuFlowers[0] == NULL) {
                 randoCheckId = RC_MOON_TRIAL_DEKU_ROTATING_PLATFORM_SET_2_GOLD_DEKU_FLOWER;
             } else {
                 randoCheckId = RC_MOON_TRIAL_DEKU_ROTATING_PLATFORM_SET_2_PINK_DEKU_FLOWER;
@@ -267,39 +268,6 @@ RandoCheckId IdentifyEtceteraBasedOnParent(Actor* actor) {
         }
     }
     return randoCheckId;
-}
-
-void Draw_ObjEtcetera_Idle_Rando(Actor* actor, PlayState* play) {
-    ObjEtcetera* etcetera = (ObjEtcetera*)actor;
-
-    OPEN_DISPS(play->state.gfxCtx);
-
-    MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
-    Gfx_SetupDL25_Opa(play->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, etcetera->dList);
-
-    CLOSE_DISPS(play->state.gfxCtx);
-    Rando::ActorBehavior::SpawnDekuFlowerSparkle(actor);
-}
-
-void Draw_ObjEtcetera_Animated_Rando(Actor* actor, PlayState* play) {
-    ObjEtcetera* etcetera = (ObjEtcetera*)actor;
-
-    Gfx_SetupDL37_Opa(play->state.gfxCtx);
-    SkelAnime_DrawOpa(play, etcetera->skelAnime.skeleton, etcetera->skelAnime.jointTable, NULL, NULL,
-                      &etcetera->dyna.actor);
-    Rando::ActorBehavior::SpawnDekuFlowerSparkle(actor);
-}
-
-// Exact copy of the vanilla function to break out of the rando idle -> animated -> idle loop after the check has been
-// collected. Animated because the only way to collect the check is to launch out of the flower, which always sets the
-// function to animated
-void ObjEtcetera_DrawAnimated(Actor* actor, PlayState* play) {
-    ObjEtcetera* etcetera = (ObjEtcetera*)actor;
-
-    Gfx_SetupDL37_Opa(play->state.gfxCtx);
-    SkelAnime_DrawOpa(play, etcetera->skelAnime.skeleton, etcetera->skelAnime.jointTable, NULL, NULL,
-                      &etcetera->dyna.actor);
 }
 
 void Rando::ActorBehavior::SpawnDekuFlowerSparkle(Actor* actor) {
@@ -322,29 +290,6 @@ void Rando::ActorBehavior::SpawnDekuFlowerSparkle(Actor* actor) {
 
 void Rando::ActorBehavior::InitObjEtceteraBehavior() {
 
-    // Hijack the normal idle -> animated -> idle cycle of actor draw to rando specific ones
-    COND_VB_SHOULD(VB_DRAW_ETCETERA_IDLE, SHUFFLED_DEKU_FLOWERS, {
-        ObjEtcetera* etcetera = va_arg(args, ObjEtcetera*);
-        if (etcetera->dyna.actor.draw == nullptr) {
-            *should = true;
-        } else if ((etcetera->dyna.actor.draw == Draw_ObjEtcetera_Idle_Rando) ||
-                   (etcetera->dyna.actor.draw == Draw_ObjEtcetera_Animated_Rando)) {
-            etcetera->dyna.actor.draw = Draw_ObjEtcetera_Idle_Rando;
-            *should = false;
-        }
-    });
-
-    COND_VB_SHOULD(VB_DRAW_ETCETERA_ANIMATED, SHUFFLED_DEKU_FLOWERS, {
-        ObjEtcetera* etcetera = va_arg(args, ObjEtcetera*);
-        if (etcetera->dyna.actor.draw == nullptr) {
-            *should = true;
-        } else if ((etcetera->dyna.actor.draw == Draw_ObjEtcetera_Idle_Rando) ||
-                   (etcetera->dyna.actor.draw == Draw_ObjEtcetera_Animated_Rando)) {
-            etcetera->dyna.actor.draw = Draw_ObjEtcetera_Animated_Rando;
-            *should = false;
-        }
-    });
-
     COND_ID_HOOK(OnActorUpdate, ACTOR_OBJ_ETCETERA, SHUFFLED_DEKU_FLOWERS, [](Actor* actor) {
         RandoCheckId randoCheckId = RC_UNKNOWN;
         ObjEtcetera* flower = (ObjEtcetera*)actor;
@@ -352,20 +297,27 @@ void Rando::ActorBehavior::InitObjEtceteraBehavior() {
         // Without the oscillation timer check, the rest of the function fires 10 times per launch
         if ((player->stateFlags3 & PLAYER_STATE3_200) && (flower->dyna.actor.xzDistToPlayer < 20.0f) &&
             (flower->oscillationTimer >= 28)) {
-            // All flowers spawned after scene init have their params set to 128 - Pink flower with bounce
-            if (actor->params == DEKU_FLOWER_PARAMS(DEKU_FLOWER_TYPE_PINK_WITH_INITIAL_BOUNCE)) {
-                randoCheckId = IdentifyEtceteraBasedOnPos(actor);
-            } else if (actor->parent != nullptr) {
-                randoCheckId = IdentifyEtceteraBasedOnParent(actor);
-            } else {
-                randoCheckId = IdentifyEtceteraBasedOnId(actor);
+            randoCheckId = GetObjectRandoCheckId(actor);
+            if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained ||
+                randoCheckId == RC_UNKNOWN) {
+                return;
             }
-            if (((randoCheckId != RC_UNKNOWN)) && (!RANDO_SAVE_CHECKS[randoCheckId].cycleObtained)) {
-                RANDO_SAVE_CHECKS[randoCheckId].eligible = true;
-                actor->draw = ObjEtcetera_DrawAnimated;
-            }
+            RANDO_SAVE_CHECKS[randoCheckId].eligible = true;
         }
     });
+
+    COND_ID_HOOK(OnActorDraw, ACTOR_OBJ_ETCETERA, SHUFFLED_DEKU_FLOWERS,
+                 [](Actor* actor) {
+                     RandoCheckId randoCheckId = RC_UNKNOWN;
+                     randoCheckId = GetObjectRandoCheckId(actor);
+                     if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained ||
+                         randoCheckId == RC_UNKNOWN) {
+                         return;
+                     }
+                     Rando::ActorBehavior::SpawnDekuFlowerSparkle(actor);
+                 }
+
+    );
 
     COND_ID_HOOK(OnActorInit, ACTOR_OBJ_ETCETERA, SHUFFLED_DEKU_FLOWERS, [](Actor* actor) {
         RandoCheckId randoCheckId = RC_UNKNOWN;
@@ -376,10 +328,10 @@ void Rando::ActorBehavior::InitObjEtceteraBehavior() {
         } else {
             randoCheckId = IdentifyEtceteraBasedOnId(actor);
         }
-        if (!RANDO_SAVE_CHECKS[randoCheckId].cycleObtained && (randoCheckId != RC_UNKNOWN)) {
-            // Init as idle, actor setup will take care of changing this function to animated if its a pink bouncing
-            // flower
-            actor->draw = Draw_ObjEtcetera_Idle_Rando;
-        };
+        if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained ||
+            randoCheckId == RC_UNKNOWN) {
+            return;
+        }
+        Rando::ActorBehavior::SetObjectRandoCheckId(actor, randoCheckId);
     });
 }
