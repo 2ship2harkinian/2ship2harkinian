@@ -1,5 +1,4 @@
 #include "ActorBehavior.h"
-// #include <libultraship/bridge/consolevariablebridge.h>
 
 // clang-format off
 std::map<u16, RandoCheckId> notebookEntryMap = {

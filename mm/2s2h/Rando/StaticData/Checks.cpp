@@ -2684,7 +2684,7 @@ std::map<RandoCheckId, RandoStaticCheck> Checks = {
     RC(RC_WOODFALL_TEMPLE_ENTRANCE_BEEHIVE,                              RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_CYCL_SCENE_COLLECTIBLE, 0x20,                                                                RI_RUPEE_BLUE),
     RC(RC_WOODFALL_TEMPLE_MAZE_ROOM_BEEHIVE,                             RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_NONE,                   0x0,                                                                 RI_NONE),
 
-    // Notebook Entries //
+    // Notebook Entries
     RC(RC_NOTEBOOK_EVENT_DEFENDED_AGAINST_ALIENS,                        RCTYPE_NOTEBOOK_ENTRY,   SCENE_MAX,                      FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_DEFENDED_AGAINST_ALIENS,         RI_NOTEBOOK_D_ALIENS),
     RC(RC_NOTEBOOK_EVENT_DELIVERED_PENDANT_OF_MEMORIES,                  RCTYPE_NOTEBOOK_ENTRY,   SCENE_MAX,                      FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_DELIVERED_PENDANT_OF_MEMORIES,   RI_NOTEBOOK_D_PENDANT),
     RC(RC_NOTEBOOK_EVENT_DELIVERED_PRIORITY_MAIL,                        RCTYPE_NOTEBOOK_ENTRY,   SCENE_MAX,                      FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_DELIVERED_PRIORITY_MAIL,         RI_NOTEBOOK_D_PRIORITY_MAIL),
