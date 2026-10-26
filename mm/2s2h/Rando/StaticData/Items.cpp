@@ -143,7 +143,7 @@ std::map<RandoItemId, RandoStaticItem> Items = {
     RI(RI_NOTEBOOK_GROG,              "the",  "Grog Entry",                      RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_NOTEBOOK_GURU_GURU,         "the",  "Guru Guru Entry",                 RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_NOTEBOOK_KAFEI,             "the",  "Kafei Entry",                     RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
-    RI(RI_NOTEBOOK_KAFEIS_MASK,       "the",  " Kafei's Mask Entry",             RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
+    RI(RI_NOTEBOOK_KAFEIS_MASK,       "the",  "Kafei's Mask Entry",              RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_NOTEBOOK_KAMARO,            "the",  "Kamaro Entry",                    RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_NOTEBOOK_KAMAROS_MASK,      "the",  "Kamaro's Mask Entry",             RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_NOTEBOOK_KEATON_MASK,       "the",  "Received Keaton Mask Entry",      RITYPE_LESSER,          ITEM_NONE,                       GI_NONE,                     GID_NONE),
