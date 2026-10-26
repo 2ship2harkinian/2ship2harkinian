@@ -269,7 +269,8 @@ void Rando::GiveItem(RandoItemId randoItemId) {
             // Avoid giving the check associated with the actual notebook event flag
             WEEKEVENTREG((flag) >> 8) = GET_WEEKEVENTREG((flag) >> 8) | ((flag) & 0xFF);
             Item_Give(gPlayState, Rando::StaticData::Items[randoItemId].itemId);
-        } break;
+            break;
+        }
         case RI_PENDANT_OF_MEMORIES:
             Flags_SetRandoInf(RANDO_INF_OBTAINED_PENDANT_OF_MEMORIES);
             Item_Give(gPlayState, Rando::StaticData::Items[randoItemId].itemId);

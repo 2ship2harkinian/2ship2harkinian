@@ -1,5 +1,5 @@
 #include "ActorBehavior.h"
-#include <libultraship/bridge/consolevariablebridge.h>
+// #include <libultraship/bridge/consolevariablebridge.h>
 
 // clang-format off
 std::map<u16, RandoCheckId> notebookEntryMap = {
@@ -71,10 +71,7 @@ void Rando::ActorBehavior::InitNotebookEntriesBehavior() {
         }
         u16 flag = va_arg(args, u16);
         auto entry = notebookEntryMap.find(flag);
-        if (entry == notebookEntryMap.end()) {
-            return;
-        }
-        if (!RANDO_SAVE_CHECKS[entry->second].cycleObtained) {
+        if (entry != notebookEntryMap.end() && !RANDO_SAVE_CHECKS[entry->second].cycleObtained) {
             RANDO_SAVE_CHECKS[entry->second].eligible = true;
         }
     });
