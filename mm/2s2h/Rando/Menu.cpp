@@ -69,6 +69,12 @@ std::unordered_map<int32_t, const char*> songShuffleOptions = {
     { RO_SONG_SHUFFLE_VANILLA, "Vanilla" },
 };
 
+std::unordered_map<int32_t, const char*> tingleShuffleOptions = {
+    { RO_SHUFFLE_TINGLE_OFF, "Off" },
+    { RO_SHUFFLE_TINGLE_SHARED, "Shared" },
+    { RO_SHUFFLE_TINGLE_FULL, "Full" },
+};
+
 // clang-format off
 std::vector<int32_t> incompatibleWithVanilla = {
     RO_SHUFFLE_BOSS_SOULS,
@@ -244,7 +250,8 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_SNOWBALL, "Snowballs" },
     { RCTYPE_SONG, "Songs" },
     { RCTYPE_STRAY_FAIRY, "Stray Fairies" },
-    { RCTYPE_TINGLE_SHOP, "Tingle Maps" },
+    { RCTYPE_TINGLE_FULL, "Tingle Maps" },
+    { RCTYPE_TINGLE_SHARED, "Tingle Maps (Shared)" },
     { RCTYPE_TREE, "Trees" },
     { RCTYPE_WONDER_ITEM, "Wonder Items" },
 };
@@ -762,8 +769,27 @@ static void DrawCheckPoolTab() {
     CheckPoolCheckbox("Shops", RO_SHUFFLE_SHOPS, RCTYPE_SHOP,
                       "Items sold in shops are checks, with randomized prices.\n\nThe Curiosity Shop special item "
                       "and the Bomb Shop's bomb bags are always shuffled, even with this off.");
-    CheckPoolCheckbox("Tingle Maps", RO_SHUFFLE_TINGLE_SHOPS, RCTYPE_TINGLE_SHOP,
-                      "Maps sold by Tingle are checks, with randomized prices.");
+    UIWidgets::CVarCombobox(
+        "Tingle Maps", Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, &tingleShuffleOptions,
+        UIWidgets::ComboboxOptions()
+            .ComponentAlignment(UIWidgets::ComponentAlignment::Right)
+            .LabelPosition(UIWidgets::LabelPosition::Near)
+            .Tooltip("If Tingle's maps are shuffled.\n\n"
+                     "Off - Tingle's maps are not shuffled.\n\n"
+                     "Shared - Checks will be shared between two Tingle locations. For example, the Clock Town "
+                     "first map check will also be available as the Ikana Canyon second map check.\n\n"
+                     "Full - Every purchase at each Tingle location is a different check."));
+    if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, RO_SHUFFLE_TINGLE_OFF) ==
+        RO_SHUFFLE_TINGLE_SHARED) {
+        auto& counts = GetCheckCountsByType();
+        auto it = counts.find(RCTYPE_TINGLE_SHARED);
+        PoolCountSuffix(it != counts.end() ? it->second : 0);
+    } else if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, RO_SHUFFLE_TINGLE_OFF) ==
+               RO_SHUFFLE_TINGLE_FULL) {
+        auto& counts = GetCheckCountsByType();
+        auto it = counts.find(RCTYPE_TINGLE_FULL);
+        PoolCountSuffix(it != counts.end() ? it->second : 0);
+    }
     CheckPoolCheckbox("Cows", RO_SHUFFLE_COWS, RCTYPE_COW, "Playing Epona's Song to a cow is a check.");
     UIWidgets::EndCard();
 

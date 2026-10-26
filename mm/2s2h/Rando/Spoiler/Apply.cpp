@@ -58,6 +58,12 @@ void ApplyToSaveContext(nlohmann::json spoiler) {
                 RANDO_SAVE_CHECKS[randoCheckId].price =
                     spoiler["checks"][randoStaticCheck.name]["price"].get<uint16_t>();
             }
+
+            // Also set alternate prices if needed
+            if (spoiler["checks"][randoStaticCheck.name].contains("altPrice")) {
+                RANDO_SAVE_CHECKS[randoCheckId].altPrice =
+                    spoiler["checks"][randoStaticCheck.name]["altPrice"].get<uint16_t>();
+            }
         } else {
             std::string itemName = spoiler["checks"][randoStaticCheck.name].get<std::string>();
             RandoItemId randoItemId = Rando::StaticData::GetItemIdFromName(itemName.c_str());

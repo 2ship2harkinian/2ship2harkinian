@@ -157,10 +157,22 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
                 continue;
             }
 
-            if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHOP &&
-                saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE_SHOPS] == RO_GENERIC_NO) {
+            if (((randoStaticCheck.randoCheckType == RCTYPE_TINGLE_FULL) ||
+                 (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHARED)) &&
+                (saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_OFF)) {
                 continue;
-            } else {
+            } else if (saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_SHARED) {
+                if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_FULL) {
+                    continue;
+                }
+                int price = Ship_Random(0, 200);
+                saveInfo.randoSaveChecks[randoCheckId].price = price;
+                price = Ship_Random(0, 200);
+                saveInfo.randoSaveChecks[randoCheckId].altPrice = price;
+            } else if (saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+                if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_FULL) {
+                    continue;
+                }
                 int price = Ship_Random(0, 200);
                 saveInfo.randoSaveChecks[randoCheckId].price = price;
             }

@@ -69,6 +69,7 @@ std::map<RandoOptionId, RandoStaticOption> Options = {
     RO(RO_SHUFFLE_SONG_SUN,            RO_GENERIC_OFF),
     RO(RO_SHUFFLE_SWIM,                RO_GENERIC_OFF),
     RO(RO_SHUFFLE_TINGLE_SHOPS,        RO_GENERIC_OFF),
+    RO(RO_SHUFFLE_TINGLE,              RO_SHUFFLE_TINGLE_OFF),
     RO(RO_SHUFFLE_TRAPS,               RO_GENERIC_OFF),
     RO(RO_SHUFFLE_TREE_DROPS,          RO_GENERIC_OFF),
     RO(RO_SHUFFLE_TRIFORCE_PIECES,     RO_GENERIC_OFF),

@@ -679,7 +679,8 @@ std::string GetItemName(RandoItemId randoItemId, bool includeArticle, RandoCheck
 
     if (randoItemId == RI_JUNK && (randoCheckId == RC_UNKNOWN ||
                                    (Rando::StaticData::Checks[randoCheckId].randoCheckType != RCTYPE_SHOP &&
-                                    Rando::StaticData::Checks[randoCheckId].randoCheckType != RCTYPE_TINGLE_SHOP))) {
+                                    Rando::StaticData::Checks[randoCheckId].randoCheckType != RCTYPE_TINGLE_FULL &&
+                                    Rando::StaticData::Checks[randoCheckId].randoCheckType != RCTYPE_TINGLE_SHARED))) {
         result += std::string(" (") + Rando::StaticData::Items[Rando::CurrentJunkItem(randoCheckId)].name + ")";
     }
 
