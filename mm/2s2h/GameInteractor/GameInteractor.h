@@ -514,6 +514,9 @@ void GameInteractor_ExecuteOnRoomInit(s16 sceneId, s8 roomNum);
 void GameInteractor_ExecuteAfterRoomSceneCommands(s16 sceneId, s8 roomNum);
 void GameInteractor_ExecuteOnPlayDrawWorldStart();
 void GameInteractor_ExecuteOnPlayDrawWorldEnd();
+void GameInteractor_ExecuteOnSkyboxStarsCount(s32* count);
+void GameInteractor_ExecuteOnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
+                                                Color_RGBA8* color, f32 fade, bool* drawn, bool* tinted, bool* stop);
 void GameInteractor_ExecuteOnPlayDestroy();
 
 bool GameInteractor_ShouldActorInit(Actor* actor);

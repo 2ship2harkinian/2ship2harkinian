@@ -116,6 +116,16 @@ void GameInteractor_ExecuteOnPlayDrawWorldEnd() {
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayDrawWorldEnd>();
 }
 
+void GameInteractor_ExecuteOnSkyboxStarsCount(s32* count) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnSkyboxStarsCount>(count);
+}
+
+void GameInteractor_ExecuteOnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
+                                                Color_RGBA8* color, f32 fade, bool* drawn, bool* tinted, bool* stop) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnSkyboxStarsPrepare>(gfxP, play, index, pos, width, color,
+                                                                                 fade, drawn, tinted, stop);
+}
+
 void GameInteractor_ExecuteOnPlayDestroy() {
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayDestroy>();
 }

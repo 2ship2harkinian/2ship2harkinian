@@ -1,68 +1,69 @@
 #include <cmath>
 #include <libultraship/bridge/consolevariablebridge.h>
 
+#include "2s2h/GameInteractor/GameInteractor.h"
+#include "2s2h/ShipInit.hpp"
+
 extern "C" {
 #include "functions.h"
 #include "variables.h"
 }
 
-#include "2s2h/Enhancements/Graphics/Graphics.h"
+// 2S2H [Enhancement] Telescope style stars: a round core with four diffraction spikes, whose vertex alpha carries
+// the shape. The geometry is static, so one star costs a matrix and a display list branch.
 
-// 2S2H [Enhancement] Telescope style stars: a round core with four diffraction spikes, drawn as geometry
-// whose vertex alpha carries the shape. A static vertex array keeps it safe for display list replay.
-#define CVAR_TELESCOPE_STARS "gEnhancements.Graphics.TelescopeStars"
-#define CVAR_STAR_SIZE "gEnhancements.Graphics.TelescopeStarSize"
-#define CVAR_STAR_INTENSITY "gEnhancements.Graphics.TelescopeStarIntensity"
-#define CVAR_STAR_TWINKLE "gEnhancements.Graphics.StarTwinkle"
-#define CVAR_STAR_TWINKLE_FREQUENCY "gEnhancements.Graphics.StarTwinkleFrequency"
-#define CVAR_STAR_COUNT "gEnhancements.Graphics.StarCountMultiplier"
+static constexpr const char* CVAR_TELESCOPE_STARS = "gEnhancements.Graphics.TelescopeStars";
+static constexpr const char* CVAR_STAR_SIZE = "gEnhancements.Graphics.TelescopeStarSize";
+static constexpr const char* CVAR_STAR_INTENSITY = "gEnhancements.Graphics.TelescopeStarIntensity";
+static constexpr const char* CVAR_STAR_TWINKLE = "gEnhancements.Graphics.StarTwinkle";
+static constexpr const char* CVAR_STAR_TWINKLE_FREQUENCY = "gEnhancements.Graphics.StarTwinkleFrequency";
+static constexpr const char* CVAR_STAR_COUNT = "gEnhancements.Graphics.StarCountMultiplier";
 
-#define STAR_CORE_SEGMENTS 12
-#define STAR_CORE_CENTER_ALPHA 235.0f
-#define STAR_CORE_INNER_RADIUS 0.16f
-#define STAR_CORE_INNER_ALPHA 105.0f
-#define STAR_CORE_RADIUS 0.48f
-#define STAR_ARM_MID_T 0.55f // ring position along the spike
-#define STAR_ARM_LENGTH_H 0.55f
-#define STAR_ARM_LENGTH_V 0.47f
-#define STAR_ARM_WIDTH_BASE 0.060f
-#define STAR_ARM_WIDTH_MID 0.038f
-#define STAR_ARM_WIDTH_TIP 0.020f
-#define STAR_ARM_ALPHA_H 130.0f
-#define STAR_ARM_ALPHA_V 110.0f
-#define STAR_ARM_MID_ALPHA 0.45f // ring alpha, relative to the base
-#define STAR_VTX_SCALE 1000.0f   // Vtx positions are s16, hence pre-multiplied
-// Intensity setting the shape alphas above are tuned for
-#define STAR_REFERENCE_INTENSITY 0.5f
-// Twinkle rate in Hz: each star gets its own frequency between MIN_RATIO * slider and the slider value
-#define STAR_TWINKLE_MAX_FREQUENCY 2.0f
-#define STAR_TWINKLE_MIN_RATIO 0.15f
-// How far the twinkle dips: 0.5 goes down to half brightness, 1.0 would reach invisible
-#define STAR_TWINKLE_DEPTH 0.5f
-// osGetTime() counts N64 cycles
-#define STAR_CYCLES_PER_SECOND 46875000.0
-// Star count multiplier range
-#define STAR_COUNT_MIN 1.0f
-#define STAR_COUNT_MAX 3.0f
-// Free bytes the polyOpa buffer must keep before the star draw stops
-#define STAR_MIN_FREE_BYTES 8192
-// The added stars use a cheaper shape so that tripling a dense sky still fits in the display list
-// budget: a centre and eight rim vertices that alternate between the four spikes and the inner corners
-#define STAR_SIMPLE_RIM_COUNT 8
-#define STAR_SIMPLE_VTX_COUNT (1 + STAR_SIMPLE_RIM_COUNT)
-#define STAR_SIMPLE_CENTER_ALPHA 235.0f
-#define STAR_SIMPLE_CORNER_RADIUS 0.20f
-#define STAR_SIMPLE_CORNER_ALPHA 150.0f
-#define STAR_SIMPLE_TIP_RADIUS 0.52f
+static constexpr s32 STAR_CORE_SEGMENTS = 12;
+static constexpr f32 STAR_CORE_CENTER_ALPHA = 235.0f;
+static constexpr f32 STAR_CORE_INNER_RADIUS = 0.16f;
+static constexpr f32 STAR_CORE_INNER_ALPHA = 105.0f;
+static constexpr f32 STAR_CORE_RADIUS = 0.48f;
+static constexpr f32 STAR_ARM_MID_T = 0.55f; // ring position along the spike
+static constexpr f32 STAR_ARM_LENGTH_H = 0.55f;
+static constexpr f32 STAR_ARM_LENGTH_V = 0.47f;
+static constexpr f32 STAR_ARM_WIDTH_BASE = 0.060f;
+static constexpr f32 STAR_ARM_WIDTH_MID = 0.038f;
+static constexpr f32 STAR_ARM_WIDTH_TIP = 0.020f;
+static constexpr f32 STAR_ARM_ALPHA_H = 130.0f;
+static constexpr f32 STAR_ARM_ALPHA_V = 110.0f;
+static constexpr f32 STAR_ARM_MID_ALPHA = 0.45f; // ring alpha, relative to the base
+static constexpr f32 STAR_VTX_SCALE = 1000.0f;   // Vtx positions are s16, hence pre-multiplied
 
-#define STAR_CENTER_VTX 0
+static constexpr f32 STAR_REFERENCE_INTENSITY = 0.5f; // intensity the shape alphas are tuned for
+static constexpr f32 STAR_TWINKLE_MAX_FREQUENCY = 2.0f;
+static constexpr f32 STAR_TWINKLE_MIN_RATIO = 0.15f;
+static constexpr f32 STAR_TWINKLE_DEPTH = 0.5f;           // 0.5 dips to half brightness, 1.0 to invisible
+static constexpr f64 STAR_CYCLES_PER_SECOND = 46875000.0; // osGetTime() counts N64 cycles
+static constexpr f32 STAR_COUNT_MIN = 1.0f;
+static constexpr f32 STAR_COUNT_MAX = 3.0f;
+static constexpr s32 STAR_MIN_FREE_BYTES = 8192; // polyOpa headroom kept before the star draw stops
+
+// The cheap shape the multiplier's stars use: a fan to four spike tips and four inner corners
+static constexpr s32 STAR_SIMPLE_RIM_COUNT = 8;
+static constexpr s32 STAR_SIMPLE_VTX_COUNT = 1 + STAR_SIMPLE_RIM_COUNT;
+static constexpr f32 STAR_SIMPLE_CENTER_ALPHA = 235.0f;
+static constexpr f32 STAR_SIMPLE_CORNER_RADIUS = 0.20f;
+static constexpr f32 STAR_SIMPLE_CORNER_ALPHA = 150.0f;
+static constexpr f32 STAR_SIMPLE_TIP_RADIUS = 0.52f;
+
+static constexpr s32 STAR_CENTER_VTX = 0;
+static constexpr s32 STAR_CORE_VTX_COUNT = 1 + (2 * STAR_CORE_SEGMENTS);
+static constexpr s32 STAR_VTX_COUNT = STAR_CORE_VTX_COUNT + (4 * 6); // two G_VTX commands
+
 #define STAR_CORE_INNER_VTX(i) (1 + (i))
 #define STAR_CORE_OUTER_VTX(i) ((1 + STAR_CORE_SEGMENTS) + (i))
 #define STAR_ARM_VTX(arm, v) ((1 + (2 * STAR_CORE_SEGMENTS)) + (6 * (arm)) + (v))
-// The core and its two rings
-#define STAR_CORE_VTX_COUNT ((1 + (2 * STAR_CORE_SEGMENTS)))
-// Whole star, which needs two G_VTX commands on real hardware
-#define STAR_VTX_COUNT (STAR_CORE_VTX_COUNT + (4 * 6))
+
+// One G_VTX, the triangles and the terminator: a whole shape is replayed by a single branch per star
+static constexpr s32 STAR_DLIST_TRIANGLES = (STAR_CORE_SEGMENTS / 2) + STAR_CORE_SEGMENTS + (4 * 2);
+static constexpr s32 STAR_DLIST_COUNT = 2 + STAR_DLIST_TRIANGLES + 1;
+static constexpr s32 STAR_SIMPLE_DLIST_COUNT = 1 + (STAR_SIMPLE_RIM_COUNT / 2) + 1;
 
 static Vtx sStarVtx[STAR_VTX_COUNT];
 static bool sStarVtxBuilt = false;
@@ -73,6 +74,10 @@ static MtxF sStarBillboardMtxF;
 static Vtx sSimpleStarVtx[STAR_SIMPLE_VTX_COUNT];
 static bool sSimpleStarVtxBuilt = false;
 static f32 sSimpleStarAlphaScale = -1.0f;
+// One display list per shape, built once: only the vertex alphas ever change, never the addresses
+static Gfx sStarDList[STAR_DLIST_COUNT];
+static Gfx sSimpleStarDList[STAR_SIMPLE_DLIST_COUNT];
+static bool sStarDListBuilt = false;
 // Stars the scene asks for, which keep the detailed shape; the ones the multiplier adds use the cheap one
 static s32 sVanillaStarCount = 0;
 // Settings, read once per frame instead of once per star
@@ -248,6 +253,61 @@ static void EnsureSimpleStarGeometry(f32 alphaScale) {
     }
 }
 
+static void BuildStarDisplayLists() {
+    Gfx* gfx;
+    s32 i;
+
+    gfx = sStarDList;
+
+    // Too many vertices for one G_VTX command, so load them in two batches
+    gSPVertex(gfx++, (uintptr_t)sStarVtx, STAR_CORE_VTX_COUNT, 0);
+    gSPVertex(gfx++, (uintptr_t)(sStarVtx + STAR_CORE_VTX_COUNT), STAR_VTX_COUNT - STAR_CORE_VTX_COUNT,
+              STAR_CORE_VTX_COUNT);
+
+    // Core fan
+    for (i = 0; i < STAR_CORE_SEGMENTS; i += 2) {
+        s32 next = (i + 1) % STAR_CORE_SEGMENTS;
+        s32 nextNext = (i + 2) % STAR_CORE_SEGMENTS;
+
+        gSP2Triangles(gfx++, STAR_CENTER_VTX, STAR_CORE_INNER_VTX(i), STAR_CORE_INNER_VTX(next), 0, STAR_CENTER_VTX,
+                      STAR_CORE_INNER_VTX(next), STAR_CORE_INNER_VTX(nextNext), 0);
+    }
+
+    // Core outer band, which softens the glow edge
+    for (i = 0; i < STAR_CORE_SEGMENTS; i++) {
+        s32 next = (i + 1) % STAR_CORE_SEGMENTS;
+
+        gSP2Triangles(gfx++, STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(i), STAR_CORE_OUTER_VTX(next), 0,
+                      STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(next), STAR_CORE_INNER_VTX(next), 0);
+    }
+
+    // Spikes, base band then tip band
+    for (i = 0; i < 4; i++) {
+        gSP2Triangles(gfx++, STAR_ARM_VTX(i, 0), STAR_ARM_VTX(i, 1), STAR_ARM_VTX(i, 2), 0, STAR_ARM_VTX(i, 0),
+                      STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 3), 0);
+        gSP2Triangles(gfx++, STAR_ARM_VTX(i, 3), STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 4), 0, STAR_ARM_VTX(i, 3),
+                      STAR_ARM_VTX(i, 4), STAR_ARM_VTX(i, 5), 0);
+    }
+
+    gSPEndDisplayList(gfx++);
+
+    gfx = sSimpleStarDList;
+
+    gSPVertex(gfx++, (uintptr_t)sSimpleStarVtx, STAR_SIMPLE_VTX_COUNT, 0);
+
+    // Fan from the centre to each pair of rim vertices
+    for (i = 0; i < STAR_SIMPLE_RIM_COUNT; i += 2) {
+        s32 next = 1 + ((i + 1) % STAR_SIMPLE_RIM_COUNT);
+        s32 nextNext = 1 + ((i + 2) % STAR_SIMPLE_RIM_COUNT);
+
+        gSP2Triangles(gfx++, 0, 1 + i, next, 0, 0, next, nextNext, 0);
+    }
+
+    gSPEndDisplayList(gfx++);
+
+    sStarDListBuilt = true;
+}
+
 static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* pos, u32 size, bool simple) {
     Gfx* gfx = *gfxP;
     f32 alphaScale = StarSizeScale();
@@ -262,11 +322,15 @@ static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* p
     f32 spikeScaleX;
     f32 spikeScaleY;
     u32 variation;
-    s32 i;
 
     // One time logic before drawing the first star
     if (starNum == 0) {
         EnsureStarGeometry(alphaScale);
+        EnsureSimpleStarGeometry(alphaScale);
+
+        if (!sStarDListBuilt) {
+            BuildStarDisplayLists();
+        }
 
         // billboardMtxF is already overwritten here, so derive it from the original Mtx
         Matrix_MtxToMtxF(play->billboardMtx, &sStarBillboardMtxF);
@@ -302,49 +366,7 @@ static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* p
         Matrix_ReplaceRotation(&sStarBillboardMtxF);
 
         MATRIX_FINALIZE_AND_LOAD(gfx++, play->state.gfxCtx);
-
-        if (simple) {
-            EnsureSimpleStarGeometry(alphaScale);
-            gSPVertex(gfx++, (uintptr_t)sSimpleStarVtx, STAR_SIMPLE_VTX_COUNT, 0);
-
-            // Fan from the centre to each pair of rim vertices
-            for (i = 0; i < STAR_SIMPLE_RIM_COUNT; i += 2) {
-                s32 next = 1 + ((i + 1) % STAR_SIMPLE_RIM_COUNT);
-                s32 nextNext = 1 + ((i + 2) % STAR_SIMPLE_RIM_COUNT);
-
-                gSP2Triangles(gfx++, 0, 1 + i, next, 0, 0, next, nextNext, 0);
-            }
-        } else {
-            // Too many vertices for one G_VTX command, so load them in two batches
-            gSPVertex(gfx++, (uintptr_t)sStarVtx, STAR_CORE_VTX_COUNT, 0);
-            gSPVertex(gfx++, (uintptr_t)(sStarVtx + STAR_CORE_VTX_COUNT), STAR_VTX_COUNT - STAR_CORE_VTX_COUNT,
-                      STAR_CORE_VTX_COUNT);
-
-            // Core fan
-            for (i = 0; i < STAR_CORE_SEGMENTS; i += 2) {
-                s32 next = (i + 1) % STAR_CORE_SEGMENTS;
-                s32 nextNext = (i + 2) % STAR_CORE_SEGMENTS;
-
-                gSP2Triangles(gfx++, STAR_CENTER_VTX, STAR_CORE_INNER_VTX(i), STAR_CORE_INNER_VTX(next), 0,
-                              STAR_CENTER_VTX, STAR_CORE_INNER_VTX(next), STAR_CORE_INNER_VTX(nextNext), 0);
-            }
-
-            // Core outer band, which softens the glow edge
-            for (i = 0; i < STAR_CORE_SEGMENTS; i++) {
-                s32 next = (i + 1) % STAR_CORE_SEGMENTS;
-
-                gSP2Triangles(gfx++, STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(i), STAR_CORE_OUTER_VTX(next), 0,
-                              STAR_CORE_INNER_VTX(i), STAR_CORE_OUTER_VTX(next), STAR_CORE_INNER_VTX(next), 0);
-            }
-
-            // Spikes, base band then tip band
-            for (i = 0; i < 4; i++) {
-                gSP2Triangles(gfx++, STAR_ARM_VTX(i, 0), STAR_ARM_VTX(i, 1), STAR_ARM_VTX(i, 2), 0, STAR_ARM_VTX(i, 0),
-                              STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 3), 0);
-                gSP2Triangles(gfx++, STAR_ARM_VTX(i, 3), STAR_ARM_VTX(i, 2), STAR_ARM_VTX(i, 4), 0, STAR_ARM_VTX(i, 3),
-                              STAR_ARM_VTX(i, 4), STAR_ARM_VTX(i, 5), 0);
-            }
-        }
+        gSPDisplayList(gfx++, simple ? sSimpleStarDList : sStarDList);
 
         Matrix_Pop();
     }
@@ -352,7 +374,7 @@ static void DrawTelescopeStar(Gfx** gfxP, PlayState* play, s32 starNum, Vec3f* p
     *gfxP = gfx;
 }
 
-extern "C" s32 SkyboxStars_GetCount(s32 vanillaCount) {
+static void OnSkyboxStarsCount(s32* count) {
     f32 multiplier;
 
     // Once per frame, so the star loop never touches the config
@@ -364,22 +386,22 @@ extern "C" s32 SkyboxStars_GetCount(s32 vanillaCount) {
     multiplier = CLAMP(CVarGetFloat(CVAR_STAR_COUNT, STAR_COUNT_MIN), STAR_COUNT_MIN, STAR_COUNT_MAX);
 
     // Stars the scene asked for keep the detailed shape, the ones the multiplier adds use the cheap one
-    sVanillaStarCount = vanillaCount;
+    sVanillaStarCount = *count;
 
-    return (s32)(vanillaCount * multiplier);
+    *count = (s32)(*count * multiplier);
 }
 
-extern "C" SkyboxStarDraw SkyboxStars_PrepareStar(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
-                                                  Color_RGBA8* color, f32 fade) {
+static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width, Color_RGBA8* color,
+                                 f32 fade, bool* drawn, bool* tinted, bool* stop) {
     Gfx* gfx = *gfxP;
-    bool telescope = sTelescopeStars;
     f32 tint = sTwinkleEnabled ? StarTwinkle(index) : 1.0f;
 
-    if (telescope) {
+    if (sTelescopeStars) {
         // Telescope stars cost far more display list and matrix space than vanilla ones, so stop before
         // running out of polyOpa buffer instead of capping the star count up front
         if (((u8*)play->state.gfxCtx->polyOpa.d - (u8*)gfx) < STAR_MIN_FREE_BYTES) {
-            return SKYBOX_STAR_DRAW_STOP;
+            *stop = true;
+            return;
         }
 
         if (index == 0) {
@@ -393,18 +415,30 @@ extern "C" SkyboxStarDraw SkyboxStars_PrepareStar(Gfx** gfxP, PlayState* play, s
                         (u8)CLAMP((f32)color->a * fade * tint, 0.0f, 255.0f));
         *gfxP = gfx;
 
-        // The stars the multiplier adds are drawn with the cheap shape so that they still fit
+        // The multiplier's stars are drawn with the cheap shape so that they still fit
         DrawTelescopeStar(gfxP, play, index, pos, width, index >= sVanillaStarCount);
 
-        return SKYBOX_STAR_DRAW_OVERRIDE;
+        *drawn = true;
+        return;
     }
 
     if (tint != 1.0f) {
         gDPSetPrimColor(gfx++, 0, 0, color->r, color->g, color->b, (u8)CLAMP((f32)color->a * tint, 0.0f, 255.0f));
         *gfxP = gfx;
 
-        return SKYBOX_STAR_DRAW_TINTED;
+        *tinted = true;
     }
-
-    return SKYBOX_STAR_DRAW_VANILLA;
 }
+
+static bool StarFieldEnabled() {
+    return CVarGetInteger(CVAR_TELESCOPE_STARS, 0) != 0 || CVarGetInteger(CVAR_STAR_TWINKLE, 0) != 0 ||
+           CVarGetFloat(CVAR_STAR_COUNT, STAR_COUNT_MIN) > STAR_COUNT_MIN;
+}
+
+static void RegisterTelescopeStars() {
+    COND_HOOK(OnSkyboxStarsCount, StarFieldEnabled(), OnSkyboxStarsCount);
+    COND_HOOK(OnSkyboxStarsPrepare, StarFieldEnabled(), OnSkyboxStarsPrepare);
+}
+
+static RegisterShipInitFunc initFunc(RegisterTelescopeStars,
+                                     { CVAR_TELESCOPE_STARS, CVAR_STAR_TWINKLE, CVAR_STAR_COUNT });

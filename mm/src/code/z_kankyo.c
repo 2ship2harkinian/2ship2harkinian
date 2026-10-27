@@ -25,7 +25,7 @@ typedef struct {
 #include "global.h"
 #include "sys_cfb.h"
 #include "BenPort.h"
-#include "2s2h/Enhancements/Graphics/Graphics.h"
+#include "2s2h/GameInteractor/GameInteractor.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/gameplay_field_keep/gameplay_field_keep.h"
 
@@ -3300,16 +3300,19 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
     Vec3f* posPtr;
     s32 pad[2];
     f32(*viewProjectionMtxF)[4];
-    // 2S2H [Enhancement] Per star state handed to the skybox star hook
+    // 2S2H [Enhancement] Per star state handed to the skybox star hooks
     Color_RGBA8 starColor;
     bool primColorChanged;
     s32 starCount;
-    SkyboxStarDraw starDraw;
+    bool starDrawn;
+    bool starTinted;
+    bool starStop;
 
     gfx = *gfxP;
     negateY = Environment_IsSceneUpsideDown(play);
-    // 2S2H [Enhancement] The enhancement may scale up how many stars are drawn
-    starCount = SkyboxStars_GetCount(sEnvSkyboxNumStars);
+    // 2S2H [Enhancement] A hook may scale up how many stars are drawn
+    starCount = sEnvSkyboxNumStars;
+    GameInteractor_ExecuteOnSkyboxStarsCount(&starCount);
 
     Matrix_MtxToMtxF(play->view.viewingPtr, &play->billboardMtxF);
     Matrix_MtxToMtxF(&play->view.projection, &play->viewProjectionMtxF);
@@ -3398,18 +3401,22 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
             primColorChanged = false;
         }
 
-        // 2S2H [Enhancement] Lets the star enhancement tint this star, or draw it entirely
-        starDraw = SkyboxStars_PrepareStar(&gfx, play, i, &pos, imgWidth, &starColor, D_801F4F28);
+        // 2S2H [Enhancement] A hook may tint this star, draw it entirely, or stop the loop
+        starDrawn = false;
+        starTinted = false;
+        starStop = false;
+        GameInteractor_ExecuteOnSkyboxStarsPrepare(&gfx, play, i, &pos, imgWidth, &starColor, D_801F4F28, &starDrawn,
+                                                   &starTinted, &starStop);
 
-        if (starDraw == SKYBOX_STAR_DRAW_STOP) {
+        if (starStop) {
             break;
         }
 
-        if (starDraw == SKYBOX_STAR_DRAW_OVERRIDE) {
+        if (starDrawn) {
             continue;
         }
 
-        if ((starDraw == SKYBOX_STAR_DRAW_VANILLA) && primColorChanged) {
+        if (!starTinted && primColorChanged) {
             gDPSetPrimColor(gfx++, 0, 0, starColor.r, starColor.g, starColor.b, starColor.a);
         }
 
