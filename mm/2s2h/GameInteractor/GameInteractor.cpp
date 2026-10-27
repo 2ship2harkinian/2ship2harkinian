@@ -201,6 +201,13 @@ void GameInteractor_ExecuteOnBossDefeated(s16 actorId) {
     GameInteractor::Instance->ExecuteHooksForFilter<GameInteractor::OnBossDefeated>(actorId);
 }
 
+void GameInteractor_ExecuteOnActorEntryHalfDaysBits(ActorEntry* actorEntry, s32* halfDaysBits) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnActorEntryHalfDaysBits>(actorEntry, halfDaysBits);
+    GameInteractor::Instance->ExecuteHooksForID<GameInteractor::OnActorEntryHalfDaysBits>(actorEntry->id & 0x1FFF,
+                                                                                          actorEntry, halfDaysBits);
+    GameInteractor::Instance->ExecuteHooksForFilter<GameInteractor::OnActorEntryHalfDaysBits>(actorEntry, halfDaysBits);
+}
+
 void GameInteractor_ExecuteOnSceneFlagSet(s16 sceneId, FlagType flagType, u32 flag) {
     SPDLOG_DEBUG("OnSceneFlagSet: sceneId: {}, flagType: {}, flag: {}", sceneId, (u32)flagType, flag);
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnSceneFlagSet>(sceneId, flagType, flag);
