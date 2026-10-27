@@ -7409,9 +7409,12 @@ void func_808379C0(PlayState* play, Player* this) {
             (ENISHI_GET_SIZE_FLAG(interactRangeActor) != ISHI_SIZE_SMALL_ROCK)) {
             Player_SetAction(play, this, Player_Action_38, 0);
             anim = &gPlayerAnim_link_silver_carry;
-            } else if (!GameInteractor_Should(VB_LIFT_ACTOR, true, (((interactRangeActor->id == ACTOR_EN_BOMBF) || (interactRangeActor->id == ACTOR_EN_KUSA) ||
-                             (interactRangeActor->id == ACTOR_EN_KUSA2) || (interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY)) &&
-                            (Player_GetStrength() <= PLAYER_STRENGTH_DEKU)))) {
+        } else if (!GameInteractor_Should(
+                       VB_LIFT_ACTOR, true,
+                       (((interactRangeActor->id == ACTOR_EN_BOMBF) || (interactRangeActor->id == ACTOR_EN_KUSA) ||
+                         (interactRangeActor->id == ACTOR_EN_KUSA2) ||
+                         (interactRangeActor->id == ACTOR_OBJ_GRASS_CARRY)) &&
+                        (Player_GetStrength() <= PLAYER_STRENGTH_DEKU)))) {
             Player_SetAction(play, this, Player_Action_40, 0);
             anim = &gPlayerAnim_link_normal_nocarry_free;
 
