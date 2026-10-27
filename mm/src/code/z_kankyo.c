@@ -3301,12 +3301,10 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
     s32 pad[2];
     f32(*viewProjectionMtxF)[4];
     // 2S2H [Enhancement] Per star state handed to the skybox star hooks
-    Color_RGBA8 starColor;
-    bool primColorChanged;
+    Color_RGBA8 color;
+    bool colorChanged;
+    SkyboxStarDraw starDraw;
     s32 starCount;
-    bool starDrawn;
-    bool starTinted;
-    bool starStop;
 
     gfx = *gfxP;
     negateY = Environment_IsSceneUpsideDown(play);
@@ -3389,35 +3387,32 @@ void Environment_DrawSkyboxStarsImpl(PlayState* play, Gfx** gfxP) {
             pos.y = -pos.y;
         }
 
+        colorChanged = false;
+
         if ((i < 15) || ((i == 15) && ((((void)0, gSaveContext.save.day) % 7) == 0))) {
-            // 2S2H [Port] Switched from gDPSetColor to gDPSetPrimColor for Color_RGBA8 individual fields
-            starColor = D_801DD8E0[i % ARRAY_COUNTU(D_801DD8E0)];
-            primColorChanged = true;
+            color = D_801DD8E0[i % ARRAY_COUNTU(D_801DD8E0)];
+            colorChanged = true;
         } else if (((i & 0x3F) == 0) || (i == 16)) {
-            starColor = D_801DD900[phi_v1 % ARRAY_COUNTU(D_801DD900)];
+            color = D_801DD900[phi_v1 % ARRAY_COUNTU(D_801DD900)];
             phi_v1++;
-            primColorChanged = true;
-        } else {
-            primColorChanged = false;
+            colorChanged = true;
         }
 
         // 2S2H [Enhancement] A hook may tint this star, draw it entirely, or stop the loop
-        starDrawn = false;
-        starTinted = false;
-        starStop = false;
-        GameInteractor_ExecuteOnSkyboxStarsPrepare(&gfx, play, i, &pos, imgWidth, &starColor, D_801F4F28, &starDrawn,
-                                                   &starTinted, &starStop);
+        starDraw = SKYBOX_STAR_DRAW_VANILLA;
+        GameInteractor_ExecuteOnSkyboxStarsPrepare(&gfx, play, i, &pos, imgWidth, &color, D_801F4F28, &starDraw);
 
-        if (starStop) {
+        if (starDraw == SKYBOX_STAR_DRAW_STOP) {
             break;
         }
 
-        if (starDrawn) {
+        if (starDraw == SKYBOX_STAR_DRAW_OVERRIDE) {
             continue;
         }
 
-        if (!starTinted && primColorChanged) {
-            gDPSetPrimColor(gfx++, 0, 0, starColor.r, starColor.g, starColor.b, starColor.a);
+        if ((starDraw == SKYBOX_STAR_DRAW_VANILLA) && colorChanged) {
+            // 2S2H [Port] Switched from gDPSetColor to gDPSetPrimColor for Color_RGBA8 individual fields
+            gDPSetPrimColor(gfx++, 0, 0, color.r, color.g, color.b, color.a);
         }
 
         posPtr = &pos;

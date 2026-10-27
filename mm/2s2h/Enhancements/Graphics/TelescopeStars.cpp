@@ -391,8 +391,8 @@ static void OnSkyboxStarsCount(s32* count) {
     *count = (s32)(*count * multiplier);
 }
 
-static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width, Color_RGBA8* color,
-                                 f32 fade, bool* drawn, bool* tinted, bool* stop) {
+static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
+                                 const Color_RGBA8* color, f32 fade, SkyboxStarDraw* draw) {
     Gfx* gfx = *gfxP;
     f32 tint = sTwinkleEnabled ? StarTwinkle(index) : 1.0f;
 
@@ -400,7 +400,7 @@ static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* 
         // Telescope stars cost far more display list and matrix space than vanilla ones, so stop before
         // running out of polyOpa buffer instead of capping the star count up front
         if (((u8*)play->state.gfxCtx->polyOpa.d - (u8*)gfx) < STAR_MIN_FREE_BYTES) {
-            *stop = true;
+            *draw = SKYBOX_STAR_DRAW_STOP;
             return;
         }
 
@@ -418,7 +418,7 @@ static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* 
         // The multiplier's stars are drawn with the cheap shape so that they still fit
         DrawTelescopeStar(gfxP, play, index, pos, width, index >= sVanillaStarCount);
 
-        *drawn = true;
+        *draw = SKYBOX_STAR_DRAW_OVERRIDE;
         return;
     }
 
@@ -426,7 +426,7 @@ static void OnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* 
         gDPSetPrimColor(gfx++, 0, 0, color->r, color->g, color->b, (u8)CLAMP((f32)color->a * tint, 0.0f, 255.0f));
         *gfxP = gfx;
 
-        *tinted = true;
+        *draw = SKYBOX_STAR_DRAW_TINTED;
     }
 }
 

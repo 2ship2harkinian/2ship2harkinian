@@ -121,9 +121,9 @@ void GameInteractor_ExecuteOnSkyboxStarsCount(s32* count) {
 }
 
 void GameInteractor_ExecuteOnSkyboxStarsPrepare(Gfx** gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
-                                                Color_RGBA8* color, f32 fade, bool* drawn, bool* tinted, bool* stop) {
+                                                const Color_RGBA8* color, f32 fade, SkyboxStarDraw* draw) {
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnSkyboxStarsPrepare>(gfxP, play, index, pos, width, color,
-                                                                                 fade, drawn, tinted, stop);
+                                                                                 fade, draw);
 }
 
 void GameInteractor_ExecuteOnPlayDestroy() {
