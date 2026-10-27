@@ -556,7 +556,7 @@ bool ShouldShowGetItemCutscene(RandoItemId itemId) {
 
 const std::map<RandoItemId, std::vector<std::string>> fakeItemNames = {
     // Major and Mask items only
-    { RI_ABILITY_GRAB, { "Dumbell", "Power Gloves" } },
+    { RI_ABILITY_GRAB, { "Dumbbell", "Power Gloves" } },
     { RI_ABILITY_SWIM, { "Skinny Dipping", "Zora Flippers" } },
     { RI_ARROW_FIRE, { "Fire Rod", "Red Candle" } },
     { RI_ARROW_ICE, { "Ice Rod", "Ancient Arrow", "Ice Trap Arrow" } },
