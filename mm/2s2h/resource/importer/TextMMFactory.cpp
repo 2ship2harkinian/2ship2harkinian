@@ -228,15 +228,6 @@ static uint8_t ReadBoxField(const tinyxml2::XMLElement* element, const char* att
     return 0;
 }
 
-static void ReadBox(const tinyxml2::XMLElement* element, MessageEntryMM& entry, const std::string& logContext) {
-    uint8_t type = ReadBoxField(element, "Type", sBoxTypes, logContext);
-    uint8_t position = ReadBoxField(element, "Position", sBoxPositions, logContext);
-    uint8_t skip = ReadBoxField(element, "Skip", sBoxSkips, logContext);
-
-    entry.textboxType = type | (element->BoolAttribute("Centered") ? 0x10 : 0);
-    entry.textboxYPos = (position << 4) | skip;
-}
-
 static std::vector<std::string> SplitLines(const std::string& text) {
     std::vector<std::string> lines;
     size_t start = 0;
@@ -459,20 +450,6 @@ class MessageWriter {
     }
 };
 
-static MessageEntryMM ReadEntry(const tinyxml2::XMLElement* element, uint16_t id, const std::string& logContext) {
-    MessageEntryMM entry;
-    entry.id = id;
-
-    ReadBox(element, entry, logContext);
-    entry.icon = ReadHeaderField(element, "Icon", 0xFE, 0xFF, logContext);
-    entry.nextMessageID = ReadHeaderField(element, "Next", 0xFFFF, 0xFFFF, logContext);
-    entry.firstItemCost = ReadHeaderField(element, "FirstPrice", 0xFFFF, 0xFFFF, logContext);
-    entry.secondItemCost = ReadHeaderField(element, "SecondPrice", 0xFFFF, 0xFFFF, logContext);
-    entry.msg = MessageWriter(logContext).Write(element);
-
-    return entry;
-}
-
 static std::optional<MessageEntryMM> EncodeTextEntry(const tinyxml2::XMLElement* element, const std::string& path) {
     auto id = ParseNumber(element->Attribute("ID"), 0xFFFF);
     if (!id.has_value()) {
@@ -481,7 +458,20 @@ static std::optional<MessageEntryMM> EncodeTextEntry(const tinyxml2::XMLElement*
     }
 
     std::string logContext = fmt::format("TextMM XML {} 0x{:04X}", path, *id);
-    MessageEntryMM entry = ReadEntry(element, *id, logContext);
+    uint8_t type = ReadBoxField(element, "Type", sBoxTypes, logContext);
+    uint8_t position = ReadBoxField(element, "Position", sBoxPositions, logContext);
+    uint8_t skip = ReadBoxField(element, "Skip", sBoxSkips, logContext);
+
+    MessageEntryMM entry;
+    entry.id = *id;
+    entry.textboxType = type | (element->BoolAttribute("Centered") ? 0x10 : 0);
+    entry.textboxYPos = (position << 4) | skip;
+    entry.icon = ReadHeaderField(element, "Icon", 0xFE, 0xFF, logContext);
+    entry.nextMessageID = ReadHeaderField(element, "Next", 0xFFFF, 0xFFFF, logContext);
+    entry.firstItemCost = ReadHeaderField(element, "FirstPrice", 0xFFFF, 0xFFFF, logContext);
+    entry.secondItemCost = ReadHeaderField(element, "SecondPrice", 0xFFFF, 0xFFFF, logContext);
+    entry.msg = MessageWriter(logContext).Write(element);
+
     if (entry.msg.size() > TextMM::MaxMessageSize) {
         SPDLOG_WARN("{}: message is {} bytes, over the {} byte limit", logContext, entry.msg.size(),
                     TextMM::MaxMessageSize);
