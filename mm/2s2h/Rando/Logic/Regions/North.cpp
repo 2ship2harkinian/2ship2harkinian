@@ -133,6 +133,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_GORON_VILLAGE_SMALL_SNOWBALL_10, true),
             CHECK(RC_GORON_VILLAGE_SMALL_SNOWBALL_11, true),
             CHECK(RC_GORON_VILLAGE_SMALL_SNOWBALL_12, true),
+            CHECK(RC_GORON_VILLAGE_POWDER_KEG_SIGN,   true),
+            CHECK(RC_GORON_VILLAGE_GORON_SHRINE_SIGN, true),
+            CHECK(RC_GORON_VILLAGE_LONE_PEAK_SIGN,    true),
             CHECK(RC_ENEMY_DROP_TEKTITE, CanKillEnemy(ACTOR_EN_TITE)),
         },
         .exits = { //     TO                                         FROM
@@ -299,6 +302,11 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_MOUNTAIN_VILLAGE_SMALL_SNOWBALL_09, true),
             CHECK(RC_MOUNTAIN_VILLAGE_SMALL_SNOWBALL_10, HAS_ITEM(ITEM_LENS_OF_TRUTH) && HAS_MAGIC),
             CHECK(RC_MOUNTAIN_VILLAGE_SMALL_SNOWBALL_11, HAS_ITEM(ITEM_LENS_OF_TRUTH) && HAS_MAGIC),
+            CHECK(RC_MOUNTAIN_VILLAGE_SMITHY_SIGN,        true),
+            CHECK(RC_MOUNTAIN_VILLAGE_BRIDGE_SIGN,        true),
+            CHECK(RC_MOUNTAIN_VILLAGE_SNOWHEAD_SIGN,      true),
+            CHECK(RC_MOUNTAIN_VILLAGE_WATER_SIGN,         true),
+            CHECK(RC_MOUNTAIN_VILLAGE_GORON_VILLAGE_SIGN, true),
             CHECK(RC_ENEMY_DROP_GUAY, RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] && CanKillEnemy(ACTOR_EN_CROW)),
             CHECK(RC_ENEMY_DROP_GIANT_BEE, CanKillEnemy(ACTOR_EN_BEE) && RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE]),
             CHECK(RC_ENEMY_DROP_BOE, CanKillEnemy(ACTOR_EN_MKK) && RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE]),
@@ -401,6 +409,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_TWIN_ISLANDS_TREE_01, true),
             CHECK(RC_TWIN_ISLANDS_TREE_02, true),
             CHECK(RC_TWIN_ISLANDS_TREE_03, CAN_BE_GORON || HAS_ITEM(ITEM_HOOKSHOT)),
+            CHECK(RC_TWIN_ISLANDS_SLOPE_SIGN, CAN_BE_GORON),
             CHECK(RC_ENEMY_DROP_GUAY, RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] && CanKillEnemy(ACTOR_EN_CROW)),
             CHECK(RC_ENEMY_DROP_WOLFOS, CanKillEnemy(ACTOR_EN_WF)),
             CHECK(RC_ENEMY_DROP_TEKTITE, CanKillEnemy(ACTOR_EN_TITE)),
@@ -454,6 +463,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_PATH_TO_MOUNTAIN_VILLAGE_SMALL_SNOWBALL_04, true),
             CHECK(RC_PATH_TO_MOUNTAIN_VILLAGE_TREE_03, true),
             CHECK(RC_PATH_TO_MOUNTAIN_VILLAGE_TREE_04, true),
+            CHECK(RC_PATH_TO_MOUNTAIN_VILLAGE_SIGN,    true),
             CHECK(RC_ENEMY_DROP_BOE, CanKillEnemy(ACTOR_EN_MKK) && IS_NIGHT()), // Night only
             CHECK(RC_ENEMY_DROP_WOLFOS, CanKillEnemy(ACTOR_OBJ_SNOWBALL) && CanKillEnemy(ACTOR_EN_WF) && SECOND_DAY()), // Day 2 only
             CHECK(RC_ENEMY_DROP_SNAPPER, CanKillEnemy(ACTOR_OBJ_SNOWBALL) && CanKillEnemy(ACTOR_EN_KAME) && FINAL_DAY()), // Day 3 only
@@ -491,6 +501,7 @@ static RegisterShipInitFunc initFunc([]() {
     Regions[RR_PATH_TO_SNOWHEAD_LOWER] = RandoRegion{ .sceneId = SCENE_14YUKIDAMANOMITI,
         .checks = {
             CHECK(RC_PATH_TO_SNOWHEAD_TREE_04, true),
+            CHECK(RC_PATH_TO_SNOWHEAD_LOWER_SIGN, true),
             CHECK(RC_ENEMY_DROP_KEESE, CanKillEnemy(ACTOR_EN_FIREFLY)),
         },
         .exits = { //     TO                                         FROM
@@ -522,6 +533,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_PATH_TO_SNOWHEAD_TREE_01, true),
             CHECK(RC_PATH_TO_SNOWHEAD_TREE_02, true),
             CHECK(RC_PATH_TO_SNOWHEAD_TREE_03, true),
+            CHECK(RC_PATH_TO_SNOWHEAD_UPPER_SIGN, true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(SNOWHEAD, 0),                     ENTRANCE(PATH_TO_SNOWHEAD, 1), true),
@@ -546,6 +558,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SNOWHEAD_SMALL_SNOWBALL_02, true),
             CHECK(RC_SNOWHEAD_SMALL_SNOWBALL_03, true),
             CHECK(RC_SNOWHEAD_SMALL_SNOWBALL_04, true),
+            CHECK(RC_SNOWHEAD_SIGN,              true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(PATH_TO_SNOWHEAD, 1),             ENTRANCE(SNOWHEAD, 0), true),

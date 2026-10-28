@@ -510,7 +510,11 @@ void DrawSparkles(RandoItemId randoItemId, Actor* actor) {
         newPos.x = Rand_CenteredFloat(20.0f) + actor->world.pos.x;
         newPos.y = (Rand_ZeroOne() * 10.0f) + actor->world.pos.y + 10.0f;
         newPos.z = Rand_CenteredFloat(20.0f) + actor->world.pos.z;
-    }
+    } else if (actor->id == ACTOR_EN_KANBAN || (actor->id == ACTOR_EN_A_OBJ && actor->params == 0)) {
+        newPos.y = (Rand_ZeroOne() * 10.0f) + actor->world.pos.y + 60.0f;
+    } else if (actor->id == ACTOR_EN_A_OBJ && actor->params == 1) {
+        newPos.y = (Rand_ZeroOne() * 10.0f) + actor->world.pos.y + 50.0f;
+    } 
 
     EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000, 16);
 }

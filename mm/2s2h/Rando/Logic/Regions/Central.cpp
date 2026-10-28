@@ -104,6 +104,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_07, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_08, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_09, true),
+            CHECK(RC_CLOCK_TOWN_EAST_ROOF_SIGN, true),
+
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 7),                ENTRANCE(EAST_CLOCK_TOWN, 0), true),
@@ -167,6 +169,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_NORTH_KEATON_GRASS_08, true),
             CHECK(RC_CLOCK_TOWN_NORTH_KEATON_GRASS_09, true),
             CHECK(RC_CLOCK_TOWN_NORTH_KEATON_GRASS_WONDER_ITEM, CAN_FULLY_CUT_KEATON_GRASS),
+            CHECK(RC_CLOCK_TOWN_NORTH_PLAYGROUND_SIGN, true),
             CHECK(RC_CLOCK_TOWN_NORTH_TINGLE_MAP_01, CAN_USE_PROJECTILE && CAN_AFFORD(RC_CLOCK_TOWN_NORTH_TINGLE_MAP_01) && IS_DAY()),
             CHECK(RC_CLOCK_TOWN_NORTH_TINGLE_MAP_02, CAN_USE_PROJECTILE && CAN_AFFORD(RC_CLOCK_TOWN_NORTH_TINGLE_MAP_02) && IS_DAY()),
             CHECK(RC_CLOCK_TOWN_NORTH_TREE_PIECE_OF_HEART, true),
@@ -224,6 +227,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_01, CAN_USE_PROJECTILE),
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_02, CAN_USE_PROJECTILE),
             CHECK(RC_CLOCK_TOWN_SOUTH_WONDER_ITEM_03, CAN_USE_PROJECTILE),
+            CHECK(RC_CLOCK_TOWN_SOUTH_ARROW_SIGN, true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(CLOCK_TOWER_INTERIOR, 1),         ENTRANCE(SOUTH_CLOCK_TOWN, 0), true),
