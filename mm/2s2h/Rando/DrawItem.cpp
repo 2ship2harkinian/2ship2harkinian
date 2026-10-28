@@ -514,7 +514,7 @@ void DrawSparkles(RandoItemId randoItemId, Actor* actor) {
         newPos.y = (Rand_ZeroOne() * 10.0f) + actor->world.pos.y + 60.0f;
     } else if (actor->id == ACTOR_EN_A_OBJ && actor->params == 1) {
         newPos.y = (Rand_ZeroOne() * 10.0f) + actor->world.pos.y + 50.0f;
-    } 
+    }
 
     EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000, 16);
 }

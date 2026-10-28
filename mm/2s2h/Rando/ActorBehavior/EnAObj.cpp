@@ -104,6 +104,6 @@ void Rando::ActorBehavior::InitEnAObjBehavior() {
         }
 
         randoSaveCheck.eligible = true;
-        *should = false;      
+        *should = false;
     });
 }

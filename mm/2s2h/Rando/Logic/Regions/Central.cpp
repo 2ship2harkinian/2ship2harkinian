@@ -104,8 +104,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_07, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_08, true),
             CHECK(RC_CLOCK_TOWN_EAST_WONDER_ITEM_09, true),
-            CHECK(RC_CLOCK_TOWN_EAST_ROOF_SIGN, true),
-
+            CHECK(RC_CLOCK_TOWN_EAST_ROOF_SIGN,      true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(TERMINA_FIELD, 7),                ENTRANCE(EAST_CLOCK_TOWN, 0), true),

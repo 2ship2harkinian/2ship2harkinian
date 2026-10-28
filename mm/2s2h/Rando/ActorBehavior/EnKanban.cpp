@@ -114,8 +114,8 @@ void DrawKanban(Actor* actor, PlayState* play) {
 
 void EnKanbanInit(Actor* actor) {
     RandoCheckId randoCheckId = RC_UNKNOWN;
-    auto it = enKanbanMap.find(
-        { actor->id, gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
+    auto it =
+        enKanbanMap.find({ actor->id, gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
     if (it != enKanbanMap.end()) {
         randoCheckId = it->second;
     }
@@ -131,14 +131,14 @@ void Rando::ActorBehavior::InitEnKanbanBehavior() {
     bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_SIGNPOSTS];
 
     COND_ID_HOOK(OnActorInit, ACTOR_EN_KANBAN, shouldRegister, EnKanbanInit);
-    COND_ID_HOOK(OnActorUpdate, ACTOR_EN_KANBAN, shouldRegister, [](Actor* actor) { 
-        RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor); 
+    COND_ID_HOOK(OnActorUpdate, ACTOR_EN_KANBAN, shouldRegister, [](Actor* actor) {
+        RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
         if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
             actor->draw = EnKanban_Draw;
             return;
         }
 
-        actor->draw = DrawKanban;        
+        actor->draw = DrawKanban;
     });
 
     COND_VB_SHOULD(VB_PLAYER_START_TALKING, shouldRegister, {
