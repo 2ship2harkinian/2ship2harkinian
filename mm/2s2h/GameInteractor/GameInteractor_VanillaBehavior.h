@@ -303,6 +303,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnElf`
+    VB_COLLECT_ELF,
+
+    // #### `result`
+    // ```c
     // this->collider.base.ocFlags1 & OC1_HIT
     // ```
     // #### `args`
@@ -894,14 +902,6 @@ typedef enum {
     // #### `args`
     // - `ItemId`
     VB_GIVE_ITEM_FROM_DMCHAR05,
-
-    // #### `result`
-    // ```c
-    // true
-    // ```
-    // #### `args`
-    // - `*EnElf`
-    VB_GIVE_ITEM_FROM_ELF,
 
     // #### `result`
     // ```c
@@ -2342,6 +2342,22 @@ typedef enum {
     // #### `args`
     // - `*s32` (which boss remains to return, see `DoorWarp1_GetRemains`)
     VB_SPAWN_BOSS_REMAINS,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnElf`
+    VB_SPAWN_FOUNTAIN_ELF,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnGs`
+    VB_SPAWN_GOSSIP_ELF,
 
     // #### `result`
     // ```c

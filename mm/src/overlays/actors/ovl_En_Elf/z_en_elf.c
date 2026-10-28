@@ -436,7 +436,7 @@ void EnElf_Init(Actor* thisx, PlayState* play2) {
             EnElf_SetupAction(this, func_8088E0E0);
             func_8088C51C(this, 6);
             this->fairyFlags |= 8;
-            {
+            if (GameInteractor_Should(VB_SPAWN_FOUNTAIN_ELF, true, this)) {
                 s32 i;
 
                 for (i = 0; i < 8; i++) {
@@ -679,7 +679,7 @@ void func_8088DD34(EnElf* this, PlayState* play) {
 
     if ((this->fairyFlags & 0x1000) && (heightDiff > 0.0f) && (heightDiff < 60.0f) &&
         !func_8088C804(&this->actor.world.pos, &playerActor->world.pos, 10.0f)) {
-        if (GameInteractor_Should(VB_GIVE_ITEM_FROM_ELF, true, this)) {
+        if (GameInteractor_Should(VB_COLLECT_ELF, true, this)) {
             Health_ChangeBy(play, 0x80);
             if (this->fairyFlags & 0x200) {
                 Magic_Add(play, MAGIC_FILL_TO_CAPACITY);

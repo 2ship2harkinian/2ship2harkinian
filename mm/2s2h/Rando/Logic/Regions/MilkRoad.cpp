@@ -18,6 +18,7 @@ using namespace Rando::Logic;
 static RegisterShipInitFunc initFunc([]() {
     Regions[RR_CUCCO_SHACK] = RandoRegion{ .sceneId = SCENE_F01C,
         .checks = {
+            CHECK(RC_CUCCO_SHACK_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_ROMANI_RANCH_GROG, HAS_ITEM(ITEM_MASK_BREMEN)),
             CHECK(RC_CUCCO_SHACK_LARGE_CRATE_01, true),
             CHECK(RC_CUCCO_SHACK_LARGE_CRATE_02, true),
@@ -44,6 +45,7 @@ static RegisterShipInitFunc initFunc([]() {
             // TODO: Trick: Jumpslash to clip through (similar to Clock Town Straw).
             // Zora can just climb up, adding it to logic for now but if someone wants to make it a trick later feel free.
             CHECK(RC_DOGGY_RACETRACK_CHEST, HAS_ITEM(ITEM_HOOKSHOT) || CAN_USE_DAY2_RAIN_BEAN || CAN_BE_ZORA),
+            CHECK(RC_DOGGY_RACETRACK_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_DOGGY_RACETRACK_PIECE_OF_HEART,    HAS_ITEM(ITEM_MASK_TRUTH)),
             CHECK(RC_DOGGY_RACETRACK_POT_01, true),
             CHECK(RC_DOGGY_RACETRACK_POT_02, true),
@@ -118,6 +120,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_MILK_ROAD] = RandoRegion{ .sceneId = SCENE_ROMANYMAE,
         .checks = {
+            CHECK(RC_MILK_ROAD_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_MILK_ROAD_GRASS_01, true),
             CHECK(RC_MILK_ROAD_GRASS_02, true),
             CHECK(RC_MILK_ROAD_GRASS_03, true),
@@ -199,6 +202,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ROMANI_RANCH_FIELD_COW_NEAR_HOUSE_FRONT, CAN_PLAY_SONG(EPONA) && BREAK_BOULDER_BEFORE_OR_BEAT_ALIENS_DAY),
             CHECK(RC_ROMANI_RANCH_FIELD_LARGE_CRATE, true),
             CHECK(RC_CREMIA_ESCORT, RANDO_EVENTS[RE_COWS_FROM_ALIENS] && AT(TIME_NIGHT2_PM_06_00)),
+            CHECK(RC_ROMANI_RANCH_GOSSIP_FAIRY_BARN, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            CHECK(RC_ROMANI_RANCH_GOSSIP_FAIRY_ENTRANCE, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
+            CHECK(RC_ROMANI_RANCH_GOSSIP_FAIRY_TREE, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_ROMANI_RANCH_GRASS_01, true),
             CHECK(RC_ROMANI_RANCH_GRASS_02, true),
             CHECK(RC_ROMANI_RANCH_GRASS_03, true),

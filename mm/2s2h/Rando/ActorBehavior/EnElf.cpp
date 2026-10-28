@@ -1,6 +1,6 @@
+#include "EnElf.h"
+#include "Rando/Rando.h"
 #include "ActorBehavior.h"
-#include "2s2h/ObjectExtension/ActorListIndex.h"
-#include <spdlog/spdlog.h>
 
 extern "C" {
 #include "variables.h"
@@ -8,49 +8,59 @@ extern "C" {
 #include "overlays/actors/ovl_En_Elf/z_en_elf.h"
 }
 
-#define CUSTOM_PARAM (enElf->actor.home.rot.x)
-
-std::map<std::tuple<s16, s16, s16>, RandoCheckId> enElfItemMap = {
-
-};
+bool TryGiveFairyCheck(EnElf* enElf) {
+    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(enElf);
+    if (randoCheckId != RC_UNKNOWN) {
+        RandoSaveCheck* randoSaveCheck = &RANDO_SAVE_CHECKS[randoCheckId];
+        if (randoSaveCheck->shuffled && !randoSaveCheck->cycleObtained) {
+            return randoSaveCheck->eligible = true;
+        }
+    }
+    return false;
+}
 
 void EnElf_DrawCustom(Actor* thisx, PlayState* play) {
     EnElf* enElf = (EnElf*)thisx;
-    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
+    Matrix_Scale(40.0f, 40.0f, 40.0f, MTXMODE_APPLY);
 
-    if (CUSTOM_PARAM == RC_UNKNOWN) {
+    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(thisx);
+
+    if (randoCheckId == RC_UNKNOWN) {
         return;
     }
 
-    auto randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_PARAM];
+    RandoSaveCheck randoSaveCheck = RANDO_SAVE_CHECKS[randoCheckId];
 
-    // thisx->shape.rot.y = thisx->shape.rot.y + 960;
-
-    Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, (RandoCheckId)CUSTOM_PARAM),
-                    (RandoCheckId)CUSTOM_PARAM, thisx);
+    Rando::DrawItem(Rando::ConvertItem(randoSaveCheck.randoItemId, randoCheckId), randoCheckId, thisx);
 }
 
-void EnElf_Setup(EnElf* enElf) {
-    auto it =
-        enElfItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex((Actor*)enElf) });
-    if (it != enElfItemMap.end() && RANDO_SAVE_CHECKS[it->second].shuffled) {
-        CUSTOM_PARAM = it->second;
-        enElf->actor.draw = EnElf_DrawCustom;
-    } else {
-        SPDLOG_DEBUG("{} {} {}", gPlayState->sceneId, gPlayState->roomCtx.curRoom.num,
-                     GetActorListIndex((Actor*)enElf));
+void SpawnRandoFairy(f32 posX, f32 posY, f32 posZ, RandoCheckId randoCheckId, s32 fairyType) {
+    Actor* actor = Actor_Spawn(&gPlayState->actorCtx, gPlayState, ACTOR_EN_ELF, posX, posY, posZ, 0, 0, 0,
+                               FAIRY_PARAMS(fairyType, false, 0));
+    if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled &&
+        !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+        Rando::ActorBehavior::SetObjectRandoCheckId(actor, randoCheckId);
+        actor->draw = EnElf_DrawCustom;
     }
 }
 
 void Rando::ActorBehavior::InitEnElfBehavior() {
-    COND_ID_HOOK(OnActorInit, ACTOR_EN_ELF, IS_RANDO, [](Actor* actor) { EnElf_Setup((EnElf*)actor); });
+    bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_MISC_FAIRIES];
 
-    COND_VB_SHOULD(VB_GIVE_ITEM_FROM_ELF, IS_RANDO, {
+    COND_VB_SHOULD(VB_COLLECT_ELF, shouldRegister, {
+        if (TryGiveFairyCheck(va_arg(args, EnElf*))) {
+            *should = false;
+        }
+    });
+
+    COND_VB_SHOULD(VB_SPAWN_FOUNTAIN_ELF, shouldRegister, {
         *should = false;
-        EnElf* enElf = va_arg(args, EnElf*);
-        RandoCheckId randoCheckId = (RandoCheckId)CUSTOM_PARAM;
-        if (RANDO_SAVE_CHECKS[randoCheckId].shuffled && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
-            RANDO_SAVE_CHECKS[randoCheckId].eligible = true;
+        RandoCheckId randoCheckId = RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_1;
+        Actor* actor = va_arg(args, Actor*);
+        Vec3f pos = actor->world.pos;
+        s32 i;
+        for (i = 0; i < 8; i++) {
+            SpawnRandoFairy(pos.x, pos.y - 30.0f, pos.z, (RandoCheckId)(randoCheckId + i), FAIRY_TYPE_6);
         }
     });
 }
