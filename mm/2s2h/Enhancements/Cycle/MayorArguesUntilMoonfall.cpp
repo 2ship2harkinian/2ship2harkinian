@@ -16,7 +16,11 @@ static void KeepArguingOnFinalNight(ActorEntry* entry, s32* halfDaysBits) {
 }
 
 static void RegisterMayorArguesUntilMoonfall() {
-    COND_VB_SHOULD(VB_MAYOR_MEETING_END_ON_FINAL_NIGHT, CVAR, { *should = false; });
+    COND_VB_SHOULD(VB_MAYOR_MEETING_END_ON_FINAL_NIGHT, CVAR, {
+        if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_MAYOR_HEART_PIECE)) {
+            *should = false;
+        }
+    });
 
     COND_ID_HOOK(OnActorEntryHalfDaysBits, ACTOR_EN_MUTO, CVAR, KeepArguingOnFinalNight);   // Mutoh
     COND_ID_HOOK(OnActorEntryHalfDaysBits, ACTOR_EN_BAISEN, CVAR, KeepArguingOnFinalNight); // Viscen
