@@ -11,7 +11,7 @@ extern "C" {
 void drawRandoGeroMask() {
     OPEN_DISPS(gPlayState->state.gfxCtx);
     Matrix_Push();
-    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY); 
+    Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
     Matrix_Translate(90.0f, 30.0f, 0.0f, MTXMODE_APPLY);
     Matrix_RotateZYX(35000, -16100, 13674, MTXMODE_APPLY);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_MOUNTAIN_VILLAGE_DON_GERO_MASK];

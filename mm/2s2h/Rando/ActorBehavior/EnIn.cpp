@@ -18,7 +18,7 @@ void drawRandoGaroMask(s32 limbIndex) {
     } else if (limbIndex == OBJECT_IN_LIMB_10) {
         OPEN_DISPS(gPlayState->state.gfxCtx);
         Matrix_Push();
-        Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY); 
+        Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
         Matrix_Translate(75.0f, 80.0f, 0.0f, MTXMODE_APPLY);
         Matrix_RotateZYX(32500, -16100, 13674, MTXMODE_APPLY);
         gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
