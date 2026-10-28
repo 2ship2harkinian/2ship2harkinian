@@ -107,8 +107,7 @@ void InitPlayerBehavior();
 void InitSoulsBehavior();
 void InitTrapsBehavior();
 void InitWonderItemsBehavior();
-void InitEnKanbanBehavior();
-void InitEnAObjBehavior();
+void InitSignpostBehavior();
 
 } // namespace ActorBehavior
 
