@@ -18,25 +18,15 @@ void drawRandoGaroMask(s32 limbIndex) {
     } else if (limbIndex == OBJECT_IN_LIMB_10) {
         OPEN_DISPS(gPlayState->state.gfxCtx);
         Matrix_Push();
-        Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY);
-        Vec3s rot;
-        rot.x = 32500;
-        rot.y = -16100;
-        rot.z = 13674;
-        Vec3f pos;
-        pos.x = 75.0f;
-        pos.y = 80.0f;
-        pos.z = 0.0f;
-        Matrix_TranslateRotateZYX(&pos, &rot);
+        Matrix_Scale(20.0f, 20.0f, 20.0f, MTXMODE_APPLY); 
+        Matrix_Translate(75.0f, 80.0f, 0.0f, MTXMODE_APPLY);
+        Matrix_RotateZYX(32500, -16100, 13674, MTXMODE_APPLY);
         gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
         gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
         auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_GORMAN_TRACK_GARO_MASK];
         auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_GORMAN_TRACK_GARO_MASK);
         Rando::DrawItem(randoItemId, RC_GORMAN_TRACK_GARO_MASK);
-        Vec3f sparklePos;
-        Matrix_MultZero(&sparklePos);
-        sparklePos.y -= 3;
-        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        Rando::DrawSparklesForReplacement(randoItemId, 3);
         POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
         POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
         Matrix_Pop();
@@ -141,6 +131,11 @@ void Rando::ActorBehavior::InitEnInBehavior() {
 
     COND_VB_SHOULD(VB_DRAW_GARO_MASK, IS_RANDO, {
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].shuffled ||
+                RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
         }
     });
@@ -148,8 +143,12 @@ void Rando::ActorBehavior::InitEnInBehavior() {
     COND_VB_SHOULD(VB_DRAW_CHASE_EQUIPMENT, IS_RANDO, {
         s32 limbIndex = va_arg(args, s32);
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_GORMAN_TRACK_GARO_MASK].shuffled ||
+                RANDO_SAVE_CHECKS[RC_GORMAN_TRACK_GARO_MASK].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
-
             drawRandoGaroMask(limbIndex);
         }
         return;

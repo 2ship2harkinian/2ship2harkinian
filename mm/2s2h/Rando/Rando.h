@@ -14,7 +14,7 @@ namespace Rando {
 
 void Init();
 void DrawItem(RandoItemId randoItemId, RandoCheckId randoCheckId = RC_UNKNOWN, Actor* actor = nullptr);
-void DrawSparklesAtPos(RandoItemId randoItemId, Vec3f* pos = nullptr);
+void DrawSparklesForReplacement(RandoItemId randoItemId, int offset=0);
 void GiveItem(RandoItemId randoItemId);
 void RemoveItem(RandoItemId randoItemId);
 RandoItemId CurrentJunkItem(RandoCheckId randoCheckId = RC_UNKNOWN);

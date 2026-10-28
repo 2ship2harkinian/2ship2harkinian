@@ -16,21 +16,11 @@ void drawRandoPostmanHat(Gfx** gfx) {
     Matrix_Push();
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT];
     Matrix_Scale(21.0f, 21.0f, 21.0f, MTXMODE_APPLY);
-    Vec3f pos;
-    pos.x = 70.0;
-    pos.y = 20.0;
-    pos.z = 0.0;
-    Vec3s rot;
-    rot.x = 63000;
-    rot.y = 47000;
-    rot.z = 0xc000;
-    Matrix_TranslateRotateZYX(&pos, &rot);
+    Matrix_Translate(70.0f, 20.0f, 0.0f, MTXMODE_APPLY);
+    Matrix_RotateZYX(63000, 47000, 49152, MTXMODE_APPLY);
     auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_CLOCK_TOWN_EAST_POSTMAN_HAT);
     Rando::DrawItem(randoItemId, RC_CLOCK_TOWN_EAST_POSTMAN_HAT);
-    Vec3f sparklePos;
-    Matrix_MultZero(&sparklePos);
-    sparklePos.y -= 3;
-    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    Rando::DrawSparklesForReplacement(randoItemId, 3);
     Matrix_Pop();
     *gfx = gPlayState->state.gfxCtx->polyOpa.p;
 }
@@ -74,6 +64,11 @@ void Rando::ActorBehavior::InitEnPmBehavior() {
     COND_VB_SHOULD(VB_DRAW_POSTMAN_HAT, IS_RANDO, {
         Gfx** gfx = va_arg(args, Gfx**);
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].shuffled ||
+                RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
             drawRandoPostmanHat(gfx);
         }

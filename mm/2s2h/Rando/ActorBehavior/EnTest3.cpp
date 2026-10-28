@@ -34,26 +34,16 @@ void drawReplacement() {
         OPEN_DISPS(gPlayState->state.gfxCtx);
         Matrix_Push();
         Matrix_Put(&kafeiHeadMatrix);
-        Vec3s rot;
-        rot.x = 0;
-        rot.y = 50000;
-        rot.z = 33500;
-        Vec3f pos;
-        pos.x = 1000.0f;
-        pos.y = -400.0f;
-        pos.z = 0.0f;
-        Matrix_TranslateRotateZYX(&pos, &rot);
         Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
+        Matrix_Translate(50.0f, -23.0f, 0.0f, MTXMODE_APPLY);
+        Matrix_RotateZYX(0, 50000, 33500, MTXMODE_APPLY);
         gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
         gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
         MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
         auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
         auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
         Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Vec3f sparklePos;
-        Matrix_MultZero(&sparklePos);
-        sparklePos.y -= 3;
-        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        Rando::DrawSparklesForReplacement(randoItemId, 3);
         POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
         POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
         Matrix_Pop();
@@ -63,26 +53,16 @@ void drawReplacement() {
         OPEN_DISPS(gPlayState->state.gfxCtx);
         Matrix_Push();
         Matrix_Put(&kafeiHandMatrix);
-        Vec3s rot;
-        rot.x = 0;
-        rot.y = 0;
-        rot.z = 0;
-        Vec3f pos;
-        pos.x = 0.0f;
-        pos.y = 1000.0f;
-        pos.z = 0.0f;
-        Matrix_TranslateRotateZYX(&pos, &rot);
         Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
+        Matrix_Translate(0.0f, 1000.0f, 0.0f, MTXMODE_APPLY);
+        Matrix_RotateZYX(0, 0, 0, MTXMODE_APPLY);
         gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
         gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
         MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
         auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
         auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
         Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Vec3f sparklePos;
-        Matrix_MultZero(&sparklePos);
-        sparklePos.y -= 3;
-        Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+        Rando::DrawSparklesForReplacement(randoItemId, 3);
         POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
         POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
         Matrix_Pop();
@@ -94,22 +74,12 @@ void drawReplacement() {
 void drawPendant() {
     OPEN_DISPS(gPlayState->state.gfxCtx);
     Matrix_Scale(10.0f, 10.0f, 10.0f, MTXMODE_APPLY);
-    Vec3s rot;
-    rot.x = 19737;
-    rot.y = -16100;
-    rot.z = 26000;
-    Vec3f pos;
-    pos.x = 50.0f;
-    pos.y = 50.0f;
-    pos.z = 0.0f;
-    Matrix_TranslateRotateZYX(&pos, &rot);
+    Matrix_Translate(50.0f, 50.0f, 0.0f, MTXMODE_APPLY);
+    Matrix_RotateZYX(19737, -16100, 26000, MTXMODE_APPLY);
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES];
     auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
     Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
-    Vec3f sparklePos;
-    Matrix_MultZero(&sparklePos);
-    sparklePos.y -= 5;
-    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    Rando::DrawSparklesForReplacement(randoItemId, 5);
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
@@ -127,10 +97,7 @@ void drawPendantInHand(Actor* enTest3) {
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES];
     auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
     Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES);
-    Vec3f sparklePos;
-    Matrix_MultZero(&sparklePos);
-    sparklePos.y -= 5;
-    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    Rando::DrawSparklesForReplacement(randoItemId, 5);
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
@@ -138,12 +105,22 @@ void Rando::ActorBehavior::InitTest3Behavior() {
     COND_VB_SHOULD(VB_DRAW_KAFEI_KEATON_MASK, IS_RANDO, {
         Gfx** dList1 = va_arg(args, Gfx**);
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK].shuffled ||
+                RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
             stopMaskDraw(dList1);
         }
     });
     COND_VB_SHOULD(VB_DRAW_KAFEI_PENDANT, IS_RANDO, {
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES].shuffled ||
+                RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
             drawPendant();
         }
@@ -151,6 +128,11 @@ void Rando::ActorBehavior::InitTest3Behavior() {
     COND_VB_SHOULD(VB_DRAW_KAFEI_KEATON_IN_HAND, IS_RANDO, {
         Actor* test3 = va_arg(args, Actor*);
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK].shuffled ||
+                RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
             stopMaskDrawInHand(test3);
         }
@@ -163,6 +145,11 @@ void Rando::ActorBehavior::InitTest3Behavior() {
                 *should = true;
                 return;
             } else {
+                if (!RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES].shuffled ||
+                    RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_PENDANT_OF_MEMORIES].cycleObtained) {
+                    *should = true;
+                    return;
+                }
                 *should = false;
                 drawPendantInHand(test3);
             }

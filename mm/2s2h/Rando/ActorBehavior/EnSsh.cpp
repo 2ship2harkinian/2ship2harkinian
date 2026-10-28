@@ -46,10 +46,7 @@ void drawMaskOfTruth(Vec3f* pos, Vec3s* rot, f32 scale) {
     auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH];
     auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
     Rando::DrawItem(randoItemId, RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH);
-    Vec3f sparklePos;
-    Matrix_MultZero(&sparklePos);
-    sparklePos.y -= 3;
-    Rando::DrawSparklesAtPos(randoItemId, &sparklePos);
+    Rando::DrawSparklesForReplacement(randoItemId, 3);
     Matrix_Pop();
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
@@ -85,6 +82,11 @@ void Rando::ActorBehavior::InitEnSshBehavior() {
 
     COND_VB_SHOULD(VB_DRAW_MASK_OF_TRUTH_SPIDER, IS_RANDO, {
         if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH].shuffled ||
+                RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH].cycleObtained) {
+                *should = true;
+                return;
+            }
             *should = false;
             Vec3s rot;
             rot.x = 20000;
@@ -102,6 +104,11 @@ void Rando::ActorBehavior::InitEnSshBehavior() {
         EnSth* enSth = va_arg(args, EnSth*);
         if (enSth->sthFlags & STH_FLAG_DRAW_MASK_OF_TRUTH) {
             if (*should) {
+                if (!RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH].shuffled ||
+                    RANDO_SAVE_CHECKS[RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH].cycleObtained) {
+                    *should = true;
+                    return;
+                }
                 *should = false;
                 Vec3s rot;
                 rot.x = -5000;

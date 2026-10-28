@@ -532,11 +532,12 @@ bool ShouldDrawSparkles(RandoItemId randoItemId) {
     return result;
 }
 
-void Rando::DrawSparklesAtPos(RandoItemId randoItemId, Vec3f* pos) {
+void Rando::DrawSparklesForReplacement(RandoItemId randoItemId, int offset) {
     if (ShouldDrawSparkles(randoItemId)) {
-        if (pos == NULL) {
-            return;
-        }
+
+        Vec3f sparklePos;
+        Matrix_MultZero(&sparklePos);
+        sparklePos.y -= offset;
 
         if (gGameState->frames % 2 == 0) {
             return;
@@ -548,9 +549,9 @@ void Rando::DrawSparklesAtPos(RandoItemId randoItemId, Vec3f* pos) {
         static Color_RGBA8 sEnvColor = { 255, 128, 0, 255 };
         Vec3f newPos;
 
-        newPos.x = Rand_CenteredFloat(10.0f) + pos->x;
-        newPos.y = (Rand_ZeroOne() * 10.0f) + pos->y;
-        newPos.z = Rand_CenteredFloat(10.0f) + pos->z;
+        newPos.x = Rand_CenteredFloat(10.0f) + sparklePos.x;
+        newPos.y = (Rand_ZeroOne() * 10.0f) + sparklePos.y;
+        newPos.z = Rand_CenteredFloat(10.0f) + sparklePos.z;
 
         EffectSsKirakira_SpawnDispersed(gPlayState, &newPos, &sVelocity, &sAccel, &sPrimColor, &sEnvColor, 2000, 16);
     }
