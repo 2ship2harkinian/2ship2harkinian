@@ -11,9 +11,18 @@ extern "C" {
 #include "variables.h"
 #include "overlays/actors/ovl_Obj_Tsubo/z_obj_tsubo.h"
 #include "objects/object_tsubo/object_tsubo.h"
+#include "objects/gameplay_dangeon_keep/gameplay_dangeon_keep.h"
+#include "objects/object_racetsubo/object_racetsubo.h"
 
 void ObjTsubo_Draw(Actor* actor, PlayState* play);
 }
+
+Gfx* vanillaPotDLs[4] = {
+    (Gfx*)gameplay_dangeon_keep_DL_017EA0,
+    (Gfx*)gMagicPotDL,
+    (Gfx*)gPotDL,
+    (Gfx*)gameplay_dangeon_keep_DL_017EA0,
+};
 
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> potMap = {
     // Deku Shrine //
@@ -334,6 +343,10 @@ void IdentifyPot(Actor* actor, bool* should) {
 }
 
 void ObjTsubo_RandoDraw(Actor* actor, PlayState* play) {
+    if (!CVarGetInteger("gRando.RandoContainers", 0)) {
+        Gfx_DrawDListOpa(play, vanillaPotDLs[OBJ_TSUBO_GET_TYPE(actor)]);
+        return;
+    }
     if (!CVarGetInteger("gRando.CSMC", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gPotMajorDL);
         return;

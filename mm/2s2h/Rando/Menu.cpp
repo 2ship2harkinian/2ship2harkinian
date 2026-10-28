@@ -618,9 +618,15 @@ static void DrawGeneralTab() {
     ImGui::SeparatorText("Live Options");
     ImGui::TextWrapped("These options can be changed on the fly, and are not tied to the seed generation.");
     UIWidgets::CVarCheckbox(
-        "Container Style Matches Contents", "gRando.CSMC",
-        UIWidgets::CheckboxOptions().Tooltip("This will make the contents of a container match the container itself. "
-                                             "Eg chests, pots, crates, grass, etc."));
+        "Use Rando Container Models", "gRando.RandoContainers",
+        UIWidgets::CheckboxOptions().Tooltip("This will make containers (grass, pots, chests, etc.) use custom models "
+                                             "made for rando."));
+    if (CVarGetInteger("gRando.RandoContainers", 0)) {
+        UIWidgets::CVarCheckbox("Container Style Matches Contents", "gRando.CSMC",
+                                UIWidgets::CheckboxOptions().Tooltip(
+                                    "This will make the contents of a container match the container itself. "
+                                    "Eg chests, pots, crates, grass, etc."));
+    }
 
     UIWidgets::CVarCombobox(
         "Junk Items", "gRando.JunkItems", &junkItemsOptions,
