@@ -1485,6 +1485,15 @@ typedef enum {
     // - None
     VB_MAGIC_SPIN_ATTACK_CHECK_FORM,
 
+    // Whether the mayoral meeting has broken up for the night of the Final Day.
+    // #### `result`
+    // ```c
+    // (gSaveContext.save.day == 3) && gSaveContext.save.isNight
+    // ```
+    // #### `args`
+    // - None
+    VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
+
     // #### `result`
     // ```c
     // CHECK_QUEST_ITEM(QUEST_REMAINS_ODOLWA) && CHECK_QUEST_ITEM(QUEST_REMAINS_GOHT) &&

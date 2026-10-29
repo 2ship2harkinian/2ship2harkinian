@@ -1347,6 +1347,11 @@ void BenMenu::AddEnhancements() {
         .Options(CheckboxOptions().Tooltip(
             "Allows the player to keep the Express Mail in their inventory after delivering it "
             "the first time, so that both deliveries can be done within one cycle."));
+    AddWidget(path, "Mayor argues until moonfall", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Cycle.MayorArguesUntilMoonfall")
+        .Options(CheckboxOptions().Tooltip(
+            "The mayoral meeting normally breaks up on the night of the Final Day. This keeps it going until the moon "
+            "falls, so the Couple's Mask can still be shown to Mayor Dotour for his Piece of Heart."));
     AddWidget(path, "Stop Oceanside Spider House squatter", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Cycle.StopOceansideSpiderHouseSquatter")
         .Options(
