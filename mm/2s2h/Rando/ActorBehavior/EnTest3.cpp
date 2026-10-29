@@ -30,45 +30,33 @@ void stopMaskDrawInHand(Actor* actor) {
 }
 
 void drawReplacement() {
+    OPEN_DISPS(gPlayState->state.gfxCtx);
+    Matrix_Push();
     if (hasValidHeadMatrix) {
-        OPEN_DISPS(gPlayState->state.gfxCtx);
-        Matrix_Push();
         Matrix_Put(&kafeiHeadMatrix);
         Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
         Matrix_Translate(50.0f, -23.0f, 0.0f, MTXMODE_APPLY);
         Matrix_RotateZYX(0, 50000, 33500, MTXMODE_APPLY);
-        gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
-        gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
-        MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
-        auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
-        auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Rando::DrawSparklesForReplacement(randoItemId, 3);
-        POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
-        POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
-        Matrix_Pop();
-        CLOSE_DISPS(gPlayState->state.gfxCtx);
         hasValidHeadMatrix = false;
     } else if (hasValidHandMatrix) {
-        OPEN_DISPS(gPlayState->state.gfxCtx);
-        Matrix_Push();
         Matrix_Put(&kafeiHandMatrix);
         Matrix_Scale(20.2f, 20.2f, 20.2f, MTXMODE_APPLY);
-        Matrix_Translate(0.0f, 1000.0f, 0.0f, MTXMODE_APPLY);
+        Matrix_Translate(0.0f, 50.0f, 10.0f, MTXMODE_APPLY);
         Matrix_RotateZYX(0, 0, 0, MTXMODE_APPLY);
-        gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
-        gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
-        MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
-        auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
-        auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
-        Rando::DrawSparklesForReplacement(randoItemId, 3);
-        POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
-        POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
-        Matrix_Pop();
-        CLOSE_DISPS(gPlayState->state.gfxCtx);
         hasValidHandMatrix = false;
     }
+    gPlayState->state.gfxCtx->polyOpa.p = POLY_OPA_DISP;
+    gPlayState->state.gfxCtx->polyXlu.p = POLY_XLU_DISP;
+    MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP, gPlayState->state.gfxCtx);
+    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_KAFEIS_HIDEOUT_KEATON_MASK];
+    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+    Rando::DrawItem(randoItemId, RC_KAFEIS_HIDEOUT_KEATON_MASK);
+    Rando::DrawSparklesForReplacement(randoItemId, 3);
+    POLY_OPA_DISP = gPlayState->state.gfxCtx->polyOpa.p;
+    POLY_XLU_DISP = gPlayState->state.gfxCtx->polyXlu.p;
+    Matrix_Pop();
+    CLOSE_DISPS(gPlayState->state.gfxCtx);
+    hasValidHeadMatrix = false;
 }
 
 void drawPendant() {
@@ -155,5 +143,9 @@ void Rando::ActorBehavior::InitTest3Behavior() {
             }
         }
     });
-    COND_ID_HOOK(OnActorDraw, ACTOR_EN_TEST3, IS_RANDO, [](Actor* actor) { drawReplacement(); });
+    COND_ID_HOOK(OnActorDraw, ACTOR_EN_TEST3, IS_RANDO, [](Actor* actor) {
+        if (hasValidHandMatrix || hasValidHeadMatrix) {
+            drawReplacement();
+        }
+    });
 }
