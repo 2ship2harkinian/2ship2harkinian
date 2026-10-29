@@ -1462,6 +1462,57 @@ void BenMenu::AddEnhancements() {
                      .Min(1)
                      .Max(5)
                      .DefaultValue(1));
+    AddWidget(path, "Telescope Style Stars", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Graphics.TelescopeStars")
+        .Options(CheckboxOptions().Tooltip(
+            "Draws the stars as a round core with four diffraction spikes instead of vanilla square blobs."));
+    AddWidget(path, "Telescope Star Size", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar("gEnhancements.Graphics.TelescopeStarSize")
+        .Options(FloatSliderOptions()
+                     .Tooltip("Scales the telescope stars up. They are a soft glow, so they read smaller than "
+                              "vanilla stars at the same size.")
+                     .Format("%.1fx")
+                     .Step(0.1f)
+                     .Min(1.0f)
+                     .Max(3.0f)
+                     .DefaultValue(2.0f))
+        .PreFunc([](WidgetInfo& info) { info.isHidden = !CVarGetInteger("gEnhancements.Graphics.TelescopeStars", 0); });
+    AddWidget(path, "Telescope Star Intensity", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar("gEnhancements.Graphics.TelescopeStarIntensity")
+        .Options(FloatSliderOptions()
+                     .Tooltip("How opaque the telescope stars are. Higher is less transparent.")
+                     .Format("%.2f")
+                     .Step(0.01f)
+                     .Min(0.0f)
+                     .Max(1.0f)
+                     .DefaultValue(1.0f))
+        .PreFunc([](WidgetInfo& info) { info.isHidden = !CVarGetInteger("gEnhancements.Graphics.TelescopeStars", 0); });
+    AddWidget(path, "Star Twinkle", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Graphics.StarTwinkle")
+        .Options(CheckboxOptions().Tooltip(
+            "Makes every star twinkle on its own, dipping to half its brightness. Works in both modes, and each "
+            "star keeps its own parameters from the save name seed."));
+    AddWidget(path, "Twinkle Frequency", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar("gEnhancements.Graphics.StarTwinkleFrequency")
+        .Options(FloatSliderOptions()
+                     .Tooltip("Top of the twinkle rate. Each star gets its own frequency between 15% of this value "
+                              "and the value. 0 disables it.")
+                     .Format("%.2f Hz")
+                     .Step(0.05f)
+                     .Min(0.0f)
+                     .Max(2.0f)
+                     .DefaultValue(1.0f))
+        .PreFunc([](WidgetInfo& info) { info.isHidden = !CVarGetInteger("gEnhancements.Graphics.StarTwinkle", 0); });
+    AddWidget(path, "Star Count", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar("gEnhancements.Graphics.StarCountMultiplier")
+        .Options(FloatSliderOptions()
+                     .Tooltip("Multiplies how many stars are generated. Extra stars extend the same seed, so the "
+                              "existing ones do not move.")
+                     .Format("%.1fx")
+                     .Step(0.1f)
+                     .Min(1.0f)
+                     .Max(3.0f)
+                     .DefaultValue(1.0f));
     AddWidget(path, "N64 Mode", WIDGET_CVAR_CHECKBOX)
         .CVar(CVAR_LOW_RES_MODE)
         .Options(CheckboxOptions().Tooltip(
