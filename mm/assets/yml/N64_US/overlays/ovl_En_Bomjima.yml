@@ -1,0 +1,18 @@
+:config:
+  segments:
+    - [ 128, 0x00DD3FB0 ]
+    - [ 4, 0x00DF1210 ]
+  virtual: [ 0x80BFE170, 0x00DD3FB0 ]
+  external_files:
+    - N64_US/objects/gameplay_keep.yml
+
+gBomberJimRedBandanaDL:
+  type: GFX
+  offset: 0x2998
+  symbol: gBomberJimRedBandanaDL
+
+gBomberJimBlueBandanaDL:
+  type: GFX
+  offset: 0x29A8
+  symbol: gBomberJimBlueBandanaDL
+

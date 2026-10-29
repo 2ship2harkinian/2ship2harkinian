@@ -1,0 +1,163 @@
+:config:
+  segments:
+    - [ 6, 0x013A6810 ]
+    - [ 4, 0x00DF1210 ]
+    - [ 8, 0x013A6810 ]
+    - [ 9, 0x013A6810 ]
+    - [ 10, 0x013A6810 ]
+    - [ 11, 0x013A6810 ]
+    - [ 12, 0x013A6810 ]
+    - [ 13, 0x013A6810 ]
+  external_files:
+    - N64_US/objects/gameplay_keep.yml
+
+gPracticeLogBottomLeftBigChunkDL:
+  type: GFX
+  offset: 0x2220
+  symbol: gPracticeLogBottomLeftBigChunkDL
+
+gPracticeLogBottomRightBigChunkDL:
+  type: GFX
+  offset: 0x23D0
+  symbol: gPracticeLogBottomRightBigChunkDL
+
+gPracticeLogBottomLeftCornerChunkDL:
+  type: GFX
+  offset: 0x2568
+  symbol: gPracticeLogBottomLeftCornerChunkDL
+
+gPracticeLogBottomRightCornerChunkDL:
+  type: GFX
+  offset: 0x2660
+  symbol: gPracticeLogBottomRightCornerChunkDL
+
+gPracticeLogTopLeftCornerChunkDL:
+  type: GFX
+  offset: 0x2758
+  symbol: gPracticeLogTopLeftCornerChunkDL
+
+gPracticeLogTopRightCornerChunkDL:
+  type: GFX
+  offset: 0x2850
+  symbol: gPracticeLogTopRightCornerChunkDL
+
+gPracticeLogTopLeftBigChunkDL:
+  type: GFX
+  offset: 0x2948
+  symbol: gPracticeLogTopLeftBigChunkDL
+
+gPracticeLogTopRightBigChunkDL:
+  type: GFX
+  offset: 0x2AE0
+  symbol: gPracticeLogTopRightBigChunkDL
+
+gPracticeLogWholeDL:
+  type: GFX
+  offset: 0x2EC0
+  symbol: gPracticeLogWholeDL
+
+object_maruta_Tex_000000:
+  type: TEXTURE
+  offset: 0x0
+  symbol: object_maruta_Tex_000000
+  format: RGBA16
+  width: 32
+  height: 32
+
+object_maruta_Tex_000800:
+  type: TEXTURE
+  offset: 0x800
+  symbol: object_maruta_Tex_000800
+  format: RGBA16
+  width: 32
+  height: 32
+
+object_maruta_Tex_001000:
+  type: TEXTURE
+  offset: 0x1000
+  symbol: object_maruta_Tex_001000
+  format: RGBA16
+  width: 32
+  height: 32
+
+
+object_marutaVtx_001800:
+  type: MM:ARRAY
+  offset: 0x001800
+  symbol: object_marutaVtx_001800
+  count: 25
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001990:
+  type: MM:ARRAY
+  offset: 0x001990
+  symbol: object_marutaVtx_001990
+  count: 24
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001B10:
+  type: MM:ARRAY
+  offset: 0x001B10
+  symbol: object_marutaVtx_001B10
+  count: 16
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001C10:
+  type: MM:ARRAY
+  offset: 0x001C10
+  symbol: object_marutaVtx_001C10
+  count: 16
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001D10:
+  type: MM:ARRAY
+  offset: 0x001D10
+  symbol: object_marutaVtx_001D10
+  count: 16
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001E10:
+  type: MM:ARRAY
+  offset: 0x001E10
+  symbol: object_marutaVtx_001E10
+  count: 17
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_001F20:
+  type: MM:ARRAY
+  offset: 0x001F20
+  symbol: object_marutaVtx_001F20
+  count: 24
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_0020A0:
+  type: MM:ARRAY
+  offset: 0x0020A0
+  symbol: object_marutaVtx_0020A0
+  count: 24
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true
+
+object_marutaVtx_002C80:
+  type: MM:ARRAY
+  offset: 0x002C80
+  symbol: object_marutaVtx_002C80
+  count: 36
+  array_type: VTX
+  zero_flag: true
+  null_cross_file: true

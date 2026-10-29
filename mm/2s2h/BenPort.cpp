@@ -466,8 +466,8 @@ void OTRGlobals::RunExtract(int argc, char* argv[]) {
                 extract = Extractor();
                 if (extract.RunFileStandalone(file)) {
                     extractionTask = threadPool->submit_task([&]() -> void {
-                        extract.CallZapd(installPath, Ship::Context::GetAppDirectoryPath(appShortName), &extractCount,
-                                         &totalExtract);
+                        extract.CallTorch(installPath, Ship::Context::GetAppDirectoryPath(appShortName), &extractCount,
+                                          &totalExtract);
                         extractCount = totalExtract = 0;
                     });
                 } else {
@@ -518,8 +518,8 @@ void OTRGlobals::RunExtract(int argc, char* argv[]) {
                             continue;
                         }
                         extractionTask = threadPool->submit_task([&]() -> void {
-                            extract.CallZapd(installPath, Ship::Context::GetAppDirectoryPath(appShortName),
-                                             &extractCount, &totalExtract);
+                            extract.CallTorch(installPath, Ship::Context::GetAppDirectoryPath(appShortName),
+                                              &extractCount, &totalExtract);
                             extractStep = ES_VERIFY;
                             extractCount = 0;
                             totalExtract = 0;
