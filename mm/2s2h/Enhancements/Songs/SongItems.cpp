@@ -488,6 +488,7 @@ static void RegisterSongItems() {
     COND_VB_SHOULD(VB_GET_ITEM_ON_BUTTON, CVAR, {
         EquipSlot slot = (EquipSlot)va_arg(args, int);
         ItemId* item = va_arg(args, ItemId*);
+        bool isDpad = (bool)va_arg(args, int);
 
         if (IsSongItem(*item)) {
             if (INV_CONTENT(ITEM_OCARINA_OF_TIME) != ITEM_OCARINA_OF_TIME ||

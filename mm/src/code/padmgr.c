@@ -35,6 +35,7 @@
 #include "PR/controller.h"
 #include "PR/os_motor.h"
 
+#include "2s2h/Mouse.h"
 #include "controller.h"
 #include "fault.h"
 #include <stdio.h>
@@ -606,6 +607,7 @@ void PadMgr_HandleRetrace(void) {
 
     // Begin reading controller data
     osContStartReadData(serialEventQueue);
+    Mouse_Update();
 
     // Execute rumble callback
     if (sPadMgrInstance->rumbleRetraceCallback != NULL) {

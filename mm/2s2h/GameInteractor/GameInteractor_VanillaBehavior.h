@@ -822,6 +822,7 @@ typedef enum {
     // #### `args`
     // - `EquipSlot`
     // - `*ItemId`
+    // - `bool` (isDpad)
     VB_GET_ITEM_ON_BUTTON,
 
     // #### `result`
@@ -2604,7 +2605,23 @@ typedef enum {
     // ```
     // #### `args`
     // - `*EnItem00`
-    VB_UPDATE_ITEM00
+    VB_UPDATE_ITEM00,
+
+    // #### `result`
+    // ```c
+    // false
+    // ```
+    // #### `args`
+    // - `*s8` (control stick spin angles array)
+    VB_SHOULD_QUICKSPIN,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `Player*` (player)
+    VB_SHOULD_OVERSHOULDER_AIM,
 } GIVanillaBehavior;
 
 #endif
