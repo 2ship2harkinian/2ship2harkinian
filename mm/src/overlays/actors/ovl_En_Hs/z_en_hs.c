@@ -5,6 +5,7 @@
  */
 
 #include "z_en_hs.h"
+#include "GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_ATTENTION_ENABLED | ACTOR_FLAG_FRIENDLY | ACTOR_FLAG_UPDATE_CULLING_DISABLED)
 
@@ -96,7 +97,7 @@ void EnHs_Destroy(Actor* thisx, PlayState* play) {
 }
 
 void func_80952DFC(PlayState* play) {
-    if (INV_CONTENT(ITEM_MASK_BUNNY) == ITEM_MASK_BUNNY) {
+    if (GameInteractor_Should(VB_HAVE_BUNNY_HOOD, INV_CONTENT(ITEM_MASK_BUNNY) == ITEM_MASK_BUNNY)) {
         Message_BombersNotebookQueueEvent(play, BOMBERS_NOTEBOOK_EVENT_RECEIVED_BUNNY_HOOD);
     }
     Message_BombersNotebookQueueEvent(play, BOMBERS_NOTEBOOK_EVENT_MET_GROG);

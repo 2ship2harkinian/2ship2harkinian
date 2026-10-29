@@ -1194,6 +1194,13 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // INV_CONTENT(ITEM_MASK_BUNNY) == ITEM_MASK_BUNNY
+    // #### `args`
+    // - None
+    VB_HAVE_BUNNY_HOOD,
+
+    // #### `result`
+    // ```c
     // INV_CONTENT(ITEM_MASK_GARO) == ITEM_MASK_GARO
     // ```
     // #### `args`

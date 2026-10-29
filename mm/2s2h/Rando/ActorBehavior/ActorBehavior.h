@@ -52,6 +52,7 @@ void InitEnGKBehavior();
 void InitEnGoBehavior();
 void InitEnGsBehavior();
 void InitEnHgBehavior();
+void InitEnHsBehavior();
 void InitEnInBehavior();
 void InitEnInvadepohBehavior();
 void InitEnItem00Behavior();
