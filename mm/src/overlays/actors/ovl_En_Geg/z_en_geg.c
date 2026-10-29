@@ -998,13 +998,15 @@ void EnGeg_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
 
     if (limbIndex == GORON_LIMB_HEAD) {
         if (!(this->unk_230 & 0x40)) {
-            Gfx_SetupDL25_Opa(play->state.gfxCtx);
+            if (GameInteractor_Should(VB_DRAW_DON_GERO_MASK, true)) {
+                Gfx_SetupDL25_Opa(play->state.gfxCtx);
 
-            OPEN_DISPS(play->state.gfxCtx);
+                OPEN_DISPS(play->state.gfxCtx);
 
-            gSPDisplayList(POLY_OPA_DISP++, gGoronDonGeroMaskDL);
+                gSPDisplayList(POLY_OPA_DISP++, gGoronDonGeroMaskDL);
 
-            CLOSE_DISPS(play->state.gfxCtx);
+                CLOSE_DISPS(play->state.gfxCtx);
+            }
         }
 
         sp38.x += Rand_Centered();

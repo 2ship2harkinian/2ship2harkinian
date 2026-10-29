@@ -1,10 +1,28 @@
 #include "ActorBehavior.h"
 #include <libultraship/bridge/consolevariablebridge.h>
+#include "2s2h/Enhancements/FrameInterpolation/FrameInterpolation.h"
+#include "2s2h_assets.h"
 
 extern "C" {
 #include "variables.h"
+#include "overlays/actors/ovl_En_Pm/z_en_pm.h"
+#include "assets/objects/object_gi_mask13/object_gi_mask13.h"
 void Player_SetupTalk(PlayState* play, Player* player);
 s32 Player_SetupWaitForPutAway(PlayState* play, Player* player, AfterPutAwayFunc afterPutAwayFunc);
+}
+
+void drawRandoPostmanHat(Gfx** gfx) {
+    gPlayState->state.gfxCtx->polyOpa.p = *gfx;
+    Matrix_Push();
+    auto randoSaveCheck = RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT];
+    Matrix_Scale(21.0f, 21.0f, 21.0f, MTXMODE_APPLY);
+    Matrix_Translate(70.0f, 20.0f, 0.0f, MTXMODE_APPLY);
+    Matrix_RotateZYX(63000, 47000, 49152, MTXMODE_APPLY);
+    auto randoItemId = Rando::ConvertItem(randoSaveCheck.randoItemId, RC_CLOCK_TOWN_EAST_POSTMAN_HAT);
+    Rando::DrawItem(randoItemId, RC_CLOCK_TOWN_EAST_POSTMAN_HAT);
+    Rando::DrawSparklesForReplacement(randoItemId, 3);
+    Matrix_Pop();
+    *gfx = gPlayState->state.gfxCtx->polyOpa.p;
 }
 
 void Rando::ActorBehavior::InitEnPmBehavior() {
@@ -40,6 +58,19 @@ void Rando::ActorBehavior::InitEnPmBehavior() {
                 default:
                     break;
             }
+        }
+    });
+
+    COND_VB_SHOULD(VB_DRAW_POSTMAN_HAT, IS_RANDO, {
+        Gfx** gfx = va_arg(args, Gfx**);
+        if (*should) {
+            if (!RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].shuffled ||
+                RANDO_SAVE_CHECKS[RC_CLOCK_TOWN_EAST_POSTMAN_HAT].cycleObtained) {
+                *should = true;
+                return;
+            }
+            *should = false;
+            drawRandoPostmanHat(gfx);
         }
     });
 }

@@ -1668,7 +1668,9 @@ s32 EnIn_OverrideLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* po
         }
     }
     if ((this->unk4AC & 4) && (limbIndex == OBJECT_IN_LIMB_10)) {
-        *dList = object_in_DL_01C528;
+        if (GameInteractor_Should(VB_DRAW_GARO_MASK, true)) {
+            *dList = object_in_DL_01C528;
+        }
     }
 
     OPEN_DISPS(play->state.gfxCtx);
@@ -1753,13 +1755,15 @@ void EnIn_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot, 
         }
     }
     if (this->unk4AC & 0x20) {
-        OPEN_DISPS(play->state.gfxCtx);
+        if (GameInteractor_Should(VB_DRAW_CHASE_EQUIPMENT, true, limbIndex)) {
+            OPEN_DISPS(play->state.gfxCtx);
 
-        if (limbIndex == OBJECT_IN_LIMB_0C) {
-            gSPDisplayList(POLY_OPA_DISP++, object_in_DL_007C48);
+            if (limbIndex == OBJECT_IN_LIMB_0C) {
+                gSPDisplayList(POLY_OPA_DISP++, object_in_DL_007C48);
+            }
+
+            CLOSE_DISPS(play->state.gfxCtx);
         }
-
-        CLOSE_DISPS(play->state.gfxCtx);
     }
 }
 

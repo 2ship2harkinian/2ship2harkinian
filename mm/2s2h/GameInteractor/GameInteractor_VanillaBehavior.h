@@ -511,6 +511,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - `s32` limbIndex
+    VB_DRAW_CHASE_EQUIPMENT,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `s16` (button)
     // - `s16` (alpha)
     // - `bool` (isDpad)
@@ -535,6 +543,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_DRAW_DON_GERO_MASK,
+
+    // #### `result`
+    // ```c
     // this->isOwlSave[fileIndex + FILE_NUM_OWL_SAVE_OFFSET]
     // ```
     // #### `args`
@@ -556,6 +572,14 @@ typedef enum {
     // #### `args`
     // - `s16` (file index)
     VB_DRAW_FILE_SELECT_SMALL_EXTRA_INFO_BOX,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_DRAW_GARO_MASK,
 
     // #### `result`
     // ```c
@@ -587,11 +611,67 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*Actor`
+    VB_DRAW_KAFEI_GET_ITEM,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*Actor`
+    VB_DRAW_KAFEI_KEATON_IN_HAND,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `**Gfx` dlist1
+    VB_DRAW_KAFEI_KEATON_MASK,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_DRAW_KAFEI_PENDANT,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - *EnSth
+    VB_DRAW_MASK_OF_TRUTH_HUMAN,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_DRAW_MASK_OF_TRUTH_SPIDER,
+
+    // #### `result`
+    // ```c
     // (play->sceneId != SCENE_LOST_WOODS) || (gSaveContext.sceneLayer != 1)
     // ```
     // #### `args`
     // - `*DmStk` (unused)
     VB_DRAW_OCARINA_IN_STK_HAND,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `**Gfx` gfxList
+    VB_DRAW_POSTMAN_HAT,
 
     // #### `result`
     // ```c
