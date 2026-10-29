@@ -92,7 +92,7 @@ extern u16 sOwlWarpEntrancesForMods[OWL_WARP_MAX - 1] = {
 };
 
 // These textures are not in existing lists that we iterate over.
-std::array<const char*, 33> miscellaneousTextures = {
+std::array<const char*, 34> miscellaneousTextures = {
     gArcheryScoreIconTex,
     gBarrelTrackerIcon,
     gChestTrackerIcon,
@@ -101,6 +101,7 @@ std::array<const char*, 33> miscellaneousTextures = {
     gDungeonStrayFairySnowheadIconTex,
     gDungeonStrayFairyStoneTowerIconTex,
     gDungeonStrayFairyWoodfallIconTex,
+    gMapChestIconTex,
     gPotTrackerIcon,
     gQuestIconGoldSkulltulaTex,
     gMagicArrowEquipEffectTex,
@@ -364,6 +365,9 @@ void LoadGuiTextures() {
             ->LoadGuiTexture(path, path, "", ImVec4(1, 1, 1, 1));
     }
     for (const auto entry : miscellaneousTextures) {
+        if (IS_MISSING_ASSET(entry)) {
+            continue;
+        }
         std::dynamic_pointer_cast<Fast::Fast3dGui>(Ship::Context::GetRawInstance()->GetWindow()->GetGui())
             ->LoadGuiTexture(entry, entry, "", ImVec4(1, 1, 1, 1));
     }
