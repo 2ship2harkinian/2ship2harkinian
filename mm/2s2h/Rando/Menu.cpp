@@ -247,6 +247,7 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_TINGLE_SHOP, "Tingle Maps" },
     { RCTYPE_TREE, "Trees" },
     { RCTYPE_WONDER_ITEM, "Wonder Items" },
+    { RCTYPE_NOTEBOOK_ENTRY, "Notebook Entries" },
 };
 
 struct CheckFilterGroup {
@@ -415,6 +416,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_GOLD_SKULLTULAS",
                                                                    "gRando.Options.RO_SHUFFLE_GRASS_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_HIVE_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_NOTEBOOK_ENTRIES",
                                                                    "gRando.Options.RO_SHUFFLE_OCARINA_BUTTONS",
                                                                    "gRando.Options.RO_SHUFFLE_OWL_STATUES",
                                                                    "gRando.Options.RO_SHUFFLE_POT_DROPS",
@@ -765,6 +767,8 @@ static void DrawCheckPoolTab() {
     CheckPoolCheckbox("Tingle Maps", RO_SHUFFLE_TINGLE_SHOPS, RCTYPE_TINGLE_SHOP,
                       "Maps sold by Tingle are checks, with randomized prices.");
     CheckPoolCheckbox("Cows", RO_SHUFFLE_COWS, RCTYPE_COW, "Playing Epona's Song to a cow is a check.");
+    CheckPoolCheckbox("Notebook Entries", RO_SHUFFLE_NOTEBOOK_ENTRIES, RCTYPE_NOTEBOOK_ENTRY,
+                      "Bombers' Notebook entries from NPC events are checks.");
     UIWidgets::EndCard();
 
     UIWidgets::BeginCard("checkPoolCreatures");
