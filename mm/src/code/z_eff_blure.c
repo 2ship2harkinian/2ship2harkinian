@@ -448,6 +448,14 @@ void EffectBlure_SetupSmooth(EffectBlure* this, GraphicsContext* gfxCtx) {
     CLOSE_DISPS(gfxCtx);
 }
 
+// True only on the logical frame that appended a sample: AddVertex sets its timer to 1 and
+// EffectBlure_Update increments it once per frame. Blending any other frame would shrink the
+// newest segment onto its predecessor and pop it back on every displayed frame.
+static s32 EffectBlure_HeadIsNew(EffectBlure* this) {
+    return (this->numElements >= 2) && (this->elements[this->numElements - 1].state == 1) &&
+           (this->elements[this->numElements - 1].timer == 1);
+}
+
 void EffectBlure_DrawElemNoInterpolation(EffectBlure* this, EffectBlureElement* elem, s32 index,
                                          GraphicsContext* gfxCtx) {
     static Vtx_t baseVtx = VTX_T(0, 0, 0, 0, 0, 255, 255, 255, 255);
@@ -530,6 +538,13 @@ void EffectBlure_DrawElemNoInterpolation(EffectBlure* this, EffectBlureElement* 
         vtx[3].v.cn[1] = sp78.g;
         vtx[3].v.cn[2] = sp78.b;
         vtx[3].v.cn[3] = sp78.a;
+
+        if ((index == (s32)this->numElements - 2) && EffectBlure_HeadIsNew(this)) {
+            // The newest end (vtx[2], vtx[3]) slides from the previous sample's end (vtx[1], vtx[0]).
+            static const s16 headPairs[] = { 2, 1, 3, 0 };
+
+            FrameInterpolation_RecordRibbonHead(this, index, vtx, 4, 2, headPairs);
+        }
 
         gSPVertex(POLY_XLU_DISP++, vtx, 4, 0);
         gSP2Triangles(POLY_XLU_DISP++, 0, 1, 2, 0, 0, 2, 3, 0);
@@ -691,6 +706,16 @@ void EffectBlure_DrawElemHermiteInterpolation(EffectBlure* this, EffectBlureElem
             vtx[j2].v.cn[1] = EffectSs_LerpU8(sp1A0.g, sp198.g, temp_f28);
             vtx[j2].v.cn[2] = EffectSs_LerpU8(sp1A0.b, sp198.b, temp_f28);
             vtx[j2].v.cn[3] = EffectSs_LerpU8(sp1A0.a, sp198.a, temp_f28);
+        }
+
+        if ((index == (s32)this->numElements - 2) && EffectBlure_HeadIsNew(this)) {
+            // Every point of the subdivided newest span collapses towards the start of its own edge.
+            static const s16 headPairs[] = {
+                2, 0, 4, 0, 6, 0, 8, 0, 10, 0, 12, 0, 14, 0, // tip edge, pivot vtx[0]
+                3, 1, 5, 1, 7, 1, 9, 1, 11, 1, 13, 1, 15, 1, // base edge, pivot vtx[1]
+            };
+
+            FrameInterpolation_RecordRibbonHead(this, index, vtx, 16, 14, headPairs);
         }
 
         gSPVertex(POLY_XLU_DISP++, vtx, 16, 0);
@@ -991,6 +1016,13 @@ void EffectBlure_DrawSimple(EffectBlure* this2, GraphicsContext* gfxCtx) {
             }
         }
 
+        if (EffectBlure_HeadIsNew(this)) {
+            // Same as the smooth path, on the newest quad of the strip.
+            static const s16 headPairs[] = { 2, 0, 3, 1 };
+
+            FrameInterpolation_RecordRibbonHead(this, 0, &vtx[(this->numElements - 2) * 4], 4, 2, headPairs);
+        }
+
         EffectBlure_DrawSimpleVertices(gfxCtx, this, vtx);
     }
 }
@@ -1079,6 +1111,13 @@ void EffectBlure_Draw(void* thisx, GraphicsContext* gfxCtx) {
                         vtx[j].v.cn[3] = EffectSs_LerpU8(this->p2StartColor[3], this->p2EndColor[3], ratio);
                         j++;
                     }
+                }
+
+                if ((j >= 4) && EffectBlure_HeadIsNew(this)) {
+                    // Same, on the newest vertex pair of the trail: it slides from (j - 4, j - 3).
+                    const s16 headPairs[] = { (s16)(j - 2), (s16)(j - 4), (s16)(j - 1), (s16)(j - 3) };
+
+                    FrameInterpolation_RecordRibbonHead(this, 0, vtx, j, 2, headPairs);
                 }
 
                 phi_t2 = 0;

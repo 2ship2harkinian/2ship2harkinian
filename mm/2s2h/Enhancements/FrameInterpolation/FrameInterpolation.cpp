@@ -1,5 +1,6 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 
+#include <algorithm>
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -169,6 +170,30 @@ bool ignore_inv_actor_mtx;
 size_t ignore_inv_actor_mtx_path_index;
 MtxF inv_actor_mtx;
 size_t inv_actor_mtx_path_index;
+
+// CPU deformed limbs (SKIN_LIMB_TYPE_ANIMATED) are double buffered and rewritten every logical
+// frame with no matrix recorded, so their two poses are blended instead.
+struct SkinnedLimb {
+    Vtx* dest = nullptr; // buffer used by the current logical frame
+    Vtx* prev = nullptr; // the other slot, holding the previous frame's pose
+    vector<Vtx> current;
+    uint32_t frameStamp = 0;
+    bool prevValid = false;
+};
+
+unordered_map<const void*, SkinnedLimb> skinned_limbs;
+uint32_t record_frame;
+
+// A swept ribbon is a history of samples: everything but the newest end is a fixed world space
+// position, so only the vertices listed in `pairs` are blended.
+struct IpolVtxHead {
+    Vtx* dest = nullptr;
+    vector<Vtx> current;
+    vector<pair<s16, s16>> pairs; // (destination, source) vertex indices
+    uint32_t frameStamp = 0;
+};
+
+map<pair<const void*, int>, IpolVtxHead> ipol_vtx_heads;
 
 Data& append(Op op) {
     auto& m = current_path.back()->ops[op];
@@ -459,14 +484,22 @@ void FrameInterpolation_StartRecord(void) {
     interpolate_wider_angles = false;
     ignore_inv_actor_mtx = false;
 
+    record_frame++;
+
     if (!camera_interpolation) {
         // default to interpolating
         camera_interpolation = true;
         is_recording = false;
+        skinned_limbs.clear();
+        ipol_vtx_heads.clear();
         return;
     }
     if (OTRGlobals::Instance->GetInterpolationFPS() != 20) {
         is_recording = true;
+    } else {
+        is_recording = false;
+        skinned_limbs.clear();
+        ipol_vtx_heads.clear();
     }
 }
 
@@ -633,6 +666,117 @@ void FrameInterpolation_RecordSkinMatrixMtxFToMtx(MtxF* src, Mtx* dest) {
     if (!is_recording)
         return;
     FrameInterpolation_RecordMatrixMtxFToMtx(src, dest);
+}
+
+void FrameInterpolation_RecordSkinnedLimb(void* key, void* dest, void* prev, u32 vtxCount) {
+    if (!is_recording || dest == nullptr || vtxCount == 0) {
+        return;
+    }
+
+    SkinnedLimb& limb = skinned_limbs[key];
+
+    // `prev` holds a stale pose unless the limb was written on the previous logical frame.
+    limb.prevValid = (limb.frameStamp + 1 == record_frame) && (limb.current.size() == vtxCount);
+    limb.dest = (Vtx*)dest;
+    limb.prev = (Vtx*)prev;
+    limb.current.assign((Vtx*)dest, (Vtx*)dest + vtxCount);
+    limb.frameStamp = record_frame;
+}
+
+void FrameInterpolation_UpdateSkinnedVertices(f32 step) {
+    if (skinned_limbs.empty()) {
+        return;
+    }
+
+    for (auto it = skinned_limbs.begin(); it != skinned_limbs.end();) {
+        SkinnedLimb& limb = it->second;
+
+        if (limb.frameStamp != record_frame || limb.dest == nullptr) {
+            it = skinned_limbs.erase(it);
+            continue;
+        }
+
+        Vtx* dest = limb.dest;
+        const size_t count = limb.current.size();
+
+        if (limb.prevValid && step < 1.0f) {
+            const Vtx* prevPose = limb.prev;
+            const Vtx* curPose = limb.current.data();
+            const f32 w = 1.0f - step;
+
+            for (size_t i = 0; i < count; i++) {
+                dest[i] = curPose[i];
+                for (s32 j = 0; j < 3; j++) {
+                    dest[i].v.ob[j] = (s16)(w * prevPose[i].v.ob[j] + step * curPose[i].v.ob[j]);
+                    dest[i].n.n[j] = (s8)(w * (f32)prevPose[i].n.n[j] + step * (f32)curPose[i].n.n[j]);
+                }
+            }
+        } else {
+            // Last displayed frame, or no previous pose: the exact pose.
+            std::copy(limb.current.begin(), limb.current.end(), dest);
+        }
+
+        ++it;
+    }
+}
+
+void FrameInterpolation_RecordRibbonHead(void* key, int index, void* dest, u32 vtxCount, u32 pairCount,
+                                         const s16* pairs) {
+    if (!is_recording || dest == nullptr || vtxCount == 0 || pairCount == 0) {
+        return;
+    }
+
+    IpolVtxHead& head = ipol_vtx_heads[{ key, index }];
+
+    head.dest = (Vtx*)dest;
+    head.current.assign((Vtx*)dest, (Vtx*)dest + vtxCount);
+    head.pairs.clear();
+    for (u32 i = 0; i < pairCount; i++) {
+        const s16 dst = pairs[2 * i];
+        const s16 src = pairs[2 * i + 1];
+        if (dst >= 0 && src >= 0 && (u32)dst < vtxCount && (u32)src < vtxCount) {
+            head.pairs.emplace_back(dst, src);
+        }
+    }
+    head.frameStamp = record_frame;
+}
+
+void FrameInterpolation_UpdateRibbonHeads(f32 step) {
+    if (ipol_vtx_heads.empty()) {
+        return;
+    }
+
+    for (auto it = ipol_vtx_heads.begin(); it != ipol_vtx_heads.end();) {
+        IpolVtxHead& head = it->second;
+
+        if (head.frameStamp != record_frame || head.dest == nullptr) {
+            it = ipol_vtx_heads.erase(it);
+            continue;
+        }
+
+        Vtx* dest = head.dest;
+        const Vtx* cur = head.current.data();
+
+        // Always blend from what the game wrote, whatever the previous displayed frame did.
+        std::copy(head.current.begin(), head.current.end(), dest);
+
+        if (step < 1.0f) {
+            const f32 w = 1.0f - step;
+
+            for (const auto& [dst, src] : head.pairs) {
+                for (s32 j = 0; j < 3; j++) {
+                    dest[dst].v.ob[j] = (s16)(w * cur[src].v.ob[j] + step * cur[dst].v.ob[j]);
+                    dest[dst].n.n[j] = (s8)(w * (f32)cur[src].n.n[j] + step * (f32)cur[dst].n.n[j]);
+                }
+                // Trails carry their fade in the vertex colour.
+                for (s32 j = 0; j < 4; j++) {
+                    dest[dst].v.cn[j] = (u8)(w * (f32)cur[src].v.cn[j] + step * (f32)cur[dst].v.cn[j]);
+                }
+            }
+        }
+
+        ++it;
+    }
 }
 
 // https://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
