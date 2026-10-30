@@ -668,6 +668,9 @@ static void DrawLogicConditionsTab() {
                        "Requires Associated Transformation - Each child requires the form their trial is built "
                        "around, and the Link Trial is always open.\n\n"
                        "Open - The trials have no requirements.");
+    CVarCheckbox("Shuffle Interior Entrances", Rando::StaticData::Options[RO_SHUFFLE_ENTRANCES_INTERIORS].cvar);
+    CVarCheckbox("Shuffle Dungeon Entrances", Rando::StaticData::Options[RO_SHUFFLE_ENTRANCES_DUNGEONS].cvar);
+    CVarCheckbox("Shuffle Overworld Entrances", Rando::StaticData::Options[RO_SHUFFLE_ENTRANCES_OVERWORLD].cvar);
     ImGui::EndChild();
     ImGui::SameLine();
     ImGui::BeginChild("randoLogicColumn2", ImVec2(columnWidth, 0));
