@@ -8,4 +8,10 @@ class ConfigVersion1Updater final : public Ship::ConfigVersionUpdater {
     void Update(Ship::Config* conf) override;
 };
 
+class ConfigVersion2Updater final : public Ship::ConfigVersionUpdater {
+  public:
+    ConfigVersion2Updater();
+    void Update(Ship::Config* conf) override;
+};
+
 } // namespace Ben
