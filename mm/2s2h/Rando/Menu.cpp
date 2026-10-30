@@ -408,6 +408,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_BUTTERFLIES",
                                                                    "gRando.Options.RO_SHUFFLE_COWS",
                                                                    "gRando.Options.RO_SHUFFLE_CRATE_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_DEKU_FLOWERS",
                                                                    "gRando.Options.RO_SHUFFLE_ENEMY_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_ENEMY_SOULS",
                                                                    "gRando.Options.RO_SHUFFLE_FREESTANDING_ITEMS",
@@ -765,6 +766,8 @@ static void DrawCheckPoolTab() {
     CheckPoolCheckbox("Tingle Maps", RO_SHUFFLE_TINGLE_SHOPS, RCTYPE_TINGLE_SHOP,
                       "Maps sold by Tingle are checks, with randomized prices.");
     CheckPoolCheckbox("Cows", RO_SHUFFLE_COWS, RCTYPE_COW, "Playing Epona's Song to a cow is a check.");
+    CheckPoolCheckbox("Deku Flowers", RO_SHUFFLE_DEKU_FLOWERS, RCTYPE_DEKU_FLOWER,
+                      "Launching out of a Deku flower is a check.");
     UIWidgets::EndCard();
 
     UIWidgets::BeginCard("checkPoolCreatures");

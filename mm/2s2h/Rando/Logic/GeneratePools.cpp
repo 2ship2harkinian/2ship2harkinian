@@ -165,6 +165,11 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
                 saveInfo.randoSaveChecks[randoCheckId].price = price;
             }
 
+            if (randoStaticCheck.randoCheckType == RCTYPE_DEKU_FLOWER &&
+                saveInfo.randoSaveOptions[RO_SHUFFLE_DEKU_FLOWERS] == RO_GENERIC_NO) {
+                continue;
+            }
+
             if (randoStaticCheck.randoCheckType == RCTYPE_SHOP) {
                 // We always want shuffle RC_CURIOSITY_SHOP_SPECIAL_ITEM, RC_BOMB_SHOP_ITEM_03 &
                 // RC_BOMB_SHOP_ITEM_04_OR_CURIOSITY_SHOP_ITEM
