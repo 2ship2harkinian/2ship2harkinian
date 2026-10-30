@@ -206,6 +206,28 @@ endif()
 
 add_subdirectory(ZAPDTR/ZAPD ${CMAKE_BINARY_DIR}/ZAPD)
 add_subdirectory(OTRExporter)
+
+function(ship_quiet_vendored_warnings target)
+    if (NOT TARGET ${target})
+        message(STATUS "ship_quiet_vendored_warnings: no target '${target}', skipping")
+        return()
+    endif()
+    set(_common -Wno-missing-braces -Wno-deprecated-declarations -Wno-sign-compare -Wno-unused-result)
+    set(_clang_only -Wno-mismatched-tags -Wno-inconsistent-missing-override -Wno-braced-scalar-init)
+    set(_msvc /wd4244 /wd4267 /wd4477)
+    target_compile_options(${target} PRIVATE
+        "$<$<COMPILE_LANG_AND_ID:C,GNU,Clang,AppleClang>:${_common}>"
+        "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${_common}>"
+        "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:${_common};${_clang_only}>"
+        "$<$<COMPILE_LANG_AND_ID:C,MSVC>:${_msvc}>"
+        "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:${_msvc}>"
+    )
+endfunction()
+
+foreach(_vendored libultraship ZAPDLib ZAPD libgfxd OTRExporter prism)
+    ship_quiet_vendored_warnings(${_vendored})
+endforeach()
+
 add_subdirectory(mm)
 
 set_property(TARGET 2ship PROPERTY APPIMAGE_DESKTOP_FILE_TERMINAL YES)
