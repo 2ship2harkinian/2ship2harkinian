@@ -23,6 +23,7 @@ std::map<RandoOptionId, RandoStaticOption> Options = {
     RO(RO_ACCESS_MOON_MASKS_COUNT,     0),
     RO(RO_ACCESS_MOON_REMAINS_COUNT,   4),
     RO(RO_ACCESS_TRIALS,               RO_ACCESS_TRIALS_VANILLA),
+    RO(RO_ADDITIONAL_ITEMS,            RO_GENERIC_OFF),
     RO(RO_CLOCK_SHUFFLE_PROGRESSIVE,   RO_CLOCK_SHUFFLE_RANDOM),
     RO(RO_CLOCK_SHUFFLE,               RO_GENERIC_OFF),
     RO(RO_CLOCK_TERMINAL_TIME,         350), // Default: 05:50 (10 "minutes" before crash)

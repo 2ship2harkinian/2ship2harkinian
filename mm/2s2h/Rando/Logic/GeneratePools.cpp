@@ -404,6 +404,19 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
         }
     }
 
+    // Additional Items
+    if (saveInfo.randoSaveOptions[RO_ADDITIONAL_ITEMS] == RO_GENERIC_YES) {
+        for (auto& [randoItemId, count] : Rando::GetAdditionalItemsFromSave(saveInfo)) {
+            if (!IsEligibleForAdditionalItems(randoItemId, saveInfo)) {
+                continue;
+            }
+
+            for (int i = 0; i < count; i++) {
+                itemPool.push_back(randoItemId);
+            }
+        }
+    }
+
     // Traps
     if (saveInfo.randoSaveOptions[RO_SHUFFLE_TRAPS] == RO_GENERIC_YES) {
         int trapsToShuffle = saveInfo.randoSaveOptions[RO_TRAP_AMOUNT];
@@ -443,6 +456,10 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
             checkPool.erase(std::find(checkPool.begin(), checkPool.end(), songChecks[i]));
         }
     }
+}
+
+bool IsEligibleForAdditionalItems(RandoItemId itemId, const RandoSaveInfo& saveInfo) {
+    return saveInfo.randoSaveOptions[RO_SHUFFLE_SONGS] != RO_SONG_SHUFFLE_SONG_LOCATIONS || !IsSongLocationItem(itemId);
 }
 
 } // namespace Logic
