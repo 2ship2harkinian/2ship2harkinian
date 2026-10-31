@@ -232,9 +232,9 @@ void ValidateRegionTimeOwnership(RandoRegionId regionId, RandoCheckId checkId, u
 #define CAN_AFFORD(rc)                                                                                                \
     ((RANDO_SAVE_CHECKS[rc].price < 100) || (RANDO_SAVE_CHECKS[rc].price <= 200 && CUR_UPG_VALUE(UPG_WALLET) >= 1) || \
      (CUR_UPG_VALUE(UPG_WALLET) >= 2))
-#define CAN_AFFORD_ALT(rc)                                                                                              \
-    ((RANDO_SAVE_CHECKS[rc].altPrice < 100) || (RANDO_SAVE_CHECKS[rc].altPrice <= 200 && CUR_UPG_VALUE(UPG_WALLET) >= 1) || \
-     (CUR_UPG_VALUE(UPG_WALLET) >= 2))
+#define CAN_AFFORD_ALT(rc)                     \
+    ((RANDO_SAVE_CHECKS[rc].altPrice < 100) || \
+     (RANDO_SAVE_CHECKS[rc].altPrice <= 200 && CUR_UPG_VALUE(UPG_WALLET) >= 1) || (CUR_UPG_VALUE(UPG_WALLET) >= 2))
 #define HAS_ENOUGH_STRAY_FAIRIES(dungeonIndex) \
     (gSaveContext.save.saveInfo.inventory.strayFairies[dungeonIndex] >= RANDO_SAVE_OPTIONS[RO_STRAY_FAIRIES_REQUIRED])
 #define FOUND_ALL_FROGS                                                                  \
