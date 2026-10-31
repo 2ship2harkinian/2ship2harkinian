@@ -434,7 +434,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SARIA",
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SUN",
                                                                    "gRando.Options.RO_SHUFFLE_SWIM",
-                                                                   "gRando.Options.RO_SHUFFLE_TINGLE_SHOPS",
+                                                                   "gRando.Options.RO_SHUFFLE_TINGLE",
                                                                    "gRando.Options.RO_SHUFFLE_TRAPS",
                                                                    "gRando.Options.RO_SHUFFLE_TREE_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_TRIFORCE_PIECES",
