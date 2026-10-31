@@ -32,11 +32,15 @@ nlohmann::json GenerateFromSaveContext() {
             continue;
         }
 
-        if (randoStaticCheck.randoCheckType == RCTYPE_SHOP || randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHOP) {
+        if (randoStaticCheck.randoCheckType == RCTYPE_SHOP || randoStaticCheck.randoCheckType == RCTYPE_TINGLE_FULL ||
+            randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHARED) {
             spoiler["checks"][randoStaticCheck.name] = nlohmann::json::object();
             spoiler["checks"][randoStaticCheck.name]["randoItemId"] =
                 Rando::StaticData::Items[RANDO_SAVE_CHECKS[randoCheckId].randoItemId].spoilerName;
             spoiler["checks"][randoStaticCheck.name]["price"] = RANDO_SAVE_CHECKS[randoCheckId].price;
+            if (RANDO_SAVE_CHECKS[randoCheckId].altPrice != NULL) {
+                spoiler["checks"][randoStaticCheck.name]["altPrice"] = RANDO_SAVE_CHECKS[randoCheckId].altPrice;
+            }
         } else {
             spoiler["checks"][randoStaticCheck.name] =
                 Rando::StaticData::Items[RANDO_SAVE_CHECKS[randoCheckId].randoItemId].spoilerName;

@@ -35,6 +35,7 @@ inline void to_json(json& j, const RandoSaveCheck& randoSaveCheck) {
         { "shuffled", randoSaveCheck.shuffled },
         { "skipped", randoSaveCheck.skipped },
         { "price", randoSaveCheck.price },
+        { "altPrice", randoSaveCheck.altPrice },
     };
 }
 
@@ -46,6 +47,7 @@ inline void from_json(const json& j, RandoSaveCheck& randoSaveCheck) {
     j.at("shuffled").get_to(randoSaveCheck.shuffled);
     j.at("skipped").get_to(randoSaveCheck.skipped);
     j.at("price").get_to(randoSaveCheck.price);
+    j.at("altPrice").get_to(randoSaveCheck.altPrice);
 }
 
 inline void to_json(json& j, const RandoSaveInfo& rando) {
