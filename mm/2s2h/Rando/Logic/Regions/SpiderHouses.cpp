@@ -285,6 +285,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_SWAMP_SPIDER_HOUSE_TREE_ROOM] = RandoRegion{ .name = "Tree Room", .sceneId = SCENE_KINSTA1,
         .checks = {
+            CHECK(RC_SWAMP_SKULLTULA_TREE_ROOM_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_SWAMP_SKULLTULA_TREE_ROOM_GRASS_01, CanKillEnemy(ACTOR_EN_SW)),
             CHECK(RC_SWAMP_SKULLTULA_TREE_ROOM_GRASS_02, CanKillEnemy(ACTOR_EN_SW)),
             CHECK(RC_SWAMP_SKULLTULA_TREE_ROOM_HIVE, CanKillEnemy(ACTOR_EN_SW) && CAN_USE_PROJECTILE),

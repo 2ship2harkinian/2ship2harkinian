@@ -88,6 +88,16 @@ static RegisterShipInitFunc initFunc([]() {
         },
     };
     Regions[RR_BENEATH_THE_WELL_FAIRY_FOUNTAIN] = RandoRegion{ .name = "Fairy Fountain", .sceneId = SCENE_REDEAD,
+        .checks = {
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_1, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_2, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_3, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_4, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_5, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_6, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_7, true),
+            CHECK(RC_BENEATH_THE_WELL_FOUNTAIN_FAIRY_8, true),
+        },
         .connections = {
             CONNECTION(RR_BENEATH_THE_WELL_TWO_SPIKED_BARS, true),
         },

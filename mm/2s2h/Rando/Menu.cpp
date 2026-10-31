@@ -415,6 +415,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_GOLD_SKULLTULAS",
                                                                    "gRando.Options.RO_SHUFFLE_GRASS_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_HIVE_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_MISC_FAIRIES",
                                                                    "gRando.Options.RO_SHUFFLE_OCARINA_BUTTONS",
                                                                    "gRando.Options.RO_SHUFFLE_OWL_STATUES",
                                                                    "gRando.Options.RO_SHUFFLE_POT_DROPS",
@@ -702,6 +703,7 @@ static const SceneryDropGroup SCENERY_DROP_GROUPS[] = {
     { "Tree Drops", RO_SHUFFLE_TREE_DROPS, RCTYPE_TREE,
       "Bonking into each tree that shakes is a check. Trees that don't shake have no drops." },
     { "Beehive Drops", RO_SHUFFLE_HIVE_DROPS, RCTYPE_BEEHIVE, "Knocking down each beehive is a check." },
+    { "Misc Fairies", RO_SHUFFLE_MISC_FAIRIES, RCTYPE_FAIRY, "Each gossip stone and fountain fairy is a check." },
 };
 
 static void SetSceneryDropOptions(int32_t value) {
