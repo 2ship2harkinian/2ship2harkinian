@@ -31,7 +31,7 @@ std::map<int16_t, std::vector<RandoCheckId>> tingleMapShared = {
 void OnOpenShopText(u16* textId, bool* loadFromMessageTable) {
     RandoCheckId randoCheckId1;
     RandoCheckId randoCheckId2;
-    if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+    if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_FULL) {
         randoCheckId1 = tingleMap[gPlayState->sceneId][0];
         randoCheckId2 = tingleMap[gPlayState->sceneId][1];
     } else {
@@ -55,7 +55,7 @@ void OnOpenShopText(u16* textId, bool* loadFromMessageTable) {
         Rando::StaticData::GetItemName(Rando::ConvertItem(RANDO_SAVE_CHECKS[randoCheckId2].randoItemId, randoCheckId2),
                                        false, randoCheckId2));
     CustomMessage::Replace(&entry.msg, "{price1}", std::to_string(RANDO_SAVE_CHECKS[randoCheckId1].price));
-    if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+    if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_FULL) {
         CustomMessage::Replace(&entry.msg, "{price2}", std::to_string(RANDO_SAVE_CHECKS[randoCheckId2].price));
     } else {
         CustomMessage::Replace(&entry.msg, "{price2}", std::to_string(RANDO_SAVE_CHECKS[randoCheckId2].altPrice));
@@ -73,13 +73,13 @@ void OnOpenCantGetText(u16* textId, bool* loadFromMessageTable) {
 };
 
 void Rando::ActorBehavior::InitEnBalBehavior() {
-    bool shouldRegister = IS_RANDO && !(RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_OFF);
+    bool shouldRegister = IS_RANDO && !(RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_OFF);
 
     COND_VB_SHOULD(VB_NOT_AFFORD_TINGLE_MAP, shouldRegister, {
         EnBal* enBal = va_arg(args, EnBal*);
         s32* price = va_arg(args, s32*);
         RandoCheckId randoCheckId;
-        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_FULL) {
             randoCheckId = tingleMap[gPlayState->sceneId][gPlayState->msgCtx.choiceIndex];
 
             *price = RANDO_SAVE_CHECKS[randoCheckId].price;
@@ -98,7 +98,7 @@ void Rando::ActorBehavior::InitEnBalBehavior() {
     COND_VB_SHOULD(VB_ALREADY_HAVE_TINGLE_MAP, shouldRegister, {
         EnBal* enBal = va_arg(args, EnBal*);
         RandoCheckId randoCheckId;
-        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_FULL) {
             randoCheckId = tingleMap[gPlayState->sceneId][gPlayState->msgCtx.choiceIndex];
         } else {
             randoCheckId = tingleMapShared[gPlayState->sceneId][gPlayState->msgCtx.choiceIndex];
@@ -111,7 +111,7 @@ void Rando::ActorBehavior::InitEnBalBehavior() {
 
     COND_VB_SHOULD(VB_TINGLE_GIVE_MAP_UNLOCK, shouldRegister, {
         EnBal* enBal = va_arg(args, EnBal*);
-        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
+        if (RANDO_SAVE_OPTIONS[RO_SHUFFLE_TINGLE_SHOPS] == RO_SHUFFLE_TINGLE_FULL) {
             RANDO_SAVE_CHECKS[tingleMap[gPlayState->sceneId][gPlayState->msgCtx.choiceIndex]].eligible = true;
         } else {
             RANDO_SAVE_CHECKS[tingleMapShared[gPlayState->sceneId][gPlayState->msgCtx.choiceIndex]].eligible = true;

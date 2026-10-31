@@ -434,7 +434,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SARIA",
                                                                    "gRando.Options.RO_SHUFFLE_SONG_SUN",
                                                                    "gRando.Options.RO_SHUFFLE_SWIM",
-                                                                   "gRando.Options.RO_SHUFFLE_TINGLE",
+                                                                   "gRando.Options.RO_SHUFFLE_TINGLE_SHOPS",
                                                                    "gRando.Options.RO_SHUFFLE_TRAPS",
                                                                    "gRando.Options.RO_SHUFFLE_TREE_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_TRIFORCE_PIECES",
@@ -770,7 +770,7 @@ static void DrawCheckPoolTab() {
                       "Items sold in shops are checks, with randomized prices.\n\nThe Curiosity Shop special item "
                       "and the Bomb Shop's bomb bags are always shuffled, even with this off.");
     UIWidgets::CVarCombobox(
-        "Tingle Maps", Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, &tingleShuffleOptions,
+        "Tingle Maps", Rando::StaticData::Options[RO_SHUFFLE_TINGLE_SHOPS].cvar, &tingleShuffleOptions,
         UIWidgets::ComboboxOptions()
             .ComponentAlignment(UIWidgets::ComponentAlignment::Right)
             .LabelPosition(UIWidgets::LabelPosition::Near)
@@ -779,12 +779,12 @@ static void DrawCheckPoolTab() {
                      "Shared - Checks will be shared between two Tingle locations. For example, the Clock Town "
                      "first map check will also be available as the Ikana Canyon second map check.\n\n"
                      "Full - Every purchase at each Tingle location is a different check."));
-    if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, RO_SHUFFLE_TINGLE_OFF) ==
+    if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE_SHOPS].cvar, RO_SHUFFLE_TINGLE_OFF) ==
         RO_SHUFFLE_TINGLE_SHARED) {
         auto& counts = GetCheckCountsByType();
         auto it = counts.find(RCTYPE_TINGLE_SHARED);
         PoolCountSuffix(it != counts.end() ? it->second : 0);
-    } else if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE].cvar, RO_SHUFFLE_TINGLE_OFF) ==
+    } else if (CVarGetInteger(Rando::StaticData::Options[RO_SHUFFLE_TINGLE_SHOPS].cvar, RO_SHUFFLE_TINGLE_OFF) ==
                RO_SHUFFLE_TINGLE_FULL) {
         auto& counts = GetCheckCountsByType();
         auto it = counts.find(RCTYPE_TINGLE_FULL);
