@@ -170,7 +170,7 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
                 price = Ship_Random(0, 200);
                 saveInfo.randoSaveChecks[randoCheckId].altPrice = price;
             } else if (saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE] == RO_SHUFFLE_TINGLE_FULL) {
-                if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_FULL) {
+                if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHARED) {
                     continue;
                 }
                 int price = Ship_Random(0, 200);
