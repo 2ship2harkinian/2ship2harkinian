@@ -360,11 +360,11 @@ static RegisterShipInitFunc initFunc([]() {
         .checks = {
             CHECK(RC_SAKON_HIDEOUT_FIRST_ROOM_POT_01,    true),
             CHECK(RC_SAKON_HIDEOUT_FIRST_ROOM_POT_02,    true),
-            CHECK(RC_SAKON_HIDEOUT_SECOND_ROOM_POT_01,   CanKillEnemy(ACTOR_EN_DEKUBABA),
-            CHECK(RC_SAKON_HIDEOUT_SECOND_ROOM_POT_02,   CanKillEnemy(ACTOR_EN_DEKUBABA),
-            CHECK(RC_SAKON_HIDEOUT_THIRD_ROOM_POT,       CanKillEnemy(ACTOR_EN_DEKUBABA),
+            CHECK(RC_SAKON_HIDEOUT_SECOND_ROOM_POT_01,   CanKillEnemy(ACTOR_EN_DEKUBABA)),
+            CHECK(RC_SAKON_HIDEOUT_SECOND_ROOM_POT_02,   CanKillEnemy(ACTOR_EN_DEKUBABA)),
+            CHECK(RC_SAKON_HIDEOUT_THIRD_ROOM_POT,       CanKillEnemy(ACTOR_EN_DEKUBABA)),
             CHECK(RC_ENEMY_DROP_DEKU_BABA,               CanKillEnemy(ACTOR_EN_DEKUBABA)),
-            CHECK(RC_ENEMY_DROP_WOLFOS,                  CanKillEnemy(ACTOR_EN_WF) && CanKillEnemy(ACTOR_EN_DEKUBABA),
+            CHECK(RC_ENEMY_DROP_WOLFOS,                  CanKillEnemy(ACTOR_EN_WF) && CanKillEnemy(ACTOR_EN_DEKUBABA)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(IKANA_CANYON, 6),                 ENTRANCE(SAKONS_HIDEOUT, 0), true),
