@@ -370,7 +370,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(IKANA_CANYON, 6),                 ENTRANCE(SAKONS_HIDEOUT, 0), true),
         },
         .events = {
-            EVENT(RE_RETRIEVE_SUN_MASK, CanKillEnemy(ACTOR_EN_WF) && CanKillEnemy(ACTOR_EN_DEKUBABA),
+            EVENT(RE_RETRIEVE_SUN_MASK, CanKillEnemy(ACTOR_EN_WF) && CanKillEnemy(ACTOR_EN_DEKUBABA)),
         },
     };
     Regions[RR_SECRET_SHRINE_ENTRANCE] = RandoRegion{ .name = "Entrance", .sceneId = SCENE_RANDOM,
