@@ -192,6 +192,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_GREAT_BAY_COAST_CLIFFSIDE] = RandoRegion{ .sceneId = SCENE_30GYOSON,
         .checks = {
+            CHECK(RC_GREAT_BAY_COAST_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_GREAT_BAY_COAST_PIECE_OF_HEART, CAN_HOOK_SCARECROW && CAN_GROW_BEAN_PLANT),
             CHECK(RC_GREAT_BAY_COAST_POT_05, true),
             CHECK(RC_GREAT_BAY_COAST_POT_06, true),
@@ -339,6 +340,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_CAPE] = RandoRegion{ .sceneId = SCENE_31MISAKI,
         .checks = {
+            CHECK(RC_ZORA_CAPE_GOSSIP_FAIRY,               CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_ZORA_CAPE_LEDGE_CHEST_01,             HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_LEDGE_CHEST_02,             HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_UNDERWATER_CHEST,           CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),

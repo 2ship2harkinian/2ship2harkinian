@@ -36,6 +36,7 @@ void InitEnButteBehavior();
 void InitEnCowBehavior();
 void InitEnDaiBehavior();
 void InitEnDnhBehavior();
+void InitEnElfBehavior();
 void InitEnElfgrpBehavior();
 void InitEnElforgBehavior();
 void InitEnFish2Behavior();
