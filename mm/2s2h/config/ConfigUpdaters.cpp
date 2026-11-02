@@ -81,12 +81,6 @@ static void MigrateGreatFairySwordBButton(Ship::Config* conf) {
     if (CVarGetInteger("gEnhancements.Equipment.GreatFairySwordBButton", 0) != 0) {
         CVarSetInteger("gEnhancements.Equipment.ActiveItemOnB", 1);
 
-        Notification::Emit({
-            .prefix = "Settings updated:",
-            .message = "Great Fairy Sword B-Button Attack is now part of Active Item on B.",
-            .suffix = "It has been enabled for you.",
-            .remainingTime = 10.0f,
-        });
     }
 
     CVarClear("gEnhancements.Equipment.GreatFairySwordBButton");
