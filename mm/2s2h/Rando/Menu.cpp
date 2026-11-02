@@ -326,7 +326,6 @@ static int junkInPool = 0;
 static int balanceStatus = 0; // 0 = Able to balance, 1 = Unlikely to balance, 2 = Unable to balance
 static std::set<RandoItemId> setOfItemsInPool;
 static std::set<RandoCheckId> setOfChecksInPool;
-static std::map<RandoItemId, int> itemCountsInPool;
 static std::vector<RandoItemId> additionalItemCandidates;
 static int additionalItemsInPool = 0;
 static uint32_t checkPoolGeneration = 0;
@@ -361,7 +360,6 @@ static bool IsOfferedForAdditionalItems(RandoItemId randoItemId, const RandoSave
 void RefreshMetrics() {
     setOfItemsInPool.clear();
     setOfChecksInPool.clear();
-    itemCountsInPool.clear();
     additionalItemCandidates.clear();
     RandoSaveInfo randoSaveInfo{};
     std::vector<RandoCheckId> checkPool;
@@ -399,7 +397,6 @@ void RefreshMetrics() {
     }
     for (auto& item : itemPool) {
         setOfItemsInPool.insert(item);
-        itemCountsInPool[item]++;
         if (Rando::StaticData::Items[item].randoItemType == RITYPE_JUNK) {
             junkInPool++;
         }
@@ -1038,8 +1035,7 @@ static void DrawAdditionalItemsPopup() {
     }
 
     ImGui::SeparatorText("Additional Items");
-    ImGui::TextWrapped("Each item is added to the pool the selected number of extra times. The + next to an "
-                       "item shows its total pool count, including Plentiful Items when enabled.");
+    ImGui::TextWrapped("Each item is added to the pool the selected number of extra times.");
     if (Button(
             ICON_FA_UNDO " Clear All",
             ButtonOptions({ { .tooltip = "Remove every item from the Additional Items list" } }).Size(ImVec2(0, 0)))) {
@@ -1051,11 +1047,12 @@ static void DrawAdditionalItemsPopup() {
     if (ImGui::BeginChild("additionalItemsCurrentList", ImVec2(0, 160.0f))) {
         if (additionalItems.empty()) {
             ImGui::TextColored(ColorValues.at(Colors::Gray), "No additional items configured.");
-        } else if (ImGui::BeginTable("additionalItemsTable", 4, ImGuiTableFlags_SizingFixedFit)) {
+        } else if (ImGui::BeginTable("additionalItemsTable", 5, ImGuiTableFlags_SizingFixedFit)) {
             ImGui::TableSetupColumn("icon", ImGuiTableColumnFlags_WidthFixed, PRIORITY_BUTTON_SIZE);
             ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthStretch);
-            ImGui::TableSetupColumn("minus", ImGuiTableColumnFlags_WidthFixed, 32.0f);
-            ImGui::TableSetupColumn("plus", ImGuiTableColumnFlags_WidthFixed, 32.0f);
+            ImGui::TableSetupColumn("minus", ImGuiTableColumnFlags_WidthFixed, PRIORITY_BUTTON_SIZE);
+            ImGui::TableSetupColumn("count", ImGuiTableColumnFlags_WidthFixed);
+            ImGui::TableSetupColumn("plus", ImGuiTableColumnFlags_WidthFixed, PRIORITY_BUTTON_SIZE);
 
             std::vector<RandoItemId> additionalItemIds;
             for (auto& [itemId, count] : additionalItems) {
@@ -1073,20 +1070,17 @@ static void DrawAdditionalItemsPopup() {
                 ImTextureID textureId =
                     std::dynamic_pointer_cast<Fast::Fast3dGui>(Ship::Context::GetRawInstance()->GetWindow()->GetGui())
                         ->GetTextureByName(texturePath);
-                float iconOffsetY = (ImGui::GetFrameHeight() - PRIORITY_BUTTON_SIZE) * 0.5f;
-                if (iconOffsetY > 0.0f) {
-                    ImGui::SetCursorPosY(ImGui::GetCursorPosY() + iconOffsetY);
-                }
+                float rowOffsetY = std::max(0.0f, (ImGui::GetFrameHeight() - PRIORITY_BUTTON_SIZE) * 0.5f);
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + rowOffsetY);
                 ImGui::Image(textureId, ImVec2(PRIORITY_BUTTON_SIZE, PRIORITY_BUTTON_SIZE), ImVec2(0, 0), ImVec2(1, 1),
                              Ship_GetItemColorTint(randoStaticItem.itemId), ImVec4(0, 0, 0, 0));
 
                 ImGui::TableNextColumn();
                 ImGui::AlignTextToFramePadding();
                 ImGui::TextUnformatted(randoStaticItem.name);
-                auto totalInPool = itemCountsInPool.find(itemId);
-                PoolCountSuffix(totalInPool != itemCountsInPool.end() ? totalInPool->second : 0);
 
                 ImGui::TableNextColumn();
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + rowOffsetY);
                 if (IconButton("##minus", ICON_FA_MINUS,
                                AdditionalItemCountButtonOptions(count == 1 ? "Remove this item from the list"
                                                                            : "Add one less copy of this item",
@@ -1100,6 +1094,16 @@ static void DrawAdditionalItemsPopup() {
                 }
 
                 ImGui::TableNextColumn();
+                std::string countText = std::to_string(count);
+                ImGui::AlignTextToFramePadding();
+                ImGui::SetCursorPosX(
+                    ImGui::GetCursorPosX() +
+                    std::max(0.0f,
+                             (ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize(countText.c_str()).x) * 0.5f));
+                ImGui::TextUnformatted(countText.c_str());
+
+                ImGui::TableNextColumn();
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + rowOffsetY);
                 if (IconButton(
                         "##plus", ICON_FA_PLUS,
                         AdditionalItemCountButtonOptions("Add one more copy of this item",
