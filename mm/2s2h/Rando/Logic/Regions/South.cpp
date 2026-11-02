@@ -637,7 +637,7 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .events = {
             EVENT(RE_SAVED_KOUME, HAS_BOTTLE && (CAN_ACCESS(RED_POTION_REFILL) || CAN_ACCESS(BLUE_POTION_REFILL))),
-            EVENT(RE_MEET_KOTAKE_WOODS, true),
+            EVENT(RE_MEET_KOTAKE_WOODS, SECOND_DAY() || FINAL_DAY()),
         },
     };
 }, {});
