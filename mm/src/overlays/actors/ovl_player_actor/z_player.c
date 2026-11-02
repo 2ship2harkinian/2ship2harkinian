@@ -16432,7 +16432,8 @@ void Player_Action_43(Player* this, PlayState* play) {
             (func_8083868C(play, this) == CAM_MODE_NORMAL) ||
             ((this->unk_AA5 == PLAYER_UNKAA5_3) &&
              (((Player_ItemToItemAction(this, Inventory_GetBtnBItem(play)) != this->heldItemAction) &&
-               CHECK_BTN_ANY(sPlayerControlInput->press.button, BTN_B)) ||
+               CHECK_BTN_ANY(sPlayerControlInput->press.button, BTN_B) &&
+               GameInteractor_Should(VB_EXIT_FIRST_PERSON_MODE_FROM_BUTTON, true)) ||
               (CHECK_BTN_ANY(sPlayerControlInput->press.button, BTN_R | BTN_A) &&
                GameInteractor_Should(VB_EXIT_FIRST_PERSON_MODE_FROM_BUTTON, true)) ||
               Player_FriendlyLockOnOrParallel(this) || (!func_800B7128(this) && !func_8082EF20(this))))) ||
