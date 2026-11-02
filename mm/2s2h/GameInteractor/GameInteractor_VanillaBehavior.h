@@ -352,10 +352,10 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // true
+    // gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER
     // ```
     // #### `args`
-    // - None
+    // - `s16` (bottle slot index, `BOTTLE_FIRST`..`BOTTLE_MAX - 1`)
     VB_COOL_HOT_WATER,
 
     // #### `result`

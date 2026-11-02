@@ -8689,11 +8689,10 @@ void Interface_UpdateBottleTimers(PlayState* play) {
                     // Time has passed, and the time limit has been exceeded.
                     gSaveContext.bottleTimerCurTimes[i] = SECONDS_TO_TIMER(0);
 
-                    if (gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER) {
-                        if (!GameInteractor_Should(VB_COOL_HOT_WATER, true)) {
-                            continue;
-                        }
-
+                    if (GameInteractor_Should(VB_COOL_HOT_WATER,
+                                              gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] ==
+                                                  ITEM_HOT_SPRING_WATER,
+                                              i)) {
                         Inventory_UpdateItem(play, i + SLOT_BOTTLE_1, ITEM_SPRING_WATER);
                         Message_StartTextbox(play, 0xFA, NULL);
                     }
