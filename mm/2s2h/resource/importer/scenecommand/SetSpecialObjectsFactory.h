@@ -3,7 +3,7 @@
 #include "2s2h/resource/importer/scenecommand/SceneCommandFactory.h"
 
 namespace SOH {
-class SetSpecialObjectsFactory : public SceneCommandFactoryBinaryV0 {
+class SetSpecialObjectsFactory final : public SceneCommandFactoryBinaryV0 {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::ResourceInitData> initData,
                                                   std::shared_ptr<Ship::BinaryReader> reader) override;
