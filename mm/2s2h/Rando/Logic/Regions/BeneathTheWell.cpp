@@ -90,6 +90,7 @@ static RegisterShipInitFunc initFunc([]() {
     Regions[RR_BENEATH_THE_WELL_FAIRY_FOUNTAIN] = RandoRegion{ .name = "Fairy Fountain", .sceneId = SCENE_REDEAD,
         .connections = {
             CONNECTION(RR_BENEATH_THE_WELL_TWO_SPIKED_BARS, true),
+        },
     };
     Regions[RR_BENEATH_THE_WELL_FOUR_SPIKED_BARS] = RandoRegion{ .name = "Four Spikes Room", .sceneId = SCENE_REDEAD,
         .checks = {
