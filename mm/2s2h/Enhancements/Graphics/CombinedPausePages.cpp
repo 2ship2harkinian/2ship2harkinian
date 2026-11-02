@@ -14,24 +14,17 @@ extern "C" {
 #include "functions.h"
 #include "macros.h"
 #include "variables.h"
+#include "overlays/kaleido_scope/ovl_kaleido_scope/z_kaleido_scope.h"
 bool ResourceMgr_IsAltAssetsEnabled();
 }
 
-/*
-A pause page is normally drawn as 15 separate sections of 80x32 textures.
-Texture filtering and N64 texture offsets leave visible seams across the pause
-page that are more noticable when higher resolution textures are used.
+// A pause page is normally drawn as 15 separate sections of 80x32 textures.
+// This allows a mod to instead supply the whole page as one texture.
 
-This allows a mod to instead supply the whole page as one texture
-*/
-
-static constexpr int PAGE_WIDTH = 240;
-static constexpr int PAGE_HEIGHT = 160;
-static constexpr int SECTION_WIDTH = 80;
-static constexpr int SECTION_HEIGHT = 32;
-static constexpr int SECTION_ROWS = 5;
-static constexpr int SECTION_VTX_COUNT = 15 * 4;
-// Half a texel in s10.5: cancels the half texel the bilinear filter adds, so the page lines up with the image.
+static constexpr int PAGE_WIDTH = PAGE_BG_COLS * PAGE_BG_QUAD_TEX_WIDTH;
+static constexpr int PAGE_HEIGHT = PAGE_BG_ROWS * PAGE_BG_QUAD_TEX_HEIGHT;
+static constexpr int SECTION_VTX_COUNT = PAGE_BG_QUADS * 4;
+// Half a texel. This counters the N64 0.5 texel offset
 static constexpr s16 HALF_TEXEL = 16;
 // Index of section "10" (column 1, row 0) in a page's texture array.
 // Use section "10" because section "00" is shared between the save and game-over pages.
@@ -39,7 +32,6 @@ static constexpr int PAGE_NAME_SECTION = 5;
 
 static const char* sLanguageSuffixes[] = { "ENG", "JPN" };
 
-// The combined texture found for each section array, with alt assets off and on.
 static std::map<std::pair<TexturePtr*, bool>, const char*> sCombinedPages;
 
 static std::string GetPageName(TexturePtr* textures) {
@@ -60,8 +52,7 @@ static std::string GetPageName(TexturePtr* textures) {
     return name;
 }
 
-// Native IA8 must be unscaled because its decoder uses the render tile's 240-byte stride.
-// Raw RGBA replacements use scale metadata relative to 240x160 IA8 (one byte per texel).
+// Native IA8 must be unscaled
 static bool IsPageTexture(const std::shared_ptr<Fast::Texture>& texture, const char* path) {
     bool validTexture;
     if (texture->Flags & TEX_FLAG_LOAD_AS_RAW) {
@@ -85,25 +76,19 @@ static const char* FindCombinedPage(TexturePtr* textures) {
         return cached->second;
     }
 
-    // Display lists keep the path's pointer, and the interpreter memoizes resolved paths by pointer,
-    // so the strings must outlive this lookup.
+    // Display lists keep the path's pointer.
     static std::unordered_set<std::string> sPaths;
-    const char* found = nullptr;
     const char* path = sPaths.insert("__OTR__icon_item_static_yar/" + GetPageName(textures) + "Tex").first->c_str();
     auto texture = std::dynamic_pointer_cast<Fast::Texture>(ResourceLoad(path));
-    if (texture != nullptr) {
-        found = IsPageTexture(texture, path) ? path : nullptr;
-    }
+    const char* found = texture != nullptr && IsPageTexture(texture, path) ? path : nullptr;
     return sCombinedPages[key] = found;
 }
 
-// gDPLoadTextureBlock with the wide load block: 240x160 texels overflow LoadBlock's count.
 static void LoadPageTexture(Gfx** gfx, const char* path) {
     gDPSetTextureImage((*gfx)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, path);
     gDPSetTile((*gfx)++, G_IM_FMT_IA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK,
                G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*gfx)++);
-    // The wide load block is two commands, and unlike the other macros it does not advance the pointer.
     gDPLoadBlockWide(*gfx, G_TX_LOADTILE, 0, 0,
                      ((PAGE_WIDTH * PAGE_HEIGHT + G_IM_SIZ_8b_INCR) >> G_IM_SIZ_8b_SHIFT) - 1,
                      CALC_DXT(PAGE_WIDTH, G_IM_SIZ_8b_BYTES));
@@ -116,27 +101,18 @@ static void LoadPageTexture(Gfx** gfx, const char* path) {
                    (PAGE_HEIGHT - 1) << G_TEXTURE_IMAGE_FRAC);
 }
 
-// A copy of the section quads, each pointed at its part of the page.
-// The save prompt's vertices can be drawn twice in
-// a frame with different textures, so the originals stay untouched.
-static Vtx* CreatePageVertices(Vtx* vertices) {
-    Vtx* page = (Vtx*)GRAPH_ALLOC(gPlayState->state.gfxCtx, SECTION_VTX_COUNT * sizeof(Vtx));
-    memcpy(page, vertices, SECTION_VTX_COUNT * sizeof(Vtx));
-    for (int quad = 0; quad < SECTION_VTX_COUNT / 4; quad++) {
-        // KaleidoScope_SetPageVertices lays the sections out column by column: top left, top right, bottom left,
-        // bottom right
-        s16 left = (quad / SECTION_ROWS) * SECTION_WIDTH * 32 - HALF_TEXEL;
-        s16 top = (quad % SECTION_ROWS) * SECTION_HEIGHT * 32 - HALF_TEXEL;
-        Vtx* vtx = &page[quad * 4];
+static void SetPageTexCoords(Vtx* vertices) {
+    for (int quad = 0; quad < PAGE_BG_QUADS; quad++) {
+        s16 left = (quad / PAGE_BG_ROWS) * PAGE_BG_QUAD_TEX_WIDTH * 32 - HALF_TEXEL;
+        s16 top = (quad % PAGE_BG_ROWS) * PAGE_BG_QUAD_TEX_HEIGHT * 32 - HALF_TEXEL;
+        Vtx* vtx = &vertices[quad * 4];
         vtx[0].v.tc[0] = vtx[2].v.tc[0] = left;
-        vtx[1].v.tc[0] = vtx[3].v.tc[0] = left + SECTION_WIDTH * 32;
+        vtx[1].v.tc[0] = vtx[3].v.tc[0] = left + PAGE_BG_QUAD_TEX_WIDTH * 32;
         vtx[0].v.tc[1] = vtx[1].v.tc[1] = top;
-        vtx[2].v.tc[1] = vtx[3].v.tc[1] = top + SECTION_HEIGHT * 32;
+        vtx[2].v.tc[1] = vtx[3].v.tc[1] = top + PAGE_BG_QUAD_TEX_HEIGHT * 32;
     }
-    return page;
 }
 
-// Same two batches as KaleidoScope_DrawPageSections, since the vertex buffer holds 32 vertices.
 static void DrawSectionQuads(Gfx** gfx, Vtx* vertices) {
     for (int first = 0; first < SECTION_VTX_COUNT; first += 32) {
         int count = MIN(32, SECTION_VTX_COUNT - first);
@@ -161,7 +137,8 @@ static void RegisterCombinedPausePages() {
         *should = false;
         gDPPipeSync((*gfx)++);
         LoadPageTexture(gfx, path);
-        DrawSectionQuads(gfx, CreatePageVertices(vertices));
+        SetPageTexCoords(vertices);
+        DrawSectionQuads(gfx, vertices);
     });
 }
 
