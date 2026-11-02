@@ -249,7 +249,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_PINNACLE_ROCK_INNER] = RandoRegion{ .name = "Inner", .sceneId = SCENE_SINKAI,
         .checks = {
-            CHECK(RC_PINNACLE_ROCK_CHEST_01,          CAN_BE_ZORA),
+            CHECK(RC_PINNACLE_ROCK_CHEST_01,          CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_CHEST_02,          CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_POT_01,            CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_POT_02,            CanKillEnemy(ACTOR_EN_DRAGON)),
