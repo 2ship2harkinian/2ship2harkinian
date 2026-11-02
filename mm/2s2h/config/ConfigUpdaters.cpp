@@ -80,7 +80,6 @@ static void MigrateGreatFairySwordBButton(Ship::Config* conf) {
     }
     if (CVarGetInteger("gEnhancements.Equipment.GreatFairySwordBButton", 0) != 0) {
         CVarSetInteger("gEnhancements.Equipment.ActiveItemOnB", 1);
-
     }
 
     CVarClear("gEnhancements.Equipment.GreatFairySwordBButton");
