@@ -49,6 +49,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_DOGGY_RACETRACK_POT_02, true),
             CHECK(RC_DOGGY_RACETRACK_POT_03, true),
             CHECK(RC_DOGGY_RACETRACK_POT_04, true),
+            CHECK(RC_DOGGY_RACETRACK_SIGN, true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROMANI_RANCH, 5),                 ENTRANCE(DOGGY_RACETRACK, 0), true),
@@ -131,6 +132,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_MILK_ROAD_KEATON_GRASS_08, true),
             CHECK(RC_MILK_ROAD_KEATON_GRASS_09, true),
             CHECK(RC_MILK_ROAD_KEATON_GRASS_WONDER_ITEM, CAN_FULLY_CUT_KEATON_GRASS),
+            CHECK(RC_MILK_ROAD_TRACK_ARROW_SIGN, true),
+            CHECK(RC_MILK_ROAD_RANCH_ARROW_SIGN, true),
             CHECK(RC_KEATON_QUIZ, HAS_ITEM(ITEM_MASK_KEATON)),
             CHECK(RC_MILK_ROAD_OWL_STATUE, CAN_USE_SWORD),
             CHECK(RC_MILK_ROAD_TINGLE_MAP_01, CAN_USE_PROJECTILE && CAN_AFFORD(RC_MILK_ROAD_TINGLE_MAP_01)),
