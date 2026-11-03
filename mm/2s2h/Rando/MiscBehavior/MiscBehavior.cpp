@@ -1,5 +1,6 @@
 #include "MiscBehavior.h"
 #include "2s2h/Rando/Logic/Logic.h"
+#include "2s2h/Rando/Logic/EntranceShuffle.h"
 
 extern "C" {
 #include "variables.h"
@@ -19,6 +20,11 @@ void Rando::MiscBehavior::OnFileLoad() {
     Rando::MiscBehavior::SariasSongHint();
     Rando::MiscBehavior::BankSignHint();
     Rando::MiscBehavior::InitTycoonWallet();
+    Rando::EntranceShuffle::ShuffleEntrances();
+
+    if (gSaveContext.save.entrance == ENTRANCE(SOUTH_CLOCK_TOWN, 0)) {
+        gSaveContext.save.entrance = Rando::EntranceShuffle::GetStartEntrance();
+    }
 
     COND_HOOK(OnFlagSet, IS_RANDO, Rando::MiscBehavior::OnFlagSet);
     COND_HOOK(OnSceneFlagSet, IS_RANDO, Rando::MiscBehavior::OnSceneFlagSet);

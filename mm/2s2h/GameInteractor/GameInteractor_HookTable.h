@@ -23,6 +23,7 @@ DEFINE_HOOK(AfterRoomSceneCommands, (s8 sceneId, s8 roomNum))
 DEFINE_HOOK(OnPlayDrawWorldStart, ())
 DEFINE_HOOK(OnPlayDrawWorldEnd, ())
 DEFINE_HOOK(OnPlayDestroy, ())
+DEFINE_HOOK(OnPlayerSceneExit, (s32 nextEntrance))
 
 DEFINE_HOOK(ShouldActorInit, (Actor * actor, bool* should))
 DEFINE_HOOK(OnActorInit, (Actor * actor))
