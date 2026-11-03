@@ -40,6 +40,7 @@ static RegisterShipInitFunc initFunc(
                 *velocity = 200.0f;
             }
             *velocity *= MULTIPLIER;
+            *should = false;
         });
     },
     { CVAR_NAME });
