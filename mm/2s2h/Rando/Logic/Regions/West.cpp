@@ -352,6 +352,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ZORA_CAPE_TREE_05,                    HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ENEMY_DROP_LEEVER,                    CanKillEnemy(ACTOR_EN_NEO_REEBA)),
             CHECK(RC_ENEMY_DROP_LIKE_LIKE,                 CanKillEnemy(ACTOR_EN_RR)),
+            CHECK(RC_ZORA_CAPE_NEAR_BEAVERS_DEKU_FLOWER,   CAN_BE_DEKU && HAS_ITEM(ITEM_HOOKSHOT)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GREAT_BAY_COAST, 1),              ENTRANCE(ZORA_CAPE, 0), true),
@@ -382,6 +383,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ZORA_HALL_SCRUB_DEED,           Flags_GetRandoInf(RANDO_INF_OBTAINED_DEED_MOUNTAIN) && CAN_BE_GORON),
             CHECK(RC_ZORA_HALL_SCRUB_PIECE_OF_HEART, Flags_GetRandoInf(RANDO_INF_OBTAINED_DEED_MOUNTAIN) && CAN_BE_GORON && CAN_BE_DEKU),
             CHECK(RC_ZORA_HALL_SCRUB_POTION_REFILL,  CAN_BE_ZORA),
+            CHECK(RC_ZORA_HALL_SCRUB_DEKU_FLOWER,    Flags_GetRandoInf(RANDO_INF_OBTAINED_DEED_MOUNTAIN) && CAN_BE_GORON && CAN_BE_DEKU),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ZORA_HALL, 3),                    ENTRANCE(ZORA_HALL_ROOMS, 2), true),

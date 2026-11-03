@@ -124,6 +124,7 @@ std::vector<const char*> checkTypeIconList = {
     /*RCTYPE_CHEST*/ gChestTrackerIcon,
     /*RCTYPE_COW*/ gItemIconRomaniMaskTex,
     /*RCTYPE_CRATE*/ gCrateTrackerIcon,
+    /*RCTYPE_DEKU_FLOWER*/ gItemIconDekuMaskTex,
     /*RCTYPE_ENEMY_DROP*/ gDungeonMapSkullTex,
     /*RCTYPE_FREESTANDING*/ gRupeeCounterIconTex,
     /*RCTYPE_FROG*/ gItemIconDonGeroMaskTex,

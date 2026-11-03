@@ -134,6 +134,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_GORON_VILLAGE_SMALL_SNOWBALL_11, true),
             CHECK(RC_GORON_VILLAGE_SMALL_SNOWBALL_12, true),
             CHECK(RC_ENEMY_DROP_TEKTITE, CanKillEnemy(ACTOR_EN_TITE)),
+            CHECK(RC_GORON_VILLAGE_SCRUB_DEKU_FLOWER, Flags_GetRandoInf(RANDO_INF_OBTAINED_DEED_SWAMP) && CAN_BE_DEKU)
         },
         .exits = { //     TO                                         FROM
             // During First Day a NPC Goron can open the door to the the Shrine
