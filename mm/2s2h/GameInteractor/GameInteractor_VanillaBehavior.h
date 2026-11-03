@@ -1231,6 +1231,7 @@ typedef enum {
     // ```
     // #### `args`
     // - `*f32`
+    // TODO: Convert to event
     VB_HOOKSHOT_SET_SPEED,
 
     // #### `result`
@@ -1239,6 +1240,7 @@ typedef enum {
     // ```
     // #### `args`
     // - `*ArmsHook`
+    // TODO: Convert to event
     VB_HOOKSHOT_SHOOT,
 
     // #### `result`

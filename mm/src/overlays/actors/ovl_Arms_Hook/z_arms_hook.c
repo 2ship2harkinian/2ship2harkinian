@@ -74,12 +74,11 @@ void ArmsHook_Destroy(Actor* thisx, PlayState* play) {
 }
 
 void ArmsHook_Wait(ArmsHook* this, PlayState* play) {
-    if (this->actor.parent == NULL) {
+    if (GameInteractor_Should(VB_HOOKSHOT_SHOOT, this->actor.parent == NULL, this)) {
         ArmsHook_SetupAction(this, ArmsHook_Shoot);
         Actor_SetSpeeds(&this->actor, 20.0f);
         this->actor.parent = &GET_PLAYER(play)->actor;
         this->timer = 26;
-        GameInteractor_Should(VB_HOOKSHOT_SHOOT, true, this);
     }
 }
 
@@ -202,15 +201,15 @@ void ArmsHook_Shoot(ArmsHook* this, PlayState* play) {
                 velocity = 0.0f;
                 phi_f16 = 0.0f;
             } else {
-                if (this->actor.child != NULL) {
-                    velocity = 30.0f;
-                } else if (attachedActor != NULL) {
-                    velocity = 50.0f;
-                } else {
-                    velocity = 200.0f;
+                if (GameInteractor_Should(VB_HOOKSHOT_SET_SPEED, true, this, &velocity)) {
+                    if (this->actor.child != NULL) {
+                        velocity = 30.0f;
+                    } else if (attachedActor != NULL) {
+                        velocity = 50.0f;
+                    } else {
+                        velocity = 200.0f;
+                    }
                 }
-
-                GameInteractor_Should(VB_HOOKSHOT_SET_SPEED, true, &velocity);
 
                 phi_f16 = bodyDistDiff - velocity;
                 if (bodyDistDiff <= velocity) {
