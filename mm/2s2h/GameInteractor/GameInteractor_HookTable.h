@@ -22,6 +22,9 @@ DEFINE_HOOK(OnRoomInit, (s8 sceneId, s8 roomNum))
 DEFINE_HOOK(AfterRoomSceneCommands, (s8 sceneId, s8 roomNum))
 DEFINE_HOOK(OnPlayDrawWorldStart, ())
 DEFINE_HOOK(OnPlayDrawWorldEnd, ())
+DEFINE_HOOK(OnSkyboxStarsCount, (s32 * count))
+DEFINE_HOOK(OnSkyboxStarsPrepare, (Gfx * *gfxP, PlayState* play, s32 index, Vec3f* pos, u32 width,
+                                   const Color_RGBA8* color, f32 fade, SkyboxStarDraw* draw))
 DEFINE_HOOK(OnPlayDestroy, ())
 
 DEFINE_HOOK(ShouldActorInit, (Actor * actor, bool* should))
