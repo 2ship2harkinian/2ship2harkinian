@@ -257,7 +257,7 @@ static RegisterShipInitFunc initFunc([]() {
           EXIT(ENTRANCE(SNOWHEAD, 1),                     ENTRANCE(SNOWHEAD_TEMPLE, 0), true),
       },
       .connections = {
-          CONNECTION(RR_SNOWHEAD_TEMPLE_ENTRANCE_AFTER_BLOCK,   CAN_BE_GORON),
+          CONNECTION(RR_SNOWHEAD_TEMPLE_ENTRANCE_AFTER_BLOCK,   CAN_BE_GORON || CAN_BE_ZORA),
       },
     };
     Regions[RR_SNOWHEAD_TEMPLE_ICICLE_ROOM] = RandoRegion{ .sceneId = SCENE_HAKUGIN,
