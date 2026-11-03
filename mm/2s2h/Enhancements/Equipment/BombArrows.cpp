@@ -774,13 +774,21 @@ static void OnBombArrowInit(Actor* actor) {
         return;
     }
 
-    if (IS_HELD_DPAD(player->heldItemButton)) {
+    if (player->heldItemButton == EQUIP_SLOT_B) {
+        // ActiveItemOnB route
+        s32 bowSlot;
+        bool bowIsDpad;
+        if (!(CVarGetInteger("gEnhancements.Equipment.ActiveItemOnB", 0) && FindEquippedBowType(&bowSlot, &bowIsDpad) &&
+              IsBombArrowButton(bowSlot, bowIsDpad))) {
+            return;
+        }
+    } else if (IS_HELD_DPAD(player->heldItemButton)) {
         s32 dpadSlot = HELD_ITEM_TO_DPAD(player->heldItemButton);
         if (!IsBombArrowButton(dpadSlot, true)) {
             return;
         }
     } else {
-        if (player->heldItemButton == EQUIP_SLOT_B || !IsBombArrowButton(player->heldItemButton, false)) {
+        if (!IsBombArrowButton(player->heldItemButton, false)) {
             return;
         }
     }

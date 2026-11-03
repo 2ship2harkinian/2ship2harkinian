@@ -352,6 +352,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER
+    // ```
+    // #### `args`
+    // - `s16` (bottle slot index, `BOTTLE_FIRST`..`BOTTLE_MAX - 1`)
+    VB_COOL_HOT_WATER,
+
+    // #### `result`
+    // ```c
     // (bean->unk_1E4 == 2) || (bean->unk_1E4 == 1)
     // ```
     // #### `args`
@@ -822,6 +830,7 @@ typedef enum {
     // #### `args`
     // - `EquipSlot`
     // - `*ItemId`
+    // - `bool` (isDpad)
     VB_GET_ITEM_ON_BUTTON,
 
     // #### `result`
@@ -1484,6 +1493,15 @@ typedef enum {
     // #### `args`
     // - None
     VB_MAGIC_SPIN_ATTACK_CHECK_FORM,
+
+    // Whether the mayoral meeting has broken up for the night of the Final Day.
+    // #### `result`
+    // ```c
+    // (gSaveContext.save.day == 3) && gSaveContext.save.isNight
+    // ```
+    // #### `args`
+    // - None
+    VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
 
     // #### `result`
     // ```c

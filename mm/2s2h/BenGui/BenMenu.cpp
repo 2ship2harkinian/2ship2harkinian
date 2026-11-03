@@ -1156,11 +1156,11 @@ void BenMenu::AddEnhancements() {
         .CVar("gEnhancements.Equipment.InvertShieldY")
         .Options(CheckboxOptions().Tooltip(
             "Invert the Y axis while holding the shield so that it moves up with the left stick."));
-    AddWidget(path, "Great Fairy Sword B-Button Attack", WIDGET_CVAR_CHECKBOX)
-        .CVar("gEnhancements.Equipment.GreatFairySwordBButton")
+    AddWidget(path, "Active Item on B", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Equipment.ActiveItemOnB")
         .Options(CheckboxOptions().Tooltip(
-            "When the Great Fairy's Sword is held, pressing B attacks with it instead of drawing "
-            "your equipped sword. The sword can still be put away with A as normal."));
+            "Press B to use the item currently held by Link (Bow, Hookshot, Great Fairy's Sword and Deku Stick). "
+            "Second press on item unequips it."));
     AddWidget(path, "Invert Zora Swim Y Axis", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Player.InvertZoraSwimY")
         .Options(CheckboxOptions().DefaultValue(true).Tooltip(
@@ -1347,6 +1347,11 @@ void BenMenu::AddEnhancements() {
         .Options(CheckboxOptions().Tooltip(
             "Allows the player to keep the Express Mail in their inventory after delivering it "
             "the first time, so that both deliveries can be done within one cycle."));
+    AddWidget(path, "Mayor argues until moonfall", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Cycle.MayorArguesUntilMoonfall")
+        .Options(CheckboxOptions().Tooltip(
+            "The mayoral meeting normally breaks up on the night of the Final Day. This keeps it going until the moon "
+            "falls, so the Couple's Mask can still be shown to Mayor Dotour for his Piece of Heart."));
     AddWidget(path, "Stop Oceanside Spider House squatter", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Cycle.StopOceansideSpiderHouseSquatter")
         .Options(
@@ -1583,6 +1588,9 @@ void BenMenu::AddEnhancements() {
     AddWidget(path, "Color Pictograph", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Items.ColorPictograph")
         .Options(CheckboxOptions().Tooltip("Will take and display pictographs in color."));
+    AddWidget(path, "Hot Water Never Cools", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Items.HotWaterNeverCools")
+        .Options(CheckboxOptions().Tooltip("Prevents Hot Spring Water from cooling down into regular Spring Water."));
 
     // Time Savers
     path = { "Enhancements", "Time Savers", SECTION_COLUMN_1 };
@@ -1759,6 +1767,13 @@ void BenMenu::AddEnhancements() {
         .Options(CheckboxOptions().Tooltip(
             "Fixes a bug where the Deku Butler loops the incorrect animation in the cutscene that plays after "
             "freeing the Deku Princess."));
+    AddWidget(path, "Fix Owl Save Scene Layers", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Fixes.OwlSaveSceneLayers")
+        .Options(CheckboxOptions()
+                     .Tooltip("Fixes owl saves loading areas in their uncleared state (e.g. Great Bay Coast after "
+                              "defeating Gyorg) in certain scenarios. This is a vanilla bug but more common with "
+                              "the Pause Save/Remember Save Location enhancements.")
+                     .DefaultValue(true));
 
     // Restorations
     path = { "Enhancements", "Restorations", SECTION_COLUMN_1 };
