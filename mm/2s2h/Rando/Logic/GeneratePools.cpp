@@ -157,6 +157,11 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
                 continue;
             }
 
+            if (randoStaticCheck.randoCheckType == RCTYPE_NOTEBOOK_ENTRY &&
+                saveInfo.randoSaveOptions[RO_SHUFFLE_NOTEBOOK_ENTRIES] == RO_GENERIC_NO) {
+                continue;
+            }
+
             if (randoStaticCheck.randoCheckType == RCTYPE_TINGLE_SHOP &&
                 saveInfo.randoSaveOptions[RO_SHUFFLE_TINGLE_SHOPS] == RO_GENERIC_NO) {
                 continue;

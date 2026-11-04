@@ -3645,18 +3645,20 @@ void Message_DisplaySceneTitleCard(PlayState* play, u16 textId) {
 }
 
 void Message_BombersNotebookQueueEvent(PlayState* play, u8 event) {
-    MessageContext* msgCtx = &play->msgCtx;
+    if (GameInteractor_Should(VB_GIVE_NOTEBOOK_ENTRY, true, gBombersNotebookWeekEventFlags[event])) {
+        MessageContext* msgCtx = &play->msgCtx;
 
-    if (CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
-        if (!CHECK_WEEKEVENTREG(gBombersNotebookWeekEventFlags[event])) {
-            msgCtx->bombersNotebookEventQueue[msgCtx->bombersNotebookEventQueueCount] = event;
-            msgCtx->bombersNotebookEventQueueCount++;
-        }
-    } else if (event >= BOMBERS_NOTEBOOK_PERSON_MAX) {
-        // Non MET events are processed even if the player does not have the notebook yet
-        if (!CHECK_WEEKEVENTREG(gBombersNotebookWeekEventFlags[event])) {
-            msgCtx->bombersNotebookEventQueue[msgCtx->bombersNotebookEventQueueCount] = event;
-            msgCtx->bombersNotebookEventQueueCount++;
+        if (CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
+            if (!CHECK_WEEKEVENTREG(gBombersNotebookWeekEventFlags[event])) {
+                msgCtx->bombersNotebookEventQueue[msgCtx->bombersNotebookEventQueueCount] = event;
+                msgCtx->bombersNotebookEventQueueCount++;
+            }
+        } else if (event >= BOMBERS_NOTEBOOK_PERSON_MAX) {
+            // Non MET events are processed even if the player does not have the notebook yet
+            if (!CHECK_WEEKEVENTREG(gBombersNotebookWeekEventFlags[event])) {
+                msgCtx->bombersNotebookEventQueue[msgCtx->bombersNotebookEventQueueCount] = event;
+                msgCtx->bombersNotebookEventQueueCount++;
+            }
         }
     }
 }
