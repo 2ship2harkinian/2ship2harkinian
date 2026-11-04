@@ -62,6 +62,18 @@ void FrameInterpolation_RecordMatrixRotateAxis(f32 angle, Vec3f* axis, u8 mode);
 
 void FrameInterpolation_RecordSkinMatrixMtxFToMtx(MtxF* src, Mtx* dest);
 
+// SKIN_LIMB_TYPE_ANIMATED limbs have no matrix to interpolate, so their vertex poses are blended.
+void FrameInterpolation_RecordSkinnedLimb(void* key, void* dest, void* prev, u32 vtxCount);
+
+void FrameInterpolation_UpdateSkinnedVertices(f32 step);
+
+// `pairs` holds `pairCount` (destination, source) vertex indices: each destination collapses
+// onto its source at the start of the logical frame. Other vertices are left as the game wrote them.
+void FrameInterpolation_RecordRibbonHead(void* key, int index, void* dest, u32 vtxCount, u32 pairCount,
+                                         const s16* pairs);
+
+void FrameInterpolation_UpdateRibbonHeads(f32 step);
+
 #ifdef __cplusplus
 }
 #endif
