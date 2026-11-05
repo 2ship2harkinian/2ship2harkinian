@@ -40,11 +40,12 @@ typedef struct {
     std::vector<FlagEntry> entries;
 } FlagTable;
 
-typedef struct {
+typedef struct HeartFlags {
     std::string description;
     int16_t scene;
     FlagType flagType;
     uint16_t flag;
+    bool isContainer = false;
 } HeartFlags;
 
 extern std::vector<ItemId> safeItemsForInventorySlot[SLOT_MASK_FIERCE_DEITY + 1];
@@ -1056,7 +1057,7 @@ const std::vector<HeartFlags> heartFlags = {
     { "Great Bay Coast Fisherman Minigame",                SCENE_30GYOSON,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_FISHERMANS_JUMPING_GAME_HEART_PIECE },
     { "Great Bay Coast Marine Lab Fish Piece Of Heart",    SCENE_LABO,             FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_MARINE_RESEARCH_LAB_FISH_HEART_PIECE },
     { "Great Bay Coast Piece Of Heart",                    SCENE_30GYOSON,         FLAG_CYCL_SCENE_COLLECTIBLE, 0x05 },
-    { "Great Bay Temple Boss Heart Container",             SCENE_SEA_BS,           FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F },
+    { "Great Bay Temple Boss Heart Container",             SCENE_SEA_BS,           FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F, true },
     { "Ikana Canyon Ghost Hut Piece Of Heart",             SCENE_TOUGITES,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_SPIRIT_HOUSE_HEART_PIECE },
     { "Ikana Canyon Scrub Piece Of Heart",                 SCENE_IKANA,            FLAG_CYCL_SCENE_COLLECTIBLE, 0x1E },
     { "Keaton Quiz Piece of Heart",                        SCENE_BACKTOWN,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_KEATON_HEART_PIECE },
@@ -1072,12 +1073,12 @@ const std::vector<HeartFlags> heartFlags = {
     { "Pirate Fortress Interior Sewers Piece Of Heart",    SCENE_PIRATE,           FLAG_CYCL_SCENE_COLLECTIBLE, 0x0C },
     { "Road To Southern Swamp Piece Of Heart",             SCENE_24KEMONOMITI,     FLAG_CYCL_SCENE_COLLECTIBLE, 0x01 },
     { "Secret Shrine Piece Of Heart Chest",                SCENE_RANDOM,           FLAG_CYCL_SCENE_COLLECTIBLE, 0x0A },
-    { "Snowhead Temple Boss Heart Container",              SCENE_HAKUGIN_BS,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F },
+    { "Snowhead Temple Boss Heart Container",              SCENE_HAKUGIN_BS,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F, true },
     { "Southern Swamp Piece Of Heart",                     SCENE_20SICHITAI,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1E },
     { "Stock Pot Inn Grandma Long Story",                  SCENE_YADOYA,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_50_04 },
     { "Stock Pot Inn Grandma Short Story",                 SCENE_YADOYA,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_50_02 },
     { "Stock Pot Inn Toilet Hand",                         SCENE_YADOYA,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_73_08 },
-    { "Stone Tower Temple Inverted Boss Heart Container",  SCENE_INISIE_BS,        FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F },
+    { "Stone Tower Temple Inverted Boss Heart Container",  SCENE_INISIE_BS,        FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F, true },
     { "Swamp Shooting Gallery Perfect Score",              SCENE_SYATEKI_MORI,     FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_SWAMP_SHOOTING_GALLERY_HEART_PIECE },
     { "Swordsman School Piece Of Heart",                   SCENE_DOUJOU,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_SWORDSMANS_SCHOOL_HEART_PIECE },
     { "Termina Field Bio Baba Grotto",                     SCENE_KAKUSIANA,        FLAG_CYCL_SCENE_COLLECTIBLE, 0x02 },
@@ -1090,7 +1091,7 @@ const std::vector<HeartFlags> heartFlags = {
     { "Twin Islands Underwater Chest Heart Piece",         SCENE_17SETUGEN,        FLAG_CYCL_SCENE_COLLECTIBLE, 0x07 },
     { "Waterfall Rapids Beaver Brothers Race",             SCENE_35TAKI,           FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_BEAVER_BROS_HEART_PIECE },
     { "Woodfall Piece Of Heart Chest",                     SCENE_21MITURINMAE,     FLAG_CYCL_SCENE_COLLECTIBLE, 0x0A },
-    { "Woodfall Temple Boss Container",                    SCENE_MITURIN_BS,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F },
+    { "Woodfall Temple Boss Container",                    SCENE_MITURIN_BS,       FLAG_CYCL_SCENE_COLLECTIBLE, 0x1F, true },
     { "Zora Cape Waterfall Piece Of Heart",                SCENE_31MISAKI,         FLAG_CYCL_SCENE_COLLECTIBLE, 0x07 },
     { "Zora Hall Evans Piece Of Heart",                    SCENE_BANDROOM,         FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_RECEIVED_EVAN_HEART_PIECE },
     { "Zora Hall Scrub Piece Of Heart",                    SCENE_BANDROOM,         FLAG_CYCL_SCENE_COLLECTIBLE, 0x1E },

@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <optional>
 #include "SaveEditor.h"
 #include "2s2h/BenGui/UIWidgets.hpp"
 #include "2s2h/GameInteractor/GameInteractor.h"
@@ -1808,6 +1810,231 @@ const char* flagEditorSections[] = { "currentSceneFlags", "weekEventReg",  "even
                                      "scenesVisible",     "owlActivation", "permanentSceneFlags",
                                      "cycleSceneFlags",   "randoInf",      "collectedHearts" };
 
+static std::optional<bool> ReadHeartFlag(const HeartFlags& entry, const SaveContext& save, const PlayState* play) {
+    if (entry.flagType == FLAG_WEEK_EVENT_REG) {
+        if ((entry.flag >> 8) >= std::size(save.save.saveInfo.weekEventReg))
+            return std::nullopt;
+        return (save.save.saveInfo.weekEventReg[entry.flag >> 8] & (entry.flag & 0xFF)) != 0;
+    }
+    if (entry.scene < 0 || static_cast<size_t>(entry.scene) >= std::size(save.cycleSceneFlags) || entry.flag >= 32)
+        return std::nullopt;
+    const bool current = play != nullptr && Play_GetOriginalSceneId(play->sceneId) == entry.scene;
+    const uint32_t mask = uint32_t{ 1 } << entry.flag;
+    switch (entry.flagType) {
+        case FLAG_CYCL_SCENE_COLLECTIBLE:
+            return ((current ? play->actorCtx.sceneFlags.collectible[0]
+                             : save.cycleSceneFlags[entry.scene].collectible) &
+                    mask) != 0;
+        case FLAG_CYCL_SCENE_SWITCH:
+            return ((current ? play->actorCtx.sceneFlags.switches[0] : save.cycleSceneFlags[entry.scene].switch0) &
+                    mask) != 0;
+        default:
+            return std::nullopt;
+    }
+}
+
+static bool WriteHeartFlag(const HeartFlags& entry, SaveContext& save, PlayState* play, bool collected) {
+    if (!ReadHeartFlag(entry, save, play).has_value())
+        return false;
+    const auto update = [collected](auto& value, uint32_t mask) {
+        value = collected ? (value | mask) : (value & ~mask);
+    };
+    if (entry.flagType == FLAG_WEEK_EVENT_REG) {
+        update(save.save.saveInfo.weekEventReg[entry.flag >> 8], entry.flag & 0xFF);
+        return true;
+    }
+    const bool current = play != nullptr && Play_GetOriginalSceneId(play->sceneId) == entry.scene;
+    const uint32_t mask = uint32_t{ 1 } << entry.flag;
+    switch (entry.flagType) {
+        case FLAG_CYCL_SCENE_COLLECTIBLE:
+            update(save.cycleSceneFlags[entry.scene].collectible, mask);
+            if (current)
+                update(play->actorCtx.sceneFlags.collectible[0], mask);
+            break;
+        case FLAG_CYCL_SCENE_SWITCH:
+            update(save.cycleSceneFlags[entry.scene].switch0, mask);
+            if (current)
+                update(play->actorCtx.sceneFlags.switches[0], mask);
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
+// Apply one reward's delta, never reconstruct health from the full flag list.
+// Validate every value before writing so a rejected edit leaves both copies intact.
+// Null means success; an error is displayed by the Save Editor.
+static const char* EditHeartReward(const HeartFlags& entry, SaveContext& save, PlayState* play, bool collected,
+                                   bool sync = true) {
+    const auto previous = ReadHeartFlag(entry, save, play);
+    if (!previous)
+        return "This reward's flag is unavailable.";
+    if (!sync || *previous == collected) {
+        WriteHeartFlag(entry, save, play, collected);
+        return nullptr;
+    }
+    const bool isContainer = entry.isContainer;
+    const int direction = collected ? 1 : -1;
+    const int pieces = (save.save.saveInfo.inventory.questItems >> QUEST_HEART_PIECE_COUNT) & 0xF;
+    const int capacity = save.save.saveInfo.playerData.healthCapacity;
+    if (pieces > 3 || capacity < 16 || capacity > HEART_COUNT_MAX * 16 || capacity % 16 != 0)
+        return "Health or piece count is outside its normal range. Finish collecting or correct it before syncing.";
+    int nextPieces = pieces;
+    int heartDelta = isContainer ? direction : 0;
+    if (!isContainer) {
+        nextPieces += direction;
+        if (nextPieces == 4) {
+            nextPieces = 0;
+            heartDelta = 1;
+        } else if (nextPieces == -1) {
+            nextPieces = 3;
+            heartDelta = -1;
+        }
+    }
+    const int nextCapacity = capacity + heartDelta * 16;
+    if (nextCapacity < 16 || nextCapacity > HEART_COUNT_MAX * 16)
+        return "This edit would exceed the 1-20 heart range. Adjust health or use flag-only editing.";
+    WriteHeartFlag(entry, save, play, collected);
+    save.save.saveInfo.inventory.questItems =
+        (save.save.saveInfo.inventory.questItems & 0x0FFFFFFFu) | (uint32_t(nextPieces) << QUEST_HEART_PIECE_COUNT);
+    save.save.saveInfo.playerData.healthCapacity = nextCapacity;
+    // Match the native health gain, but only clamp current health when capacity falls.
+    if (heartDelta != 0)
+        save.save.saveInfo.playerData.health =
+            std::clamp(int(save.save.saveInfo.playerData.health) + std::max(heartDelta, 0) * 16, 0, nextCapacity);
+    return nullptr;
+}
+
+static bool sSyncHeartRewards = true;
+static const char* sHeartEditError = nullptr;
+
+enum class HeartFlagList { Pieces, Containers };
+
+static size_t DrawHeartFlagCheckboxes(HeartFlagList list, const ImGuiTextFilter* filter = nullptr,
+                                      bool missingOnly = false) {
+    const auto theme = UIWidgets::Colors(CVarGetInteger("gSettings.Menu.Theme", 5));
+    size_t visible = 0;
+    for (size_t i = 0; i < heartFlags.size(); ++i) {
+        const auto& entry = heartFlags[i];
+        if ((list == HeartFlagList::Pieces && entry.isContainer) ||
+            (list == HeartFlagList::Containers && !entry.isContainer) ||
+            (filter != nullptr && !filter->PassFilter(entry.description.c_str()))) {
+            continue;
+        }
+        const auto state = ReadHeartFlag(entry, gSaveContext, gPlayState);
+        if (missingOnly && state == true) {
+            continue;
+        }
+        ++visible;
+        bool collected = state.value_or(false);
+        const bool current = Play_GetOriginalSceneId(gPlayState->sceneId) == entry.scene;
+        std::string source;
+        if (entry.flagType == FLAG_WEEK_EVENT_REG) {
+            source = fmt::format("weekEventReg | {:02}_{:02X}", entry.flag >> 8, entry.flag & 0xFF);
+        } else {
+            source = fmt::format("{} | scene 0x{:02X} | {} | 0x{:02X}",
+                                 current ? "currentSceneFlags" : "cycleSceneFlags", entry.scene,
+                                 entry.flagType == FLAG_CYCL_SCENE_COLLECTIBLE ? "Collectible" : "Switch0", entry.flag);
+        }
+        ImGui::PushID(static_cast<int>(i));
+        UIWidgets::CheckboxOptions options;
+        options.color = theme;
+        options.disabled = !state.has_value();
+        options.tooltip = source.c_str();
+        options.disabledTooltip = state.has_value() ? source.c_str() : "Flag unavailable";
+        if (UIWidgets::Checkbox(entry.description.c_str(), &collected, options)) {
+            sHeartEditError = EditHeartReward(entry, gSaveContext, gPlayState, collected, sSyncHeartRewards);
+        }
+        ImGui::PopID();
+    }
+    return visible;
+}
+
+static void DrawHeartFlags() {
+    if (gPlayState == nullptr || gSaveContext.gameMode != GAMEMODE_NORMAL) {
+        ImGui::TextUnformatted("Load a game to inspect heart-piece flags.");
+        return;
+    }
+    if (IS_RANDO) {
+        ImGui::TextWrapped("This viewer shows original heart-piece rewards. Randomized saves are not supported; use "
+                           "the check tracker.");
+        return;
+    }
+    static ImGuiTextFilter filter;
+    static bool missingOnly = false;
+    static bool showContainers = true;
+    const auto theme = UIWidgets::Colors(CVarGetInteger("gSettings.Menu.Theme", 5));
+    UIWidgets::PushStyleInput(theme);
+    ImGui::TextUnformatted("Search locations");
+    filter.Draw("##HeartSearch", ImGui::GetContentRegionAvail().x);
+    UIWidgets::PopStyleInput();
+    UIWidgets::Checkbox("Missing only", &missingOnly, UIWidgets::CheckboxOptions().Color(theme));
+    const auto sameLineIfFits = [](const char* label) {
+        const auto& style = ImGui::GetStyle();
+        const float width = ImGui::CalcTextSize(label).x + ImGui::GetTextLineHeight() + 16.0f +
+                            style.ItemInnerSpacing.x * 2 + style.ItemSpacing.x;
+        if (ImGui::GetCursorScreenPos().x + ImGui::GetContentRegionAvail().x - ImGui::GetItemRectMax().x > width)
+            ImGui::SameLine();
+    };
+    sameLineIfFits("Include boss containers");
+    UIWidgets::Checkbox("Include boss containers", &showContainers,
+                        UIWidgets::CheckboxOptions().Color(theme).Tooltip(
+                            "Boss containers are listed separately and do not count toward the 52 heart pieces."));
+    sameLineIfFits("Sync health & pieces");
+    if (UIWidgets::Checkbox("Sync health & pieces", &sSyncHeartRewards,
+                            UIWidgets::CheckboxOptions().Color(theme).Tooltip(
+                                "Update health and the piece counter when a reward changes. Disable for flag-only "
+                                "editing. Reload the area to refresh spawned rewards, then save normally."))) {
+        sHeartEditError = nullptr;
+    }
+    if (sHeartEditError)
+        ImGui::TextWrapped("%s", sHeartEditError);
+
+    size_t total = 0, collected = 0, unknown = 0;
+    for (const auto& entry : heartFlags) {
+        if (entry.isContainer)
+            continue;
+        const auto state = ReadHeartFlag(entry, gSaveContext, gPlayState);
+        ++total;
+        collected += state == true;
+        unknown += !state.has_value();
+    }
+    std::string progress = fmt::format("{} / {} collected", collected, total);
+    if (!sSyncHeartRewards)
+        progress += " | Flag-only editing";
+    if (missingOnly)
+        progress += fmt::format(" | {} missing", total - collected - unknown);
+    if (unknown)
+        progress += fmt::format(" | {} unknown", unknown);
+    const float footerHeight =
+        ImGui::CalcTextSize(progress.c_str(), nullptr, false, ImGui::GetContentRegionAvail().x).y +
+        ImGui::GetStyle().ItemSpacing.y;
+    ImGui::BeginChild("HeartPieceCheckboxes", ImVec2(0, -footerHeight), true, ImGuiWindowFlags_HorizontalScrollbar);
+    size_t visible = DrawHeartFlagCheckboxes(HeartFlagList::Pieces, &filter, missingOnly);
+    if (showContainers) {
+        size_t containers = 0, matchingContainers = 0;
+        for (const auto& entry : heartFlags) {
+            if (!entry.isContainer)
+                continue;
+            const auto state = ReadHeartFlag(entry, gSaveContext, gPlayState);
+            containers += state == true;
+            matchingContainers += filter.PassFilter(entry.description.c_str()) && (!missingOnly || state != true);
+        }
+        if (matchingContainers) {
+            ImGui::SeparatorText("Boss Heart Containers");
+            ImGui::Text("%zu / 4 collected", containers);
+            visible += DrawHeartFlagCheckboxes(HeartFlagList::Containers, &filter, missingOnly);
+        }
+    }
+    if (!visible)
+        ImGui::TextDisabled("No matching rewards.");
+    ImGui::EndChild();
+
+    ImGui::PushStyleColor(ImGuiCol_Text, ImGui::GetStyleColorVec4(ImGuiCol_TextDisabled));
+    ImGui::TextWrapped("%s", progress.c_str());
+    ImGui::PopStyleColor();
+}
+
 void DrawFlagsTab() {
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 3.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8.0f, 8.0f));
@@ -2282,63 +2509,9 @@ void DrawFlagsTab() {
             }
             break;
         case HEART_FLAGS:
-            if (gPlayState == NULL) {
-                ImGui::Text("Play state is NULL, cannot display flags");
-                break;
-            }
-            if (IS_RANDO) {
-                ImGui::Text("Flags are not relevant to rando");
-                break;
-            }
-            for (size_t i = 0; i < heartFlags.size(); ++i) {
-                const auto& heartFlag = heartFlags[i];
-                bool collected;
-                uint16_t flag = heartFlag.flag;
-                std::string label;
-
-                if (gPlayState->sceneId == heartFlag.scene) {
-                    switch (heartFlag.flagType) {
-                        case WEEK_EVENT_REG:
-                            collected = CHECK_WEEKEVENTREG(flag);
-                            label = fmt::format("weekEventReg | {:02}_{:02X}", flag >> 8, flag & 0xFF);
-                            break;
-                        case FLAG_CYCL_SCENE_COLLECTIBLE:
-                            collected = Flags_GetCollectible(gPlayState, flag);
-                            label = fmt::format("currentSceneFlags | Collectible[0] | 0x{:02X}", flag);
-                            break;
-                        case FLAG_CYCL_SCENE_SWITCH:
-                            collected = Flags_GetSwitch(gPlayState, flag);
-                            label = fmt::format("currentSceneFlags | Switch[0] | 0x{:02X}", flag);
-                            break;
-                    }
-                } else {
-                    switch (heartFlag.flagType) {
-                        case WEEK_EVENT_REG:
-                            collected = CHECK_WEEKEVENTREG(flag);
-                            label = fmt::format("weekEventReg | {:02}_{:02X}", flag >> 8, flag & 0xFF);
-                            break;
-                        case FLAG_CYCL_SCENE_COLLECTIBLE:
-                            collected = gSaveContext.cycleSceneFlags[heartFlag.scene].collectible & (1 << flag);
-                            label = fmt::format("cycleSceneFlags | {} | Collectible | 0x{:02X}",
-                                                sceneList.at(heartFlag.scene), flag);
-                            break;
-                        case FLAG_CYCL_SCENE_SWITCH:
-                            collected = gSaveContext.cycleSceneFlags[heartFlag.scene].switch0 & (1 << flag);
-                            label = fmt::format("cycleSceneFlags | {} | Switch0 | 0x{:02X}",
-                                                sceneList.at(heartFlag.scene), flag);
-                            break;
-                    }
-                }
-
-                ImGui::PushID(i);
-                ImGui::BeginDisabled();
-                ImGui::Checkbox(heartFlag.description.c_str(), &collected);
-                if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled)) {
-                    ImGui::SetTooltip("%s", label.c_str());
-                }
-                ImGui::EndDisabled();
-                ImGui::PopID();
-            }
+            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8.0f, 8.0f));
+            DrawHeartFlags();
+            ImGui::PopStyleVar();
             break;
     }
     ImGui::PopStyleVar();
