@@ -156,7 +156,8 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_BENEATH_THE_WELL_FREEZARD_ROOM, true),
             CONNECTION(RR_BENEATH_THE_WELL_BIG_POE_ROOM, HAS_ITEM(ITEM_BOMB) && HAS_ITEM(ITEM_MASK_GIBDO)),
-            CONNECTION(RR_BENEATH_THE_WELL_COW_ROOM, HAS_BOTTLE && CAN_ACCESS(HOT_SPRING_WATER) && HAS_ITEM(ITEM_MASK_GIBDO))
+            //todo: as with ALL other HSW logic, this is assuming no ER. If ER is added, the Ikana Owl restriction may be a problem. In fact it may be in general anyway because Backward Well would not be as time leniant
+            CONNECTION(RR_BENEATH_THE_WELL_COW_ROOM, HAS_BOTTLE && (CAN_ACCESS(WELL_HOT_SPRING_WATER) || (CAN_ACCESS(WGORON_HOT_SPRING_WATER) && CAN_PLAY_SONG(SOARING)  && CAN_OWL_WARP(OWL_WARP_IKANA_CANYON))) && HAS_ITEM(ITEM_MASK_GIBDO))
         },
         .events = {
             EVENT(RE_ACCESS_BUGS, HAS_ITEM(ITEM_BOW)),

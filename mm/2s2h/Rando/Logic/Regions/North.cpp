@@ -15,7 +15,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 3),      ENTRANCE(GORON_GRAVERYARD, 0), true),
         },
         .events = {
-            EVENT(RE_ACCESS_HOT_SPRING_WATER, CAN_BE_GORON),
+            EVENT(RE_ACCESS_GORON_HOT_SPRING_WATER, CAN_BE_GORON),
             EVENT(RE_ACCESS_SPRING_WATER, CAN_BE_GORON),
         },
     };
@@ -197,7 +197,8 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 1),      ENTRANCE(MOUNTAIN_SMITHY, 0), true),
         },
         .events = {
-            EVENT(RE_ACCESS_SMITHY, (RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE) || (HAS_BOTTLE && CAN_ACCESS(HOT_SPRING_WATER))) && (FIRST_DAY() || SECOND_DAY())),
+            //This will need changing for ER as this assumes you can warp to Mountain Village and then access the Smithy.
+            EVENT(RE_ACCESS_SMITHY, (RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE) || (HAS_BOTTLE && (CAN_ACCESS(GORON_HOT_SPRING_WATER) || (CAN_ACCESS(WELL_HOT_SPRING_WATER) && CAN_PLAY_SONG(SOARING) && CAN_OWL_WARP(OWL_WARP_MOUNTAIN_VILLAGE))))) && (FIRST_DAY() || SECOND_DAY())),
         },
     };
     Regions[RR_MOUNTAIN_VILLAGE_TUNNEL_GROTTO] = RandoRegion{ .name = "Mountain Village Tunnel Grotto", .sceneId = SCENE_KAKUSIANA,
@@ -326,7 +327,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), ENTRANCE(GROTTOS, 5), true),
         },
         .events = {
-            EVENT(RE_ACCESS_HOT_SPRING_WATER, true),
+            EVENT(RE_ACCESS_GORON_HOT_SPRING_WATER, true),
         },
     };
     Regions[RR_PATH_TO_GORON_VILLAGE_RAMP_GROTTO] = RandoRegion{ .name = "Path to Goron Village Ramp Grotto", .sceneId = SCENE_KAKUSIANA,
@@ -407,7 +408,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ENEMY_DROP_SNAPPER, CanKillEnemy(ACTOR_OBJ_SNOWBALL) && CanKillEnemy(ACTOR_EN_KAME)),
         },
         .exits = { //     TO                                     FROM
-            EXIT(ENTRANCE(GROTTOS, 5),                  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE)),
+            // todo: This will need updating with ER due to the entrances changing the HSW requirement because time sucks.
+            EXIT(ENTRANCE(GROTTOS, 5),                  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE) || (CAN_ACCESS(GORON_HOT_SPRING_WATER) || (CAN_ACCESS(WELL_HOT_SPRING_WATER) && CAN_PLAY_SONG(SOARING) && CAN_OWL_WARP(OWL_WARP_MOUNTAIN_VILLAGE)))),
             // TODO: This can be reached in entrance rando if coming from Goron Racetrack
             EXIT(ENTRANCE(GROTTOS, 24),                 ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), CAN_USE_EXPLOSIVE && (CAN_BE_GORON || CAN_HOOK_SCARECROW)),
             EXIT(ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 2),  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), true),
