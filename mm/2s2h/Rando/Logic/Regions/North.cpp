@@ -409,7 +409,7 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                     FROM
             // todo: This will need updating with ER due to the entrances changing the HSW requirement because time sucks.
-            EXIT(ENTRANCE(GROTTOS, 5),                  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE) || (CAN_ACCESS(GORON_HOT_SPRING_WATER) || (CAN_ACCESS(WELL_HOT_SPRING_WATER) && CAN_PLAY_SONG(SOARING) && CAN_OWL_WARP(OWL_WARP_MOUNTAIN_VILLAGE)))),
+            EXIT(ENTRANCE(GROTTOS, 5),                  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), RANDO_EVENTS[RE_CLEARED_SNOWHEAD_TEMPLE] || CAN_USE_MAGIC_ARROW(FIRE) || (HAS_BOTTLE && (CAN_ACCESS(GORON_HOT_SPRING_WATER) || (CAN_ACCESS(WELL_HOT_SPRING_WATER) && CAN_PLAY_SONG(SOARING) && CAN_OWL_WARP(OWL_WARP_MOUNTAIN_VILLAGE))))),
             // TODO: This can be reached in entrance rando if coming from Goron Racetrack
             EXIT(ENTRANCE(GROTTOS, 24),                 ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), CAN_USE_EXPLOSIVE && (CAN_BE_GORON || CAN_HOOK_SCARECROW)),
             EXIT(ENTRANCE(MOUNTAIN_VILLAGE_WINTER, 2),  ENTRANCE(PATH_TO_GORON_VILLAGE_WINTER, 0), true),
