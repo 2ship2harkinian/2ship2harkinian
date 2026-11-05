@@ -220,7 +220,8 @@ void ValidateRegionTimeOwnership(RandoRegionId regionId, RandoCheckId checkId, u
 #define CAN_ACCESS(access) (RANDO_EVENTS[RE_ACCESS_##access])
 #define CAN_GROW_BEAN_PLANT        \
     (HAS_ITEM(ITEM_MAGIC_BEANS) && \
-     (CAN_PLAY_SONG(STORMS) || (HAS_BOTTLE && (CAN_ACCESS(SPRING_WATER) || CAN_ACCESS(GORON_HOT_SPRING_WATER) || CAN_ACCESS(WELL_HOT_SPRING_WATER)))))
+     (CAN_PLAY_SONG(STORMS) || (HAS_BOTTLE && (CAN_ACCESS(SPRING_WATER) || \
+      CAN_ACCESS(GORON_HOT_SPRING_WATER) || CAN_ACCESS(WELL_HOT_SPRING_WATER)))))
 // Bean patches that auto-water on Day 2 (Doggy Racetrack, Deku Palace Upper)
 // Rain only occurs Day 2 from 7:00 AM to 5:30 PM (not Night 2)
 // Requires magic beans and (Day 2 OR manual watering)
