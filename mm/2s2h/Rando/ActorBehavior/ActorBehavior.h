@@ -107,6 +107,7 @@ void InitPlayerBehavior();
 void InitSoulsBehavior();
 void InitTrapsBehavior();
 void InitWonderItemsBehavior();
+void InitTest3Behavior();
 
 } // namespace ActorBehavior
 
