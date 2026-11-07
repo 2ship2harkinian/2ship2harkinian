@@ -2,6 +2,7 @@
 #include "Rando/ActorBehavior/Souls.h"
 #include "Rando/MiscBehavior/MiscBehavior.h"
 #include "Rando/MiscBehavior/ClockShuffle.h"
+#include <spdlog/spdlog.h>
 
 extern "C" {
 #include "variables.h"
@@ -268,7 +269,6 @@ void Rando::GiveItem(RandoItemId randoItemId) {
             s32 flag = gBombersNotebookWeekEventFlags[randoItemId - RI_NOTEBOOK_BOMBERS];
             // Avoid giving the check associated with the actual notebook event flag
             WEEKEVENTREG((flag) >> 8) = GET_WEEKEVENTREG((flag) >> 8) | ((flag)&0xFF);
-            Item_Give(gPlayState, Rando::StaticData::Items[randoItemId].itemId);
             break;
         }
         case RI_PENDANT_OF_MEMORIES:
