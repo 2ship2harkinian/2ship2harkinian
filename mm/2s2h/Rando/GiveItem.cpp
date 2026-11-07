@@ -2,7 +2,6 @@
 #include "Rando/ActorBehavior/Souls.h"
 #include "Rando/MiscBehavior/MiscBehavior.h"
 #include "Rando/MiscBehavior/ClockShuffle.h"
-#include <spdlog/spdlog.h>
 
 extern "C" {
 #include "variables.h"
