@@ -45,6 +45,7 @@ void DrawLeever();
 void DrawLikeLike();
 void DrawMadScrub();
 void DrawNejiron();
+void DrawNotebookEntry();
 void DrawOctorok();
 void DrawPeahat();
 void DrawPirate();
