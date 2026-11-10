@@ -401,6 +401,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SECRET_SHRINE_POT_01, true),
             CHECK(RC_SECRET_SHRINE_POT_02, true),
             CHECK(RC_SECRET_SHRINE_POT_03, true),
+            CHECK(RC_SECRET_SHRINE_SOFT_SOIL_1, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_SECRET_SHRINE_SOFT_SOIL_2, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_SECRET_SHRINE_SOFT_SOIL_3, HAS_BOTTLE && CAN_ACCESS(BUGS)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(IKANA_CANYON, 12),                ENTRANCE(SECRET_SHRINE, 0), true),
@@ -475,6 +478,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
     };
     Regions[RR_STONE_TOWER_INVERTED_LOWER] = RandoRegion{ .sceneId = SCENE_F41,
+        .checks = {
+            CHECK(RC_STONE_TOWER_INVERTED_LOWER_SOFT_SOIL, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+        },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(STONE_TOWER, 1),                  ENTRANCE(STONE_TOWER_INVERTED, 0), HAS_ITEM(ITEM_BOW) && HAS_ITEM(ITEM_ARROW_LIGHT) && HAS_MAGIC),
         },
@@ -502,6 +508,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_STONE_TOWER_INVERTED_POT_03, true),
             CHECK(RC_STONE_TOWER_INVERTED_POT_04, true),
             CHECK(RC_STONE_TOWER_INVERTED_POT_05, true),
+            CHECK(RC_STONE_TOWER_INVERTED_UPPER_SOFT_SOIL, HAS_BOTTLE && CAN_ACCESS(BUGS)),
         },
         .connections = {
             CONNECTION(RR_STONE_TOWER_INVERTED_LOWER, true),

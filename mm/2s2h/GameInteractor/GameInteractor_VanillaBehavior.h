@@ -1650,6 +1650,16 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjSwprize this`
+    // - `s32 i`
+    // - `**Actor collectible`
+    VB_OBJ_SWPRIZE_DROP_COLLECTIBLE,
+
+    // #### `result`
+    // ```c
     // (player->transformation == PLAYER_FORM_ZORA) && (play->msgCtx.ocarinaMode == OCARINA_MODE_EVENT) &&
     // (play->msgCtx.lastPlayedSong == OCARINA_SONG_NEW_WAVE)
     // ```
