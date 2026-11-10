@@ -1,5 +1,4 @@
 #include "ActorBehavior.h"
-#include "2s2h/ShipUtils.h"
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ObjectExtension/ActorListIndex.h"
 
