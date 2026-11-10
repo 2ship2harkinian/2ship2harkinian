@@ -10,6 +10,9 @@ static RegisterShipInitFunc initFunc([]() {
     Regions[RR_ASTRAL_OBSERVATORY_OUTSIDE] = RandoRegion{ .name = "Outside Astral Observatory", .sceneId = SCENE_00KEIKOKU,
         .checks = {
             CHECK(RC_ASTRAL_OBSERVATORY_MOON_TEAR, true),
+            CHECK(RC_ASTRAL_OBSERVATORY_SOFT_SOIL_1, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_ASTRAL_OBSERVATORY_SOFT_SOIL_2, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_ASTRAL_OBSERVATORY_SOFT_SOIL_3, HAS_BOTTLE && CAN_ACCESS(BUGS)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ASTRAL_OBSERVATORY, 1),           ENTRANCE(TERMINA_FIELD, 9), true),
