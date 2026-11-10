@@ -56,17 +56,17 @@ void Rando::ActorBehavior::InitObjSwprizeBehavior() {
         if (it != softSoilMap.end()) {
             randoCheckId = (RandoCheckId)(it->second + i);
         }
-        if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled &&
-            !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
-            *should = false;
-            // Pass back the Actor pointer and let z_obj_swprize do the heavy lifting with angles
-            *collectible = SpawnSoilDrop(objSwprize->actor.world.pos, randoCheckId);
-        }
-        if (randoCheckId == RC_ROMANI_RANCH_DAY_1_SOFT_SOIL) {
-            // Allows getting both Romani Ranch day 1 and day 2/3 soil checks in one cycle.
-            // This does enable the player to get unlimited arrows if they want to repeatedly reload
-            // the area and feed the patch bugs on day 1, but that doesn't seem like a big deal.
-            Flags_UnsetSwitch(gPlayState, 20);
+        if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled) {
+            if (!RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+                *should = false;
+                // Let z_obj_swprize do the heavy lifting with angles
+                *collectible = SpawnSoilDrop(objSwprize->actor.world.pos, randoCheckId);
+            }
+            if (randoCheckId == RC_ROMANI_RANCH_DAY_1_SOFT_SOIL) {
+                // Allows getting both Romani Ranch day 1 and day 2/3 soil checks in one cycle.
+                Flags_UnsetSwitch(gPlayState, 20);
+                *should = false;
+            }
         }
     });
 }
