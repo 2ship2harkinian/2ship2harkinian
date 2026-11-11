@@ -646,6 +646,8 @@ bool Rando::IsItemObtainable(RandoItemId randoItemId, RandoCheckId randoCheckId)
             ItemId itemId = StaticData::Items[randoItemId].itemId;
             return INV_CONTENT(itemId) != itemId;
         }
+        case RI_RUPEE_CRIMSON:
+            return !hasObtainedCheck;
         default:
             break;
     }

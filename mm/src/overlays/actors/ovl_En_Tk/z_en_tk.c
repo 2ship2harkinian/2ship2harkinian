@@ -7,6 +7,7 @@
 #include "z_en_tk.h"
 #include "overlays/actors/ovl_Bg_Danpei_Movebg/z_bg_danpei_movebg.h"
 #include "overlays/actors/ovl_En_Door/z_en_door.h"
+#include "GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_ATTENTION_ENABLED | ACTOR_FLAG_FRIENDLY)
 
@@ -614,7 +615,9 @@ void func_80AED610(EnTk* this, PlayState* play) {
                         break;
 
                     case 0x1413:
-                        Rupees_ChangeBy(30);
+                        if (GameInteractor_Should(VB_GIVE_ITEM_FROM_TK, true)) {
+                            Rupees_ChangeBy(30);
+                        }
                         SET_WEEKEVENTREG(WEEKEVENTREG_60_02);
                         Message_ContinueTextbox(play, 0x13FF);
                         break;

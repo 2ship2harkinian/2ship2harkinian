@@ -2683,6 +2683,9 @@ std::map<RandoCheckId, RandoStaticCheck> Checks = {
     RC(RC_TERMINA_FIELD_GOSSIP_STONE_GROTTO_3_BEEHIVE,                   RCTYPE_BEEHIVE,          SCENE_KAKUSIANA,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
     RC(RC_WOODFALL_TEMPLE_ENTRANCE_BEEHIVE,                              RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_CYCL_SCENE_COLLECTIBLE, 0x20,                                                                RI_RUPEE_BLUE),
     RC(RC_WOODFALL_TEMPLE_MAZE_ROOM_BEEHIVE,                             RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_NONE,                   0x0,                                                                 RI_NONE),
+
+    // NPC Rewards //
+    RC(RC_IKANA_GRAVEYARD_DAMPE_DAY_2_BATS_REWARD,                       RCTYPE_NPC,              SCENE_BOTI,                     FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_60_02,                                                  RI_RUPEE_CRIMSON),
 };
 // clang-format on
 

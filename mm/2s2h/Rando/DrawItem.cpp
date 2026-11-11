@@ -20,6 +20,8 @@ extern "C" {
 
 #include "overlays/actors/ovl_En_Elforg/z_en_elforg.h"
 
+#include "objects/object_gi_rupy/object_gi_rupy.h"
+
 Gfx* ResourceMgr_LoadGfxByName(const char* path);
 }
 
@@ -543,6 +545,26 @@ void DrawTycoonWallet() {
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
+void DrawCrimsonRupee() {
+    OPEN_DISPS(gPlayState->state.gfxCtx);
+
+    Gfx_SetupDL25_Opa(gPlayState->state.gfxCtx);
+
+    MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, gPlayState->state.gfxCtx);
+    gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gGiPurpleRupeeInnerColorDL);
+    gDPSetEnvColor(POLY_OPA_DISP++, 200, 50, 90, 255);
+    gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gGiRupeeInnerDL);
+
+    Gfx_SetupDL25_Xlu(gPlayState->state.gfxCtx);
+
+    MATRIX_FINALIZE_AND_LOAD(POLY_XLU_DISP++, gPlayState->state.gfxCtx);
+    gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gGiPurpleRupeeOuterColorDL);
+    gDPSetEnvColor(POLY_XLU_DISP++, 190, 40, 80, 255);
+    gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gGiRupeeOuterDL);
+
+    CLOSE_DISPS(gPlayState->state.gfxCtx);
+}
+
 void Rando::DrawItem(RandoItemId randoItemId, RandoCheckId randoCheckId, Actor* actor) {
     // Apply hilites with actor world pos before drawing
     if (actor != NULL) {
@@ -724,6 +746,9 @@ void Rando::DrawItem(RandoItemId randoItemId, RandoCheckId randoCheckId, Actor* 
         case RI_OCARINA_BUTTON_C_RIGHT:
         case RI_OCARINA_BUTTON_C_UP:
             DrawOcarinaButtonItem(randoItemId, actor);
+            break;
+        case RI_RUPEE_CRIMSON:
+            DrawCrimsonRupee();
             break;
         case RI_NONE:
         case RI_UNKNOWN:
