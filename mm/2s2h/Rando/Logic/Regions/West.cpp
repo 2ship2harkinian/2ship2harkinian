@@ -298,6 +298,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_ZORA_CAPE, CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
         },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_LULU, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+        },
         .oneWayEntrances = {
             ENTRANCE(ZORA_CAPE, 6), // From Song of Soaring
             ENTRANCE(ZORA_CAPE, 9), // From Great Bay Temple Blue Warp
@@ -345,6 +348,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ZORA_CAPE_WATERFALL_PIECE_OF_HEART,   CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
             CHECK(RC_ZORA_CAPE_NEAR_BEAVERS_POT_01,        true),
             CHECK(RC_ZORA_CAPE_NEAR_BEAVERS_POT_02,        true),
+            CHECK(RC_ZORA_CAPE_POT_GAME_REWARD,            CAN_BE_ZORA),
             CHECK(RC_ZORA_CAPE_TREE_01,                    true),
             CHECK(RC_ZORA_CAPE_TREE_02,                    true),
             CHECK(RC_ZORA_CAPE_TREE_03,                    HAS_ITEM(ITEM_HOOKSHOT)),
@@ -407,6 +411,8 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_HALL] = RandoRegion{ .sceneId = SCENE_33ZORACITY,
         .checks = {
+            CHECK(RC_ZORA_HALL_LULU_PHOTO_BAD, CAN_BE_ZORA && CAN_ACCESS(PICTOGRAPH_LULU)),
+            CHECK(RC_ZORA_HALL_LULU_PHOTO_GOOD, CAN_BE_ZORA && CAN_ACCESS(PICTOGRAPH_LULU)),
             CHECK(RC_ZORA_HALL_SCENE_LIGHTS, CAN_USE_MAGIC_ARROW(FIRE)),
         },
         .exits = { //     TO                                         FROM
