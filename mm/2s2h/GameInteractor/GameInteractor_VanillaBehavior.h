@@ -1014,6 +1014,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - None
+    VB_GIVE_ITEM_FROM_TK,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*EnFsn`
     VB_GIVE_KEATON_MASK,
 

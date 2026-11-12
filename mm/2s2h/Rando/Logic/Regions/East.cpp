@@ -223,6 +223,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_IKANA_GRAVEYARD_LOWER] = RandoRegion{ .name = "Lower", .sceneId = SCENE_BOTI,
         .checks = {
+            CHECK(RC_IKANA_GRAVEYARD_DAMPE_DAY_2_BATS_REWARD, CanKillEnemy(ACTOR_EN_BAT) && IS_DAY2()),
             CHECK(RC_IKANA_GRAVEYARD_LOWER_GRASS_01, true),
             CHECK(RC_IKANA_GRAVEYARD_LOWER_GRASS_02, true),
             CHECK(RC_IKANA_GRAVEYARD_LOWER_GRASS_03, true),
