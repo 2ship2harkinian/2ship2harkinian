@@ -143,6 +143,7 @@ std::map<RandoCheckId, RandoStaticCheck> Checks = {
     RC(RC_IKANA_CANYON_TINGLE_MAP_01,                                    RCTYPE_TINGLE_SHOP,      SCENE_IKANA,                    FLAG_NONE,                   0x00,                                                                RI_TINGLE_MAP_STONE_TOWER),
     RC(RC_IKANA_CANYON_TINGLE_MAP_02,                                    RCTYPE_TINGLE_SHOP,      SCENE_IKANA,                    FLAG_NONE,                   0x00,                                                                RI_TINGLE_MAP_CLOCK_TOWN),
     RC(RC_IKANA_GRAVEYARD_CAPTAIN_MASK,                                  RCTYPE_CHEST,            SCENE_BOTI,                     FLAG_CYCL_SCENE_CHEST,       0x00,                                                                RI_MASK_CAPTAIN),
+    RC(RC_IKANA_GRAVEYARD_DAMPE_DAY_2_BATS_REWARD,                       RCTYPE_NPC,              SCENE_BOTI,                     FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_60_02,                                                  RI_RUPEE_CRIMSON),
     RC(RC_IKANA_GRAVEYARD_GROTTO,                                        RCTYPE_CHEST,            SCENE_KAKUSIANA,                FLAG_CYCL_SCENE_CHEST,       0x18,                                                                RI_BOMBCHU_5),
     RC(RC_IKANA_GREAT_FAIRY,                                             RCTYPE_NPC,              SCENE_YOUSEI_IZUMI,             FLAG_NONE,                   0x00,                                                                RI_GREAT_FAIRY_SWORD),
     RC(RC_KAFEIS_HIDEOUT_KEATON_MASK,                                    RCTYPE_NPC,              SCENE_AYASHIISHOP,              FLAG_NONE,                   0x00,                                                                RI_MASK_KEATON),
@@ -2683,9 +2684,6 @@ std::map<RandoCheckId, RandoStaticCheck> Checks = {
     RC(RC_TERMINA_FIELD_GOSSIP_STONE_GROTTO_3_BEEHIVE,                   RCTYPE_BEEHIVE,          SCENE_KAKUSIANA,                FLAG_NONE,                   0x0,                                                                 RI_NONE),
     RC(RC_WOODFALL_TEMPLE_ENTRANCE_BEEHIVE,                              RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_CYCL_SCENE_COLLECTIBLE, 0x20,                                                                RI_RUPEE_BLUE),
     RC(RC_WOODFALL_TEMPLE_MAZE_ROOM_BEEHIVE,                             RCTYPE_BEEHIVE,          SCENE_MITURIN,                  FLAG_NONE,                   0x0,                                                                 RI_NONE),
-
-    // NPC Rewards //
-    RC(RC_IKANA_GRAVEYARD_DAMPE_DAY_2_BATS_REWARD,                       RCTYPE_NPC,              SCENE_BOTI,                     FLAG_WEEK_EVENT_REG,         WEEKEVENTREG_60_02,                                                  RI_RUPEE_CRIMSON),
 };
 // clang-format on
 
