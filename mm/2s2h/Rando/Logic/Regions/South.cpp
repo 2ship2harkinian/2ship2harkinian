@@ -363,7 +363,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_10, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_11, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_12, true),
-            CHECK(RC_SOUTHERN_SWAMP_POISON_BEEHIVE, CAN_USE_PROJECTILE && CAN_TRAVERSE_WAIST_DEEP_WATER),
+            CHECK(RC_SOUTHERN_SWAMP_POISON_BEEHIVE, CAN_USE_PROJECTILE && (CAN_BE_ZORA || CAN_BE_DEKU || CAN_USE_ABILITY(SWIM))),
             CHECK(RC_ENEMY_DROP_MINI_BABA, CanKillEnemy(ACTOR_EN_KAREBABA)),
         },
         .exits = { //     TO                                         FROM
