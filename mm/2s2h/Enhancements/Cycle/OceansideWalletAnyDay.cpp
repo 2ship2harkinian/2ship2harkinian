@@ -15,7 +15,9 @@ void RegisterOceansideWalletAnyDay() {
         GetItemId* item = va_arg(args, GetItemId*);
         Actor* actor = va_arg(args, Actor*);
 
-        if (actor->id != ACTOR_EN_STH || STH_GET_TYPE(actor) != STH_TYPE_OCEANSIDE_SPIDER_HOUSE_GREET) {
+        if (actor->id != ACTOR_EN_STH || STH_GET_TYPE(actor) != STH_TYPE_OCEANSIDE_SPIDER_HOUSE_GREET ||
+            IS_RANDO && (RANDO_SAVE_CHECKS[RC_OCEAN_SPIDER_HOUSE_DAY_2_REWARD].shuffled ||
+                         RANDO_SAVE_CHECKS[RC_OCEAN_SPIDER_HOUSE_DAY_3_REWARD].shuffled)) {
             return;
         }
 
