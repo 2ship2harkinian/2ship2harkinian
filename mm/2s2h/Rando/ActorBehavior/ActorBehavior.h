@@ -80,6 +80,7 @@ void InitEnShnBehavior();
 void InitEnSiBehavior();
 void InitEnSob1Behavior();
 void InitEnSshBehavior();
+void InitEnSthBehavior();
 void InitEnStoneheishiBehavior();
 void InitEnSyatekiManBehavior();
 void InitEnTabBehavior();
