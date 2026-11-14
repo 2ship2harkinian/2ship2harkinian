@@ -391,11 +391,11 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(EAST_CLOCK_TOWN, 11),             ENTRANCE(MILK_BAR, 0), true),
         },
         .timeStayRestrictions = {
-            STAY(TIME_NIGHT1_PM_10_00, false),
+            STAY(TIME_NIGHT1_PM_09_00, false),
             STAY(TIME_NIGHT1_AM_05_00, false),
-            STAY(TIME_NIGHT2_PM_10_00, false),
+            STAY(TIME_NIGHT2_PM_09_00, false),
             STAY(TIME_NIGHT2_AM_05_00, false),
-            STAY(TIME_NIGHT3_PM_10_00, false),
+            STAY(TIME_NIGHT3_PM_09_00, false),
             STAY(TIME_NIGHT3_AM_05_00, false),
         },
     };
@@ -509,6 +509,11 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(EAST_CLOCK_TOWN, 4),              ENTRANCE(TREASURE_CHEST_SHOP, 0), true),
+            
+        },
+        .timeStayRestrictions = {
+            STAY(TIME_NIGHT1_PM_10_00, false),
+            STAY(TIME_NIGHT2_PM_10_00, false),
         },
     };
 }, {});
