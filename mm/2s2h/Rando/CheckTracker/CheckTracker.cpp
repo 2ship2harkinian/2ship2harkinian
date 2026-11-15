@@ -135,7 +135,7 @@ std::vector<const char*> checkTypeIconList = {
     /*RCTYPE_OWL*/ gWorldMapOwlFaceTex,
     /*RCTYPE_POT*/ gPotTrackerIcon,
     /*RCTYPE_REMAINS*/ gItemIconBombersNotebookTex,
-    /*RCTYPE_ROCK*/ gItemIconStoneMaskTex,
+    /*RCTYPE_ROCK*/ gRockTrackerIcon,
     /*RCTYPE_SHOP*/ gItemIconAdultsWalletTex,
     /*RCTYPE_SKULL_TOKEN*/ gQuestIconGoldSkulltulaTex,
     /*RCTYPE_SNOWBALL*/ gMagicArrowEquipEffectTex,
