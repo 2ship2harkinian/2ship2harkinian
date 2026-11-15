@@ -1070,6 +1070,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - None
+    VB_GIVE_POT_GAME_REWARD,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*EnMaYto`
     VB_GIVE_ROMANI_MASK,
 

@@ -26,6 +26,29 @@ void Rando::ActorBehavior::InitEnZotBehavior() {
             player->talkActorDistance = refActor->xzDistToPlayer;
             player->exchangeItemAction = PLAYER_IA_MINUS1;
             Player_StartTalking(gPlayState, refActor);
+        } else if (refActor->params == -1017) { // Lulu fan Zora
+            RandoCheckId randoCheckId = RC_UNKNOWN;
+            if (*item == GI_RUPEE_BLUE) {
+                randoCheckId = RC_ZORA_HALL_LULU_PHOTO_BAD;
+            } else if (*item == GI_RUPEE_RED) {
+                randoCheckId = RC_ZORA_HALL_LULU_PHOTO_GOOD;
+            }
+            if (randoCheckId != RC_UNKNOWN) {
+                RandoSaveCheck& randoSaveCheck = RANDO_SAVE_CHECKS[randoCheckId];
+                if (randoSaveCheck.shuffled && !randoSaveCheck.cycleObtained) {
+                    randoSaveCheck.eligible = true;
+                    *should = false;
+                    refActor->parent = &player->actor;
+                }
+            }
+        }
+    });
+    COND_VB_SHOULD(VB_GIVE_POT_GAME_REWARD, IS_RANDO, {
+        RandoSaveCheck randoSaveCheck = RANDO_SAVE_CHECKS[RC_ZORA_CAPE_POT_GAME_REWARD];
+        if (randoSaveCheck.shuffled && !randoSaveCheck.cycleObtained) {
+            // Still charge for the pot replacement.
+            Rupees_ChangeBy(-10);
+            *should = false;
         }
     });
 }
