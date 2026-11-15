@@ -210,7 +210,8 @@ void Rando::ActorBehavior::InitEnIshiBehavior() {
     COND_VB_SHOULD(VB_ROCK_DROP_COLLECTIBLE, shouldRegister, {
         EnIshi* enIshi = va_arg(args, EnIshi*);
         RandoCheckId randoCheckId = GetObjectRandoCheckId(enIshi);
-        if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled && !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+        if (randoCheckId != RC_UNKNOWN && RANDO_SAVE_CHECKS[randoCheckId].shuffled &&
+            !RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
             SpawnRockDrop(enIshi->actor.world.pos, randoCheckId);
             *should = false;
         }
