@@ -157,6 +157,11 @@ void GeneratePools(RandoSaveInfo& saveInfo, std::vector<RandoCheckId>& checkPool
                 continue;
             }
 
+            if (randoStaticCheck.randoCheckType == RCTYPE_FAIRY &&
+                saveInfo.randoSaveOptions[RO_SHUFFLE_MISC_FAIRIES] == RO_GENERIC_NO) {
+                continue;
+            }
+
             if (randoStaticCheck.randoCheckType == RCTYPE_SOIL &&
                 saveInfo.randoSaveOptions[RO_SHUFFLE_SOFT_SOIL] == RO_GENERIC_NO) {
                 continue;
