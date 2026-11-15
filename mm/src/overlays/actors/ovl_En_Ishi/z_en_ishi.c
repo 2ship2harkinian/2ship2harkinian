@@ -320,8 +320,10 @@ void EnIshi_SpawnDustBoulder(Actor* thisx, PlayState* play) {
 }
 
 void EnIshi_DropItem(EnIshi* this, PlayState* play) {
-    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE, (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) &&
-        !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor), this)) {
+    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE,
+                              (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) &&
+                                  !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor),
+                              this)) {
         Item_DropCollectibleRandom(play, NULL, &this->actor.world.pos, ENISHI_GET_DROP_TABLE(&this->actor) * 0x10);
     }
 }
@@ -335,7 +337,8 @@ void EnIshi_DropCollectable(EnIshi* this, PlayState* play) {
     f32 verticalVelMagnitude;
     s16 temp_v1_2;
 
-    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE, collectableItem00Id >= ITEM00_RUPEE_GREEN, this)) { // not ITEM00_NO_DROP, the 0 index of the list
+    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE, collectableItem00Id >= ITEM00_RUPEE_GREEN,
+                              this)) { // not ITEM00_NO_DROP, the 0 index of the list
         item = Item_DropCollectible(play, &this->actor.world.pos,
                                     collectableItem00Id | (ENISHI_GET_COLLECTABLE_FLAG(&this->actor) << 8));
         if (item != NULL) {
