@@ -15,22 +15,22 @@ extern "C" {
 // Rocks In Scenes
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> enIshiItemMap = {
     // Goron Shrine
-    { { SCENE_16GORON_HOUSE, 0, 7 }, RC_GORON_SHRINE_ROCK_01 },
-    { { SCENE_16GORON_HOUSE, 0, 20 }, RC_GORON_SHRINE_ROCK_10 },
-    { { SCENE_16GORON_HOUSE, 0, 21 }, RC_GORON_SHRINE_ROCK_11 },
-    { { SCENE_16GORON_HOUSE, 0, 16 }, RC_GORON_SHRINE_ROCK_12 },
-    { { SCENE_16GORON_HOUSE, 0, 15 }, RC_GORON_SHRINE_ROCK_13 },
-    { { SCENE_16GORON_HOUSE, 0, 18 }, RC_GORON_SHRINE_ROCK_14 },
-    { { SCENE_16GORON_HOUSE, 0, 22 }, RC_GORON_SHRINE_ROCK_15 },
-    { { SCENE_16GORON_HOUSE, 0, 17 }, RC_GORON_SHRINE_ROCK_16 },
-    { { SCENE_16GORON_HOUSE, 0, 9 }, RC_GORON_SHRINE_ROCK_02 },
-    { { SCENE_16GORON_HOUSE, 0, 10 }, RC_GORON_SHRINE_ROCK_03 },
-    { { SCENE_16GORON_HOUSE, 0, 8 }, RC_GORON_SHRINE_ROCK_04 },
-    { { SCENE_16GORON_HOUSE, 0, 14 }, RC_GORON_SHRINE_ROCK_05 },
-    { { SCENE_16GORON_HOUSE, 0, 13 }, RC_GORON_SHRINE_ROCK_06 },
-    { { SCENE_16GORON_HOUSE, 0, 12 }, RC_GORON_SHRINE_ROCK_07 },
-    { { SCENE_16GORON_HOUSE, 0, 11 }, RC_GORON_SHRINE_ROCK_08 },
-    { { SCENE_16GORON_HOUSE, 0, 19 }, RC_GORON_SHRINE_ROCK_09 },
+    { { SCENE_16GORON_HOUSE, 0, 2 }, RC_GORON_SHRINE_ROCK_01 },
+    { { SCENE_16GORON_HOUSE, 0, 4 }, RC_GORON_SHRINE_ROCK_02 },
+    { { SCENE_16GORON_HOUSE, 0, 5 }, RC_GORON_SHRINE_ROCK_03 },
+    { { SCENE_16GORON_HOUSE, 0, 3 }, RC_GORON_SHRINE_ROCK_04 },
+    { { SCENE_16GORON_HOUSE, 0, 9 }, RC_GORON_SHRINE_ROCK_05 },
+    { { SCENE_16GORON_HOUSE, 0, 8 }, RC_GORON_SHRINE_ROCK_06 },
+    { { SCENE_16GORON_HOUSE, 0, 7 }, RC_GORON_SHRINE_ROCK_07 },
+    { { SCENE_16GORON_HOUSE, 0, 6 }, RC_GORON_SHRINE_ROCK_08 },
+    { { SCENE_16GORON_HOUSE, 0, 15 }, RC_GORON_SHRINE_ROCK_09 },
+    { { SCENE_16GORON_HOUSE, 0, 14 }, RC_GORON_SHRINE_ROCK_10 },
+    { { SCENE_16GORON_HOUSE, 0, 16 }, RC_GORON_SHRINE_ROCK_11 },
+    { { SCENE_16GORON_HOUSE, 0, 11 }, RC_GORON_SHRINE_ROCK_12 },
+    { { SCENE_16GORON_HOUSE, 0, 10 }, RC_GORON_SHRINE_ROCK_13 },
+    { { SCENE_16GORON_HOUSE, 0, 13 }, RC_GORON_SHRINE_ROCK_14 },
+    { { SCENE_16GORON_HOUSE, 0, 17 }, RC_GORON_SHRINE_ROCK_15 },
+    { { SCENE_16GORON_HOUSE, 0, 12 }, RC_GORON_SHRINE_ROCK_16 },
     // Great Bay Coast
     { { SCENE_30GYOSON, 0, 102 }, RC_GREAT_BAY_COAST_CLIFFSIDE_ROCK_1 },
     { { SCENE_30GYOSON, 0, 100 }, RC_GREAT_BAY_COAST_CLIFFSIDE_ROCK_2 },
@@ -107,6 +107,26 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> objMure2RockMap = {
     { { SCENE_00KEIKOKU, 0, 140 }, RC_TERMINA_FIELD_KAMARO_ROCK_1 },
     { { SCENE_IKANAMAE, 0, 35 }, RC_ROAD_TO_IKANA_SHIRO_ROCK_1 },
     { { SCENE_BOTI, 1, 44 }, RC_IKANA_GRAVEYARD_RING_ROCK_1 },
+};
+
+// Goron Shrine Cleared Indices
+std::map<s16, s16> goronShrineReplacementIndices = {
+    { 7, 2 },
+    { 9, 4 },
+    { 10, 5 },
+    { 8, 3 },
+    { 14, 9 },
+    { 13, 8 },
+    { 12, 7 },
+    { 11, 6 },
+    { 19, 15 },
+    { 20, 14 },
+    { 21, 16 },
+    { 16, 11 },
+    { 15, 10 },
+    { 18, 13 },
+    { 22, 17 },
+    { 17, 12 },
 };
 // clang-format on
 
@@ -186,8 +206,15 @@ void Rando::ActorBehavior::InitEnIshiBehavior() {
     bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_ROCK_DROPS];
     // Catches rocks that are part of a scene
     COND_ID_HOOK(OnActorInit, ACTOR_EN_ISHI, shouldRegister, [](Actor* actor) {
+        s16 actorIndex = GetActorListIndex(actor);
+        if (gPlayState->sceneId == SCENE_16GORON_HOUSE && CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_SNOWHEAD_TEMPLE)) {
+            auto repEntry = goronShrineReplacementIndices.find({ actorIndex });
+            if (repEntry != goronShrineReplacementIndices.end()) {
+                actorIndex = repEntry->second;
+            }
+        }
         auto it =
-            enIshiItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, GetActorListIndex(actor) });
+            enIshiItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, actorIndex });
         if (it != enIshiItemMap.end()) {
             SetObjectRandoCheckId(actor, it->second);
         }
