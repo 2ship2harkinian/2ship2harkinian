@@ -13,6 +13,7 @@
 #include "overlays/actors/ovl_En_Insect/z_en_insect.h"
 
 #include "2s2h/ShipUtils.h"
+#include "GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED | ACTOR_FLAG_THROW_ONLY)
 
@@ -319,8 +320,10 @@ void EnIshi_SpawnDustBoulder(Actor* thisx, PlayState* play) {
 }
 
 void EnIshi_DropItem(EnIshi* this, PlayState* play) {
-    if ((ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) &&
-        !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor)) {
+    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE,
+                              (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) &&
+                                  !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor),
+                              this)) {
         Item_DropCollectibleRandom(play, NULL, &this->actor.world.pos, ENISHI_GET_DROP_TABLE(&this->actor) * 0x10);
     }
 }
@@ -334,7 +337,8 @@ void EnIshi_DropCollectable(EnIshi* this, PlayState* play) {
     f32 verticalVelMagnitude;
     s16 temp_v1_2;
 
-    if (collectableItem00Id >= ITEM00_RUPEE_GREEN) { // not ITEM00_NO_DROP, the 0 index of the list
+    if (GameInteractor_Should(VB_ROCK_DROP_COLLECTIBLE, collectableItem00Id >= ITEM00_RUPEE_GREEN,
+                              this)) { // not ITEM00_NO_DROP, the 0 index of the list
         item = Item_DropCollectible(play, &this->actor.world.pos,
                                     collectableItem00Id | (ENISHI_GET_COLLECTABLE_FLAG(&this->actor) << 8));
         if (item != NULL) {
@@ -479,10 +483,12 @@ void EnIshi_WaitForObject(EnIshi* this, PlayState* play) {
     if (Object_IsLoaded(&play->objectCtx, this->objectSlot)) {
         this->actor.objectSlot = this->objectSlot;
         this->actor.flags &= ~ACTOR_FLAG_UPDATE_CULLING_DISABLED;
-        if (!ENISHI_GET_USE_OBJECT(&this->actor)) {
-            this->actor.draw = EnIshi_DrawGameplayKeepObject;
-        } else {
-            this->actor.draw = EnIshi_DrawIshiObject;
+        if (GameInteractor_Should(VB_ISHI_DRAW_BE_OVERRIDDEN, true, this)) {
+            if (!ENISHI_GET_USE_OBJECT(&this->actor)) {
+                this->actor.draw = EnIshi_DrawGameplayKeepObject;
+            } else {
+                this->actor.draw = EnIshi_DrawIshiObject;
+            }
         }
         EnIshi_SetupIdle(this);
     }
