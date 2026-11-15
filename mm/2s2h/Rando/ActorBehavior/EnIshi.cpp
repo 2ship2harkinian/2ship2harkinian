@@ -8,6 +8,7 @@
 extern "C" {
 #include "overlays/actors/ovl_En_Ishi/z_en_ishi.h"
 #include "overlays/actors/ovl_Obj_Mure2/z_obj_mure2.h"
+#include "objects/object_ishi/object_ishi.h"
 }
 
 // clang-format off
@@ -110,12 +111,10 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> objMure2RockMap = {
 // clang-format on
 
 void EnIshi_RandoDraw(Actor* actor, PlayState* play) {
-    /* to be uncommented if/when no rando containers is pulled
     if (!CVarGetInteger("gRando.RandoContainers", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gSmallRockDL);
         return;
     }
-    */
     if (!CVarGetInteger("gRando.CSMC", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gRockJunkDL);
         return;
