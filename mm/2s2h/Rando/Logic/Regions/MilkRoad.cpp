@@ -49,6 +49,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_DOGGY_RACETRACK_POT_02, true),
             CHECK(RC_DOGGY_RACETRACK_POT_03, true),
             CHECK(RC_DOGGY_RACETRACK_POT_04, true),
+            CHECK(RC_DOGGY_RACETRACK_SOFT_SOIL, HAS_BOTTLE && CAN_ACCESS(BUGS)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ROMANI_RANCH, 5),                 ENTRANCE(DOGGY_RACETRACK, 0), true),
@@ -192,6 +193,10 @@ static RegisterShipInitFunc initFunc([]() {
         .checks = {
             // TODO: Time logic is wrong for entrance rando
             CHECK(RC_ROMANI_RANCH_ALIENS, CanKillEnemy(ACTOR_EN_INVADEPOH) && IS_NIGHT1() && CAN_BE_GORON && HAS_ITEM(ITEM_POWDER_KEG)),
+            CHECK(RC_ROMANI_RANCH_DAY_1_SOFT_SOIL, FIRST_DAY() && HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_ROMANI_RANCH_DAY_2_OR_3_SOFT_SOIL_1, (SECOND_DAY() || FINAL_DAY()) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_ROMANI_RANCH_DAY_2_OR_3_SOFT_SOIL_2, (SECOND_DAY() || FINAL_DAY()) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_ROMANI_RANCH_DAY_2_OR_3_SOFT_SOIL_3, (SECOND_DAY() || FINAL_DAY()) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
             // TODO: Time logic is wrong for entrance rando
             CHECK(RC_ROMANI_RANCH_EPONAS_SONG, BEFORE(TIME_NIGHT1_PM_06_00) && CAN_BE_GORON && HAS_ITEM(ITEM_POWDER_KEG)),
             CHECK(RC_ROMANI_RANCH_FIELD_COW_ENTRANCE, CAN_PLAY_SONG(EPONA) && BREAK_BOULDER_BEFORE_OR_BEAT_ALIENS_DAY),
