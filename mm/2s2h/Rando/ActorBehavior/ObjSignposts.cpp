@@ -137,7 +137,7 @@ void DrawKanban(Actor* actor, PlayState* play) {
     EnKanban_Draw(actor, play);
 
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
-     if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+    if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
         return;
     }
 
