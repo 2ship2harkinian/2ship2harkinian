@@ -1,0 +1,24 @@
+{
+    "$schema": "https://recomplauncher.com/schema/recomplauncher.json",
+    "format": 1,
+    "game": {
+        "kind": "iso",
+        "label": "Your supported copy of The Legend of Zelda: Majora's Mask, a ROM file (.z64, .n64 or .v64). You can check it at https://2ship.equipment/."
+    },
+    "prepare": {
+        "program": [
+            "2ship.exe"
+        ],
+        "args": [
+            "--prepare",
+            "{game}"
+        ],
+        "label": "Game files from your Majora's Mask ROM",
+        "timeout": 600
+    },
+    "start": {
+        "program": [
+            "2ship.exe"
+        ]
+    }
+}
