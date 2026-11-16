@@ -1,4 +1,5 @@
 #include "ActorBehavior.h"
+#include "CSMC.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/CustomItem/CustomItem.h"
 #include "2s2h/ObjectExtension/ActorListIndex.h"
@@ -8,6 +9,9 @@ extern "C" {
 #include "variables.h"
 #include "src/overlays/actors/ovl_Obj_Kibako/z_obj_kibako.h"
 #include "src/overlays/actors/ovl_Obj_Kibako2/z_obj_kibako2.h"
+
+void ObjKibako_Draw(Actor* thisx, PlayState* play);
+void ObjKibako2_Draw(Actor* thisx, PlayState* play);
 }
 
 void ObjKibako_RandoDraw(Actor* actor, PlayState* play);
@@ -144,10 +148,9 @@ void IdentifyCrate(Actor* actor) {
     }
 }
 
-void ObjKibako_RandoDraw(Actor* actor, PlayState* play) {
+static const char* GetSmallCrateDList(Actor* actor) {
     if (!CVarGetInteger("gRando.CSMC", 0)) {
-        Gfx_DrawDListOpa(play, (Gfx*)gSmallJunkCrateDL);
-        return;
+        return gSmallJunkCrateDL;
     }
 
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
@@ -156,74 +159,63 @@ void ObjKibako_RandoDraw(Actor* actor, PlayState* play) {
 
     switch (randoItemType) {
         case RITYPE_BOSS_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallBossKeyCrateDL);
-            break;
+            return gSmallBossKeyCrateDL;
         case RITYPE_HEALTH:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallHeartCrateDL);
-            break;
+            return gSmallHeartCrateDL;
         case RITYPE_LESSER:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallMinorCrateDL);
-            break;
+            return gSmallMinorCrateDL;
         case RITYPE_MAJOR:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallMajorCrateDL);
-            break;
+            return gSmallMajorCrateDL;
         case RITYPE_MASK:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallMaskCrateDL);
-            break;
+            return gSmallMaskCrateDL;
         case RITYPE_SKULLTULA_TOKEN:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallTokenCrateDL);
-            break;
+            return gSmallTokenCrateDL;
         case RITYPE_SMALL_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallSmallKeyCrateDL);
-            break;
+            return gSmallSmallKeyCrateDL;
         case RITYPE_STRAY_FAIRY:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallFairyCrateDL);
-            break;
+            return gSmallFairyCrateDL;
         default:
-            Gfx_DrawDListOpa(play, (Gfx*)gSmallJunkCrateDL);
-            break;
+            return gSmallJunkCrateDL;
+    }
+}
+
+void ObjKibako_RandoDraw(Actor* actor, PlayState* play) {
+    CSMC_DrawActorOpa(actor, play, GetSmallCrateDList(actor), ObjKibako_Draw);
+}
+
+static const char* GetLargeCrateDList(Actor* actor) {
+    if (!CVarGetInteger("gRando.CSMC", 0)) {
+        return gLargeJunkCrateDL;
+    }
+
+    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
+    RandoItemId randoItemId = Rando::ConvertItem(RANDO_SAVE_CHECKS[randoCheckId].randoItemId, randoCheckId);
+    RandoItemType randoItemType = Rando::StaticData::Items[randoItemId].randoItemType;
+
+    switch (randoItemType) {
+        case RITYPE_BOSS_KEY:
+            return gLargeBossKeyCrateDL;
+        case RITYPE_HEALTH:
+            return gLargeHeartCrateDL;
+        case RITYPE_LESSER:
+            return gLargeMinorCrateDL;
+        case RITYPE_MAJOR:
+            return gLargeMajorCrateDL;
+        case RITYPE_MASK:
+            return gLargeMaskCrateDL;
+        case RITYPE_SKULLTULA_TOKEN:
+            return gLargeTokenCrateDL;
+        case RITYPE_SMALL_KEY:
+            return gLargeSmallKeyCrateDL;
+        case RITYPE_STRAY_FAIRY:
+            return gLargeFairyCrateDL;
+        default:
+            return gLargeJunkCrateDL;
     }
 }
 
 void ObjKibako2_RandoDraw(Actor* actor, PlayState* play) {
-    if (!CVarGetInteger("gRando.CSMC", 0)) {
-        Gfx_DrawDListOpa(play, (Gfx*)gLargeJunkCrateDL);
-        return;
-    }
-
-    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
-    RandoItemId randoItemId = Rando::ConvertItem(RANDO_SAVE_CHECKS[randoCheckId].randoItemId, randoCheckId);
-    RandoItemType randoItemType = Rando::StaticData::Items[randoItemId].randoItemType;
-
-    switch (randoItemType) {
-        case RITYPE_BOSS_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeBossKeyCrateDL);
-            break;
-        case RITYPE_HEALTH:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeHeartCrateDL);
-            break;
-        case RITYPE_LESSER:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeMinorCrateDL);
-            break;
-        case RITYPE_MAJOR:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeMajorCrateDL);
-            break;
-        case RITYPE_MASK:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeMaskCrateDL);
-            break;
-        case RITYPE_SKULLTULA_TOKEN:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeTokenCrateDL);
-            break;
-        case RITYPE_SMALL_KEY:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeSmallKeyCrateDL);
-            break;
-        case RITYPE_STRAY_FAIRY:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeFairyCrateDL);
-            break;
-        default:
-            Gfx_DrawDListOpa(play, (Gfx*)gLargeJunkCrateDL);
-            break;
-    }
+    CSMC_DrawActorOpa(actor, play, GetLargeCrateDList(actor), ObjKibako2_Draw);
 }
 
 void Rando::ActorBehavior::InitObjKibakoBehavior() {

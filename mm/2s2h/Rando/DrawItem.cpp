@@ -12,6 +12,7 @@ extern "C" {
 #include "objects/object_gi_melody/object_gi_melody.h"
 #include "objects/object_gi_hearts/object_gi_hearts.h"
 #include "objects/object_gi_liquid/object_gi_liquid.h"
+#include "objects/object_gi_key/object_gi_key.h"
 #include "objects/object_sek/object_sek.h"
 #include "objects/object_st/object_st.h"
 
@@ -361,8 +362,16 @@ void DrawSkeletonKey() {
     Matrix_Scale(0.8f, 0.8f, 0.8f, MTXMODE_APPLY);
 
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, gPlayState->state.gfxCtx);
-    gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 170, 255);
-    gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gSkeletonKeyDL);
+    if (IS_MISSING_ASSET(gSkeletonKeyDL)) {
+        // Tint the vanilla small key bone white
+        gDPSetGrayscaleColor(POLY_OPA_DISP++, 255, 250, 230, 255);
+        gSPGrayscale(POLY_OPA_DISP++, true);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gGiSmallKeyDL);
+        gSPGrayscale(POLY_OPA_DISP++, false);
+    } else {
+        gDPSetEnvColor(POLY_OPA_DISP++, 255, 255, 170, 255);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gSkeletonKeyDL);
+    }
 
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
