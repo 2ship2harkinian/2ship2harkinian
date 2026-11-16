@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <locale.h>
+#include <string.h>
 #endif
 
 #include "audiomgr.h"
@@ -61,13 +62,22 @@ int SDL_main(int argc, char* argv[] /* void* arg*/) {
 
 // Attach console for windows so we can conditionally display it when running the extractor
 #ifdef _WIN32
-    AllocConsole();
-    (void)freopen("CONIN$", "r", stdin);
-    (void)freopen("CONOUT$", "w", stdout);
-    (void)freopen("CONOUT$", "w", stderr);
+    // --prepare runs without a window and reports on the caller's stdout/stderr, so don't swap them for a console
+    int prepareMode = 0;
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--prepare") == 0) {
+            prepareMode = 1;
+        }
+    }
+    if (!prepareMode) {
+        AllocConsole();
+        (void)freopen("CONIN$", "r", stdin);
+        (void)freopen("CONOUT$", "w", stdout);
+        (void)freopen("CONOUT$", "w", stderr);
 #ifndef _DEBUG
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+        ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif
+    }
     // Allow non-ascii characters for Windows
     setlocale(LC_ALL, ".UTF8");
 #endif // _WIN32
