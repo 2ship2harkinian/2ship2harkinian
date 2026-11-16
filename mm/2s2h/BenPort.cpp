@@ -961,7 +961,72 @@ bool VerifyArchiveVersion(ArchiveVersion version) {
     return version.major != INT16_MAX && version.major != gBuildVersionMajor;
 }
 
+// Windowless setup for launchers: `2ship --prepare <rom>`. Does the same extraction the first-start screen does
+// (Extractor::RunFileStandalone + Extractor::CallZapd) and prints `progress <0-1> <text>` lines.
+static int RunPrepare(const std::string& romPath) {
+    if (romPath.empty()) {
+        fprintf(stderr, "No ROM given. Use --prepare <path to your ROM>\n");
+        return 2;
+    }
+    try {
+        printf("progress 0 Checking your copy\n");
+        fflush(stdout);
+        if (!std::filesystem::exists(romPath)) {
+            fprintf(stderr, "The file %s does not exist\n", romPath.c_str());
+            return 1;
+        }
+        std::string installPath = std::filesystem::absolute(Ship::Context::GetAppBundlePath()).string();
+        std::string dataPath = std::filesystem::absolute(Ship::Context::GetAppDirectoryPath(appShortName)).string();
+        if (!std::filesystem::exists(installPath + "/assets")) {
+            fprintf(stderr, "The assets folder is missing next to the program\n");
+            return 1;
+        }
+        Extractor extract;
+        if (!extract.RunFileStandalone(romPath)) {
+            fprintf(stderr, "%s is not a supported Majora's Mask ROM (.z64, .n64 or .v64)\n", romPath.c_str());
+            return 1;
+        }
+        std::error_code ec;
+        std::filesystem::create_directories(dataPath, ec);
+        std::atomic<size_t> extractCount = 0, totalExtract = 0;
+        auto task = std::async(std::launch::async,
+                               [&]() { extract.CallZapd(installPath, dataPath, &extractCount, &totalExtract); });
+        int last = -1;
+        while (task.wait_for(std::chrono::milliseconds(250)) != std::future_status::ready) {
+            size_t total = totalExtract.load();
+            if (total > 0) {
+                size_t count = extractCount.load();
+                if (count > total) {
+                    count = total;
+                }
+                int pct = (int)(count * 95 / total);
+                if (pct != last) {
+                    printf("progress %.2f Extracting game files\n", pct / 100.0);
+                    fflush(stdout);
+                    last = pct;
+                }
+            }
+        }
+        task.get();
+        if (!std::filesystem::exists(std::filesystem::path(dataPath) / "mm.o2r")) {
+            fprintf(stderr, "Extraction did not produce mm.o2r\n");
+            return 1;
+        }
+        printf("progress 1 Done\n");
+        fflush(stdout);
+        return 0;
+    } catch (const std::exception& e) {
+        fprintf(stderr, "Setup failed: %s\n", e.what());
+        return 1;
+    }
+}
+
 extern "C" void InitOTR(int argc, char* argv[]) {
+    for (int i = 1; i < argc; i++) {
+        if (std::string(argv[i]) == "--prepare") {
+            exit(RunPrepare(i + 1 < argc ? argv[i + 1] : ""));
+        }
+    }
     OTRGlobals::Instance = new OTRGlobals();
     OTRGlobals::Instance->RunExtract(argc, argv);
 
