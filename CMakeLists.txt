@@ -323,6 +323,7 @@ endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Windows|NintendoSwitch|CafeOS")
 install(FILES ${CMAKE_SOURCE_DIR}/README.md DESTINATION . COMPONENT 2s2h RENAME readme.txt )
+install(FILES ${CMAKE_SOURCE_DIR}/recomplauncher.json DESTINATION . COMPONENT 2s2h)
 install(CODE "file(MAKE_DIRECTORY \"\${CMAKE_INSTALL_PREFIX}/mods\")" COMPONENT 2s2h)
 install(CODE "file(TOUCH \"\${CMAKE_INSTALL_PREFIX}/mods/custom_mod_files_go_here.txt\")" COMPONENT 2s2h)
 endif()
