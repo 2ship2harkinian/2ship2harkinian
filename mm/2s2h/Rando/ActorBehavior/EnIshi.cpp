@@ -85,7 +85,6 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> enIshiItemMap = {
     { { SCENE_17SETUGEN2, 0, 26 }, RC_TWIN_ISLANDS_SPRING_ROCK_3 },
     // Zora Cape
     { { SCENE_31MISAKI, 0, 54 }, RC_ZORA_CAPE_SHORE_ROCK_01 },
-    { { SCENE_31MISAKI, 0, 41 }, RC_ZORA_CAPE_SHORE_ROCK_10 },
     { { SCENE_31MISAKI, 0, 53 }, RC_ZORA_CAPE_SHORE_ROCK_02 },
     { { SCENE_31MISAKI, 0, 55 }, RC_ZORA_CAPE_SHORE_ROCK_03 },
     { { SCENE_31MISAKI, 0, 56 }, RC_ZORA_CAPE_SHORE_ROCK_04 },
@@ -94,6 +93,7 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> enIshiItemMap = {
     { { SCENE_31MISAKI, 0, 38 }, RC_ZORA_CAPE_SHORE_ROCK_07 },
     { { SCENE_31MISAKI, 0, 37 }, RC_ZORA_CAPE_SHORE_ROCK_08 },
     { { SCENE_31MISAKI, 0, 39 }, RC_ZORA_CAPE_SHORE_ROCK_09 },
+    { { SCENE_31MISAKI, 0, 41 }, RC_ZORA_CAPE_SHORE_ROCK_10 },
     { { SCENE_31MISAKI, 0, 36 }, RC_ZORA_CAPE_TREE_ISLAND_ROCK_1 },
     { { SCENE_31MISAKI, 0, 34 }, RC_ZORA_CAPE_TREE_ISLAND_ROCK_2 },
     { { SCENE_31MISAKI, 0, 32 }, RC_ZORA_CAPE_TREE_ISLAND_ROCK_3 },
@@ -126,6 +126,22 @@ std::map<s16, s16> goronShrineReplacementIndices = {
     { 18, 13 },
     { 22, 17 },
     { 17, 12 },
+};
+
+// Great Bay Coast Cleared Indices
+std::map<s16, s16> greatBayCoastReplacementIndices = {
+    { 108, 102 },
+    { 110, 100 },
+    { 107, 96 },
+    { 104, 97 },
+    { 106, 98 },
+    { 103, 99 },
+    { 105, 95 },
+    { 95, 67 },
+    { 93, 68 },
+    { 94, 93 },
+    { 92, 92 },
+    { 101, 103 },
 };
 // clang-format on
 
@@ -213,9 +229,15 @@ void Rando::ActorBehavior::InitEnIshiBehavior() {
             if (repEntry != goronShrineReplacementIndices.end()) {
                 actorIndex = repEntry->second;
             }
+        } else if (gPlayState->sceneId == SCENE_30GYOSON && CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_GREAT_BAY_TEMPLE)) {
+            auto repEntry = greatBayCoastReplacementIndices.find({ actorIndex });
+            if (repEntry != greatBayCoastReplacementIndices.end()) {
+                actorIndex = repEntry->second;
+            } else {
+                return; // Do not make deep water rocks look like they're collectible.
+            }
         }
-        auto it =
-            enIshiItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, actorIndex });
+        auto it = enIshiItemMap.find({ gPlayState->sceneId, gPlayState->roomCtx.curRoom.num, actorIndex });
         if (it != enIshiItemMap.end()) {
             SetObjectRandoCheckId(actor, it->second);
         }
