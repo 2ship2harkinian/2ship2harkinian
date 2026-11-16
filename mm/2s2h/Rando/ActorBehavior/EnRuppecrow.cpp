@@ -5,6 +5,8 @@
 extern "C" {
 #include "variables.h"
 #include "overlays/actors/ovl_En_Ruppecrow/z_en_ruppecrow.h"
+
+s32 EnRuppecrow_CanSpawnBlueRupees(PlayState* play);
 }
 
 void Rando::ActorBehavior::InitEnRuppecrowBehavior() {
@@ -12,7 +14,13 @@ void Rando::ActorBehavior::InitEnRuppecrowBehavior() {
         EnRuppecrow* refActor = va_arg(args, EnRuppecrow*);
         uint32_t rupeeIndex = refActor->rupeeIndex;
 
-        RandoCheckId randoCheckId = (RandoCheckId)(RC_TERMINA_FIELD_GUAY_RUPEE_DROP_01 + rupeeIndex);
+        RandoCheckId randoCheckId = RC_UNKNOWN;
+
+        if (rupeeIndex != 19 && EnRuppecrow_CanSpawnBlueRupees(gPlayState) && (rupeeIndex % 5) == 4) {
+            randoCheckId = (RandoCheckId)(RC_TERMINA_FIELD_GUAY_FAST_RUPEE_DROP_05 + rupeeIndex / 5);
+        } else {
+            randoCheckId = (RandoCheckId)(RC_TERMINA_FIELD_GUAY_RUPEE_DROP_01 + rupeeIndex);
+        }
 
         if (RANDO_SAVE_CHECKS[randoCheckId].cycleObtained || !RANDO_SAVE_CHECKS[randoCheckId].shuffled) {
             return;
