@@ -60,6 +60,10 @@ std::map<u16, RandoCheckId> notebookEntryMap = {
 };
 // clang-format on
 
+void GiveMetBombersEntry(u16* textId, bool* loadMessageFromTable) {
+    Message_BombersNotebookQueueEvent(gPlayState, BOMBERS_NOTEBOOK_EVENT_MET_BOMBERS);
+}
+
 void Rando::ActorBehavior::InitNotebookEntriesBehavior() {
     bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_NOTEBOOK_ENTRIES];
 
@@ -74,4 +78,20 @@ void Rando::ActorBehavior::InitNotebookEntriesBehavior() {
             RANDO_SAVE_CHECKS[entry->second].eligible = true;
         }
     });
+    // Miscellaneous Bombers' text to give meet entry
+    COND_ID_HOOK(OnOpenText, 0x708, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x70C, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x719, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x71A, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x71B, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x729, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x738, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x73A, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x73B, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x740, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x748, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x749, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x74A, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x74C, shouldRegister, GiveMetBombersEntry);
+    COND_ID_HOOK(OnOpenText, 0x756, shouldRegister, GiveMetBombersEntry);
 }
