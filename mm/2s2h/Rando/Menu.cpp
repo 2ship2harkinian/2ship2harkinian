@@ -242,6 +242,7 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_POT, "Pots" },
     { RCTYPE_REMAINS, "Boss Remains" },
     { RCTYPE_SHOP, "Shop Items" },
+    { RCTYPE_SIGNPOST, "Signposts" },
     { RCTYPE_SKULL_TOKEN, "Skulltula Tokens" },
     { RCTYPE_SNOWBALL, "Snowballs" },
     { RCTYPE_SONG, "Songs" },
@@ -472,6 +473,7 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_POT_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_ROCK_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_SHOPS",
+                                                                   "gRando.Options.RO_SHUFFLE_SIGNPOSTS",
                                                                    "gRando.Options.RO_SHUFFLE_SKELETON_KEY",
                                                                    "gRando.Options.RO_SHUFFLE_SNOWBALL_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_SOFT_SOIL",
@@ -764,6 +766,7 @@ static const SceneryDropGroup SCENERY_DROP_GROUPS[] = {
       "Bonking into each tree that shakes is a check. Trees that don't shake have no drops." },
     { "Beehive Drops", RO_SHUFFLE_HIVE_DROPS, RCTYPE_BEEHIVE, "Knocking down each beehive is a check." },
     { "Misc Fairies", RO_SHUFFLE_MISC_FAIRIES, RCTYPE_FAIRY, "Each gossip stone and fountain fairy is a check." },
+    { "Signposts", RO_SHUFFLE_SIGNPOSTS, RCTYPE_SIGNPOST, "Reading each signpost is a check." },
     { "Soft Soil Drops", RO_SHUFFLE_SOFT_SOIL, RCTYPE_SOIL, "Each drop from using bugs on soil patches is a check." },
 };
 

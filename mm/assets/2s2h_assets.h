@@ -435,6 +435,9 @@ static const ALIGN_ASSET(2) char gBarrelTrackerIcon[] = dgBarrelTrackerIcon;
 #define dgRockTrackerIcon "__OTR__textures/icons/gRockTrackerIcon"
 static const ALIGN_ASSET(2) char gRockTrackerIcon[] = dgRockTrackerIcon;
 
+#define dgSignTrackerIcon "__OTR__textures/icons/gSignTrackerIcon"
+static const ALIGN_ASSET(2) char gSignTrackerIcon[] = dgSignTrackerIcon;
+
 #define dgGiFlippersDL "__OTR__objects/object_ability_swim/gGiFlippersDL"
 static const ALIGN_ASSET(2) char gGiFlippersDL[] = dgGiFlippersDL;
 

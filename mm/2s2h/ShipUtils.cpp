@@ -106,6 +106,7 @@ std::array<const char*, 34> miscellaneousTextures = {
     gMagicArrowEquipEffectTex,
     gRockTrackerIcon,
     gRupeeCounterIconTex,
+    gSignTrackerIcon,
     gStrayFairyGreatBayIconTex,
     gStrayFairySnowheadIconTex,
     gStrayFairyStoneTowerIconTex,
