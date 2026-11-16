@@ -527,6 +527,7 @@ void GameInteractor_ExecuteOnActorDestroy(Actor* actor);
 void GameInteractor_ExecuteOnPlayerPostLimbDraw(Player* player, s32 limbIndex);
 void GameInteractor_ExecuteOnPlayerReleaseHeldActor(PlayState* play, Player* player, Actor* heldActor);
 void GameInteractor_ExecuteOnBossDefeated(s16 actorId);
+void GameInteractor_ExecuteOnActorEntryHalfDaysBits(ActorEntry* actorEntry, s32* halfDaysBits);
 
 void GameInteractor_ExecuteOnSceneFlagSet(s16 sceneId, FlagType flagType, u32 flag);
 void GameInteractor_ExecuteOnSceneFlagUnset(s16 sceneId, FlagType flagType, u32 flag);

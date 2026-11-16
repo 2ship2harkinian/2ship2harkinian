@@ -6,8 +6,8 @@
         <Collision Name="gGoronDoorCol" Offset="0x11C0" /> <!-- Original name is "z2_11_tobira01_bgdatainfo" -->
         <DList Name="gWoodStepDL" Offset="0x13F0" /> <!-- Original name is "z2_11_dai_model" -->
         <Texture Name="gWoodTLUT" OutName="wood_tlut" Format="rgba16" Width="16" Height="16" Offset="0x1560" />
-        <Texture Name="gWoodStepTopTex" OutName="wood_step_top" Format="ci8" Width="32" Height="32" Offset="0x1760" />
-        <Texture Name="gWoodStepSideTex" OutName="wood_step_side" Format="ci8" Width="32" Height="16" Offset="0x1B60" />
+        <Texture Name="gWoodStepTopTex" OutName="wood_step_top" Format="ci8" Width="32" Height="32" Offset="0x1760" TlutOffset="0x1560"/>
+        <Texture Name="gWoodStepSideTex" OutName="wood_step_side" Format="ci8" Width="32" Height="16" Offset="0x1B60" TlutOffset="0x1560"/>
         <Collision Name="gWoodStepCol" Offset="0x1EB8" /> <!-- Original name is "z2_11_dai_bgdatainfo" -->
     </File>
 </Root>

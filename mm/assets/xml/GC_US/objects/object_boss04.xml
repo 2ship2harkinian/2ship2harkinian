@@ -13,8 +13,8 @@
         <!-- Wart Textures -->
         <Texture Name="gWartShellTLUT" OutName="wart_shell_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2328" />
         <Texture Name="gWartRidgesTLUT" OutName="wart_ridges_tlut" Format="rgba16" Width="4" Height="4" Offset="0x2348" />
-        <Texture Name="gWartShellTex" OutName="wart_shell" Format="ci4" Width="64" Height="64" Offset="0x2368" />
-        <Texture Name="gWartRidgesTex" OutName="wart_ridges" Format="ci4" Width="8" Height="16" Offset="0x2B68" />
+        <Texture Name="gWartShellTex" OutName="wart_shell" Format="ci4" Width="64" Height="64" Offset="0x2368" TlutOffset="0x2328"/>
+        <Texture Name="gWartRidgesTex" OutName="wart_ridges" Format="ci4" Width="8" Height="16" Offset="0x2B68" TlutOffset="0x2348"/>
         <Texture Name="gWartEyeTex" OutName="wart_eye" Format="rgba16" Width="32" Height="32" Offset="0x2BA8" />
 
         <!-- Unused DisplayList that can be used to make Bubbles opaque -->

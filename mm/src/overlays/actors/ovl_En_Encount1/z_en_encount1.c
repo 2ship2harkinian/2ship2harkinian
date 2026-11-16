@@ -31,15 +31,15 @@ ActorProfile En_Encount1_Profile = {
 static s16 sActorIds[] = {
     ACTOR_EN_GRASSHOPPER, // EN_ENCOUNT1_GRASSHOPPER
     ACTOR_EN_WALLMAS,     // EN_ENCOUNT1_WALLMASTER
-    ACTOR_EN_PR2,         // EN_ENCOUNT1_SKULLFISH
-    ACTOR_EN_PR2,         // EN_ENCOUNT1_SKULLFISH_2
+    ACTOR_EN_PR2,         // EN_ENCOUNT1_SKULLFISH_RESPAWNING
+    ACTOR_EN_PR2,         // EN_ENCOUNT1_SKULLFISH_PATHING
 };
 
 static s16 sActorParams[] = {
     DRAGONFLY_PARAMS(DRAGONFLY_TYPE_GROWS_WHEN_SPAWNED),     // EN_ENCOUNT1_GRASSHOPPER
     WALLMASTER_PARAMS(WALLMASTER_TYPE_TIMER_ONLY, 0, false), // EN_ENCOUNT1_WALLMASTER
-    ENPR2_PARAMS(1, 0),                                      // EN_ENCOUNT1_SKULLFISH
-    ENPR2_PARAMS(3, 0)                                       // EN_ENCOUNT1_SKULLFISH_2
+    ENPR2_PARAMS(PR2_TYPE_SPAWNED, 0),                       // EN_ENCOUNT1_SKULLFISH_RESPAWNING
+    ENPR2_PARAMS(PR2_TYPE_PATHING, 0)                        // EN_ENCOUNT1_SKULLFISH_PATHING
 };
 
 void EnEncount1_Init(Actor* thisx, PlayState* play) {
@@ -54,7 +54,7 @@ void EnEncount1_Init(Actor* thisx, PlayState* play) {
     this->spawnActiveMax = ENENCOUNT1_GET_SPAWN_ACTIVE_MAX(&this->actor);
     this->spawnTotalMax = ENENCOUNT1_GET_SPAWN_TOTAL_MAX(&this->actor);
     this->spawnTimeMin = ENENCOUNT1_GET_SPAWN_TIME_MIN(&this->actor);
-    this->spawnUnusedProp = ENENCOUNT1_GET_SPAWN_UNUSED_PROP(&this->actor);
+    this->spawnDropTable = ENENCOUNT1_GET_SPAWN_DROP_ID(&this->actor);
     this->spawnDistanceMax = (ENENCOUNT1_GET_SPAWN_DISTANCE_MAX(&this->actor) * 40.0f) + 120.0f;
 
     if (this->spawnTotalMax >= ENENCOUNT1_SPAWNS_TOTAL_MAX_INFINITE) {
@@ -63,7 +63,7 @@ void EnEncount1_Init(Actor* thisx, PlayState* play) {
     if (ENENCOUNT1_GET_SPAWN_DISTANCE_MAX(&this->actor) < 0) {
         this->spawnDistanceMax = -1.0f;
     }
-    if (this->type == EN_ENCOUNT1_SKULLFISH_2) {
+    if (this->type == EN_ENCOUNT1_SKULLFISH_PATHING) {
         this->pathIndex = ENENCOUNT1_GET_PATH_INDEX(&this->actor);
         this->path = SubS_GetPathByIndex(play, this->pathIndex, ENENCOUNT1_PATH_INDEX_NONE);
         this->spawnTotalMax = -1;
@@ -122,7 +122,7 @@ void EnEncount1_SpawnActor(EnEncount1* this, PlayState* play) {
             Math_Vec3f_Copy(&spawnPos, &player->actor.world.pos);
             break;
 
-        case EN_ENCOUNT1_SKULLFISH:
+        case EN_ENCOUNT1_SKULLFISH_RESPAWNING:
             scale = Rand_CenteredFloat(250.0f) + 500.0f;
             rotY = player->actor.shape.rot.y;
             spawnPos.x = player->actor.world.pos.x + (Math_SinS(rotY) * scale) + Rand_CenteredFloat(40.0f);
@@ -135,7 +135,7 @@ void EnEncount1_SpawnActor(EnEncount1* this, PlayState* play) {
             }
             break;
 
-        case EN_ENCOUNT1_SKULLFISH_2:
+        case EN_ENCOUNT1_SKULLFISH_PATHING:
             if ((this->path != NULL) && !SubS_CopyPointFromPath(this->path, 0, &spawnPos)) {
                 Actor_Kill(&this->actor);
             }

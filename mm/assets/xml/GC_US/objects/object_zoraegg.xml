@@ -15,13 +15,13 @@
         
         <!-- Zora Baby Textures -->
         <Texture Name="gZoraBabyTLUT" OutName="zora_baby_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2DF0" />
-        <Texture Name="gZoraBabyTailFinTex" OutName="zora_baby_tail_fin" Format="ci8" Width="32" Height="32" Offset="0x2FF0" />
-        <Texture Name="gZoraBabySkinTex" OutName="zora_baby_skin" Format="ci8" Width="8" Height="8" Offset="0x33F0" />
-        <Texture Name="gZoraBabyEyeOpenTex" OutName="zora_baby_eye_open" Format="ci8" Width="32" Height="32" Offset="0x3430" />
-        <Texture Name="gZoraBabySkinPatternTex" OutName="zora_baby_skin_pattern" Format="ci8" Width="32" Height="64" Offset="0x3830" />
-        <Texture Name="gZoraBabyPectoralFinTex" OutName="zora_baby_pectoral_fin" Format="ci8" Width="32" Height="32" Offset="0x4030" />
-        <Texture Name="gZoraBabyEyeHalfTex" OutName="zora_baby_eye_half" Format="ci8" Width="32" Height="32" Offset="0x4430" />
-        <Texture Name="gZoraBabyEyeClosedTex" OutName="zora_baby_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x4830" />
+        <Texture Name="gZoraBabyTailFinTex" OutName="zora_baby_tail_fin" Format="ci8" Width="32" Height="32" Offset="0x2FF0" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabySkinTex" OutName="zora_baby_skin" Format="ci8" Width="8" Height="8" Offset="0x33F0" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabyEyeOpenTex" OutName="zora_baby_eye_open" Format="ci8" Width="32" Height="32" Offset="0x3430" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabySkinPatternTex" OutName="zora_baby_skin_pattern" Format="ci8" Width="32" Height="64" Offset="0x3830" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabyPectoralFinTex" OutName="zora_baby_pectoral_fin" Format="ci8" Width="32" Height="32" Offset="0x4030" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabyEyeHalfTex" OutName="zora_baby_eye_half" Format="ci8" Width="32" Height="32" Offset="0x4430" TlutOffset="0x2DF0"/>
+        <Texture Name="gZoraBabyEyeClosedTex" OutName="zora_baby_eye_closed" Format="ci8" Width="32" Height="32" Offset="0x4830" TlutOffset="0x2DF0"/>
 
         <!-- Zora Baby Limbs -->
         <Limb Name="gZoraBabyHeadLimb" Type="Standard" EnumName="ZORA_BABY_LIMB_HEAD" Offset="0x4C30" />
@@ -43,6 +43,6 @@
         <!-- Zora Egg -->
         <DList Name="gZoraEggDL" Offset="0x5250" />
         <Texture Name="gZoraEggTLUT" OutName="zora_egg_tlut" Format="rgba16" Width="16" Height="16" Offset="0x53B0" />
-        <Texture Name="gZoraEggTex" OutName="zora_egg" Format="ci8" Width="32" Height="32" Offset="0x55B0" />
+        <Texture Name="gZoraEggTex" OutName="zora_egg" Format="ci8" Width="32" Height="32" Offset="0x55B0" TlutOffset="0x53B0"/>
     </File>
 </Root>

@@ -1,8 +1,8 @@
 #include "2s2h/config/ConfigUpdaters.h"
 
+#include "2s2h/BenGui/Notification.h"
 #include "2s2h/Enhancements/Enhancements.h"
 #include "2s2h/Enhancements/Trackers/DisplayOverlay.h"
-#include "Enhancements/Trackers/ItemTracker/ItemTracker.h"
 
 namespace Ben {
 
@@ -74,52 +74,18 @@ static void MigrateWarpPoints(Ship::Config* conf) {
     }
 }
 
-static TrackerGroup json_to_TrackerGroup(const nlohmann::json& jsonGroup) {
-    TrackerGroup group;
-    group.name = jsonGroup["name"];
-    group.columns = jsonGroup["columns"];
-    group.scale = jsonGroup["scale"];
-    group.items = jsonGroup["items"];
-
-    return group;
-}
-
-nlohmann::json TrackerGroup_to_json(const TrackerGroup& group) {
-    return nlohmann::json{
-        { "columns", group.columns }, { "items", group.items }, { "name", group.name }, { "scale", group.scale }
-    };
-}
-
-static void RemoveSwimFromMiscGroup(Ship::Config* conf) {
-    if (conf->GetNestedJson().contains("CVars")) {
-        auto trackerGroups = conf->GetNestedJson()["CVars"]["ItemTrackerLayout"];
-        std::vector<TrackerGroup> currentGroups;
-        nlohmann::json updated = nlohmann::json::array();
-
-        for (auto& group : trackerGroups) {
-            currentGroups.push_back(json_to_TrackerGroup(group));
-        }
-
-        for (auto& curGroup : currentGroups) {
-            if (curGroup.name == "Misc") {
-                // Remove the Swim Entry from the Misc Group.
-                // It has been moved into the new "Abilities" Group.
-                curGroup.items.erase(curGroup.items.end() - 1);
-            }
-        }
-
-        for (auto& group : currentGroups) {
-            updated.push_back(TrackerGroup_to_json(group));
-        }
-
-        Ship::Context::GetRawInstance()->GetConfig()->SetBlock("CVars.ItemTrackerLayout", updated);
+static void MigrateGreatFairySwordBButton(Ship::Config* conf) {
+    if (!conf->GetNestedJson().contains("CVars")) {
+        return;
     }
+    if (CVarGetInteger("gEnhancements.Equipment.GreatFairySwordBButton", 0) != 0) {
+        CVarSetInteger("gEnhancements.Equipment.ActiveItemOnB", 1);
+    }
+
+    CVarClear("gEnhancements.Equipment.GreatFairySwordBButton");
 }
 
 ConfigVersion1Updater::ConfigVersion1Updater() : ConfigVersionUpdater(1) {
-}
-
-ConfigVersion2Updater::ConfigVersion2Updater() : ConfigVersionUpdater(2) {
 }
 
 void ConfigVersion1Updater::Update(Ship::Config* conf) {
@@ -128,8 +94,11 @@ void ConfigVersion1Updater::Update(Ship::Config* conf) {
     MigrateWarpPoints(conf);
 }
 
+ConfigVersion2Updater::ConfigVersion2Updater() : ConfigVersionUpdater(2) {
+}
+
 void ConfigVersion2Updater::Update(Ship::Config* conf) {
-    RemoveSwimFromMiscGroup(conf);
+    MigrateGreatFairySwordBButton(conf);
 }
 
 } // namespace Ben

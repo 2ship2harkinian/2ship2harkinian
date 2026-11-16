@@ -41,6 +41,13 @@ std::vector<RandoItemId> GetSariaPriorityItemsFromConfig();
 void SetSariaPriorityItemsInConfig(std::vector<RandoItemId>& priorityItems);
 std::vector<RandoItemId> GetSariaPriorityItemCandidates();
 
+std::map<RandoItemId, u16> GetAdditionalItemsFromSpoiler(nlohmann::json& spoiler);
+void SetAdditionalItemsInSpoiler(nlohmann::json& spoiler, std::map<RandoItemId, u16>& additionalItems);
+std::map<RandoItemId, u16> GetAdditionalItemsFromSave(RandoSaveInfo& randoSaveInfo);
+void SetAdditionalItemsInSave(RandoSaveInfo& randoSaveInfo, std::map<RandoItemId, u16>& additionalItems);
+std::map<RandoItemId, u16> GetAdditionalItemsFromConfig();
+void SetAdditionalItemsInConfig(std::map<RandoItemId, u16>& additionalItems);
+
 std::vector<RandoCheckId> GetExcludedChecksFromConfig();
 void SetExcludedChecksInConfig(std::vector<RandoCheckId>& excludedChecks);
 

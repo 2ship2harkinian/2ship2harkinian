@@ -5,10 +5,10 @@
         <Texture Name="gKoumeKioskNoseTLUT" OutName="koume_kiosk_nose_tlut" Format="rgba16" Width="16" Height="16" Offset="0xAE0" />
         <Texture Name="gKoumeKioskNostrilsTLUT" OutName="koume_kiosk_nostrils_tlut" Format="rgba16" Width="16" Height="16" Offset="0xCE0" />
         <Texture Name="gKoumeKioskShadowedSkinTex" OutName="koume_kiosk_shadowed_skin" Format="rgba16" Width="2" Height="8" Offset="0xEE0" />
-        <Texture Name="gKoumeKioskNoseTex" OutName="koume_kiosk_nose" Format="ci8" Width="16" Height="8" Offset="0xF00" />
+        <Texture Name="gKoumeKioskNoseTex" OutName="koume_kiosk_nose" Format="ci8" Width="16" Height="8" Offset="0xF00" TlutOffset="0xAE0"/>
         <Texture Name="gKoumeKioskJewelHolderTex" OutName="koume_kiosk_jewel_holder" Format="rgba16" Width="16" Height="8" Offset="0xF80" />
         <Texture Name="gKoumeKioskJewelTex" OutName="koume_kiosk_jewel" Format="rgba16" Width="8" Height="8" Offset="0x1080" />
-        <Texture Name="gKoumeKioskNostrilsTex" OutName="koume_kiosk_nostrils" Format="ci8" Width="8" Height="8" Offset="0x1100" />
+        <Texture Name="gKoumeKioskNostrilsTex" OutName="koume_kiosk_nostrils" Format="ci8" Width="8" Height="8" Offset="0x1100" TlutOffset="0xCE0"/>
         <Texture Name="gKoumeKioskEyeOpenTex" OutName="koume_kiosk_eye_open" Format="rgba16" Width="32" Height="32" Offset="0x1140"/>
         <Texture Name="gKoumeKioskEyeHalfTex" OutName="koume_kiosk_eye_half" Format="rgba16" Width="32" Height="32" Offset="0x1940"/>
         <Texture Name="gKoumeKioskEyeClosedTex" OutName="koume_kiosk_eye_closed" Format="rgba16" Width="32" Height="32" Offset="0x2140"/>

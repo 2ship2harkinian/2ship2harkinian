@@ -152,6 +152,15 @@ list(FILTER src__ EXCLUDE REGEX "src/libultra/*")
 #list(REMOVE_ITEM src__ "src/libultra/gu/sqrtf.c")
 #list(REMOVE_ITEM src__ "src/libultra/gu/us2dex.c")
 
+set(src__no_warn ${src__})
+list(FILTER src__no_warn INCLUDE REGEX "\\.c$")
+if (MSVC)
+    string(APPEND CMAKE_C_FLAGS_RELEASE " /w")
+    string(APPEND CMAKE_CXX_FLAGS_RELEASE " /W3")
+else()
+    set_source_files_properties(${src__no_warn} PROPERTIES COMPILE_OPTIONS -w)
+endif()
+
 source_group("src" REGULAR_EXPRESSION "src/*")
 source_group("src\\boot" REGULAR_EXPRESSION "src/boot/*")
 source_group("src\\buffers" REGULAR_EXPRESSION "src/buffers/*")
@@ -312,8 +321,7 @@ if(MSVC)
         >
         $<$<CONFIG:Release>:
             /Oi
-            /Gy;
-            /W3
+            /Gy
         >
 	
 		/wd4024 #different types for formal and actual parameter [x]. Usually seen along side 4047.

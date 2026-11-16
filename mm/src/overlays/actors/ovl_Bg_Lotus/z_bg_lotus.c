@@ -148,8 +148,8 @@ void BgLotus_Update(Actor* thisx, PlayState* play) {
     s32 pad;
     WaterBox* waterBox;
 
-    WaterBox_GetSurface1_2(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
-                           &this->unk160, &waterBox);
+    BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, this->dyna.actor.world.pos.x, this->dyna.actor.world.pos.z,
+                                  &this->unk160, &waterBox);
     this->actionFunc(this, play);
 }
 

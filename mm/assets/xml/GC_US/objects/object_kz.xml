@@ -18,11 +18,11 @@
         <Texture Name="gFighterPirate1TLUT" OutName="tlut1" Format="rgba16" Width="16" Height="16" Offset="0x58D0" />
         <!-- This is the same skin texture as below, but this one is her arms and back -->
         <Texture Name="gFighterPirateSkin1Tex" OutName="skin1" Format="ci8" Width="8" Height="8" Offset="0x5AD0" TlutOffset="0x58D0" />
-        <Texture Name="gFighterPirateShirtTopRedGradientTex" OutName="shirt_red" Format="ci8" Width="8" Height="8" Offset="0x5B10" />
+        <Texture Name="gFighterPirateShirtTopRedGradientTex" OutName="shirt_red" Format="ci8" Width="8" Height="8" Offset="0x5B10" TlutOffset="0x58D0"/>
         <!-- Gold armor plates on her shin, forearms, belt. Similar texture as Emblem, but slightly darker. -->
-        <Texture Name="gFighterPirateArmor1Tex" OutName="armor" Format="ci8" Width="16" Height="16" Offset="0x5B50" />
+        <Texture Name="gFighterPirateArmor1Tex" OutName="armor" Format="ci8" Width="16" Height="16" Offset="0x5B50" TlutOffset="0x58D0"/>
         <Texture Name="gFighterPirateShirtBottomPatternAndVeilTex" OutName="shirt_pattern1" Format="i8" Width="16" Height="16" Offset="0x5C50" />
-        <Texture Name="gFighterPirateBellyButtonTex" OutName="navel" Format="ci8" Width="16" Height="16" Offset="0x5D50" />
+        <Texture Name="gFighterPirateBellyButtonTex" OutName="navel" Format="ci8" Width="16" Height="16" Offset="0x5D50" TlutOffset="0x58D0"/>
         <Texture Name="gFighterPiratePantsTex" OutName="pants" Format="i8" Width="16" Height="16" Offset="0x5E50" />
         <!-- This is the texture at the back of her boots and pants belt center.  -->
         <Texture Name="gFighterPirateZipper1Tex" OutName="zipper1" Format="i8" Width="8" Height="16" Offset="0x5F50" />
@@ -41,7 +41,7 @@
         <!-- <Texture Name="object_kz_TLUT_009100" OutName="tlut_009100" Format="rgba16" Width="16" Height="16" Offset="0x9100" /> -->
         <!-- <Blob Name="object_kz_Blob_009300" Size="0x38" Offset="0x9300" /> -->
         <Texture Name="gFighterPirateSkin2Tex" OutName="skin2" Format="ci8" Width="8" Height="8" Offset="0x92F8"  TlutOffset="0x9100"/>
-        <Texture Name="gFighterPirateEarTex" OutName="ear" Format="ci8" Width="8" Height="16" Offset="0x9338" />
+        <Texture Name="gFighterPirateEarTex" OutName="ear" Format="ci8" Width="8" Height="16" Offset="0x9338" TlutOffset="0x9100"/>
         <Texture Name="gFighterPirateEyeOpenTex" OutName="eye_open" Format="ci8" Width="32" Height="32" Offset="0x93B8" TlutOffset="0x9100" />
         <Texture Name="gFighterPirateShirtBottomPatternAndVeil2Tex" OutName="shirt_pattern2" Format="i8" Width="16" Height="16" Offset="0x97B8" />
         <Texture Name="gFighterPirateShoesTex" OutName="shoe_sides" Format="ci8" Width="8" Height="16" Offset="0x98B8" TlutOffset="0x9100"/>
@@ -52,7 +52,7 @@
         <Texture Name="gFighterPirateHairTex" OutName="hair" Format="ci8" Width="16" Height="16" Offset="0x9DF8" TlutOffset="0x9100" />
         <Texture Name="gFighterPirateFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x9EF8" TlutOffset="0x9100" />
         <!-- Similar to Armor above, but slightly brighter and used in different spots: used for sword guard and her forhead emblem  -->
-        <Texture Name="gFighterPirateYellowSwordGuardAndEmblemTex" OutName="emblem" Format="ci8" Width="16" Height="16" Offset="0x9FF8" />
+        <Texture Name="gFighterPirateYellowSwordGuardAndEmblemTex" OutName="emblem" Format="ci8" Width="16" Height="16" Offset="0x9FF8" TlutOffset="0x9100"/>
         <Texture Name="gFighterPirateEyeClosedTex" OutName="eye_closed" Format="ci8" Width="32" Height="32" Offset="0xA0F8" TlutOffset="0x9100" />
 
         <DList Name="gFighterPirateLeftFootDL" Offset="0xC318" />

@@ -25,11 +25,11 @@
         <DList Name="object_kitan_DL_0070F0" Offset="0x70F0" />
         <DList Name="object_kitan_DL_007470" Offset="0x7470" />
         <Texture Name="object_kitan_TLUT_007668" OutName="tlut_007668" Format="rgba16" Width="16" Height="16" Offset="0x7668" />
-        <Texture Name="object_kitan_Tex_007868" OutName="tex_007868" Format="ci8" Width="32" Height="16" Offset="0x7868" />
-        <Texture Name="object_kitan_Tex_007A68" OutName="tex_007A68" Format="ci8" Width="16" Height="16" Offset="0x7A68" />
-        <Texture Name="object_kitan_Tex_007B68" OutName="tex_007B68" Format="ci8" Width="16" Height="16" Offset="0x7B68" />
-        <Texture Name="object_kitan_Tex_007C68" OutName="tex_007C68" Format="ci8" Width="16" Height="16" Offset="0x7C68" />
-        <Texture Name="object_kitan_Tex_007D68" OutName="tex_007D68" Format="ci8" Width="16" Height="16" Offset="0x7D68" />
+        <Texture Name="object_kitan_Tex_007868" OutName="tex_007868" Format="ci8" Width="32" Height="16" Offset="0x7868" TlutOffset="0x7668"/>
+        <Texture Name="object_kitan_Tex_007A68" OutName="tex_007A68" Format="ci8" Width="16" Height="16" Offset="0x7A68" TlutOffset="0x7668"/>
+        <Texture Name="object_kitan_Tex_007B68" OutName="tex_007B68" Format="ci8" Width="16" Height="16" Offset="0x7B68" TlutOffset="0x7668"/>
+        <Texture Name="object_kitan_Tex_007C68" OutName="tex_007C68" Format="ci8" Width="16" Height="16" Offset="0x7C68" TlutOffset="0x7668"/>
+        <Texture Name="object_kitan_Tex_007D68" OutName="tex_007D68" Format="ci8" Width="16" Height="16" Offset="0x7D68" TlutOffset="0x7668"/>
         <Limb Name="gKeatonLowerBodyLimb" Type="Standard" EnumName="KEATON_LIMB_LOWER_BODY" Offset="0x7E68" />
         <Limb Name="gKeatonUpperBodyLimb" Type="Standard" EnumName="KEATON_LIMB_UPPER_BODY" Offset="0x7E74" />
         <Limb Name="gKeatonHeadLimb" Type="Standard" EnumName="KEATON_LIMB_HEAD" Offset="0x7E80" />

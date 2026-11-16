@@ -160,11 +160,11 @@ void func_80A6F3B4(EnMm3* this, PlayState* play) {
             case 0x278E:
                 if (play->msgCtx.choiceIndex == 0) {
                     if (this->unk_2B2 & 0x20) {
-                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.unk1206C) {
+                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.firstChoicePrice) {
                             Audio_PlaySfx_MessageDecide();
                             Message_StartTextbox(play, 0x2790, &this->actor);
                             this->unk_2B4 = 0x2790;
-                            Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                            Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                         } else {
                             Audio_PlaySfx(NA_SE_SY_ERROR);
                             Message_StartTextbox(play, 0x279C, &this->actor);
@@ -186,11 +186,11 @@ void func_80A6F3B4(EnMm3* this, PlayState* play) {
 
             case 0x279A:
                 if (play->msgCtx.choiceIndex == 0) {
-                    if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.unk1206C) {
+                    if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.firstChoicePrice) {
                         Audio_PlaySfx_MessageDecide();
                         Message_StartTextbox(play, 0x2790, &this->actor);
                         this->unk_2B4 = 0x2790;
-                        Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                        Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                     } else {
                         Audio_PlaySfx(NA_SE_SY_ERROR);
                         Message_StartTextbox(play, 0x279C, &this->actor);

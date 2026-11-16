@@ -384,7 +384,7 @@ nlohmann::json voyage3PresetJ = R"(
                 "BetterPictoMessage": 1,
                 "BombArrows": 0,
                 "ChuDrops": 1,
-                "GreatFairySwordBButton": 0,
+                "ActiveItemOnB": 0,
                 "ItemUnequip": 0,
                 "MagicArrowEquipSpeed": 1,
                 "TwoHandedSwordSpinAttack": 0

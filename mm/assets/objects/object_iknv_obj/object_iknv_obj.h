@@ -75,35 +75,35 @@ static const ALIGN_ASSET(2) char object_iknv_obj_Tex_007B60[] = dobject_iknv_obj
 #define dobject_iknv_obj_Tex_008360 "__OTR__objects/object_iknv_obj/object_iknv_obj_Tex_008360"
 static const ALIGN_ASSET(2) char object_iknv_obj_Tex_008360[] = dobject_iknv_obj_Tex_008360;
 
-#define dobject_iknv_obj_DL_00DB60 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_00DB60"
-static const ALIGN_ASSET(2) char object_iknv_obj_DL_00DB60[] = dobject_iknv_obj_DL_00DB60;
+#define dgIkanaCaveFogDL "__OTR__objects/object_iknv_obj/gIkanaCaveFogDL"
+static const ALIGN_ASSET(2) char gIkanaCaveFogDL[] = dgIkanaCaveFogDL;
 
-#define dobject_iknv_obj_DL_00DDD8 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_00DDD8"
-static const ALIGN_ASSET(2) char object_iknv_obj_DL_00DDD8[] = dobject_iknv_obj_DL_00DDD8;
+#define dgIkanaCaveCursedDL "__OTR__objects/object_iknv_obj/gIkanaCaveCursedDL"
+static const ALIGN_ASSET(2) char gIkanaCaveCursedDL[] = dgIkanaCaveCursedDL;
 
-#define dobject_iknv_obj_Matanimheader_00F1C0 "__OTR__objects/object_iknv_obj/object_iknv_obj_Matanimheader_00F1C0"
-static const ALIGN_ASSET(2) char object_iknv_obj_Matanimheader_00F1C0[] = dobject_iknv_obj_Matanimheader_00F1C0;
+#define dgIkanaCaveInteriorTexAnim "__OTR__objects/object_iknv_obj/gIkanaCaveInteriorTexAnim"
+static const ALIGN_ASSET(2) char gIkanaCaveInteriorTexAnim[] = dgIkanaCaveInteriorTexAnim;
 
 #define dobject_iknv_obj_DL_010D90 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_010D90"
 static const ALIGN_ASSET(2) char object_iknv_obj_DL_010D90[] = dobject_iknv_obj_DL_010D90;
 
-#define dobject_iknv_obj_DL_010D98 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_010D98"
-static const ALIGN_ASSET(2) char object_iknv_obj_DL_010D98[] = dobject_iknv_obj_DL_010D98;
+#define dgIkanaCavePurifiedDL "__OTR__objects/object_iknv_obj/gIkanaCavePurifiedDL"
+static const ALIGN_ASSET(2) char gIkanaCavePurifiedDL[] = dgIkanaCavePurifiedDL;
 
 #define dobject_iknv_obj_Matanimheader_0113E0 "__OTR__objects/object_iknv_obj/object_iknv_obj_Matanimheader_0113E0"
 static const ALIGN_ASSET(2) char object_iknv_obj_Matanimheader_0113E0[] = dobject_iknv_obj_Matanimheader_0113E0;
 
-#define dobject_iknv_obj_DL_0115E0 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_0115E0"
-static const ALIGN_ASSET(2) char object_iknv_obj_DL_0115E0[] = dobject_iknv_obj_DL_0115E0;
+#define dgIkanaCaveSpringWaterDL "__OTR__objects/object_iknv_obj/gIkanaCaveSpringWaterDL"
+static const ALIGN_ASSET(2) char gIkanaCaveSpringWaterDL[] = dgIkanaCaveSpringWaterDL;
 
 #define dobject_iknv_obj_DL_011788 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_011788"
 static const ALIGN_ASSET(2) char object_iknv_obj_DL_011788[] = dobject_iknv_obj_DL_011788;
 
-#define dobject_iknv_obj_Matanimheader_0117A0 "__OTR__objects/object_iknv_obj/object_iknv_obj_Matanimheader_0117A0"
-static const ALIGN_ASSET(2) char object_iknv_obj_Matanimheader_0117A0[] = dobject_iknv_obj_Matanimheader_0117A0;
+#define dgIkanaCaveSpringWaterTexAnim "__OTR__objects/object_iknv_obj/gIkanaCaveSpringWaterTexAnim"
+static const ALIGN_ASSET(2) char gIkanaCaveSpringWaterTexAnim[] = dgIkanaCaveSpringWaterTexAnim;
 
-#define dobject_iknv_obj_Colheader_0117C8 "__OTR__objects/object_iknv_obj/object_iknv_obj_Colheader_0117C8"
-static const ALIGN_ASSET(2) char object_iknv_obj_Colheader_0117C8[] = dobject_iknv_obj_Colheader_0117C8;
+#define dgIkanaCaveSpringWaterCol "__OTR__objects/object_iknv_obj/gIkanaCaveSpringWaterCol"
+static const ALIGN_ASSET(2) char gIkanaCaveSpringWaterCol[] = dgIkanaCaveSpringWaterCol;
 
 #define dobject_iknv_obj_DL_011880 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_011880"
 static const ALIGN_ASSET(2) char object_iknv_obj_DL_011880[] = dobject_iknv_obj_DL_011880;
@@ -174,14 +174,14 @@ static const ALIGN_ASSET(2) char object_iknv_obj_DL_0125E0[] = dobject_iknv_obj_
 #define dobject_iknv_obj_DL_0126D0 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_0126D0"
 static const ALIGN_ASSET(2) char object_iknv_obj_DL_0126D0[] = dobject_iknv_obj_DL_0126D0;
 
-#define dobject_iknv_obj_DL_012700 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_012700"
-static const ALIGN_ASSET(2) char object_iknv_obj_DL_012700[] = dobject_iknv_obj_DL_012700;
+#define dgIkanaStreamDL "__OTR__objects/object_iknv_obj/gIkanaStreamDL"
+static const ALIGN_ASSET(2) char gIkanaStreamDL[] = dgIkanaStreamDL;
 
-#define dobject_iknv_obj_Matanimheader_012728 "__OTR__objects/object_iknv_obj/object_iknv_obj_Matanimheader_012728"
-static const ALIGN_ASSET(2) char object_iknv_obj_Matanimheader_012728[] = dobject_iknv_obj_Matanimheader_012728;
+#define dgIkanaStreamTexAnim "__OTR__objects/object_iknv_obj/gIkanaStreamTexAnim"
+static const ALIGN_ASSET(2) char gIkanaStreamTexAnim[] = dgIkanaStreamTexAnim;
 
-#define dobject_iknv_obj_Colheader_012788 "__OTR__objects/object_iknv_obj/object_iknv_obj_Colheader_012788"
-static const ALIGN_ASSET(2) char object_iknv_obj_Colheader_012788[] = dobject_iknv_obj_Colheader_012788;
+#define dgIkanaStreamCol "__OTR__objects/object_iknv_obj/gIkanaStreamCol"
+static const ALIGN_ASSET(2) char gIkanaStreamCol[] = dgIkanaStreamCol;
 
 #define dobject_iknv_obj_DL_012880 "__OTR__objects/object_iknv_obj/object_iknv_obj_DL_012880"
 static const ALIGN_ASSET(2) char object_iknv_obj_DL_012880[] = dobject_iknv_obj_DL_012880;

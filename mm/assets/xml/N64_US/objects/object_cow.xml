@@ -14,13 +14,13 @@
         <Texture Name="gCowTLUT" OutName="cow_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2880" />
 
         <!-- Cow Textures -->
-        <Texture Name="gCowUdderTex" OutName="cow_udder" Format="ci8" Width="16" Height="16" Offset="0x2A80" />
-        <Texture Name="gCowNoseRingTex" OutName="cow_nose_ring" Format="ci8" Width="8" Height="8" Offset="0x2B80" />
-        <Texture Name="gCowNoseTex" OutName="cow_nose" Format="ci8" Width="16" Height="16" Offset="0x2BC0" />
+        <Texture Name="gCowUdderTex" OutName="cow_udder" Format="ci8" Width="16" Height="16" Offset="0x2A80" TlutOffset="0x2880"/>
+        <Texture Name="gCowNoseRingTex" OutName="cow_nose_ring" Format="ci8" Width="8" Height="8" Offset="0x2B80" TlutOffset="0x2880"/>
+        <Texture Name="gCowNoseTex" OutName="cow_nose" Format="ci8" Width="16" Height="16" Offset="0x2BC0" TlutOffset="0x2880"/>
         <Texture Name="gCowSpotsTex" OutName="cow_spots" Format="i8" Width="64" Height="64" Offset="0x2CC0" />
-        <Texture Name="gCowEarTex" OutName="cow_ear" Format="ci8" Width="8" Height="16" Offset="0x3CC0" />
+        <Texture Name="gCowEarTex" OutName="cow_ear" Format="ci8" Width="8" Height="16" Offset="0x3CC0" TlutOffset="0x2880"/>
         <Texture Name="gCowEyelidTex" OutName="cow_eyelid" Format="rgba16" Width="16" Height="16" Offset="0x3D40" />
-        <Texture Name="gCowLegAndTailTex" OutName="cow_leg_and_tail" Format="ci8" Width="8" Height="16" Offset="0x3F40" />
+        <Texture Name="gCowLegAndTailTex" OutName="cow_leg_and_tail" Format="ci8" Width="8" Height="16" Offset="0x3F40" TlutOffset="0x2880"/>
 
         <!-- Cow Limb DisplayLists -->
         <Limb Name="gCowBodyLimb" Type="Standard" EnumName="COW_LIMB_BODY" Offset="0x3FC0" />

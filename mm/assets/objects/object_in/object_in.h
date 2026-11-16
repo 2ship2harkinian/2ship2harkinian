@@ -18,8 +18,20 @@ static const ALIGN_ASSET(2) char object_in_Matanimheader_001C30[] = dobject_in_M
 #define dobject_in_Anim_001D10 "__OTR__objects/object_in/object_in_Anim_001D10"
 static const ALIGN_ASSET(2) char object_in_Anim_001D10[] = dobject_in_Anim_001D10;
 
+#define dobject_in_TLUT_003260 "__OTR__objects/object_in/object_in_TLUT_003260"
+static const ALIGN_ASSET(2) char object_in_TLUT_003260[] = dobject_in_TLUT_003260;
+
+#define dobject_in_TLUT_003458 "__OTR__objects/object_in/object_in_TLUT_003458"
+static const ALIGN_ASSET(2) char object_in_TLUT_003458[] = dobject_in_TLUT_003458;
+
 #define dobject_in_Tex_003520 "__OTR__objects/object_in/object_in_Tex_003520"
 static const ALIGN_ASSET(2) char object_in_Tex_003520[] = dobject_in_Tex_003520;
+
+#define dobject_in_Tex_003560 "__OTR__objects/object_in/object_in_Tex_003560"
+static const ALIGN_ASSET(2) char object_in_Tex_003560[] = dobject_in_Tex_003560;
+
+#define dobject_in_Tex_0035A0 "__OTR__objects/object_in/object_in_Tex_0035A0"
+static const ALIGN_ASSET(2) char object_in_Tex_0035A0[] = dobject_in_Tex_0035A0;
 
 #define dobject_in_Tex_0035E0 "__OTR__objects/object_in/object_in_Tex_0035E0"
 static const ALIGN_ASSET(2) char object_in_Tex_0035E0[] = dobject_in_Tex_0035E0;
@@ -332,18 +344,6 @@ static const ALIGN_ASSET(2) char object_in_Tex_01CCB0[] = dobject_in_Tex_01CCB0;
 
 #define dobject_in_Tex_01CEB0 "__OTR__objects/object_in/object_in_Tex_01CEB0"
 static const ALIGN_ASSET(2) char object_in_Tex_01CEB0[] = dobject_in_Tex_01CEB0;
-
-#define dobject_inTLUT_003458 "__OTR__objects/object_in/object_inTLUT_003458"
-static const ALIGN_ASSET(2) char object_inTLUT_003458[] = dobject_inTLUT_003458;
-
-#define dobject_inTLUT_003260 "__OTR__objects/object_in/object_inTLUT_003260"
-static const ALIGN_ASSET(2) char object_inTLUT_003260[] = dobject_inTLUT_003260;
-
-#define dobject_inTex_003560 "__OTR__objects/object_in/object_inTex_003560"
-static const ALIGN_ASSET(2) char object_inTex_003560[] = dobject_inTex_003560;
-
-#define dobject_inTex_0035A0 "__OTR__objects/object_in/object_inTex_0035A0"
-static const ALIGN_ASSET(2) char object_inTex_0035A0[] = dobject_inTex_0035A0;
 
 typedef enum ObjectInLimb {
     /* 0x00 */ OBJECT_IN_LIMB_NONE,

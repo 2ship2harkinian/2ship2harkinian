@@ -5,7 +5,7 @@
         <DList Name="gNejironBodyDL" Offset="0xB70" />
         <DList Name="gNejironEyesDL" Offset="0xE38" />
         <Texture Name="gNejironBodyTLUT" OutName="nejiron_body_tlut" Format="rgba16" Width="16" Height="16" Offset="0xEC8" />
-        <Texture Name="gNejironBodyTex" OutName="nejiron_body" Format="ci8" Width="32" Height="32" Offset="0x10C8" />
+        <Texture Name="gNejironBodyTex" OutName="nejiron_body" Format="ci8" Width="32" Height="32" Offset="0x10C8" TlutOffset="0xEC8"/>
         <Texture Name="gNejironEyeOpenTex" OutName="nejiron_eye_open" Format="rgba16" Width="16" Height="32" Offset="0x14C8" />
         <Texture Name="gNejironEyeHalfTex" OutName="nejiron_eye_half" Format="rgba16" Width="16" Height="32" Offset="0x18C8" />
         <Texture Name="gNejironEyeClosedTex" OutName="nejiron_eye_closed" Format="rgba16" Width="16" Height="32" Offset="0x1CC8" />

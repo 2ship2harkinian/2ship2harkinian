@@ -3,7 +3,7 @@
 #include "2s2h/resource/importer/scenecommand/SceneCommandFactory.h"
 
 namespace SOH {
-class SetRoomBehaviorMMFactory : public SceneCommandFactoryBinaryV0 {
+class SetRoomBehaviorMMFactory final : public SceneCommandFactoryBinaryV0 {
   public:
     std::shared_ptr<Ship::IResource> ReadResource(std::shared_ptr<Ship::ResourceInitData> initData,
                                                   std::shared_ptr<Ship::BinaryReader> reader) override;

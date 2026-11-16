@@ -154,7 +154,7 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // CHECK_WEEKEVENTREG(WEEKEVENTREG_73_80) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
+    // CHECK_WEEKEVENTREG(WEEKEVENTREG_ENTERED_BOMBERS_CODE) && !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)
     // ```
     // #### `args`
     // - `*EnBomBowlMan` (unused)
@@ -349,6 +349,14 @@ typedef enum {
     // #### `args`
     // - `*EnGinkoMan`
     VB_CONTINUE_BANKER_DIALOGUE,
+
+    // #### `result`
+    // ```c
+    // gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER
+    // ```
+    // #### `args`
+    // - `s16` (bottle slot index, `BOTTLE_FIRST`..`BOTTLE_MAX - 1`)
+    VB_COOL_HOT_WATER,
 
     // #### `result`
     // ```c
@@ -822,6 +830,7 @@ typedef enum {
     // #### `args`
     // - `EquipSlot`
     // - `*ItemId`
+    // - `bool` (isDpad)
     VB_GET_ITEM_ON_BUTTON,
 
     // #### `result`
@@ -1226,6 +1235,24 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*f32`
+    // TODO: Convert to event
+    VB_HOOKSHOT_SET_SPEED,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ArmsHook`
+    // TODO: Convert to event
+    VB_HOOKSHOT_SHOOT,
+
+    // #### `result`
+    // ```c
     // (!DynaPolyActor_IsPlayerAbove((DynaPolyActor*)this->actor.child) &&
     //  (player->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) ||
     // (gSaveContext.timerCurTimes[TIMER_ID_MINIGAME_2] <= SECONDS_TO_TIMER(0)) ||
@@ -1445,7 +1472,8 @@ typedef enum {
 
     // #### `result`
     // ```c
-    // WaterBox_GetSurface1(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) && ((sp44 - sp48) > 50.0f)
+    // BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, sp4C.x, sp4C.z, &sp44, &waterBox) &&
+    // ((sp44 - sp48) > 50.0f)
     // ```
     // #### `args`
     // - None
@@ -1491,6 +1519,15 @@ typedef enum {
     // #### `args`
     // - None
     VB_MAGIC_SPIN_ATTACK_CHECK_FORM,
+
+    // Whether the mayoral meeting has broken up for the night of the Final Day.
+    // #### `result`
+    // ```c
+    // (gSaveContext.save.day == 3) && gSaveContext.save.isNight
+    // ```
+    // #### `args`
+    // - None
+    VB_MAYOR_MEETING_END_ON_FINAL_NIGHT,
 
     // #### `result`
     // ```c
@@ -2347,7 +2384,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `*s32` (which boss remains to return, see `func_808B849C`)
+    // - `*s32` (which boss remains to return, see `DoorWarp1_GetRemains`)
     VB_SPAWN_BOSS_REMAINS,
 
     // #### `result`
@@ -2612,6 +2649,14 @@ typedef enum {
     // #### `args`
     // - `*f32` (speed)
     VB_ZTARGET_SPEED_CHECK,
+
+    // #### `result`
+    // ```c
+    // this->unk152 > 0
+    // ```
+    // #### `args`
+    // - `*EnItem00`
+    VB_UPDATE_ITEM00
 } GIVanillaBehavior;
 
 #endif

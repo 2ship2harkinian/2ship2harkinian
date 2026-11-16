@@ -3,9 +3,9 @@
 
 #include "align_asset_macro.h"
 
-#define dD_801AEF88 "__OTR__code/actor/D_801AEF88"
-static const ALIGN_ASSET(2) char D_801AEF88[] = dD_801AEF88;
+#define dgActorSetupXluDL "__OTR__code/actor/gActorSetupXluDL"
+static const ALIGN_ASSET(2) char gActorSetupXluDL[] = dgActorSetupXluDL;
 
-#define dD_801AEFA0 "__OTR__code/actor/D_801AEFA0"
-static const ALIGN_ASSET(2) char D_801AEFA0[] = dD_801AEFA0;
+#define dgActorSetupOpaDL "__OTR__code/actor/gActorSetupOpaDL"
+static const ALIGN_ASSET(2) char gActorSetupOpaDL[] = dgActorSetupOpaDL;
 #endif // CODE_ACTOR_H

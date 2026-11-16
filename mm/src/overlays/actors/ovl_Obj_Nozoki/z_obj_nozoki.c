@@ -406,7 +406,7 @@ void func_80BA311C(ObjNozoki* this, PlayState* play) {
 }
 
 void func_80BA3230(ObjNozoki* this, PlayState* play) {
-    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_64_20)) {
+    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_CAN_USE_CURIOSITY_SHOP_PEEPHOLE)) {
         Actor* npc = play->actorCtx.actorLists[ACTORCAT_NPC].first;
         Actor* test3 = SubS_FindActor(play, npc, ACTORCAT_NPC, ACTOR_EN_TEST3);
 

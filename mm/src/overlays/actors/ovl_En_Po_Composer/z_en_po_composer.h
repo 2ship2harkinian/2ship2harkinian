@@ -5,7 +5,7 @@
 #include "objects/object_po_composer/object_po_composer.h"
 
 #define POE_COMPOSER_IS_FLAT(thisx) ((thisx)->params & 0x8000)
-#define POE_COMPOSER_4000(thisx)    ((thisx)->params & 0x4000)
+#define POE_COMPOSER_SHARP_HEALED(thisx)    ((thisx)->params & 0x4000)
 
 typedef enum {
     /*  1 */ POE_COMPOSER_CUEID_IDLE = 1,
@@ -22,8 +22,8 @@ typedef enum {
 } EnPoComposerCueId;
 
 typedef enum {
-    /* 0 */ SHARP_CS_ENCOUNTER_FIRST,
-    /* 1 */ SHARP_CS_ENCOUNTER_OTHER,
+    /* 0 */ SHARP_CS_ENCOUNTER_HEALED_TALK,
+    /* 1 */ SHARP_CS_ENCOUNTER_AGRO_TALK,
     /* 2 */ SHARP_CS_SONG_HEALING,
     /* 3 */ SHARP_CS_SONG_STORMS,
     /* 4 */ SHARP_CS_MAX
@@ -53,8 +53,11 @@ typedef struct EnPoComposer {
     /* 0x330 */ s16 inCutscene;
     /* 0x332 */ s16 visible;
     /* 0x334 */ u16 cueId;
-    /* 0x336 */ Color_RGBA8 lightColor;
-    /* 0x33A */ Color_RGBA8 envColor;
+    /* 0x336 */ union {
+                Color_RGBA8 mainAlpha;  // the alpha is used as general alpha for the whole body
+                Color_RGBA8 eyeColor;   // also used for robe bottom
+    };
+    /* 0x33A */ Color_RGBA8 lightColor; // used by lantern light, and lantern glass tint
 } EnPoComposer; // size = 0x340
 
 #endif // Z_EN_PO_COMPOSER_H

@@ -1,5 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="objects/gameplay_field_keep.xml" OutPath="assets/objects/gameplay_field_keep/"/>
+
     <File Name="object_wood02" Segment="6">
         <DList Name="object_wood02_DL_000090" Offset="0x90" /> <!-- Original name might be "grass01_modelT" -->
         <DList Name="object_wood02_DL_000160" Offset="0x160" />

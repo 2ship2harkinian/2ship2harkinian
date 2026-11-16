@@ -899,7 +899,7 @@ void func_80B94E34(EnZog* this, PlayState* play) {
             sp38.x += Rand_CenteredFloat(30.0f);
             sp38.y += 20.0f;
             sp38.z += Rand_CenteredFloat(30.0f);
-            if (WaterBox_GetSurface1(play, &play->colCtx, sp38.x, sp38.z, &sp38.y, &waterBox) &&
+            if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, sp38.x, sp38.z, &sp38.y, &waterBox) &&
                 (this->actor.world.pos.y < sp38.y)) {
                 EffectSsGSplash_Spawn(play, &sp38, NULL, NULL, 1,
                                       Rand_ZeroFloat(this->actor.speed * 40.0f) + (this->actor.speed * 60.0f));

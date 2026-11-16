@@ -149,7 +149,7 @@ u16 sPersistentCycleWeekEventRegs[ARRAY_COUNT(gSaveContext.save.saveInfo.weekEve
     /* 48 */ 0,
     /* 49 */ 0,
     /* 50 */ PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_50_02) | PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_50_04),
-    /* 51 */ PERSISTENT_WEEKEVENTREG_ALT(WEEKEVENTREG_51_04),
+    /* 51 */ PERSISTENT_WEEKEVENTREG_ALT(WEEKEVENTREG_HIT_LAUNDRY_POOL_BELL),
     /* 52 */ 0,
     /* 53 */ PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_BUSINESS_SCRUB_HEART_PIECE) |
         PERSISTENT_WEEKEVENTREG(WEEKEVENTREG_53_40),
@@ -1397,6 +1397,12 @@ void Sram_OpenSave(FileSelectState* fileSelect, SramContext* sramCtx) {
             gSaveContext.save.playerForm = PLAYER_FORM_HUMAN;
         }
     } else {
+        // 2S2H [Enhancement] Owl saves don't store nextCutsceneIndex. Creating a file or skipping to file select leaves
+        // it at 0 instead of 0xFFEF, which makes Play_Init skip loading cleared scene layers.
+        if (CVarGetInteger("gEnhancements.Fixes.OwlSaveSceneLayers", 1)) {
+            gSaveContext.nextCutsceneIndex = 0xFFEF;
+        }
+
         // When a pauseSaveEntrance is available, prioritize it over the
         // owlWarpId, this means the players last save was a pause save.
         if (gSaveContext.save.shipSaveInfo.pauseSaveEntrance != -1) {

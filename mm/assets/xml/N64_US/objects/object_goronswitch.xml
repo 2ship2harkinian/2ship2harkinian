@@ -8,7 +8,7 @@
         <Texture Name="object_goronswitch_TLUT_000970" OutName="tlut_000970" Format="rgba16" Width="4" Height="4" Offset="0x970" />
         <Texture Name="object_goronswitch_TLUT_000990" OutName="tlut_000990" Format="rgba16" Width="4" Height="4" Offset="0x990" />
         <Texture Name="object_goronswitch_Tex_0009B0" OutName="tex_0009B0" Format="i8" Width="64" Height="64" Offset="0x9B0" />
-        <Texture Name="object_goronswitch_Tex_0019B0" OutName="tex_0019B0" Format="ci4" Width="64" Height="64" Offset="0x19B0" />
-        <Texture Name="object_goronswitch_Tex_0021B0" OutName="tex_0021B0" Format="ci4" Width="64" Height="64" Offset="0x21B0" />
+        <Texture Name="object_goronswitch_Tex_0019B0" OutName="tex_0019B0" Format="ci4" Width="64" Height="64" Offset="0x19B0" TlutOffset="0x970"/>
+        <Texture Name="object_goronswitch_Tex_0021B0" OutName="tex_0021B0" Format="ci4" Width="64" Height="64" Offset="0x21B0" TlutOffset="0x990"/>
     </File>
 </Root>

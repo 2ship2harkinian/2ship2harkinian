@@ -57,7 +57,7 @@ u32 EffectSsGRipple_Init(PlayState* play, u32 index, EffectSs* this, void* initP
     this->rEnvColorG = 255;
     this->rEnvColorB = 255;
     this->rEnvColorA = 255;
-    this->rWaterBoxNum = WaterBox_GetSurface2(play, &play->colCtx, &initParams->pos, 3.0f, &waterBox, &bgId);
+    this->rWaterBoxNum = BgCheck_FindWaterBox(play, &play->colCtx, &initParams->pos, 3.0f, &waterBox, &bgId);
     this->rBgId = bgId;
 
     return 1;
@@ -80,7 +80,7 @@ void EffectSsGRipple_DrawRipple(PlayState* play2, EffectSs* this, TexturePtr tex
     colHeader = BgCheck_GetCollisionHeader(&play->colCtx, this->rBgId);
 
     if ((this->rWaterBoxNum != -1) && (colHeader != NULL) && (this->rWaterBoxNum < colHeader->numWaterBoxes)) {
-        yPos = func_800CA568(&play->colCtx, this->rWaterBoxNum, this->rBgId);
+        yPos = WaterBox_GetSurface(&play->colCtx, this->rWaterBoxNum, this->rBgId);
     } else {
         yPos = this->pos.y;
     }
@@ -118,7 +118,7 @@ void EffectSsGRipple_Update(PlayState* play, u32 index, EffectSs* this) {
     WaterBox* waterBox;
     s32 bgId;
 
-    this->rWaterBoxNum = WaterBox_GetSurface2(play, &play->colCtx, &this->pos, 3.0f, &waterBox, &bgId);
+    this->rWaterBoxNum = BgCheck_FindWaterBox(play, &play->colCtx, &this->pos, 3.0f, &waterBox, &bgId);
     this->rBgId = bgId;
 
     if (DECR(this->rLifespan) == 0) {

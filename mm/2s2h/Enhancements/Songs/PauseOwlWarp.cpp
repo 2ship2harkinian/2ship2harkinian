@@ -238,7 +238,7 @@ static void HandlePauseOwlWarp(PauseContext* pauseCtx) {
                 pauseCtx->itemDescriptionOn = true;
                 Audio_PlaySfx(NA_SE_SY_DECIDE);
                 // Use Kaleido's open text variant that sets the dark black message box
-                func_801514B0(gPlayState, 0x1B93, 3);
+                Message_PauseMenu_ShowDescription(gPlayState, 0x1B93, 3);
                 gPlayState->msgCtx.choiceIndex = 0;
             }
         }

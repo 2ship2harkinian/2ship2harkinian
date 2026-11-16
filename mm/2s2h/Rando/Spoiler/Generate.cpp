@@ -22,6 +22,9 @@ nlohmann::json GenerateFromSaveContext() {
     auto priorityItems = Rando::GetSariaPriorityItemsFromSave(gSaveContext.save.shipSaveInfo.rando);
     Rando::SetSariaPriorityItemsInSpoiler(spoiler, priorityItems);
 
+    auto additionalItems = Rando::GetAdditionalItemsFromSave(gSaveContext.save.shipSaveInfo.rando);
+    Rando::SetAdditionalItemsInSpoiler(spoiler, additionalItems);
+
     spoiler["checks"] = nlohmann::json::object();
     for (auto& [randoCheckId, randoStaticCheck] : Rando::StaticData::Checks) {
         if (randoStaticCheck.randoCheckId == RC_UNKNOWN) {

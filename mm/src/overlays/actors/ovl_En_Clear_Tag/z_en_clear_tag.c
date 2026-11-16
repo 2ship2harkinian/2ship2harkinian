@@ -1016,8 +1016,8 @@ void EnClearTag_DrawEffects(Actor* thisx, PlayState* play) {
                  * `ySurface` returns the water box's surface, while `outWaterBox` returns a pointer to the WaterBox
                  */
                 ySurface = effect->pos.y;
-                if (WaterBox_GetSurface1(play, &play->colCtx, effect->pos.x + vec.x, effect->pos.z + vec.z, &ySurface,
-                                         &waterBox)) {
+                if (BgCheck_GetWaterSurfaceNoBgIdAlt(play, &play->colCtx, effect->pos.x + vec.x, effect->pos.z + vec.z,
+                                                     &ySurface, &waterBox)) {
                     if ((effect->pos.y - ySurface) < 200.0f) {
                         // Draw the splash effect.
                         Matrix_Translate(effect->pos.x + vec.x, ySurface, effect->pos.z + vec.z, MTXMODE_NEW);

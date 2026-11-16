@@ -273,7 +273,7 @@ void EnRailgibud_Init(Actor* thisx, PlayState* play) {
     Collider_InitCylinder(play, &this->collider);
     Collider_SetCylinder(play, &this->collider, &this->actor, &sCylinderInit);
     CollisionCheck_SetInfo2(&this->actor.colChkInfo, &sDamageTable, &sColChkInfoInit);
-    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
         Actor_Kill(&this->actor);
     }
 
@@ -1082,7 +1082,7 @@ void EnRailgibud_Draw(Actor* thisx, PlayState* play) {
         Gfx_SetupDL25_Opa(play->state.gfxCtx);
 
         gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, this->actor.shape.shadowAlpha);
-        gSPSegment(POLY_OPA_DISP++, 0x08, D_801AEFA0);
+        gSPSegment(POLY_OPA_DISP++, 0x08, gActorSetupOpaDL);
 
         POLY_OPA_DISP =
             SkelAnime_DrawFlex(play, this->skelAnime.skeleton, this->skelAnime.jointTable, this->skelAnime.dListCount,
@@ -1091,7 +1091,7 @@ void EnRailgibud_Draw(Actor* thisx, PlayState* play) {
         Gfx_SetupDL25_Xlu(play->state.gfxCtx);
 
         gDPSetEnvColor(POLY_XLU_DISP++, 0, 0, 0, this->actor.shape.shadowAlpha);
-        gSPSegment(POLY_XLU_DISP++, 0x08, D_801AEF88);
+        gSPSegment(POLY_XLU_DISP++, 0x08, gActorSetupXluDL);
 
         POLY_XLU_DISP =
             SkelAnime_DrawFlex(play, this->skelAnime.skeleton, this->skelAnime.jointTable, this->skelAnime.dListCount,

@@ -330,7 +330,7 @@ extern void DrawBoe() {
 
     gSPDisplayList(POLY_OPA_DISP++, gSetupDLs[SETUPDL_25]);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0xFF, 0, 0, 0, 255);
-    gSPSegment(POLY_OPA_DISP++, 0x08, (uintptr_t)D_801AEFA0);
+    gSPSegment(POLY_OPA_DISP++, 0x08, (uintptr_t)gActorSetupOpaDL);
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, gPlayState->state.gfxCtx);
     gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gBlackBoeEndDL);
 
@@ -580,7 +580,7 @@ extern void DrawFreezard() {
                       PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, COMBINED, 0, ENVIRONMENT, 0);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0x80, 155, 255, 255, 255);
     gDPSetEnvColor(POLY_XLU_DISP++, 200, 200, 200, 255);
-    gSPDisplayList(POLY_XLU_DISP++, (Gfx*)object_fz_DL_001130);
+    gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gFreezardBodyIntactDL);
 
     CLOSE_DISPS(gPlayState->state.gfxCtx);
     DrawEnLight({ 155, 155, 155 }, { 20.0f, 20.0f, 20.0f });
@@ -593,7 +593,7 @@ extern void DrawGaro() {
     Gfx_SetupDL25_Opa(gPlayState->state.gfxCtx);
     SETUP_FLEX_SKEL(GARO_LIMB_MAX, gGaroSkel, gGaroIdleAnim);
 
-    gSPSegment(POLY_OPA_DISP++, 0x0C, (uintptr_t)D_801AEFA0);
+    gSPSegment(POLY_OPA_DISP++, 0x0C, (uintptr_t)gActorSetupOpaDL);
     SkelAnime_DrawFlexOpa(gPlayState, skelAnime.skeleton, skelAnime.jointTable, skelAnime.dListCount, NULL, NULL, NULL);
 
     CLOSE_DISPS(gPlayState->state.gfxCtx);
@@ -862,7 +862,7 @@ extern void DrawOctorok() {
 
     Gfx* gfxPtr = POLY_OPA_DISP;
     gSPDisplayList(&gfxPtr[0], gSetupDLs[SETUPDL_25]);
-    gSPSegment(&gfxPtr[1], 0x08, (uintptr_t)D_801AEFA0);
+    gSPSegment(&gfxPtr[1], 0x08, (uintptr_t)gActorSetupOpaDL);
     POLY_OPA_DISP = &gfxPtr[2];
     SkelAnime_DrawOpa(gPlayState, skelAnime.skeleton, skelAnime.jointTable, NULL, NULL, NULL);
 
@@ -909,7 +909,7 @@ extern void DrawPoe() {
     Gfx* gfx = POLY_OPA_DISP;
     gSPDisplayList(&gfx[0], gSetupDLs[SETUPDL_25]);
     gDPSetEnvColor(&gfx[1], 255, 255, 255, 255);
-    gSPSegment(&gfx[2], 0x08, (uintptr_t)D_801AEFA0);
+    gSPSegment(&gfx[2], 0x08, (uintptr_t)gActorSetupOpaDL);
     gfx = SkelAnime_Draw(gPlayState, skelAnime.skeleton, skelAnime.jointTable, NULL, NULL, NULL, &gfx[3]);
     POLY_OPA_DISP = gfx;
 
@@ -972,7 +972,7 @@ extern void DrawRedead() {
         SkelAnime_Update(&skelAnime);
     }
 
-    gSPSegment(POLY_OPA_DISP++, 0x08, (uintptr_t)D_801AEFA0);
+    gSPSegment(POLY_OPA_DISP++, 0x08, (uintptr_t)gActorSetupOpaDL);
     SkelAnime_DrawFlexOpa(gPlayState, skelAnime.skeleton, skelAnime.jointTable, skelAnime.dListCount, NULL, NULL, NULL);
 
     CLOSE_DISPS(gPlayState->state.gfxCtx);
@@ -993,10 +993,10 @@ extern void DrawShellBlade() {
 }
 
 extern void DrawSkullfish() {
-    SETUP_DRAW(OBJECT_PR_2_LIMB_MAX);
+    SETUP_DRAW(PR_2_LIMB_MAX);
     Gfx_SetupDL25_Opa(gPlayState->state.gfxCtx);
     Matrix_Scale(0.02f, 0.02f, 0.02f, MTXMODE_APPLY);
-    SETUP_FLEX_SKEL(OBJECT_PR_2_LIMB_MAX, object_pr_Skel_004188, object_pr_Anim_004340);
+    SETUP_FLEX_SKEL(PR_2_LIMB_MAX, gSkullFishSkel, gSkullFishSwimAnim);
 
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, 255);
@@ -1240,6 +1240,8 @@ extern void DrawMinifrog(RandoItemId randoItemId, Actor* actor) {
         case RI_FROG_WHITE:
             envColor = { 190, 190, 190, 255 };
             break;
+        default: // Keeps the FROG_YELLOW default above.
+            break;
     }
 
     gDPSetEnvColor(POLY_OPA_DISP++, envColor.r, envColor.g, envColor.b, envColor.a);
@@ -1281,6 +1283,8 @@ extern void DrawClock(RandoItemId randoItemId, Actor* actor) {
         case RI_TIME_PROGRESSIVE:
             clockFaceRotation = gSaveContext.save.isNight ? 0 : 0xC000;
             sunMoonPanelRotation = gSaveContext.save.isNight ? 0x8000 : 0;
+            break;
+        default: // Leaves the rotations at whatever the clock actor last set them to.
             break;
     }
 

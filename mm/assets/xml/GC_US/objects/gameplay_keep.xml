@@ -1,5 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="misc/link_animetion.xml" OutPath="assets/misc/link_animetion/"/>
+
     <File Name="gameplay_keep" Segment="4">
         <!-- Bottles -->
         <Texture Name="gBottleTex" OutName="bottle" Format="i4" Width="16" Height="16" Offset="0x0" />
@@ -39,7 +41,7 @@
         <Texture Name="gKokiriSwordHandleTLUT" OutName="kokiri_sword_handle_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2908" />
         <Texture Name="gKokiriSwordHandlePommelTex" OutName="kokiri_sword_handle_pommel" Format="rgba16" Width="8" Height="8" Offset="0x2B08" />
         <Texture Name="gRazorSwordHandleGripTex" OutName="razor_sword_handle_grip" Format="rgba16" Width="16" Height="16" Offset="0x2B88" />
-        <Texture Name="gKokiriSwordHandleCrossGuardTex" OutName="kokiri_sword_handle_cross_gaurd" Format="ci8" Width="8" Height="8" Offset="0x2D88" />
+        <Texture Name="gKokiriSwordHandleCrossGuardTex" OutName="kokiri_sword_handle_cross_gaurd" Format="ci8" Width="8" Height="8" Offset="0x2D88" TlutOffset="0x2908"/>
         <Texture Name="gKokiriSwordHandleGripTex" OutName="kokiri_sword_handle_grip" Format="i8" Width="8" Height="8" Offset="0x2DC8" />
         <Texture Name="gRazorSwordHandleDesignTex" OutName="razor_sword_handle_design" Format="rgba16" Width="16" Height="16" Offset="0x2E08" />
         <Texture Name="gSwordMetalTex" OutName="sword_metal" Format="i8" Width="8" Height="8" Offset="0x3008" />
@@ -60,33 +62,33 @@
         <Texture Name="gLinkMaskTLUT" OutName="link_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5DB8" /> <!-- Unused, leftover remnant same as the vertices -->
         <Texture Name="gGoronMaskTLUT" OutName="goron_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5FB8" />
         <Texture Name="gZoraMaskTLUT" OutName="zora_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0x61B8" />
-        <Texture Name="gGoronMaskMouthTex" OutName="goron_mask_mouth" Format="ci8" Width="64" Height="32" Offset="0x63B8" />
-        <Texture Name="gGoronMaskInsideEyeTex" OutName="goron_mask_inside_eye" Format="ci8" Width="32" Height="32" Offset="0x6BB8" />
-        <Texture Name="gGoronMaskNoseEyebrowTex" OutName="goron_mask_nose_eyebrow" Format="ci8" Width="8" Height="8" Offset="0x6FB8" />
-        <Texture Name="gGoronMaskHairTex" OutName="goron_mask_hair" Format="ci8" Width="16" Height="16" Offset="0x6FF8" />
+        <Texture Name="gGoronMaskMouthTex" OutName="goron_mask_mouth" Format="ci8" Width="64" Height="32" Offset="0x63B8" TlutOffset="0x5FB8"/>
+        <Texture Name="gGoronMaskInsideEyeTex" OutName="goron_mask_inside_eye" Format="ci8" Width="32" Height="32" Offset="0x6BB8" TlutOffset="0x5FB8"/>
+        <Texture Name="gGoronMaskNoseEyebrowTex" OutName="goron_mask_nose_eyebrow" Format="ci8" Width="8" Height="8" Offset="0x6FB8" TlutOffset="0x5FB8"/>
+        <Texture Name="gGoronMaskHairTex" OutName="goron_mask_hair" Format="ci8" Width="16" Height="16" Offset="0x6FF8" TlutOffset="0x5FB8"/>
         <Texture Name="gGoronMaskEyeTex" OutName="goron_mask_eye" Format="rgba32" Width="32" Height="32" Offset="0x70F8" />
         <Texture Name="gDekuMaskEyeTex" OutName="deku_mask_eye" Format="rgba16" Width="64" Height="32" Offset="0x80F8" />
         <Texture Name="gDekuMaskFaceTex" OutName="deku_mask_face" Format="rgba16" Width="16" Height="16" Offset="0x90F8" />
         <Texture Name="gDekuMaskHairTex" OutName="deku_mask_hair" Format="rgba16" Width="32" Height="32" Offset="0x92F8" />
-        <Texture Name="gZoraMaskInsideEyeTex" OutName="zora_mask_inside_eye" Format="ci8" Width="32" Height="32" Offset="0x9AF8" />
-        <Texture Name="gZoraMaskMouthTex" OutName="zora_mask_mouth" Format="ci8" Width="32" Height="32" Offset="0x9EF8" />
-        <Texture Name="gZoraMaskNoseTex" OutName="zora_mask_nose" Format="ci8" Width="8" Height="8" Offset="0xA2F8" />
-        <Texture Name="gZoraMaskSpotsTex" OutName="zora_mask_spots" Format="ci8" Width="16" Height="32" Offset="0xA338" />
+        <Texture Name="gZoraMaskInsideEyeTex" OutName="zora_mask_inside_eye" Format="ci8" Width="32" Height="32" Offset="0x9AF8" TlutOffset="0x61B8"/>
+        <Texture Name="gZoraMaskMouthTex" OutName="zora_mask_mouth" Format="ci8" Width="32" Height="32" Offset="0x9EF8" TlutOffset="0x61B8"/>
+        <Texture Name="gZoraMaskNoseTex" OutName="zora_mask_nose" Format="ci8" Width="8" Height="8" Offset="0xA2F8" TlutOffset="0x61B8"/>
+        <Texture Name="gZoraMaskSpotsTex" OutName="zora_mask_spots" Format="ci8" Width="16" Height="32" Offset="0xA338" TlutOffset="0x61B8"/>
         <Texture Name="gZoraMaskEyeTex" OutName="zora_mask_eye" Format="i8" Width="32" Height="32" Offset="0xA538" />
 
         <!-- Fierce Deity Mask-->
         <DList Name="gFierceDeityMaskDL" Offset="0xB260" />
         <Texture Name="gFierceDeityMaskTLUT" OutName="fierce_deity_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0xB6B0" />
-        <Texture Name="gFierceDeityMaskHairTex" OutName="fierce_deity_mask_hair" Format="ci8" Width="32" Height="32" Offset="0xB8B0" />
-        <Texture Name="gFierceDeityMaskEyesTex" OutName="fierce_deity_mask_eyes" Format="ci8" Width="64" Height="32" Offset="0xBCB0" />
-        <Texture Name="gFierceDeityMaskMouthTex" OutName="fierce_deity_mask_mouth" Format="ci8" Width="32" Height="16" Offset="0xC4B0" />
-        <Texture Name="gFierceDeityMaskEarTex" OutName="fierce_deity_mask_ear" Format="ci8" Width="16" Height="16" Offset="0xC6B0" />
+        <Texture Name="gFierceDeityMaskHairTex" OutName="fierce_deity_mask_hair" Format="ci8" Width="32" Height="32" Offset="0xB8B0" TlutOffset="0xB6B0"/>
+        <Texture Name="gFierceDeityMaskEyesTex" OutName="fierce_deity_mask_eyes" Format="ci8" Width="64" Height="32" Offset="0xBCB0" TlutOffset="0xB6B0"/>
+        <Texture Name="gFierceDeityMaskMouthTex" OutName="fierce_deity_mask_mouth" Format="ci8" Width="32" Height="16" Offset="0xC4B0" TlutOffset="0xB6B0"/>
+        <Texture Name="gFierceDeityMaskEarTex" OutName="fierce_deity_mask_ear" Format="ci8" Width="16" Height="16" Offset="0xC6B0" TlutOffset="0xB6B0"/>
         <Texture Name="gFierceDeityMaskHatTex" OutName="fierce_deity_mask_hat" Format="rgba16" Width="8" Height="8" Offset="0xC7B0" />
 
-        <Texture Name="gameplay_keep_Tex_00C830" OutName="tex_00C830" Format="rgba16" Width="16" Height="16" Offset="0xC830" />
-        <Texture Name="gameplay_keep_Tex_00CA30" OutName="tex_00CA30" Format="rgba16" Width="16" Height="16" Offset="0xCA30" />
+        <Texture Name="gHilite1Tex" OutName="hilite_1" Format="rgba16" Width="16" Height="16" Offset="0xC830" />
+        <Texture Name="gHilite2Tex" OutName="hilite_2" Format="rgba16" Width="16" Height="16" Offset="0xCA30" />
         <!-- 2S2H [Port] Additional entry for authentic overflowed texture usage. This entry has its offset off by "one pixel" due to ZAPD not allowing duplicates -->
-        <Texture Name="gameplay_keep_Tex_00CA30_Overflow" OutName="tex_00CA30_overflow" Format="rgba16" Width="32" Height="32" Offset="0xCA2E" />
+        <Texture Name="gHilite2Tex_Overflow" OutName="tex_00CA30_overflow" Format="rgba16" Width="32" Height="32" Offset="0xCA2E" />
 
         <!-- 2S2H [Port] - gDekuStickDL loads this as a 16x16 texture, despite it being 8x8. We need to extract this extra 'garbage' data too -->
         <Texture Name="gDekuStickTex" OutName="deku_stick" Format="i8" Width="16" Height="16" Offset="0xCC30" />
@@ -844,16 +846,16 @@
         <Texture Name="gPinkDekuFlowerBaseLeafTex" OutName="pink_deku_flower_base_leaf" Format="rgba16" Width="32" Height="32" Offset="0x100C8" />
         <Texture Name="gGoldDekuFlowerPetalAndCenterTex" OutName="gold_deku_flower_petal_and_center" Format="rgba16" Width="16" Height="32" Offset="0x108C8" />
         <Texture Name="gGoldDekuFlowerBaseLeafTex" OutName="gold_deku_flower_base_leaf" Format="rgba16" Width="32" Height="32" Offset="0x10CC8" />
-        <Limb Name="gPinkDekuFlowerBaseLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BASE" Offset="0x114C8" />
-        <Limb Name="gPinkDekuFlowerCenterLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_CENTER" Offset="0x114D4" />
-        <Limb Name="gPinkDekuFlowerBackLeafLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_LEAF" Offset="0x114E0" />
-        <Limb Name="gPinkDekuFlowerFrontLeafLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_LEAF" Offset="0x114EC" />
-        <Limb Name="gPinkDekuFlowerFrontRightPetalLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_RIGHT_PETAL" Offset="0x114F8" />
-        <Limb Name="gPinkDekuFlowerBackRightPetalLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_RIGHT_PETAL" Offset="0x11504" />
-        <Limb Name="gPinkDekuFlowerRightLeafLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_RIGHT_LEAF" Offset="0x11510" />
-        <Limb Name="gPinkDekuFlowerFrontLeftPetalLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_LEFT_PETAL" Offset="0x1151C" />
-        <Limb Name="gPinkDekuFlowerLeftLeafLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_LEFT_LEAF" Offset="0x11528" />
-        <Limb Name="gPinkDekuFlowerBackLeftPetalLimb" Type="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_LEFT_PETAL" Offset="0x11534" />
+        <Limb Name="gPinkDekuFlowerBaseLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BASE" Offset="0x114C8" />
+        <Limb Name="gPinkDekuFlowerCenterLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_CENTER" Offset="0x114D4" />
+        <Limb Name="gPinkDekuFlowerBackLeafLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_LEAF" Offset="0x114E0" />
+        <Limb Name="gPinkDekuFlowerFrontLeafLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_LEAF" Offset="0x114EC" />
+        <Limb Name="gPinkDekuFlowerFrontRightPetalLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_RIGHT_PETAL" Offset="0x114F8" />
+        <Limb Name="gPinkDekuFlowerBackRightPetalLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_RIGHT_PETAL" Offset="0x11504" />
+        <Limb Name="gPinkDekuFlowerRightLeafLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_RIGHT_LEAF" Offset="0x11510" />
+        <Limb Name="gPinkDekuFlowerFrontLeftPetalLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_FRONT_LEFT_PETAL" Offset="0x1151C" />
+        <Limb Name="gPinkDekuFlowerLeftLeafLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_LEFT_LEAF" Offset="0x11528" />
+        <Limb Name="gPinkDekuFlowerBackLeftPetalLimb" LimbType="Standard" EnumName="PINK_DEKU_FLOWER_LIMB_BACK_LEFT_PETAL" Offset="0x11534" />
         <Skeleton Name="gPinkDekuFlowerSkel" Type="Normal" LimbType="Standard" LimbNone="PINK_DEKU_FLOWER_LIMB_NONE" LimbMax="PINK_DEKU_FLOWER_LIMB_MAX" EnumName="PinkDekuFlowerLimb" Offset="0x11568" />
         <Animation Name="gDekuFlowerRustleAnim" Offset="0x117F8" /> <!-- Original name is "dnp_zawa" ("rustling") -->
         <Collision Name="gGoldDekuFlowerCol" Offset="0x11928" />
@@ -868,16 +870,16 @@
         <DList Name="gGoldDekuFlowerFrontRightPetalDL" Offset="0x12600" />
         <DList Name="gGoldDekuFlowerFrontPetalDL" Offset="0x12688" />
         <DList Name="gGoldDekuFlowerBackPetalDL" Offset="0x12710" />
-        <Limb Name="gGoldDekuFlowerBaseLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BASE" Offset="0x12798" />
-        <Limb Name="gGoldDekuFlowerCenterLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_CENTER" Offset="0x127A4" />
-        <Limb Name="gGoldDekuFlowerBackPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_PETAL" Offset="0x127B0" />
-        <Limb Name="gGoldDekuFlowerFrontPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_PETAL" Offset="0x127BC" />
-        <Limb Name="gGoldDekuFlowerFrontRightPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_RIGHT_PETAL" Offset="0x127C8" />
-        <Limb Name="gGoldDekuFlowerBackRightPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_RIGHT_PETAL" Offset="0x127D4" />
-        <Limb Name="gGoldDekuFlowerRightPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_RIGHT_PETAL" Offset="0x127E0" />
-        <Limb Name="gGoldDekuFlowerFrontLeftPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_LEFT_PETAL" Offset="0x127EC" />
-        <Limb Name="gGoldDekuFlowerLeftPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_LEFT_PETAL" Offset="0x127F8" />
-        <Limb Name="gGoldDekuFlowerBackLeftPetalLimb" Type="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_LEFT_PETAL" Offset="0x12804" />
+        <Limb Name="gGoldDekuFlowerBaseLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BASE" Offset="0x12798" />
+        <Limb Name="gGoldDekuFlowerCenterLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_CENTER" Offset="0x127A4" />
+        <Limb Name="gGoldDekuFlowerBackPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_PETAL" Offset="0x127B0" />
+        <Limb Name="gGoldDekuFlowerFrontPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_PETAL" Offset="0x127BC" />
+        <Limb Name="gGoldDekuFlowerFrontRightPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_RIGHT_PETAL" Offset="0x127C8" />
+        <Limb Name="gGoldDekuFlowerBackRightPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_RIGHT_PETAL" Offset="0x127D4" />
+        <Limb Name="gGoldDekuFlowerRightPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_RIGHT_PETAL" Offset="0x127E0" />
+        <Limb Name="gGoldDekuFlowerFrontLeftPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_FRONT_LEFT_PETAL" Offset="0x127EC" />
+        <Limb Name="gGoldDekuFlowerLeftPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_LEFT_PETAL" Offset="0x127F8" />
+        <Limb Name="gGoldDekuFlowerBackLeftPetalLimb" LimbType="Standard" EnumName="GOLD_DEKU_FLOWER_LIMB_BACK_LEFT_PETAL" Offset="0x12804" />
         <Skeleton Name="gGoldDekuFlowerSkel" Type="Flex" LimbType="Standard" LimbNone="GOLD_DEKU_FLOWER_LIMB_NONE" LimbMax="GOLD_DEKU_FLOWER_LIMB_MAX" EnumName="GoldDekuFlowerLimb" Offset="0x12838" />
 
         <Animation Name="gameplay_keep_Anim_012860" Offset="0x128B0" />
@@ -886,11 +888,11 @@
         <Texture Name="gameplay_keep_Tex_0138D0" OutName="tex_0138D0" Format="rgba16" Width="32" Height="16" Offset="0x13920" />
         <DList Name="gameplay_keep_DL_013FF0" Offset="0x14040" />
         <DList Name="gameplay_keep_DL_014370" Offset="0x143C0" />
-        <Limb Name="gameplay_keep_Lodlimb_014510" Type="LOD" EnumName="ARROW_LIMB_1" Offset="0x14560" />
-        <Limb Name="gameplay_keep_Lodlimb_014520" Type="LOD" EnumName="ARROW_LIMB_2" Offset="0x14570" />
-        <Limb Name="gameplay_keep_Lodlimb_014530" Type="LOD" EnumName="ARROW_LIMB_3" Offset="0x14580" />
-        <Limb Name="gameplay_keep_Lodlimb_014540" Type="LOD" EnumName="ARROW_LIMB_4" Offset="0x14590" />
-        <Skeleton Name="gameplay_keep_Skel_014560" Type="Normal" LimbType="Standard" LimbNone="ARROW_LIMB_NONE" LimbMax="ARROW_LIMB_MAX" EnumName="ArrowLimb" Offset="0x145B0" />
+        <Limb Name="gameplay_keep_Lodlimb_014510" LimbType="LOD" EnumName="ARROW_LIMB_1" Offset="0x14560" />
+        <Limb Name="gameplay_keep_Lodlimb_014520" LimbType="LOD" EnumName="ARROW_LIMB_2" Offset="0x14570" />
+        <Limb Name="gameplay_keep_Lodlimb_014530" LimbType="LOD" EnumName="ARROW_LIMB_3" Offset="0x14580" />
+        <Limb Name="gameplay_keep_Lodlimb_014540" LimbType="LOD" EnumName="ARROW_LIMB_4" Offset="0x14590" />
+        <Skeleton Name="gameplay_keep_Skel_014560" Type="Normal" LimbType="LOD" LimbNone="ARROW_LIMB_NONE" LimbMax="ARROW_LIMB_MAX" EnumName="ArrowLimb" Offset="0x145B0" />
         <Texture Name="gameplay_keep_Tex_014570" OutName="tex_014570" Format="rgba32" Width="16" Height="32" Offset="0x145C0" />
 
         <!-- Bomb -->
@@ -954,10 +956,10 @@
         <DList Name="gameplay_keep_DL_0221B8" Offset="0x22208" />
         <Texture Name="gameplay_keep_Tex_0222E8" OutName="tex_0222E8" Format="i4" Width="32" Height="64" Offset="0x22338" />
         <Texture Name="gameplay_keep_Tex_0226E8" OutName="tex_0226E8" Format="i8" Width="8" Height="128" Offset="0x22738" />
-        <Limb Name="gameplay_keep_Standardlimb_022AE8" Type="Standard" EnumName="DOOR_LIMB_1" Offset="0x22B38" />
-        <Limb Name="gameplay_keep_Standardlimb_022AF4" Type="Standard" EnumName="DOOR_LIMB_2" Offset="0x22B44" />
-        <Limb Name="gameplay_keep_Standardlimb_022B00" Type="Standard" EnumName="DOOR_LIMB_3" Offset="0x22B50" />
-        <Limb Name="gameplay_keep_Standardlimb_022B0C" Type="Standard" EnumName="DOOR_LIMB_4" Offset="0x22B5C" />
+        <Limb Name="gameplay_keep_Standardlimb_022AE8" LimbType="Standard" EnumName="DOOR_LIMB_1" Offset="0x22B38" />
+        <Limb Name="gameplay_keep_Standardlimb_022AF4" LimbType="Standard" EnumName="DOOR_LIMB_2" Offset="0x22B44" />
+        <Limb Name="gameplay_keep_Standardlimb_022B00" LimbType="Standard" EnumName="DOOR_LIMB_3" Offset="0x22B50" />
+        <Limb Name="gameplay_keep_Standardlimb_022B0C" LimbType="Standard" EnumName="DOOR_LIMB_4" Offset="0x22B5C" />
         <Skeleton Name="gDoorSkel" Type="Normal" LimbType="Standard" LimbNone="DOOR_LIMB_NONE" LimbMax="DOOR_LIMB_MAX" EnumName="DoorLimb" Offset="0x22B78" />
         <Animation Name="gDoorFierceDeityZoraOpenRightAnim" Offset="0x22C38" />
         <Animation Name="gDoorGoronOpenLeftAnim" Offset="0x22CF8" />
@@ -1009,12 +1011,12 @@
         <DList Name="gameplay_keep_DL_029CF0" Offset="0x29D40" />
         <DList Name="gameplay_keep_DL_029D10" Offset="0x29D60" /> <!-- Used in ObJ_Kinoko to radiate a purple glow -->
         <Texture Name="gameplay_keep_Tex_029EF8" OutName="tex_029EF8" Format="rgba16" Width="32" Height="64" Offset="0x29F48" />
-        <Limb Name="gameplay_keep_Standardlimb_02AEF8" Type="Standard" EnumName="FAIRY_LIMB_1" Offset="0x2AF48" />
-        <Limb Name="gameplay_keep_Standardlimb_02AF04" Type="Standard" EnumName="FAIRY_LIMB_2" Offset="0x2AF54" />
-        <Limb Name="gameplay_keep_Standardlimb_02AF10" Type="Standard" EnumName="FAIRY_LIMB_3" Offset="0x2AF60" />
-        <Limb Name="gameplay_keep_Standardlimb_02AF1C" Type="Standard" EnumName="FAIRY_LIMB_4" Offset="0x2AF6C" />
-        <Limb Name="gameplay_keep_Standardlimb_02AF28" Type="Standard" EnumName="FAIRY_LIMB_5" Offset="0x2AF78" />
-        <Limb Name="gameplay_keep_Standardlimb_02AF34" Type="Standard" EnumName="FAIRY_LIMB_6" Offset="0x2AF84" />
+        <Limb Name="gameplay_keep_Standardlimb_02AEF8" LimbType="Standard" EnumName="FAIRY_LIMB_1" Offset="0x2AF48" />
+        <Limb Name="gameplay_keep_Standardlimb_02AF04" LimbType="Standard" EnumName="FAIRY_LIMB_2" Offset="0x2AF54" />
+        <Limb Name="gameplay_keep_Standardlimb_02AF10" LimbType="Standard" EnumName="FAIRY_LIMB_3" Offset="0x2AF60" />
+        <Limb Name="gameplay_keep_Standardlimb_02AF1C" LimbType="Standard" EnumName="FAIRY_LIMB_4" Offset="0x2AF6C" />
+        <Limb Name="gameplay_keep_Standardlimb_02AF28" LimbType="Standard" EnumName="FAIRY_LIMB_5" Offset="0x2AF78" />
+        <Limb Name="gameplay_keep_Standardlimb_02AF34" LimbType="Standard" EnumName="FAIRY_LIMB_6" Offset="0x2AF84" />
         <Skeleton Name="gameplay_keep_Skel_02AF58" Type="Flex" LimbType="Standard" LimbNone="FAIRY_LIMB_NONE" LimbMax="FAIRY_LIMB_MAX" EnumName="FairyLimb" Offset="0x2AFA8" />
         <Animation Name="gameplay_keep_Anim_02B2E8" Offset="0x2B338" />
 
@@ -1039,19 +1041,19 @@
         <TextureAnimation Name="gStrayFairyWoodfallTexAnim" Offset="0x2C958" />
         <TextureAnimation Name="gStrayFairyGreatBayTexAnim" Offset="0x2C9D0" />
         <TextureAnimation Name="gStrayFairyStoneTowerTexAnim" Offset="0x2CA48" />
-        <Limb Name="gStrayFairyRightFacingHeadLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_FACING_HEAD" Offset="0x2CA58" />
-        <Limb Name="gStrayFairyLeftWingLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_WING" Offset="0x2CA64" />
-        <Limb Name="gStrayFairyRightWingLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_WING" Offset="0x2CA70" />
-        <Limb Name="gStrayFairyGlowLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_GLOW" Offset="0x2CA7C" />
-        <Limb Name="gStrayFairyTorsoLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_TORSO" Offset="0x2CA88" />
-        <Limb Name="gStrayFairyRightArmLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_ARM" Offset="0x2CA94" />
-        <Limb Name="gStrayFairyPelvisAndLegsLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_PELVIS_AND_LEGS" Offset="0x2CAA0" />
-        <Limb Name="gStrayFairyLeftArmLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_ARM" Offset="0x2CAAC" />
-        <Limb Name="gStrayFairyLeftFacingHeadLimb" Type="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_FACING_HEAD" Offset="0x2CAB8" />
+        <Limb Name="gStrayFairyRightFacingHeadLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_FACING_HEAD" Offset="0x2CA58" />
+        <Limb Name="gStrayFairyLeftWingLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_WING" Offset="0x2CA64" />
+        <Limb Name="gStrayFairyRightWingLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_WING" Offset="0x2CA70" />
+        <Limb Name="gStrayFairyGlowLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_GLOW" Offset="0x2CA7C" />
+        <Limb Name="gStrayFairyTorsoLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_TORSO" Offset="0x2CA88" />
+        <Limb Name="gStrayFairyRightArmLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_RIGHT_ARM" Offset="0x2CA94" />
+        <Limb Name="gStrayFairyPelvisAndLegsLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_PELVIS_AND_LEGS" Offset="0x2CAA0" />
+        <Limb Name="gStrayFairyLeftArmLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_ARM" Offset="0x2CAAC" />
+        <Limb Name="gStrayFairyLeftFacingHeadLimb" LimbType="Standard" EnumName="STRAY_FAIRY_LIMB_LEFT_FACING_HEAD" Offset="0x2CAB8" />
         <Skeleton Name="gStrayFairySkel" Type="Flex" LimbType="Standard" LimbNone="STRAY_FAIRY_LIMB_NONE" LimbMax="STRAY_FAIRY_LIMB_MAX" EnumName="StrayFairyLimb" Offset="0x2CAE8" />
 
         <Texture Name="gameplay_keep_Tex_02CAB0" OutName="tex_02CAB0" Format="i4" Width="16" Height="16" Offset="0x2CB00" />
-        <Texture Name="gameplay_keep_Tex_02CB30" OutName="tex_02CB30" Format="i8" Width="16" Height="16" Offset="0x2CB80" />
+        <Texture Name="gUnknownCircle4Tex" OutName="unknown_circle_4" Format="i8" Width="16" Height="16" Offset="0x2CB80" />
         <Texture Name="gameplay_keep_Tex_02CC30" OutName="tex_02CC30" Format="rgba16" Width="32" Height="32" Offset="0x2CC80" />
         <Texture Name="gameplay_keep_Tex_02D430" OutName="tex_02D430" Format="i8" Width="32" Height="64" Offset="0x2D480" />
         <Texture Name="gameplay_keep_Tex_02DC30" OutName="tex_02DC30" Format="i8" Width="32" Height="64" Offset="0x2DC80" />
@@ -1062,12 +1064,12 @@
         <DList Name="gameplay_keep_DL_02EAB8" Offset="0x2EB08" />
         <Texture Name="gameplay_keep_Tex_02EBC8" OutName="tex_02EBC8" Format="rgba16" Width="16" Height="16" Offset="0x2EC18" />
         <Texture Name="gameplay_keep_Tex_02EDC8" OutName="tex_02EDC8" Format="rgba16" Width="32" Height="8" Offset="0x2EE18" />
-        <Limb Name="gameplay_keep_Standardlimb_02EFC8" Type="Standard" EnumName="FISH_LIMB_1" Offset="0x2F018" />
-        <Limb Name="gameplay_keep_Standardlimb_02EFD4" Type="Standard" EnumName="FISH_LIMB_2" Offset="0x2F024" />
-        <Limb Name="gameplay_keep_Standardlimb_02EFE0" Type="Standard" EnumName="FISH_LIMB_3" Offset="0x2F030" />
-        <Limb Name="gameplay_keep_Standardlimb_02EFEC" Type="Standard" EnumName="FISH_LIMB_4" Offset="0x2F03C" />
-        <Limb Name="gameplay_keep_Standardlimb_02EFF8" Type="Standard" EnumName="FISH_LIMB_5" Offset="0x2F048" />
-        <Limb Name="gameplay_keep_Standardlimb_02F004" Type="Standard" EnumName="FISH_LIMB_6" Offset="0x2F054" />
+        <Limb Name="gameplay_keep_Standardlimb_02EFC8" LimbType="Standard" EnumName="FISH_LIMB_1" Offset="0x2F018" />
+        <Limb Name="gameplay_keep_Standardlimb_02EFD4" LimbType="Standard" EnumName="FISH_LIMB_2" Offset="0x2F024" />
+        <Limb Name="gameplay_keep_Standardlimb_02EFE0" LimbType="Standard" EnumName="FISH_LIMB_3" Offset="0x2F030" />
+        <Limb Name="gameplay_keep_Standardlimb_02EFEC" LimbType="Standard" EnumName="FISH_LIMB_4" Offset="0x2F03C" />
+        <Limb Name="gameplay_keep_Standardlimb_02EFF8" LimbType="Standard" EnumName="FISH_LIMB_5" Offset="0x2F048" />
+        <Limb Name="gameplay_keep_Standardlimb_02F004" LimbType="Standard" EnumName="FISH_LIMB_6" Offset="0x2F054" />
         <Skeleton Name="gameplay_keep_Skel_02F028" Type="Flex" LimbType="Standard" LimbNone="FISH_LIMB_NONE" LimbMax="FISH_LIMB_MAX" EnumName="FishLimb" Offset="0x2F078" />
         <Animation Name="gameplay_keep_Anim_02F0EC" Offset="0x2F13C" />
         <Texture Name="gEffShockwaveTex" OutName="eff_shockwave" Format="i8" Width="64" Height="64" Offset="0x2F150" />
@@ -1114,7 +1116,7 @@
         <Texture Name="gEffHitmarkRed8Tex" OutName="eff_hitmark_red_8" Format="i4" Width="32" Height="24" Offset="0x355E0" />
         <DList Name="gEffHitmarkDL" Offset="0x35760" />
         <Texture Name="gameplay_keep_Tex_0357B0" OutName="tex_0357B0" Format="ia8" Width="32" Height="64" Offset="0x35800" />
-        <Texture Name="gameplay_keep_Tex_035FB0" OutName="tex_035FB0" Format="ia8" Width="32" Height="64" Offset="0x36000" />
+        <Texture Name="gEffFleckTex" OutName="eff_tex" Format="ia8" Width="32" Height="64" Offset="0x36000" />
         <Texture Name="gEffWaterRippleTex" OutName="eff_water_ripple" Format="i8" Width="64" Height="64" Offset="0x36800" />
         <DList Name="gEffWaterRippleDL" Offset="0x37800" />
         <DList Name="gEffSparkDL" Offset="0x378A0" />
@@ -1167,24 +1169,24 @@
         <!-- Goron Elegy of Emptiness Shell -->
         <DList Name="gElegyShellGoronDL" Offset="0x48E40" /> <!-- Original name is "pgs_zo_model" -->
         <Texture Name="gElegyShellGoronTLUT" OutName="elegy_shell_goron_tlut" Format="rgba16" Width="16" Height="16" Offset="0x4A4B0" />
-        <Texture Name="gElegyShellGoronSkinTex" OutName="elegy_shell_goron_skin" Format="ci8" Width="16" Height="16" Offset="0x4A6B0" />
-        <Texture Name="gElegyShellGoronHairTex" OutName="elegy_shell_goron_hair" Format="ci8" Width="16" Height="32" Offset="0x4A7B0" />
-        <Texture Name="gElegyShellGoronSideburnsAndBeardTex" OutName="elegy_shell_goron_sideburns_and_beard" Format="ci8" Width="16" Height="16" Offset="0x4A9B0" />
-        <Texture Name="gElegyShellGoronNostrilTex" OutName="elegy_shell_goron_nostril" Format="ci8" Width="8" Height="8" Offset="0x4AAB0" />
-        <Texture Name="gElegyShellGoronLipsTex" OutName="elegy_shell_goron_lips" Format="ci8" Width="8" Height="8" Offset="0x4AAF0" />
-        <Texture Name="gElegyShellGoronGlovePalmTex" OutName="elegy_shell_goron_glove_palm" Format="ci8" Width="16" Height="16" Offset="0x4AB30" />
-        <Texture Name="gElegyShellGoronGloveBackTex" OutName="elegy_shell_goron_glove_back" Format="ci8" Width="8" Height="16" Offset="0x4AC30" />
-        <Texture Name="gElegyShellGoronFingerAndToeTex" OutName="elegy_shell_goron_finger_and_toe" Format="ci8" Width="8" Height="16" Offset="0x4ACB0" />
-        <Texture Name="gElegyShellGoronSandalTopAndSideTex" OutName="elegy_shell_goron_sandal_top_and_side" Format="ci8" Width="8" Height="8" Offset="0x4AD30" />
-        <Texture Name="gElegyShellGoronChestTex" OutName="elegy_shell_goron_chest" Format="ci8" Width="32" Height="32" Offset="0x4AD70" />
-        <Texture Name="gElegyShellGoronBackTex" OutName="elegy_shell_goron_back" Format="ci8" Width="32" Height="64" Offset="0x4B170" />
-        <Texture Name="gElegyShellGoronGoronsRubyTattooTex" OutName="elegy_shell_goron_gorons_ruby_tattoo" Format="ci8" Width="32" Height="64" Offset="0x4B970" />
-        <Texture Name="gElegyShellGoronTribalTattooTex" OutName="elegy_shell_goron_tribal_tattoo" Format="ci8" Width="32" Height="64" Offset="0x4C170" />
-        <Texture Name="gElegyShellGoronLoinclothTex" OutName="elegy_shell_goron_loincloth" Format="ci8" Width="8" Height="16" Offset="0x4C970" />
-        <Texture Name="gElegyShellGoronEyeTex" OutName="elegy_shell_goron_eye" Format="ci8" Width="32" Height="32" Offset="0x4C9F0" />
+        <Texture Name="gElegyShellGoronSkinTex" OutName="elegy_shell_goron_skin" Format="ci8" Width="16" Height="16" Offset="0x4A6B0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronHairTex" OutName="elegy_shell_goron_hair" Format="ci8" Width="16" Height="32" Offset="0x4A7B0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronSideburnsAndBeardTex" OutName="elegy_shell_goron_sideburns_and_beard" Format="ci8" Width="16" Height="16" Offset="0x4A9B0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronNostrilTex" OutName="elegy_shell_goron_nostril" Format="ci8" Width="8" Height="8" Offset="0x4AAB0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronLipsTex" OutName="elegy_shell_goron_lips" Format="ci8" Width="8" Height="8" Offset="0x4AAF0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronGlovePalmTex" OutName="elegy_shell_goron_glove_palm" Format="ci8" Width="16" Height="16" Offset="0x4AB30" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronGloveBackTex" OutName="elegy_shell_goron_glove_back" Format="ci8" Width="8" Height="16" Offset="0x4AC30" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronFingerAndToeTex" OutName="elegy_shell_goron_finger_and_toe" Format="ci8" Width="8" Height="16" Offset="0x4ACB0" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronSandalTopAndSideTex" OutName="elegy_shell_goron_sandal_top_and_side" Format="ci8" Width="8" Height="8" Offset="0x4AD30" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronChestTex" OutName="elegy_shell_goron_chest" Format="ci8" Width="32" Height="32" Offset="0x4AD70" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronBackTex" OutName="elegy_shell_goron_back" Format="ci8" Width="32" Height="64" Offset="0x4B170" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronGoronsRubyTattooTex" OutName="elegy_shell_goron_gorons_ruby_tattoo" Format="ci8" Width="32" Height="64" Offset="0x4B970" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronTribalTattooTex" OutName="elegy_shell_goron_tribal_tattoo" Format="ci8" Width="32" Height="64" Offset="0x4C170" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronLoinclothTex" OutName="elegy_shell_goron_loincloth" Format="ci8" Width="8" Height="16" Offset="0x4C970" TlutOffset="0x4A4B0"/>
+        <Texture Name="gElegyShellGoronEyeTex" OutName="elegy_shell_goron_eye" Format="ci8" Width="32" Height="32" Offset="0x4C9F0" TlutOffset="0x4A4B0"/>
         <Texture Name="gElegyShellGoronScarTex" OutName="elegy_shell_goron_scar" Format="rgba16" Width="32" Height="64" Offset="0x4CDF0" />
         <Texture Name="gElegyShellGoronNecklaceTex" OutName="elegy_shell_goron_necklace" Format="i8" Width="32" Height="32" Offset="0x4DDF0" />
-        <Texture Name="gElegyShellGoronPlatformTex" OutName="elegy_shell_goron_platform" Format="ci8" Width="8" Height="16" Offset="0x4E1F0" />
+        <Texture Name="gElegyShellGoronPlatformTex" OutName="elegy_shell_goron_platform" Format="ci8" Width="8" Height="16" Offset="0x4E1F0" TlutOffset="0x4A4B0"/>
 
         <Texture Name="gHookshotReticleTex" OutName="tex_04E220" Format="i8" Width="64" Height="64" Offset="0x4E270" />
         <DList Name="gHookshotReticleDL" Offset="0x4F2A0" /> <!-- Original name might be "pointer_modelT" -->
@@ -1227,29 +1229,29 @@
         <DList Name="gameplay_keep_DL_051C60" Offset="0x51CB0" />
         <Texture Name="gameplay_keep_Tex_051D30" OutName="tex_051D30" Format="rgba16" Width="16" Height="64" Offset="0x51D80" />
         <Texture Name="gameplay_keep_Tex_052530" OutName="tex_052530" Format="rgba16" Width="8" Height="16" Offset="0x52580" />
-        <Limb Name="gameplay_keep_Standardlimb_052630" Type="Standard" EnumName="BUG_LIMB_01" Offset="0x52680" />
-        <Limb Name="gameplay_keep_Standardlimb_05263C" Type="Standard" EnumName="BUG_LIMB_02" Offset="0x5268C" />
-        <Limb Name="gameplay_keep_Standardlimb_052648" Type="Standard" EnumName="BUG_LIMB_03" Offset="0x52698" />
-        <Limb Name="gameplay_keep_Standardlimb_052654" Type="Standard" EnumName="BUG_LIMB_04" Offset="0x526A4" />
-        <Limb Name="gameplay_keep_Standardlimb_052660" Type="Standard" EnumName="BUG_LIMB_05" Offset="0x526B0" />
-        <Limb Name="gameplay_keep_Standardlimb_05266C" Type="Standard" EnumName="BUG_LIMB_06" Offset="0x526BC" />
-        <Limb Name="gameplay_keep_Standardlimb_052678" Type="Standard" EnumName="BUG_LIMB_07" Offset="0x526C8" />
-        <Limb Name="gameplay_keep_Standardlimb_052684" Type="Standard" EnumName="BUG_LIMB_08" Offset="0x526D4" />
-        <Limb Name="gameplay_keep_Standardlimb_052690" Type="Standard" EnumName="BUG_LIMB_09" Offset="0x526E0" />
-        <Limb Name="gameplay_keep_Standardlimb_05269C" Type="Standard" EnumName="BUG_LIMB_0A" Offset="0x526EC" />
-        <Limb Name="gameplay_keep_Standardlimb_0526A8" Type="Standard" EnumName="BUG_LIMB_0B" Offset="0x526F8" />
-        <Limb Name="gameplay_keep_Standardlimb_0526B4" Type="Standard" EnumName="BUG_LIMB_0C" Offset="0x52704" />
-        <Limb Name="gameplay_keep_Standardlimb_0526C0" Type="Standard" EnumName="BUG_LIMB_0D" Offset="0x52710" />
-        <Limb Name="gameplay_keep_Standardlimb_0526CC" Type="Standard" EnumName="BUG_LIMB_0E" Offset="0x5271C" />
-        <Limb Name="gameplay_keep_Standardlimb_0526D8" Type="Standard" EnumName="BUG_LIMB_0F" Offset="0x52728" />
-        <Limb Name="gameplay_keep_Standardlimb_0526E4" Type="Standard" EnumName="BUG_LIMB_10" Offset="0x52734" />
-        <Limb Name="gameplay_keep_Standardlimb_0526F0" Type="Standard" EnumName="BUG_LIMB_11" Offset="0x52740" />
-        <Limb Name="gameplay_keep_Standardlimb_0526FC" Type="Standard" EnumName="BUG_LIMB_12" Offset="0x5274C" />
-        <Limb Name="gameplay_keep_Standardlimb_052708" Type="Standard" EnumName="BUG_LIMB_13" Offset="0x52758" />
-        <Limb Name="gameplay_keep_Standardlimb_052714" Type="Standard" EnumName="BUG_LIMB_14" Offset="0x52764" />
-        <Limb Name="gameplay_keep_Standardlimb_052720" Type="Standard" EnumName="BUG_LIMB_15" Offset="0x52770" />
-        <Limb Name="gameplay_keep_Standardlimb_05272C" Type="Standard" EnumName="BUG_LIMB_16" Offset="0x5277C" />
-        <Limb Name="gameplay_keep_Standardlimb_052738" Type="Standard" EnumName="BUG_LIMB_17" Offset="0x52788" />
+        <Limb Name="gameplay_keep_Standardlimb_052630" LimbType="Standard" EnumName="BUG_LIMB_01" Offset="0x52680" />
+        <Limb Name="gameplay_keep_Standardlimb_05263C" LimbType="Standard" EnumName="BUG_LIMB_02" Offset="0x5268C" />
+        <Limb Name="gameplay_keep_Standardlimb_052648" LimbType="Standard" EnumName="BUG_LIMB_03" Offset="0x52698" />
+        <Limb Name="gameplay_keep_Standardlimb_052654" LimbType="Standard" EnumName="BUG_LIMB_04" Offset="0x526A4" />
+        <Limb Name="gameplay_keep_Standardlimb_052660" LimbType="Standard" EnumName="BUG_LIMB_05" Offset="0x526B0" />
+        <Limb Name="gameplay_keep_Standardlimb_05266C" LimbType="Standard" EnumName="BUG_LIMB_06" Offset="0x526BC" />
+        <Limb Name="gameplay_keep_Standardlimb_052678" LimbType="Standard" EnumName="BUG_LIMB_07" Offset="0x526C8" />
+        <Limb Name="gameplay_keep_Standardlimb_052684" LimbType="Standard" EnumName="BUG_LIMB_08" Offset="0x526D4" />
+        <Limb Name="gameplay_keep_Standardlimb_052690" LimbType="Standard" EnumName="BUG_LIMB_09" Offset="0x526E0" />
+        <Limb Name="gameplay_keep_Standardlimb_05269C" LimbType="Standard" EnumName="BUG_LIMB_0A" Offset="0x526EC" />
+        <Limb Name="gameplay_keep_Standardlimb_0526A8" LimbType="Standard" EnumName="BUG_LIMB_0B" Offset="0x526F8" />
+        <Limb Name="gameplay_keep_Standardlimb_0526B4" LimbType="Standard" EnumName="BUG_LIMB_0C" Offset="0x52704" />
+        <Limb Name="gameplay_keep_Standardlimb_0526C0" LimbType="Standard" EnumName="BUG_LIMB_0D" Offset="0x52710" />
+        <Limb Name="gameplay_keep_Standardlimb_0526CC" LimbType="Standard" EnumName="BUG_LIMB_0E" Offset="0x5271C" />
+        <Limb Name="gameplay_keep_Standardlimb_0526D8" LimbType="Standard" EnumName="BUG_LIMB_0F" Offset="0x52728" />
+        <Limb Name="gameplay_keep_Standardlimb_0526E4" LimbType="Standard" EnumName="BUG_LIMB_10" Offset="0x52734" />
+        <Limb Name="gameplay_keep_Standardlimb_0526F0" LimbType="Standard" EnumName="BUG_LIMB_11" Offset="0x52740" />
+        <Limb Name="gameplay_keep_Standardlimb_0526FC" LimbType="Standard" EnumName="BUG_LIMB_12" Offset="0x5274C" />
+        <Limb Name="gameplay_keep_Standardlimb_052708" LimbType="Standard" EnumName="BUG_LIMB_13" Offset="0x52758" />
+        <Limb Name="gameplay_keep_Standardlimb_052714" LimbType="Standard" EnumName="BUG_LIMB_14" Offset="0x52764" />
+        <Limb Name="gameplay_keep_Standardlimb_052720" LimbType="Standard" EnumName="BUG_LIMB_15" Offset="0x52770" />
+        <Limb Name="gameplay_keep_Standardlimb_05272C" LimbType="Standard" EnumName="BUG_LIMB_16" Offset="0x5277C" />
+        <Limb Name="gameplay_keep_Standardlimb_052738" LimbType="Standard" EnumName="BUG_LIMB_17" Offset="0x52788" />
         <Skeleton Name="gameplay_keep_Skel_0527A0" Type="Normal" LimbType="Standard" LimbNone="BUG_LIMB_NONE" LimbMax="BUG_LIMB_MAX" EnumName="BugLimb" Offset="0x527F0" />
         <DList Name="gKakeraLeafMiddleDL" Offset="0x52840" />
         <DList Name="gKakeraLeafTipDL" Offset="0x52900" />
@@ -1517,17 +1519,17 @@
         <Texture Name="gElegyShellZoraGuitarTeethTex" OutName="elegy_shell_zora_guitar_teeth" Format="rgba16" Width="16" Height="16" Offset="0x8AA70" />
         <Texture Name="gElegyShellZoraGuitarSpinousTex" OutName="elegy_shell_zora_guitar_spinous" Format="rgba16" Width="16" Height="32" Offset="0x8AC70" />
         <Texture Name="gElegyShellZoraGuitarBoneTex" OutName="elegy_shell_zora_guitar_bone" Format="rgba16" Width="16" Height="32" Offset="0x8B070" />
-        <Texture Name="gElegyShellZoraSkinTex" OutName="elegy_shell_zora_skin" Format="ci8" Width="8" Height="8" Offset="0x8B470" />
-        <Texture Name="gElegyShellZoraSpottedSkinTex" OutName="elegy_shell_zora_spotted_skin" Format="ci8" Width="32" Height="32" Offset="0x8B4B0" />
-        <Texture Name="gElegyShellZoraFingersTex" OutName="elegy_shell_zora_fingers" Format="ci8" Width="16" Height="16" Offset="0x8B8B0" />
-        <Texture Name="gElegyShellZoraBackAndHipSpottedSkinTex" OutName="elegy_shell_zora_back_and_hip_spotted_skin" Format="ci8" Width="32" Height="64" Offset="0x8B9B0" />
-        <Texture Name="gElegyShellZoraWristbandTex" OutName="elegy_shell_zora_wristband" Format="ci8" Width="8" Height="16" Offset="0x8C1B0" />
-        <Texture Name="gElegyShellZoraFinTex" OutName="elegy_shell_zora_fin" Format="ci8" Width="16" Height="16" Offset="0x8C230" />
-        <Texture Name="gElegyShellZoraEyeTex" OutName="elegy_shell_zora_eye" Format="ci8" Width="32" Height="32" Offset="0x8C330" />
-        <Texture Name="gElegyShellZoraMouthTex" OutName="elegy_shell_zora_mouth" Format="ci8" Width="32" Height="32" Offset="0x8C730" />
-        <Texture Name="gElegyShellZoraRibsTattooTex" OutName="elegy_shell_zora_ribs_tattoo" Format="ci8" Width="16" Height="32" Offset="0x8CB30" />
-        <Texture Name="gElegyShellZoraArrowTattooTex" OutName="elegy_shell_zora_arrow_tattoo" Format="ci8" Width="16" Height="32" Offset="0x8CD30" />
-        <Texture Name="gElegyShellZoraRightShoulderTattooTex" OutName="elegy_shell_zora_right_shoulder_tattoo" Format="ci8" Width="32" Height="32" Offset="0x8CF30" />
+        <Texture Name="gElegyShellZoraSkinTex" OutName="elegy_shell_zora_skin" Format="ci8" Width="8" Height="8" Offset="0x8B470" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraSpottedSkinTex" OutName="elegy_shell_zora_spotted_skin" Format="ci8" Width="32" Height="32" Offset="0x8B4B0" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraFingersTex" OutName="elegy_shell_zora_fingers" Format="ci8" Width="16" Height="16" Offset="0x8B8B0" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraBackAndHipSpottedSkinTex" OutName="elegy_shell_zora_back_and_hip_spotted_skin" Format="ci8" Width="32" Height="64" Offset="0x8B9B0" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraWristbandTex" OutName="elegy_shell_zora_wristband" Format="ci8" Width="8" Height="16" Offset="0x8C1B0" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraFinTex" OutName="elegy_shell_zora_fin" Format="ci8" Width="16" Height="16" Offset="0x8C230" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraEyeTex" OutName="elegy_shell_zora_eye" Format="ci8" Width="32" Height="32" Offset="0x8C330" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraMouthTex" OutName="elegy_shell_zora_mouth" Format="ci8" Width="32" Height="32" Offset="0x8C730" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraRibsTattooTex" OutName="elegy_shell_zora_ribs_tattoo" Format="ci8" Width="16" Height="32" Offset="0x8CB30" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraArrowTattooTex" OutName="elegy_shell_zora_arrow_tattoo" Format="ci8" Width="16" Height="32" Offset="0x8CD30" TlutOffset="0x8A470"/>
+        <Texture Name="gElegyShellZoraRightShoulderTattooTex" OutName="elegy_shell_zora_right_shoulder_tattoo" Format="ci8" Width="32" Height="32" Offset="0x8CF30" TlutOffset="0x8A470"/>
         <Texture Name="gElegyShellZoraPlatformTex" OutName="elegy_shell_zora_platform" Format="rgba16" Width="8" Height="16" Offset="0x8D330" />
 
         <Texture Name="gameplay_keep_Tex_08D3E0" OutName="tex_08D3E0" Format="i8" Width="64" Height="32" Offset="0x8D430" />
