@@ -1122,6 +1122,9 @@ void BenMenu::AddEnhancements() {
                               "- Stack with Bunny Hood: Dashing while wearing the Bunny Hood combines both boosts to "
                               "run even faster.")
                      .ComboVec(&dashAfterRollOptions));
+    AddWidget(path, "Faster Hookshot", WIDGET_CVAR_CHECKBOX)
+        .CVar("gEnhancements.Player.FasterHookshot")
+        .Options(CheckboxOptions().Tooltip("Speeds up the time it takes for the Hookshot to fire and retract."));
     AddWidget(path, "Dpad Equips", WIDGET_CVAR_CHECKBOX)
         .CVar("gEnhancements.Dpad.DpadEquips")
         .Options(CheckboxOptions().Tooltip("Allows you to equip items to your D-pad."));
