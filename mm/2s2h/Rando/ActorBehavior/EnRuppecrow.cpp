@@ -18,7 +18,10 @@ void Rando::ActorBehavior::InitEnRuppecrowBehavior() {
 
         if (rupeeIndex != 19 && EnRuppecrow_CanSpawnBlueRupees(gPlayState) && (rupeeIndex % 5) == 4) {
             randoCheckId = (RandoCheckId)(RC_TERMINA_FIELD_GUAY_FAST_RUPEE_DROP_05 + rupeeIndex / 5);
-        } else {
+        }
+        // Fast drops will fallthrough to the normal drops when they've been collected or not shuffled.
+        if (randoCheckId == RC_UNKNOWN || !RANDO_SAVE_CHECKS[randoCheckId].shuffled ||
+            RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
             randoCheckId = (RandoCheckId)(RC_TERMINA_FIELD_GUAY_RUPEE_DROP_01 + rupeeIndex);
         }
 
