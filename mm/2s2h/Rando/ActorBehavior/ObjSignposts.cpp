@@ -103,7 +103,7 @@ std::map<std::tuple<s16, s16, s16, s16>, RandoCheckId> enKanbanMap = {
 	// Bean Grotto
     { { ACTOR_EN_KANBAN, SCENE_KAKUSIANA,        12, 5   }, RC_DEKU_PALACE_BEAN_GROTTO_SIGN },
 
-    // Duplicates in world state (poison/clear or winter/spring)
+    // Duplicates in world state (poison/clear, winter/spring, woods of mystery paths)
     // Southern Swamp
     { { ACTOR_EN_KANBAN, SCENE_20SICHITAI2,       0, 8  }, RC_SOUTHERN_SWAMP_TOURIST_DOCK_SIGN },
     { { ACTOR_EN_A_OBJ, SCENE_20SICHITAI2,        0, 10 }, RC_SOUTHERN_SWAMP_HAGS_ARROW_SIGN },	
@@ -111,6 +111,13 @@ std::map<std::tuple<s16, s16, s16, s16>, RandoCheckId> enKanbanMap = {
     { { ACTOR_EN_KANBAN, SCENE_20SICHITAI2,       2, 4  }, RC_SOUTHERN_SWAMP_WOODS_SIGN },
     { { ACTOR_EN_A_OBJ, SCENE_20SICHITAI2,        1, 4  }, RC_SOUTHERN_SWAMP_PALACE_ARROW_SIGN },	
     { { ACTOR_EN_KANBAN, SCENE_20SICHITAI2,       1, 3  }, RC_SOUTHERN_SWAMP_SPIDER_HOUSE_SIGN },
+    // Woods of Mystery
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      3, 12 }, RC_WOODS_OF_MYSTERY_SIGN_01 },
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      3, 13 }, RC_WOODS_OF_MYSTERY_SIGN_02 },
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      3, 14 }, RC_WOODS_OF_MYSTERY_SIGN_03 },
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      5, 14 }, RC_WOODS_OF_MYSTERY_SIGN_01 },
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      5, 13 }, RC_WOODS_OF_MYSTERY_SIGN_02 },
+    { { ACTOR_EN_KANBAN, SCENE_26SARUNOMORI,      5, 12 }, RC_WOODS_OF_MYSTERY_SIGN_03 },
     // Mountain Village
     { { ACTOR_EN_KANBAN, SCENE_10YUKIYAMANOMURA2, 0, 21 }, RC_MOUNTAIN_VILLAGE_SMITHY_SIGN },
     { { ACTOR_EN_KANBAN, SCENE_10YUKIYAMANOMURA2, 0, 22 }, RC_MOUNTAIN_VILLAGE_BRIDGE_SIGN },
@@ -129,8 +136,12 @@ std::map<std::tuple<s16, s16, s16, s16>, RandoCheckId> enKanbanMap = {
 void DrawKanban(Actor* actor, PlayState* play) {
     EnKanban_Draw(actor, play);
 
-    OPEN_DISPS(gPlayState->state.gfxCtx);
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
+    if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+        return;
+    }
+
+    OPEN_DISPS(gPlayState->state.gfxCtx);
     Matrix_Push();
     Matrix_Translate(actor->world.pos.x, actor->world.pos.y + 69.0f, actor->world.pos.z, MTXMODE_NEW);
     Matrix_RotateYS(actor->shape.rot.y, MTXMODE_APPLY);
@@ -143,8 +154,12 @@ void DrawKanban(Actor* actor, PlayState* play) {
 void DrawEnAObj(Actor* actor, PlayState* play) {
     EnAObj_Draw(actor, play);
 
-    OPEN_DISPS(gPlayState->state.gfxCtx);
     RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
+    if (!RANDO_SAVE_CHECKS[randoCheckId].shuffled || RANDO_SAVE_CHECKS[randoCheckId].cycleObtained) {
+        return;
+    }
+
+    OPEN_DISPS(gPlayState->state.gfxCtx);
     f32 yOffset = actor->params == 0 ? 70.0f : 62.0f;
     Matrix_Push();
     Matrix_Translate(actor->world.pos.x, actor->world.pos.y + yOffset, actor->world.pos.z, MTXMODE_NEW);
