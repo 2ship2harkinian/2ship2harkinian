@@ -1,6 +1,7 @@
 #include <libultraship/bridge/consolevariablebridge.h>
 #include "2s2h/GameInteractor/GameInteractor.h"
 #include "2s2h/ShipInit.hpp"
+#include "Rando/Rando.h"
 
 extern "C" {
 #include "variables.h"
@@ -12,7 +13,10 @@ extern "C" {
 
 void RegisterAutoBombersCode() {
     COND_ID_HOOK(OnActorUpdate, ACTOR_EN_BOMBERS2, CVAR, [](Actor* actor) {
-        if (gPlayState->msgCtx.currentTextId == 0x0729 && CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
+        if (gPlayState->msgCtx.currentTextId == 0x0729 && CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK) &&
+            (!IS_RANDO || !RANDO_SAVE_OPTIONS[RO_SHUFFLE_NOTEBOOK_ENTRIES] ||
+             CHECK_WEEKEVENTREG(WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_MET_BOMBERS) &&
+                 CHECK_WEEKEVENTREG(WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_LEARNED_SECRET_CODE))) {
             for (int i = 0; i < 5; i++) {
                 u8 digit = gSaveContext.save.saveInfo.bomberCode[i];
                 gPlayState->msgCtx.codeGuessDigits[i] = digit;
