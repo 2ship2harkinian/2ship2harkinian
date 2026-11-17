@@ -211,7 +211,7 @@ void Rando::ActorBehavior::InitSignpostBehavior() {
 
     COND_VB_SHOULD(VB_PLAYER_START_TALKING, shouldRegister, {
         Actor* talkActor = GET_PLAYER(gPlayState)->talkActor;
-        if (talkActor->id != ACTOR_EN_KANBAN && talkActor->id != ACTOR_EN_A_OBJ) {
+        if (talkActor == nullptr || (talkActor->id != ACTOR_EN_KANBAN && talkActor->id != ACTOR_EN_A_OBJ)) {
             return;
         }
         RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(talkActor);
