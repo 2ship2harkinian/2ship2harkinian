@@ -87,6 +87,10 @@ void GameInteractor_ExecuteOnGameCompletion() {
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnGameCompletion>();
 }
 
+void GameInteractor_ExecuteOnPlayerSceneExit(s32 nextEntrance) {
+    GameInteractor::Instance->ExecuteHooks<GameInteractor::OnPlayerSceneExit>(nextEntrance);
+}
+
 void GameInteractor_ExecuteOnSceneInit(s16 sceneId, s8 spawnNum) {
     SPDLOG_DEBUG("OnSceneInit: sceneId: {}, spawnNum: {}", sceneId, spawnNum);
     GameInteractor::Instance->ExecuteHooks<GameInteractor::OnSceneInit>(sceneId, spawnNum);
