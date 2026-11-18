@@ -76,7 +76,7 @@ jobs:
 
   build-macos:
     needs: generate-2ship-otr
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
     - name: Git Checkout
       uses: actions/checkout@v6
