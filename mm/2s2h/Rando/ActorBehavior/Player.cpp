@@ -52,6 +52,19 @@ void Rando::ActorBehavior::InitPlayerBehavior() {
         }
     });
 
+    COND_VB_SHOULD(VB_LIFT_ACTOR, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], {
+        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
+            *should = false;
+        }
+    });
+
+    COND_VB_SHOULD(VB_PUSH_DYNA_ACTOR, IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_GRAB], {
+        if (!Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB)) {
+            GET_PLAYER(gPlayState)->stateFlags2 &= ~PLAYER_STATE2_10;
+            *should = false;
+        }
+    });
+
     COND_VB_SHOULD(VB_SONG_AVAILABLE_TO_PLAY, IS_RANDO, {
         uint8_t* songIndex = va_arg(args, uint8_t*);
 

@@ -1456,6 +1456,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // varies
+    // ```
+    // #### `args`
+    // - None
+    VB_LIFT_ACTOR,
+
+    // #### `result`
+    // ```c
     // play->actorCtx.actorLists[ACTORCAT_EXPLOSIVES].length >= 3
     // ```
     // #### `args`
@@ -2082,6 +2090,14 @@ typedef enum {
     // #### `args`
     // - `*ObjOshihiki` or `*BgIkanaBlock`
     VB_PUSH_BLOCK_SET_TIMER,
+
+    // #### `result`
+    // ```c
+    // varies
+    // ```
+    // #### `args`
+    // - None
+    VB_PUSH_DYNA_ACTOR,
 
     // #### `result`
     // ```c

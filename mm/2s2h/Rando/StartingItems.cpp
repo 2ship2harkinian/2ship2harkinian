@@ -61,6 +61,10 @@ std::vector<RandoItemId> GetComputedStartingItems(RandoSaveInfo& randoSaveInfo) 
         startingItems.push_back(RI_ABILITY_SWIM);
     }
 
+    if (randoSaveInfo.randoSaveOptions[RO_SHUFFLE_GRAB] != RO_GENERIC_YES) {
+        startingItems.push_back(RI_ABILITY_GRAB);
+    }
+
     if (randoSaveInfo.randoSaveOptions[RO_SHUFFLE_ENEMY_SOULS] != RO_GENERIC_YES) {
         for (int i = RI_SOUL_ENEMY_ALIEN; i <= RI_SOUL_ENEMY_WOLFOS; i++) {
             startingItems.push_back((RandoItemId)i);
