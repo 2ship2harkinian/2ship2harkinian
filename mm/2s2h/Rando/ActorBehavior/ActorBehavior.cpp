@@ -84,6 +84,7 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnHgBehavior();
     Rando::ActorBehavior::InitEnInBehavior();
     Rando::ActorBehavior::InitEnInvadepohBehavior();
+    Rando::ActorBehavior::InitEnIshiBehavior();
     Rando::ActorBehavior::InitEnItem00Behavior();
     Rando::ActorBehavior::InitEnJgameTsnBehavior();
     Rando::ActorBehavior::InitEnJgBehavior();

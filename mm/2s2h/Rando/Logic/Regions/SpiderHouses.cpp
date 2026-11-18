@@ -149,6 +149,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SWAMP_SKULLTULA_POT_ROOM_WALL, CanKillEnemy(ACTOR_EN_SW)),
             CHECK(RC_SWAMP_SPIDER_HOUSE_JAR_ROOM_POT_06, true),
             CHECK(RC_SWAMP_SPIDER_HOUSE_JAR_ROOM_POT_07, true),
+            CHECK(RC_SWAMP_SPIDER_HOUSE_JAR_ROOM_ROCK, true),
             CHECK(RC_SWAMP_SPIDER_HOUSE_WONDER_ITEM_01, true),
             CHECK(RC_SWAMP_SPIDER_HOUSE_WONDER_ITEM_02, true),
             CHECK(RC_SWAMP_SPIDER_HOUSE_WONDER_ITEM_03, true),
@@ -216,6 +217,8 @@ static RegisterShipInitFunc initFunc([]() {
     Regions[RR_SWAMP_SPIDER_HOUSE_ENTRANCE] = RandoRegion{ .name = "Entrance", .sceneId = SCENE_KINSTA1,
         .checks = {
             CHECK(RC_SWAMP_SPIDER_HOUSE_MASK_OF_TRUTH, HAS_ENOUGH_SKULLTULA_TOKENS(SCENE_KINSTA1)),
+            CHECK(RC_SWAMP_SPIDER_HOUSE_ENTRANCE_ROCK_1, true),
+            CHECK(RC_SWAMP_SPIDER_HOUSE_ENTRANCE_ROCK_2, true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(SOUTHERN_SWAMP_POISONED, 8),      ENTRANCE(SWAMP_SPIDER_HOUSE, 0), true),

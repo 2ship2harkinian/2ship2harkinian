@@ -237,6 +237,14 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_IKANA_GRAVEYARD_GRASS_07, true),
             CHECK(RC_IKANA_GRAVEYARD_GRASS_08, true),
             CHECK(RC_IKANA_GRAVEYARD_GRASS_09, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_1, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_2, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_3, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_4, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_5, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_6, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_7, true),
+            CHECK(RC_IKANA_GRAVEYARD_RING_ROCK_8, true),
             // Rocks can be picked up and thrown at these:
             CHECK(RC_IKANA_GRAVEYARD_WONDER_ITEM_01, true),
             CHECK(RC_IKANA_GRAVEYARD_WONDER_ITEM_02, true),
@@ -270,6 +278,11 @@ static RegisterShipInitFunc initFunc([]() {
     Regions[RR_IKANA_GRAVEYARD_UPPER] = RandoRegion{ .name = "Upper", .sceneId = SCENE_BOTI,
         .checks = {
             CHECK(RC_IKANA_GRAVEYARD_CAPTAIN_MASK, CanKillEnemy(ACTOR_EN_SKB) && CanKillEnemy(ACTOR_EN_BSB)),
+            CHECK(RC_IKANA_GRAVEYARD_WALL_ROCK_1, HAS_ITEM(ITEM_BOMBCHU)),
+            CHECK(RC_IKANA_GRAVEYARD_WALL_ROCK_2, HAS_ITEM(ITEM_BOMBCHU)),
+            CHECK(RC_IKANA_GRAVEYARD_WALL_ROCK_3, HAS_ITEM(ITEM_BOMBCHU)),
+            CHECK(RC_IKANA_GRAVEYARD_WALL_ROCK_4, HAS_ITEM(ITEM_BOMBCHU)),
+            CHECK(RC_IKANA_GRAVEYARD_WALL_ROCK_5, HAS_ITEM(ITEM_BOMBCHU)),
             CHECK(RC_ENEMY_DROP_STALCHILD, CanKillEnemy(ACTOR_EN_SKB)),
             CHECK(RC_ENEMY_DROP_CAPTAIN_KEETA, CanKillEnemy(ACTOR_EN_SKB) && CanKillEnemy(ACTOR_EN_BSB)),
         },
@@ -308,6 +321,14 @@ static RegisterShipInitFunc initFunc([]() {
         .checks = {
             CHECK(RC_ROAD_TO_IKANA_POT, CAN_HOOK_SCARECROW),
             CHECK(RC_ROAD_TO_IKANA_STONE_MASK, HAS_ITEM(ITEM_LENS_OF_TRUTH) && HAS_MAGIC && HAS_BOTTLE && (CAN_ACCESS(RED_POTION_REFILL) || CAN_ACCESS(BLUE_POTION_REFILL))),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_1, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_2, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_3, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_4, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_5, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_6, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_7, true),
+            CHECK(RC_ROAD_TO_IKANA_SHIRO_ROCK_8, true),
             CHECK(RC_ENEMY_DROP_BLUE_BUBBLE, CanKillEnemy(ACTOR_EN_BB) && IS_NIGHT()), // Night only
             CHECK(RC_ENEMY_DROP_REAL_BOMBCHU, CanKillEnemy(ACTOR_EN_RAT) && IS_DAY()), // Day only
         },
@@ -475,6 +496,10 @@ static RegisterShipInitFunc initFunc([]() {
         },
     };
     Regions[RR_STONE_TOWER_INVERTED_LOWER] = RandoRegion{ .sceneId = SCENE_F41,
+        .checks = {
+            CHECK(RC_STONE_TOWER_INVERTED_ROCK_1, true),
+            CHECK(RC_STONE_TOWER_INVERTED_ROCK_2, true),
+        },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(STONE_TOWER, 1),                  ENTRANCE(STONE_TOWER_INVERTED, 0), HAS_ITEM(ITEM_BOW) && HAS_ITEM(ITEM_ARROW_LIGHT) && HAS_MAGIC),
         },

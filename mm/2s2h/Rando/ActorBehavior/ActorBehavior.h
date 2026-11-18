@@ -54,6 +54,7 @@ void InitEnGsBehavior();
 void InitEnHgBehavior();
 void InitEnInBehavior();
 void InitEnInvadepohBehavior();
+void InitEnIshiBehavior();
 void InitEnItem00Behavior();
 void InitEnJgameTsnBehavior();
 void InitEnJgBehavior();

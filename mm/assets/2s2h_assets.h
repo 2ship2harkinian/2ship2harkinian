@@ -432,6 +432,9 @@ static const ALIGN_ASSET(2) char gCrateTrackerIcon[] = dgCrateTrackerIcon;
 #define dgBarrelTrackerIcon "__OTR__textures/icons/gBarrelTrackerIcon"
 static const ALIGN_ASSET(2) char gBarrelTrackerIcon[] = dgBarrelTrackerIcon;
 
+#define dgRockTrackerIcon "__OTR__textures/icons/gRockTrackerIcon"
+static const ALIGN_ASSET(2) char gRockTrackerIcon[] = dgRockTrackerIcon;
+
 #define dgGiFlippersDL "__OTR__objects/object_ability_swim/gGiFlippersDL"
 static const ALIGN_ASSET(2) char gGiFlippersDL[] = dgGiFlippersDL;
 
@@ -485,3 +488,30 @@ static const ALIGN_ASSET(2) char gGiGreatBayKeyEmblemDL[] = dgGiGreatBayKeyEmble
 
 #define dgGiStoneTowerKeyEmblemDL "__OTR__objects/object_gi_key/gGiStoneTowerKeyEmblemDL"
 static const ALIGN_ASSET(2) char gGiStoneTowerKeyEmblemDL[] = dgGiStoneTowerKeyEmblemDL;
+
+#define dgRockMajorDL "__OTR__objects/object_ishi/gRockMajorDL"
+static const ALIGN_ASSET(2) char gRockMajorDL[] = dgRockMajorDL;
+
+#define dgRockTokenDL "__OTR__objects/object_ishi/gRockTokenDL"
+static const ALIGN_ASSET(2) char gRockTokenDL[] = dgRockTokenDL;
+
+#define dgRockLesserDL "__OTR__objects/object_ishi/gRockLesserDL"
+static const ALIGN_ASSET(2) char gRockLesserDL[] = dgRockLesserDL;
+
+#define dgRockHealthDL "__OTR__objects/object_ishi/gRockHealthDL"
+static const ALIGN_ASSET(2) char gRockHealthDL[] = dgRockHealthDL;
+
+#define dgRockJunkDL "__OTR__objects/object_ishi/gRockJunkDL"
+static const ALIGN_ASSET(2) char gRockJunkDL[] = dgRockJunkDL;
+
+#define dgRockMaskDL "__OTR__objects/object_ishi/gRockMaskDL"
+static const ALIGN_ASSET(2) char gRockMaskDL[] = dgRockMaskDL;
+
+#define dgRockBossKeyDL "__OTR__objects/object_ishi/gRockBossKeyDL"
+static const ALIGN_ASSET(2) char gRockBossKeyDL[] = dgRockBossKeyDL;
+
+#define dgRockSmallKeyDL "__OTR__objects/object_ishi/gRockSmallKeyDL"
+static const ALIGN_ASSET(2) char gRockSmallKeyDL[] = dgRockSmallKeyDL;
+
+#define dgRockFairyDL "__OTR__objects/object_ishi/gRockFairyDL"
+static const ALIGN_ASSET(2) char gRockFairyDL[] = dgRockFairyDL;
