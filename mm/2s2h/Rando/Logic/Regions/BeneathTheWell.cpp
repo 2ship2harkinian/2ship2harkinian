@@ -172,6 +172,10 @@ static RegisterShipInitFunc initFunc([]() {
         }
     };
     Regions[RR_BENEATH_THE_WELL_THREE_SPIKED_BARS] = RandoRegion{ .name = "Three Spikes Room", .sceneId = SCENE_REDEAD,
+        .checks = {
+            CHECK(RC_BENEATH_THE_WELL_THREE_SPIKED_BARS_DEKU_FLOWER_1, CAN_BE_DEKU),
+            CHECK(RC_BENEATH_THE_WELL_THREE_SPIKED_BARS_DEKU_FLOWER_2, CAN_BE_DEKU),
+        },
         .connections = {
             CONNECTION(RR_BENEATH_THE_WELL_ENTRANCE, true),
             CONNECTION(RR_BENEATH_THE_WELL_TWO_SPIKED_BARS, HAS_BOTTLE && (CAN_ACCESS(SPRING_WATER) || CAN_ACCESS(HOT_SPRING_WATER)) && HAS_ITEM(ITEM_MASK_GIBDO)),
