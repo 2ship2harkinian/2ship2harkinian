@@ -15,7 +15,7 @@ We are all humans volunteering our free time to make this port as good as it can
 - **Keep it small.** One change per PR, limited in scope. Anything over a thousand changed lines will very likely be closed immediately.
 - **Test it thoroughly.** This should be common sense, but you'd be surprised. I understand you may not be able to test Mac/Linux but they should at least be building successfully, if you run into issues here, just ask for help in the #development channel on Discord.
 - **Match the codebase.** Follow the patterns already established in the code you are touching. Consistency is key.
-- **Don't over-abstract.** If a block of code isn't used in three or more places, it probably doesn't need to be its own function.
+- **Don't over-abstract.** If a block of code isn't used in three or more places, it probably doesn't need to be its own function. Focus on readability and maintainability over minimizing lines of code or being clever.
 - **Comment sparingly.** A comment briefly explains why the code does something, or notes a side effect. Variable and function names should make the "what" clear on their own.
 - **Stand behind it.** You are responsible for what you submit. Don't open a PR if you have no intention of fixing its bugs, iterating on feedback, or answering questions about it.
 
