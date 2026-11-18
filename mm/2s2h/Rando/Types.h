@@ -15,6 +15,7 @@ typedef enum {
     RCTYPE_HEART,
     RCTYPE_BEEHIVE,
     RCTYPE_MINIGAME,
+    RCTYPE_NOTEBOOK_ENTRY,
     RCTYPE_NPC,
     RCTYPE_OWL,
     RCTYPE_POT,
@@ -27,7 +28,6 @@ typedef enum {
     RCTYPE_TINGLE_SHOP,
     RCTYPE_TREE,
     RCTYPE_WONDER_ITEM,
-    RCTYPE_NOTEBOOK_ENTRY,
     RCTYPE_MAX,
 } RandoCheckType;
 
