@@ -303,6 +303,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnElf`
+    VB_COLLECT_ELF,
+
+    // #### `result`
+    // ```c
     // this->collider.base.ocFlags1 & OC1_HIT
     // ```
     // #### `args`
@@ -1014,6 +1022,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - None
+    VB_GIVE_ITEM_FROM_TK,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*EnFsn`
     VB_GIVE_KEATON_MASK,
 
@@ -1046,8 +1062,24 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - `uint16_t flag`
+    VB_GIVE_NOTEBOOK_ENTRY,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - None
     VB_GIVE_PENDANT_OF_MEMORIES_FROM_KAFEI,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - None
+    VB_GIVE_POT_GAME_REWARD,
 
     // #### `result`
     // ```c
@@ -1195,6 +1227,13 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // INV_CONTENT(ITEM_MASK_BUNNY) == ITEM_MASK_BUNNY
+    // #### `args`
+    // - None
+    VB_HAVE_BUNNY_HOOD,
+
+    // #### `result`
+    // ```c
     // INV_CONTENT(ITEM_MASK_GARO) == ITEM_MASK_GARO
     // ```
     // #### `args`
@@ -1277,6 +1316,14 @@ typedef enum {
     // #### `args`
     // - `u8` (btn)
     VB_INTERFACE_LOAD_ITEM_ICON,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args
+    // - `*EnIshi`
+    VB_ISHI_DRAW_BE_OVERRIDDEN,
 
     // #### `result`
     // ```c
@@ -1668,6 +1715,16 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*ObjSwprize this`
+    // - `s32 i`
+    // - `**Actor collectible`
+    VB_OBJ_SWPRIZE_DROP_COLLECTIBLE,
+
+    // #### `result`
+    // ```c
     // (player->transformation == PLAYER_FORM_ZORA) && (play->msgCtx.ocarinaMode == OCARINA_MODE_EVENT) &&
     // (play->msgCtx.lastPlayedSong == OCARINA_SONG_NEW_WAVE)
     // ```
@@ -1995,6 +2052,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - None
+    VB_PLAYER_START_TALKING,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*Actor` (unused)
     VB_POST_CHAR02_LIMB,
 
@@ -2106,6 +2171,19 @@ typedef enum {
     // #### `args`
     // - None
     VB_RESET_PUTAWAY_TIMER,
+
+    // #### `result`
+    // ##### In `EnIshi_DropCollectable`:
+    // ```c
+    // collectableItem00Id >= ITEM00_RUPEE_GREEN
+    // ```
+    // ##### In `EnIshi_DropItem`:
+    // ```c
+    // (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) && !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor)
+    // ```
+    // #### `args`
+    // - `*EnIshi`
+    VB_ROCK_DROP_COLLECTIBLE,
 
     // #### `result`
     // ```c
@@ -2370,6 +2448,22 @@ typedef enum {
     // #### `args`
     // - `*s32` (which boss remains to return, see `DoorWarp1_GetRemains`)
     VB_SPAWN_BOSS_REMAINS,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnElf`
+    VB_SPAWN_FOUNTAIN_ELF,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
+    // - `*EnGs`
+    VB_SPAWN_GOSSIP_ELF,
 
     // #### `result`
     // ```c

@@ -45,6 +45,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(DEKU_PALACE, 3),                  ENTRANCE(DEKU_KINGS_CHAMBER, 1), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_MONKEY, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+        }
     };
     Regions[RR_DEKU_KINGS_CHAMBER] = RandoRegion{ .sceneId = SCENE_DEKU_KING,
         .exits = { //     TO                                         FROM
@@ -74,6 +77,10 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_BUTTERFLY_02, HAS_ITEM(ITEM_DEKU_STICK)),
             CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_BUTTERFLY_03, HAS_ITEM(ITEM_DEKU_STICK)),
             CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_BUTTERFLY_04, HAS_ITEM(ITEM_DEKU_STICK)),
+            CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_SOFT_SOIL_1, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_SOFT_SOIL_2, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_DEKU_PALACE_BEAN_SALESMAN_GROTTO_SOFT_SOIL_3, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_DEKU_PALACE_BEAN_GROTTO_SIGN, true),
             // TODO: Bean salesman check
         },
         .exits = { //     TO                                         FROM
@@ -107,6 +114,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_DEKU_PALACE_FREESTANDING_RUPEE_22, CAN_BE_DEKU),
             CHECK(RC_DEKU_PALACE_FREESTANDING_RUPEE_23, CAN_BE_DEKU),
             CHECK(RC_DEKU_PALACE_FREESTANDING_RUPEE_24, CAN_BE_DEKU),
+            CHECK(RC_DEKU_PALACE_PALACE_SIGN_01,        true),
+            CHECK(RC_DEKU_PALACE_PALACE_SIGN_02,        true),
+            CHECK(RC_DEKU_PALACE_ROYAL_CHAMBER_SIGN,    true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(DEKU_KINGS_CHAMBER, 0),           ENTRANCE(DEKU_PALACE, 2), true),
@@ -160,6 +170,13 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_DEKU_PALACE_OUTSIDE] = RandoRegion{ .name = "Outside", .sceneId = SCENE_22DEKUCITY,
         .checks = {
+            CHECK(RC_DEKU_PALACE_ENTRY_ARROW_SIGN,    true),
+            CHECK(RC_DEKU_PALACE_LILY_ARROW_SIGN_01,  CAN_BE_DEKU), // Technically Zora can read these signs while taking damage
+            CHECK(RC_DEKU_PALACE_LILY_ARROW_SIGN_02,  CAN_BE_DEKU),
+            CHECK(RC_DEKU_PALACE_SHORTCUT_ARROW_SIGN, CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)),
+            CHECK(RC_DEKU_PALACE_SOFT_SOIL_1, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_DEKU_PALACE_SOFT_SOIL_2, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_DEKU_PALACE_SOFT_SOIL_3, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && HAS_BOTTLE && CAN_ACCESS(BUGS)),
             CHECK(RC_ENEMY_DROP_MINI_BABA, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && CanKillEnemy(ACTOR_EN_KAREBABA)),
         },
         .exits = { //     TO                                         FROM
@@ -170,6 +187,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_DEKU_PALACE_INSIDE_LOWER, CAN_BE_DEKU),
             CONNECTION(RR_DEKU_PALACE_INSIDE_UPPER_BEAN_SIDE, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && CAN_USE_DAY2_RAIN_BEAN),
+        },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX) && CAN_BE_DEKU),
         },
     };
     Regions[RR_DEKU_SHRINE_ENTRANCE] = RandoRegion{ .name = "Entrance", .sceneId = SCENE_DANPEI,
@@ -264,6 +284,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_PIECE_OF_HEART, CanKillEnemy(ACTOR_EN_BAT) && (CAN_USE_PROJECTILE || HAS_ITEM(ITEM_BOMBCHU))),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_TINGLE_MAP_01, CAN_USE_PROJECTILE && CAN_AFFORD(RC_ROAD_TO_SOUTHERN_SWAMP_TINGLE_MAP_01)),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_TINGLE_MAP_02, CAN_USE_PROJECTILE && CAN_AFFORD(RC_ROAD_TO_SOUTHERN_SWAMP_TINGLE_MAP_02)),
+            CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_GRASS_01, true),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_GRASS_02, true),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_GRASS_03, true),
@@ -290,6 +311,8 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_TREE_04, true),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_TREE_05, true),
             CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_TREE_06, true),
+            CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_SHOOTING_GALLERY_SIGN, true),
+            CHECK(RC_ROAD_TO_SOUTHERN_SWAMP_WATER_SIGN,            true),
             CHECK(RC_ENEMY_DROP_DEKU_BABA, CanKillEnemy(ACTOR_EN_DEKUBABA)),
             CHECK(RC_ENEMY_DROP_CHUCHU, CanKillEnemy(ACTOR_EN_SLIME) && IS_DAY()), // Day only
             CHECK(RC_ENEMY_DROP_WOLFOS, CanKillEnemy(ACTOR_EN_WF) && IS_NIGHT()), // Night only
@@ -363,6 +386,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_10, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_11, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_12, true),
+            CHECK(RC_SOUTHERN_SWAMP_TOURIST_DOCK_SIGN, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_BEEHIVE, CAN_USE_PROJECTILE && CAN_TRAVERSE_WAIST_DEEP_WATER),
             CHECK(RC_ENEMY_DROP_MINI_BABA, CanKillEnemy(ACTOR_EN_KAREBABA)),
         },
@@ -380,6 +404,7 @@ static RegisterShipInitFunc initFunc([]() {
             EVENT(RE_ACCESS_BEANS_REFILL, CAN_BE_DEKU && HAS_ITEM(ITEM_MAGIC_BEANS)),
             EVENT(RE_SOUTHERN_SWAMP_KILL_OCTOROK, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT) || CAN_BE_ZORA)),
             EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
         .oneWayEntrances = {
             ENTRANCE(SOUTHERN_SWAMP_POISONED, 10), // From Song of Soaring
@@ -390,6 +415,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SOUTHERN_SWAMP_FROG, HAS_ITEM(ITEM_MASK_DON_GERO)),
             CHECK(RC_SOUTHERN_SWAMP_FREESTANDING_RUPEE_01, CAN_BE_DEKU || CAN_BE_ZORA),
             CHECK(RC_SOUTHERN_SWAMP_FREESTANDING_RUPEE_02, CAN_BE_DEKU || CAN_BE_ZORA),
+            CHECK(RC_SOUTHERN_SWAMP_FLOWER_SIGN, CAN_BE_DEKU || CAN_BE_ZORA),
             CHECK(RC_ENEMY_DROP_OCTOROK, CanKillEnemy(ACTOR_EN_OKUTA) && (CAN_USE_ABILITY(SWIM) || CAN_BE_ZORA || CAN_BE_GORON)),
         },
         .connections = {
@@ -403,12 +429,14 @@ static RegisterShipInitFunc initFunc([]() {
             EVENT(RE_ACCESS_SPRING_WATER, true),
             EVENT(RE_SOUTHERN_SWAMP_KILL_OCTOROK, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT) || CAN_BE_ZORA)),
             EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
     };
     Regions[RR_SOUTHERN_SWAMP_NEAR_WOODS] = RandoRegion{ .name = "North Woods Section", .sceneId = SCENE_20SICHITAI,
         .checks = {
             CHECK(RC_SOUTHERN_SWAMP_CLEARED_WOODS_GRASS_01, RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE]),
             CHECK(RC_SOUTHERN_SWAMP_CLEARED_WOODS_GRASS_02, RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE]),
+            CHECK(RC_SOUTHERN_SWAMP_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_SOUTHERN_SWAMP_POISON_WOODS_GRASS_01, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_WOODS_GRASS_02, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_POT_01, true),
@@ -453,6 +481,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_28, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_29, true),
             CHECK(RC_SOUTHERN_SWAMP_POISON_GRASS_30, true),
+            CHECK(RC_SOUTHERN_SWAMP_HAGS_ARROW_SIGN, true),
+            CHECK(RC_SOUTHERN_SWAMP_HAGS_SIGN,       true),
+            CHECK(RC_SOUTHERN_SWAMP_WOODS_SIGN,      true),
             CHECK(RC_ENEMY_DROP_MINI_BABA, CanKillEnemy(ACTOR_EN_KAREBABA)),
             CHECK(RC_ENEMY_DROP_DEKU_BABA, CanKillEnemy(ACTOR_EN_DEKUBABA)),
         },
@@ -473,6 +504,10 @@ static RegisterShipInitFunc initFunc([]() {
         }
     };
     Regions[RR_SOUTHERN_SWAMP_SOUTH] = RandoRegion{ .name = "South Section", .sceneId = SCENE_20SICHITAI,
+        .checks = {
+            CHECK(RC_SOUTHERN_SWAMP_PALACE_ARROW_SIGN, true),
+            CHECK(RC_SOUTHERN_SWAMP_SPIDER_HOUSE_SIGN, CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && (CAN_USE_ABILITY(SWIM) || CAN_BE_ZORA))),
+        },        
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GROTTOS, 21),                     ENTRANCE(SOUTHERN_SWAMP_POISONED, 3), CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)),
             EXIT(ENTRANCE(DEKU_PALACE, 0),                  ENTRANCE(SOUTHERN_SWAMP_POISONED, 3), true),
@@ -484,7 +519,8 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_SOUTHERN_SWAMP_SOUTH_UPPER, RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER), // Climbable vines, only in cleared swamp
         },
         .events = {
-            EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX))
+            EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_MONKEY, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         }
     };
     Regions[RR_SOUTHERN_SWAMP_SOUTH_UPPER] = RandoRegion{ .name = "Upper South Section", .sceneId = SCENE_20SICHITAI,
@@ -521,7 +557,9 @@ static RegisterShipInitFunc initFunc([]() {
         .checks = {
             // Also requires poison to not be cleared
             CHECK(RC_TOURIST_INFORMATION_ARCHERY, RANDO_EVENTS[RE_SAVED_KOUME] && RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE]),
+            CHECK(RC_TOURIST_INFORMATION_BAD_PHOTO, CAN_ACCESS(PICTOGRAPH_SWAMP_GENERIC)),
             CHECK(RC_TOURIST_INFORMATION_GOOD_PHOTO, CAN_ACCESS(PICTOGRAPH_TINGLE) || CAN_ACCESS(PICTOGRAPH_DEKU_KING)),
+            CHECK(RC_TOURIST_INFORMATION_OKAY_PHOTO, CAN_ACCESS(PICTOGRAPH_BIG_OCTO) || CAN_ACCESS(PICTOGRAPH_MONKEY)),
             CHECK(RC_TOURIST_INFORMATION_PICTOBOX, RANDO_EVENTS[RE_SAVED_KOUME]),
         },
         .exits = { //     TO                                         FROM
@@ -629,6 +667,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_WOODS_OF_MYSTERY_GRASS_21, SECOND_DAY()),
             CHECK(RC_WOODS_OF_MYSTERY_GRASS_22, FINAL_DAY()),
             CHECK(RC_WOODS_OF_MYSTERY_GRASS_23, FINAL_DAY()),
+            CHECK(RC_WOODS_OF_MYSTERY_SIGN_01,  true),
+            CHECK(RC_WOODS_OF_MYSTERY_SIGN_02,  true),
+            CHECK(RC_WOODS_OF_MYSTERY_SIGN_03,  true),
             CHECK(RC_ENEMY_DROP_SNAPPER, CAN_BE_DEKU && CanKillEnemy(ACTOR_EN_KAME)),
         },
         .exits = { //     TO                                         FROM
