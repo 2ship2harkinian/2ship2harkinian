@@ -64,7 +64,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(GREAT_BAY_COAST, 8),          ENTRANCE(OCEANSIDE_SPIDER_HOUSE, 0), true)
         },
         .connections = {
-            CONNECTION(RR_OCEAN_SPIDER_HOUSE_ENTRANCE_LOWER, CAN_USE_EXPLOSIVE),
+            CONNECTION(RR_OCEAN_SPIDER_HOUSE_ENTRANCE_LOWER, CAN_USE_EXPLOSIVE && (CAN_BE_GORON || CAN_PLAY_SONG(SOARING) || CAN_PLAY_SONG(TIME))),
         }
     };
     Regions[RR_OCEAN_SPIDER_HOUSE_LIBRARY_ROOM] = RandoRegion{ .name = "Library Room", .sceneId = SCENE_KINDAN2,
