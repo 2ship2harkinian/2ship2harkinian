@@ -745,18 +745,19 @@ void EnSth_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
             CLOSE_DISPS(play->state.gfxCtx);
         } else {
             OPEN_DISPS(play->state.gfxCtx);
+            if (GameInteractor_Should(VB_DRAW_MASK_OF_TRUTH_HUMAN, true, this)) {
+                if (this->sthFlags & STH_FLAG_DRAW_MASK_OF_TRUTH) {
+                    if (Object_IsLoaded(&play->objectCtx, this->maskOfTruthObjectSlot)) {
+                        Matrix_Push();
+                        Matrix_RotateZS(0x3A98, MTXMODE_APPLY);
+                        Matrix_Translate(0.0f, 190.0f, 0.0f, MTXMODE_APPLY);
 
-            if (this->sthFlags & STH_FLAG_DRAW_MASK_OF_TRUTH) {
-                if (Object_IsLoaded(&play->objectCtx, this->maskOfTruthObjectSlot)) {
-                    Matrix_Push();
-                    Matrix_RotateZS(0x3A98, MTXMODE_APPLY);
-                    Matrix_Translate(0.0f, 190.0f, 0.0f, MTXMODE_APPLY);
+                        MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
+                        gSPSegment(POLY_OPA_DISP++, 0x0A, play->objectCtx.slots[this->maskOfTruthObjectSlot].segment);
+                        gSPDisplayList(POLY_OPA_DISP++, object_mask_truth_DL_0001A0);
 
-                    MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, play->state.gfxCtx);
-                    gSPSegment(POLY_OPA_DISP++, 0x0A, play->objectCtx.slots[this->maskOfTruthObjectSlot].segment);
-                    gSPDisplayList(POLY_OPA_DISP++, object_mask_truth_DL_0001A0);
-
-                    Matrix_Pop();
+                        Matrix_Pop();
+                    }
                 }
             }
 

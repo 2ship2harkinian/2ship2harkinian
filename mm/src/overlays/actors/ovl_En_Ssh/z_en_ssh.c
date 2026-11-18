@@ -946,11 +946,13 @@ void EnSsh_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
     EnSsh* this = (EnSsh*)thisx;
 
     if ((limbIndex == OBJECT_SSH_LIMB_05) && (this->stateFlags & SSH_STATE_FATHER)) {
-        OPEN_DISPS(play->state.gfxCtx);
+        if (GameInteractor_Should(VB_DRAW_MASK_OF_TRUTH_SPIDER, true)) {
+            OPEN_DISPS(play->state.gfxCtx);
 
-        gSPDisplayList(POLY_OPA_DISP++, object_ssh_DL_0000D8);
+            gSPDisplayList(POLY_OPA_DISP++, object_ssh_DL_0000D8);
 
-        CLOSE_DISPS(play->state.gfxCtx);
+            CLOSE_DISPS(play->state.gfxCtx);
+        }
     }
     Collider_UpdateSpheres(limbIndex, &this->collider2);
 }
