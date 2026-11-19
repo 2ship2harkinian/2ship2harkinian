@@ -19,6 +19,7 @@ void RegisterBetterPictoMessage() {
         }
 
         std::string target = "";
+        std::string quality = "";
 
         std::vector<std::string> actorsInPicture;
         if (Snap_CheckFlag(PICTO_VALID_IN_SWAMP))
@@ -27,9 +28,13 @@ void RegisterBetterPictoMessage() {
             target = "a Monkey";
         if (Snap_CheckFlag(PICTO_VALID_BIG_OCTO))
             target = "a Big Octo";
-        if (Snap_CheckFlag(PICTO_VALID_LULU_HEAD) && Snap_CheckFlag(PICTO_VALID_LULU_RIGHT_ARM) &&
-            Snap_CheckFlag(PICTO_VALID_LULU_LEFT_ARM)) {
+        if (Snap_CheckFlag(PICTO_VALID_LULU_HEAD)) {
             target = "Lulu";
+            if (Snap_CheckFlag(PICTO_VALID_LULU_RIGHT_ARM) && Snap_CheckFlag(PICTO_VALID_LULU_LEFT_ARM)) {
+                quality = "good ";
+            } else {
+                quality = "bad ";
+            }
         }
         if (Snap_CheckFlag(PICTO_VALID_SCARECROW))
             target = "a Scarecrow";
@@ -45,8 +50,9 @@ void RegisterBetterPictoMessage() {
         }
 
         auto entry = CustomMessage::LoadVanillaMessageTableEntry(*textId);
-        entry.msg = "Keep this %rpicture of {{target}}%w?%g\n\xC2Yes\nNo";
+        entry.msg = "Keep this %r{{quality}}picture of {{target}}%w?%g\n\xC2Yes\nNo";
 
+        CustomMessage::Replace(&entry.msg, "{{quality}}", quality);
         CustomMessage::Replace(&entry.msg, "{{target}}", target);
 
         CustomMessage::LoadCustomMessageIntoFont(entry);
