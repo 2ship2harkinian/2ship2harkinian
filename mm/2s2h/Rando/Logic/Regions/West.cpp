@@ -244,7 +244,7 @@ static RegisterShipInitFunc initFunc([]() {
             EXIT(ENTRANCE(GREAT_BAY_COAST, 3),              ENTRANCE(PINNACLE_ROCK, 0), true),
         },
         .connections = {
-            CONNECTION(RR_PINNACLE_ROCK_INNER, RANDO_EVENTS[RE_ACCESS_SEAHORSE] && CAN_BE_ZORA)
+            CONNECTION(RR_PINNACLE_ROCK_INNER, RANDO_EVENTS[RE_ACCESS_SEAHORSE] && CAN_BE_ZORA && HAS_BOTTLE)
         }
     };
     Regions[RR_PINNACLE_ROCK_INNER] = RandoRegion{ .name = "Inner", .sceneId = SCENE_SINKAI,
@@ -262,7 +262,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_PINNACLE_ROCK_POT_09,            CAN_BE_ZORA),
             CHECK(RC_PINNACLE_ROCK_POT_10,            CAN_BE_ZORA),
             CHECK(RC_PINNACLE_ROCK_POT_11,            CAN_BE_ZORA),
-            CHECK(RC_PINNACLE_ROCK_REUNITE_SEAHORSE,  CanKillEnemy(ACTOR_EN_DRAGON) && RANDO_EVENTS[RE_ACCESS_SEAHORSE]),
+            CHECK(RC_PINNACLE_ROCK_REUNITE_SEAHORSE,  CanKillEnemy(ACTOR_EN_DRAGON) && RANDO_EVENTS[RE_ACCESS_SEAHORSE] && HAS_BOTTLE),
             CHECK(RC_ENEMY_DROP_DEEP_PYTHON,          CanKillEnemy(ACTOR_EN_DRAGON)),
         },
         .connections = {
