@@ -10,7 +10,9 @@
 void RegisterNoRandomDrops() {
     COND_VB_SHOULD(VB_DROP_COLLECTIBLE, CVAR, {
         Vec3f unused = va_arg(args, Vec3f);
-        u32 item = va_arg(args, u32) & 0xFF;
+        u32 params = va_arg(args, u32);
+        u32 param10000 = params & 0x10000;
+        u32 item = params & 0xFF;
 
         s16 scene = gPlayState->sceneId;
         s8 room = gPlayState->roomCtx.curRoom.num;
@@ -24,6 +26,11 @@ void RegisterNoRandomDrops() {
         // should allow both arrows and magic
         if (((scene == SCENE_SEA && room == 5) || (scene == SCENE_INISIE_R && (room == 5 || room == 11))) &&
             (item == ITEM00_ARROWS_10 || item == ITEM00_MAGIC_JAR_SMALL || item == ITEM00_MAGIC_JAR_BIG)) {
+            return;
+        }
+
+        // Allow spawning of stray fairies as drops in Woodfall Temple and Great Bay Temple.
+        if (item == ITEM00_BIG_FAIRY && param10000 == 0) {
             return;
         }
 
