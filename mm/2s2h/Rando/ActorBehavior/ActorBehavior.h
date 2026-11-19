@@ -86,6 +86,7 @@ void InitEnTabBehavior();
 void InitEnTakarayaBehavior();
 void InitEnTalkBehavior();
 void InitEnTimeTagBehavior();
+void InitEnTkBehavior();
 void InitEnTotoBehavior();
 void InitEnTrtBehavior();
 void InitEnYbBehavior();

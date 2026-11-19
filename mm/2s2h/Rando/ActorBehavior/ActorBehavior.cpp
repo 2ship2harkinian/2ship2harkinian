@@ -116,6 +116,7 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnTakarayaBehavior();
     Rando::ActorBehavior::InitEnTalkBehavior();
     Rando::ActorBehavior::InitEnTimeTagBehavior();
+    Rando::ActorBehavior::InitEnTkBehavior();
     Rando::ActorBehavior::InitEnTotoBehavior();
     Rando::ActorBehavior::InitEnTrtBehavior();
     Rando::ActorBehavior::InitEnYbBehavior();

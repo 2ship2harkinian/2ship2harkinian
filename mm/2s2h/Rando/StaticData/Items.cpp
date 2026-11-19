@@ -156,6 +156,7 @@ std::map<RandoItemId, RandoStaticItem> Items = {
     RI(RI_RUPEE_PURPLE,               "a",    "Purple Rupee",               RITYPE_JUNK,            ITEM_RUPEE_PURPLE,               GI_RUPEE_PURPLE,             GID_RUPEE_PURPLE),
     RI(RI_RUPEE_RED,                  "a",    "Red Rupee",                  RITYPE_JUNK,            ITEM_RUPEE_RED,                  GI_RUPEE_RED,                GID_RUPEE_RED),
     RI(RI_RUPEE_SILVER,               "a",    "Silver Rupee",               RITYPE_JUNK,            ITEM_RUPEE_SILVER,               GI_RUPEE_SILVER,             GID_RUPEE_SILVER),
+    RI(RI_RUPEE_CRIMSON,              "a",    "Crimson Rupee",              RITYPE_JUNK,            ITEM_NONE,                       GI_NONE,                     GID_NONE),
     RI(RI_SHIELD_HERO,                "the",  "Hero's Shield",              RITYPE_MAJOR,           ITEM_SHIELD_HERO,                GI_SHIELD_HERO,              GID_SHIELD_HERO),
     RI(RI_SHIELD_MIRROR,              "the",  "Mirror Shield",              RITYPE_MAJOR,           ITEM_SHIELD_MIRROR,              GI_SHIELD_MIRROR,            GID_SHIELD_MIRROR),
     RI(RI_SINGLE_MAGIC,               "the",  "Power of Magic",             RITYPE_MAJOR,           ITEM_NONE,                       GI_NONE,                     GID_MAGIC_JAR_SMALL),

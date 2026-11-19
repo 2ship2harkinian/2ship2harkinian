@@ -403,6 +403,9 @@ void Rando::GiveItem(RandoItemId randoItemId) {
             gSaveContext.save.shipSaveInfo.rando.sariaHintsAvailable++;
             Item_Give(gPlayState, Rando::StaticData::Items[randoItemId].itemId);
             break;
+        case RI_RUPEE_CRIMSON:
+            Rupees_ChangeBy(30);
+            break;
         case RI_JUNK:
         case RI_NONE:
             break;
