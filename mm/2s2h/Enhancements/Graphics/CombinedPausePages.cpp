@@ -83,7 +83,8 @@ static const char* FindCombinedPage(TexturePtr* textures) {
     const char* found = texture != nullptr && IsPageTexture(texture, path) ? path : nullptr;
     return sCombinedPages[key] = found;
 }
-
+// based on the game's KaleidoScope_DrawPageSections in
+// src/overlays/kaleido_scope/ovl_kaleido_scope/z_kaleido_scope_NES.c
 static void LoadPageTexture(Gfx** gfx, const char* path) {
     gDPSetTextureImage((*gfx)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, path);
     gDPSetTile((*gfx)++, G_IM_FMT_IA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK,
@@ -101,6 +102,8 @@ static void LoadPageTexture(Gfx** gfx, const char* path) {
                    (PAGE_HEIGHT - 1) << G_TEXTURE_IMAGE_FRAC);
 }
 
+// based on the game's KaleidoScope_SetPageVertices in
+// src/overlays/kaleido_scope/ovl_kaleido_scope/z_kaleido_scope_NES.c
 static void SetPageTexCoords(Vtx* vertices) {
     for (int quad = 0; quad < PAGE_BG_QUADS; quad++) {
         s16 left = (quad / PAGE_BG_ROWS) * PAGE_BG_QUAD_TEX_WIDTH * 32 - HALF_TEXEL;
