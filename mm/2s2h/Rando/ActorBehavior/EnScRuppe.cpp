@@ -5,10 +5,12 @@ extern "C" {
 #include "functions.h"
 }
 
+// clang-format off
 std::map<std::tuple<s16, s16>, RandoCheckId> enScRuppeMap = {
     { { SCENE_00KEIKOKU, 0x0922 }, RC_TERMINA_FIELD_TELESCOPE_NORTH_GUAY },
     { { SCENE_00KEIKOKU, 0x05A2 }, RC_TERMINA_FIELD_TELESCOPE_SOUTH_GUAY },
 };
+// clang-format on
 
 void SpawnRandoHugeRupee(Vec3f pos, RandoCheckId randoCheckId) {
     EnItem00* enItem00 = CustomItem::Spawn(
