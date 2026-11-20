@@ -241,6 +241,9 @@ void ValidateRegionTimeOwnership(RandoRegionId regionId, RandoCheckId checkId, u
 #define CAN_USE_ABILITY(ability) Flags_GetRandoInf(RI_ABILITY_##ability - RI_ABILITY_SWIM + RANDO_INF_OBTAINED_SWIM)
 #define HAS_ENOUGH_SKULLTULA_TOKENS(sceneId) \
     (Inventory_GetSkullTokenCount(sceneId) >= RANDO_SAVE_OPTIONS[RO_SKULLTULA_TOKENS_REQUIRED])
+#define SHUFFLE_MORE_SPIDER_REWARDS()                                  \
+    (RANDO_SAVE_CHECKS[RC_OCEAN_SPIDER_HOUSE_DAY_2_REWARD].shuffled || \
+     RANDO_SAVE_CHECKS[RC_OCEAN_SPIDER_HOUSE_DAY_3_REWARD].shuffled)
 
 #define EVENT(randoEvent, condition)         \
     {                                        \
