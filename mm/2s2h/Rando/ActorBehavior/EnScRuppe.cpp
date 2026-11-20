@@ -16,6 +16,8 @@ void SpawnRandoHugeRupee(Vec3f pos, RandoCheckId randoCheckId) {
         randoCheckId,
         [](Actor* actor, PlayState* play) {
             RandoSaveCheck& randoSaveCheck = RANDO_SAVE_CHECKS[CUSTOM_ITEM_PARAM];
+            // This does have the unfortunate side effect of despawning the other telescope guay drop if the player
+            // leaves before picking up both, but it can just be respawned through the telescope again.
             CLEAR_WEEKEVENTREG(WEEKEVENTREG_54_01);
             randoSaveCheck.eligible = true;
         },
