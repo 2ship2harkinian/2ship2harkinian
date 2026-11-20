@@ -2165,6 +2165,13 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // false
+    // ```
+    // - `s16`
+    VB_SCOPECROW_FORCE_DROP,
+
+    // #### `result`
+    // ```c
     // gSaveContext.save.saveInfo.inventory.items[ITEM_OCARINA_OF_TIME] == ITEM_NONE
     // ```
     // #### `args`

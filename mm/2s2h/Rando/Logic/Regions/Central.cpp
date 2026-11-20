@@ -48,6 +48,7 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .events = {
             EVENT(RE_TERMINA_FIELD_SCRUB_ENTERED_GROTTO, true),
+            EVENT(RE_TERMINA_FIELD_TELESCOPE_GUAY_DROPPED_ITEM, true),
         },
     };
     Regions[RR_BOMB_SHOP] = RandoRegion{ .sceneId = SCENE_BOMYA,
