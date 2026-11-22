@@ -45,6 +45,9 @@ static RegisterShipInitFunc initFunc([]() {
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(DEKU_PALACE, 3),                  ENTRANCE(DEKU_KINGS_CHAMBER, 1), true),
         },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_MONKEY, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+        }
     };
     Regions[RR_DEKU_KINGS_CHAMBER] = RandoRegion{ .sceneId = SCENE_DEKU_KING,
         .exits = { //     TO                                         FROM
@@ -170,6 +173,9 @@ static RegisterShipInitFunc initFunc([]() {
         .connections = {
             CONNECTION(RR_DEKU_PALACE_INSIDE_LOWER, CAN_BE_DEKU),
             CONNECTION(RR_DEKU_PALACE_INSIDE_UPPER_BEAN_SIDE, (CAN_BE_DEKU || (RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER)) && CAN_USE_DAY2_RAIN_BEAN),
+        },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX) && CAN_BE_DEKU),
         },
     };
     Regions[RR_DEKU_SHRINE_ENTRANCE] = RandoRegion{ .name = "Entrance", .sceneId = SCENE_DANPEI,
@@ -380,6 +386,7 @@ static RegisterShipInitFunc initFunc([]() {
             EVENT(RE_ACCESS_BEANS_REFILL, CAN_BE_DEKU && HAS_ITEM(ITEM_MAGIC_BEANS)),
             EVENT(RE_SOUTHERN_SWAMP_KILL_OCTOROK, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT) || CAN_BE_ZORA)),
             EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
         .oneWayEntrances = {
             ENTRANCE(SOUTHERN_SWAMP_POISONED, 10), // From Song of Soaring
@@ -403,6 +410,7 @@ static RegisterShipInitFunc initFunc([]() {
             EVENT(RE_ACCESS_SPRING_WATER, true),
             EVENT(RE_SOUTHERN_SWAMP_KILL_OCTOROK, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT) || CAN_BE_ZORA)),
             EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_BIG_OCTO, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
     };
     Regions[RR_SOUTHERN_SWAMP_NEAR_WOODS] = RandoRegion{ .name = "North Woods Section", .sceneId = SCENE_20SICHITAI,
@@ -484,7 +492,8 @@ static RegisterShipInitFunc initFunc([]() {
             CONNECTION(RR_SOUTHERN_SWAMP_SOUTH_UPPER, RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE] && CAN_TRAVERSE_WAIST_DEEP_WATER), // Climbable vines, only in cleared swamp
         },
         .events = {
-            EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX))
+            EVENT(RE_ACCESS_PICTOGRAPH_SWAMP_GENERIC, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
+            EVENT(RE_ACCESS_PICTOGRAPH_MONKEY, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         }
     };
     Regions[RR_SOUTHERN_SWAMP_SOUTH_UPPER] = RandoRegion{ .name = "Upper South Section", .sceneId = SCENE_20SICHITAI,
@@ -521,7 +530,9 @@ static RegisterShipInitFunc initFunc([]() {
         .checks = {
             // Also requires poison to not be cleared
             CHECK(RC_TOURIST_INFORMATION_ARCHERY, RANDO_EVENTS[RE_SAVED_KOUME] && RANDO_EVENTS[RE_CLEARED_WOODFALL_TEMPLE]),
+            CHECK(RC_TOURIST_INFORMATION_BAD_PHOTO, CAN_ACCESS(PICTOGRAPH_SWAMP_GENERIC)),
             CHECK(RC_TOURIST_INFORMATION_GOOD_PHOTO, CAN_ACCESS(PICTOGRAPH_TINGLE) || CAN_ACCESS(PICTOGRAPH_DEKU_KING)),
+            CHECK(RC_TOURIST_INFORMATION_OKAY_PHOTO, CAN_ACCESS(PICTOGRAPH_BIG_OCTO) || CAN_ACCESS(PICTOGRAPH_MONKEY)),
             CHECK(RC_TOURIST_INFORMATION_PICTOBOX, RANDO_EVENTS[RE_SAVED_KOUME]),
         },
         .exits = { //     TO                                         FROM
