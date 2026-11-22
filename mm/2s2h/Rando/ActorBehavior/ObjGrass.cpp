@@ -1,4 +1,5 @@
 #include "ActorBehavior.h"
+#include "CSMC.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 
 #include "2s2h/CustomItem/CustomItem.h"
@@ -17,6 +18,7 @@ extern "C" {
 #include "overlays/actors/ovl_En_Kusa2/z_en_kusa2.h"
 #include "overlays/actors/ovl_Obj_Grass_Carry/z_obj_grass_carry.h"
 #include "overlays/actors/ovl_Obj_Mure2/z_obj_mure2.h"
+#include "objects/gameplay_field_keep/gameplay_field_keep.h"
 
 void ObjGrass_OverrideMatrixCurrent(MtxF* matrix);
 void EnKusa_DrawGrass(Actor* thisx, PlayState* play);
@@ -475,8 +477,15 @@ void ObjGrass_RandoDrawOpa(ObjGrass* objGrass, ObjGrassElement* grassElem, s32 j
     }
 
     MATRIX_FINALIZE_AND_LOAD(POLY_OPA_DISP++, gPlayState->state.gfxCtx);
-    gSPDisplayList(POLY_OPA_DISP++, GetObjGrassDList(randoCheckId));
-    gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gObjGrass_D_809AA9F0);
+    Gfx* dList = GetObjGrassDList(randoCheckId);
+    if (IS_MISSING_ASSET((const char*)dList)) {
+        CSMC_BeginTint(&POLY_OPA_DISP, CSMC_GetTintType(randoCheckId));
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gObjGrass_D_809AAAE0);
+        CSMC_EndTint(&POLY_OPA_DISP);
+    } else {
+        gSPDisplayList(POLY_OPA_DISP++, dList);
+        gSPDisplayList(POLY_OPA_DISP++, (Gfx*)gObjGrass_D_809AA9F0);
+    }
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
@@ -489,13 +498,21 @@ void ObjGrass_RandoDrawXlu(ObjGrass* objGrass, ObjGrassElement* grassElem, Rando
 
     MATRIX_FINALIZE_AND_LOAD(POLY_XLU_DISP++, gPlayState->state.gfxCtx);
     gDPSetPrimColor(POLY_XLU_DISP++, 0, 0, 255, 255, 255, grassElem->alpha);
-    gSPDisplayList(POLY_XLU_DISP++, GetObjGrassXluDList(randoCheckId));
-    gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gObjGrass_D_809AAA68);
+    Gfx* dList = GetObjGrassXluDList(randoCheckId);
+    if (IS_MISSING_ASSET((const char*)dList)) {
+        CSMC_BeginTint(&POLY_XLU_DISP, CSMC_GetTintType(randoCheckId));
+        gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gObjGrass_D_809AAAE0);
+        CSMC_EndTint(&POLY_XLU_DISP);
+    } else {
+        gSPDisplayList(POLY_XLU_DISP++, dList);
+        gSPDisplayList(POLY_XLU_DISP++, (Gfx*)gObjGrass_D_809AAA68);
+    }
     CLOSE_DISPS(gPlayState->state.gfxCtx);
 }
 
 void EnKusaBush_RandoDraw(Actor* actor, PlayState* play) {
-    Gfx_DrawDListOpa(play, GetObjGrassDList(Rando::ActorBehavior::GetObjectRandoCheckId(actor)));
+    RandoCheckId randoCheckId = Rando::ActorBehavior::GetObjectRandoCheckId(actor);
+    CSMC_DrawDListOpa(play, randoCheckId, (const char*)GetObjGrassDList(randoCheckId), gKusaBushType1DL);
 }
 
 void EnKusaGrass_RandoDraw(Actor* actor, PlayState* play) {
@@ -513,7 +530,7 @@ void EnKusaGrass_RandoDraw(Actor* actor, PlayState* play) {
         return;
     }
 
-    Gfx_DrawDListOpa(play, GetCuttableGrassDList(randoCheckId));
+    CSMC_DrawActorOpa(actor, play, (const char*)GetCuttableGrassDList(randoCheckId), EnKusa_DrawGrass);
 }
 
 void KeatonGrassRing_DrawWonderItemSparkle(EnKusa2* grassRingActor) {
@@ -721,7 +738,7 @@ void Rando::ActorBehavior::InitObjGrassBehavior() {
         RandoCheckId randoCheckId = GetObjectRandoCheckId(grassBush);
         if (randoCheckId != RC_UNKNOWN && !RANDO_SAVE_CHECKS[randoCheckId].obtained) {
             *should = false;
-            Gfx_DrawDListOpa(gPlayState, GetObjGrassDList(randoCheckId));
+            CSMC_DrawDListOpa(gPlayState, randoCheckId, (const char*)GetObjGrassDList(randoCheckId), gKusaBushType1DL);
         }
     });
 
