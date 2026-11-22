@@ -1,6 +1,6 @@
 [submodule "libultraship"]
 	path = libultraship
-	url = https://github.com/kenix3/libultraship.git
+	url = https://github.com/BlAnK182C-bak/libultraship.git
 [submodule "OTRExporter"]
 	path = OTRExporter
 	url = https://github.com/HarbourMasters/OTRExporter.git

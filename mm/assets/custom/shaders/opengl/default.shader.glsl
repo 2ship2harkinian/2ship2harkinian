@@ -165,6 +165,31 @@
     #define TEX_SIZE(tex) vec2(texture_width[tex], texture_height[tex])
 
     void main() {
+        @if(o_crt)
+            // CRT pass. Params ride in the grayscale attribute: x scanlines, y mask, z curvature, w aberration
+            vec4 crt = vGrayscaleColor;
+            vec2 cc = vTexCoord0 * 2.0 - 1.0;
+            cc *= vec2(1.0 + cc.y * cc.y * 0.08 * crt.z, 1.0 + cc.x * cc.x * 0.11 * crt.z);
+            vec2 uv = cc * 0.5 + 0.5;
+            if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+                @{vOutColor} = vec4(0.0, 0.0, 0.0, 1.0);
+                return;
+            }
+            vec2 ca = (uv - 0.5) * 0.01 * crt.w + vec2(0.0015 * crt.w, 0.0);
+            vec3 col = vec3(@{texture}(uTex0, uv + ca).r, @{texture}(uTex0, uv).g, @{texture}(uTex0, uv - ca).b);
+            col = pow(col, vec3(2.2));
+            float d = fract(uv.y * 240.0) - 0.5;
+            vec3 w = 0.2 + 0.25 * col;
+            col *= mix(vec3(1.0), exp(-d * d / (2.0 * w * w)) * 1.2, crt.x);
+            float m = mod(floor(gl_FragCoord.x), 3.0);
+            vec3 mask = vec3(1.0 - 0.5 * crt.y);
+            if (m < 1.0) mask.r = 1.0; else if (m < 2.0) mask.g = 1.0; else mask.b = 1.0;
+            col *= mask * (3.0 / (3.0 - crt.y));
+            float vig = pow(max(16.0 * uv.x * uv.y * (1.0 - uv.x) * (1.0 - uv.y), 1e-5), 0.25 * crt.z);
+            @{vOutColor} = vec4(pow(col, vec3(1.0 / 2.2)) * vig, 1.0);
+            return;
+        @end
+
         @for(i in 0..2)
             @if(o_textures[i])
                 @{s = o_clamp[i][0]}

@@ -195,6 +195,32 @@ struct PSOutput {
 };
 
 PSOutput PSMain(PSInput input, float4 screenSpace : SV_Position) {
+    @if(o_crt)
+        // CRT pass. Params ride in the grayscale attribute: x scanlines, y mask, z curvature, w aberration
+        float4 crt = input.grayscale;
+        float2 cc = input.uv0 * 2.0 - 1.0;
+        cc *= float2(1.0 + cc.y * cc.y * 0.08 * crt.z, 1.0 + cc.x * cc.x * 0.11 * crt.z);
+        float2 uv = cc * 0.5 + 0.5;
+        PSOutput crtOut;
+        if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+            crtOut.color = float4(0.0, 0.0, 0.0, 1.0);
+            return crtOut;
+        }
+        float2 ca = (uv - 0.5) * 0.01 * crt.w + float2(0.0015 * crt.w, 0.0);
+        float3 col = float3(g_texture0.Sample(g_sampler0, uv + ca).r, g_texture0.Sample(g_sampler0, uv).g, g_texture0.Sample(g_sampler0, uv - ca).b);
+        col = pow(col, 2.2);
+        float d = frac(uv.y * 240.0) - 0.5;
+        float3 w = 0.2 + 0.25 * col;
+        col *= lerp(float3(1.0, 1.0, 1.0), exp(-d * d / (2.0 * w * w)) * 1.2, crt.x);
+        float m = fmod(floor(screenSpace.x), 3.0);
+        float3 mask = 1.0 - 0.5 * crt.y;
+        if (m < 1.0) mask.r = 1.0; else if (m < 2.0) mask.g = 1.0; else mask.b = 1.0;
+        col *= mask * (3.0 / (3.0 - crt.y));
+        float vig = pow(max(16.0 * uv.x * uv.y * (1.0 - uv.x) * (1.0 - uv.y), 1e-5), 0.25 * crt.z);
+        crtOut.color = float4(pow(col, 1.0 / 2.2) * vig, 1.0);
+        return crtOut;
+    @end
+
     @for(i in 0..2)
         @if(o_textures[i])
             float2 tc@{i} = input.uv@{i};

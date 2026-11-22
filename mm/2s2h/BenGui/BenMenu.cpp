@@ -1474,6 +1474,35 @@ void BenMenu::AddEnhancements() {
         .CVar(CVAR_LOW_RES_MODE)
         .Options(CheckboxOptions().Tooltip(
             "Sets the aspect ratio to 4:3 and lowers resolution to 240p, the N64's native resolution."));
+    AddWidget(path, "CRT Filter", WIDGET_CVAR_CHECKBOX)
+        .CVar(CVAR_PREFIX_CRT ".Enabled")
+        .Options(CheckboxOptions().Tooltip("Simulates a CRT TV: scanlines, a phosphor mask and a curved screen.\n"
+                                           "Pairs well with N64 Mode."));
+    // Defaults must match Interpreter::ApplyCrtFilter in libultraship
+    static const auto crtHidden = [](WidgetInfo& info) {
+        info.isHidden = !CVarGetInteger(CVAR_PREFIX_CRT ".Enabled", 0);
+    };
+    AddWidget(path, "Scanlines", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar(CVAR_PREFIX_CRT ".Scanlines")
+        .PreFunc(crtHidden)
+        .Options(FloatSliderOptions().DefaultValue(0.6f).IsPercentage().Tooltip(
+            "Darkens the gaps between the 240 scanlines."));
+    AddWidget(path, "Phosphor Mask", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar(CVAR_PREFIX_CRT ".Mask")
+        .PreFunc(crtHidden)
+        .Options(FloatSliderOptions().DefaultValue(0.4f).IsPercentage().Tooltip(
+            "Strength of the red/green/blue aperture grille stripes."));
+    AddWidget(path, "Screen Curvature", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar(CVAR_PREFIX_CRT ".Curvature")
+        .PreFunc(crtHidden)
+        .Options(FloatSliderOptions().DefaultValue(0.4f).IsPercentage().Tooltip(
+            "Bends the picture like a curved CRT tube and darkens the corners. 0% is a flat screen."));
+    AddWidget(path, "Chromatic Aberration", WIDGET_CVAR_SLIDER_FLOAT)
+        .CVar(CVAR_PREFIX_CRT ".Aberration")
+        .PreFunc(crtHidden)
+        .Options(FloatSliderOptions().DefaultValue(0.0f).IsPercentage().Tooltip(
+            "Color fringing from the red, green and blue beams not quite lining up, stronger toward the "
+            "edges. 0% is off."));
 
     path = { "Enhancements", "Items/Songs", SECTION_COLUMN_1 };
     AddSidebarEntry("Enhancements", "Items/Songs", 3);
