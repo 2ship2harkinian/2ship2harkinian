@@ -7,6 +7,7 @@
 extern "C" {
 #include "variables.h"
 #include "src/overlays/actors/ovl_Obj_Taru/z_obj_taru.h"
+#include "objects/object_taru/object_taru.h"
 }
 
 std::map<std::tuple<s16, s16, s16>, RandoCheckId> barrelMap = {
@@ -60,6 +61,10 @@ std::map<std::tuple<s16, s16, s16>, RandoCheckId> barrelMap = {
 };
 
 void ObjTaru_RandoDraw(Actor* actor, PlayState* play) {
+    if (!CVarGetInteger("gRando.RandoContainers", 0)) {
+        Gfx_DrawDListOpa(play, (Gfx*)gObjTaruBarrelDL);
+        return;
+    }
     if (!CVarGetInteger("gRando.CSMC", 0)) {
         Gfx_DrawDListOpa(play, (Gfx*)gBarrelJunkDL);
         return;
