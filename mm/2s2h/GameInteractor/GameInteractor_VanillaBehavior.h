@@ -2006,6 +2006,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - None
+    VB_PLAYER_START_TALKING,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - `*Actor` (unused)
     VB_POST_CHAR02_LIMB,
 

@@ -8211,7 +8211,9 @@ s32 Player_ActionHandler_Talk(Player* this, PlayState* play) {
             this->currentMask = sSavedCurrentMask;
             gSaveContext.save.equippedMask = this->currentMask;
 
-            Player_StartTalking(play, talkOfferActor);
+            if (GameInteractor_Should(VB_PLAYER_START_TALKING, true)) {
+                Player_StartTalking(play, talkOfferActor);
+            }
 
             return true;
         }
