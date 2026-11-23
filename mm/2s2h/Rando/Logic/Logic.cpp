@@ -2,6 +2,7 @@
 #include "2s2h/ShipInit.hpp"
 
 #include "Logic.h"
+#include "EntranceShuffle.h"
 
 namespace Rando {
 
@@ -207,8 +208,9 @@ void FindReachableRegions(RandoRegionId currentRegion, std::set<RandoRegionId>& 
         // Set global time for check evaluation
         gCurrentRegionTime = currentTime;
 
-        RandoRegionId connectedRegionId = GetRegionIdFromEntrance(exitId);
         if (regionExit.condition()) {
+            s32 lookupExit = Rando::EntranceShuffle::ResolveExit(currentRegion, exitId, regionExit.returnEntrance);
+            RandoRegionId connectedRegionId = GetRegionIdFromEntrance(lookupExit);
             auto& targetRegion = Regions[connectedRegionId];
             RegionTimeState incomingState = { .timeSlices = currentTime,
                                               .canStayOverTime = targetRegion.canStayOverTime };
