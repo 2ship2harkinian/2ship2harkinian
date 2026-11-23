@@ -585,6 +585,8 @@ bool Rando::IsItemObtainable(RandoItemId randoItemId, RandoCheckId randoCheckId)
         case RI_SOUL_ENEMY_WIZROBE:
         case RI_SOUL_ENEMY_WOLFOS:
             return !Flags_GetRandoInf(SOUL_RI_TO_RANDO_INF(randoItemId));
+        case RI_ABILITY_GRAB:
+            return !Flags_GetRandoInf(RANDO_INF_OBTAINED_GRAB);
         case RI_ABILITY_SWIM:
             return !Flags_GetRandoInf(RANDO_INF_OBTAINED_SWIM);
         case RI_FROG_BLUE:
