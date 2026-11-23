@@ -6,6 +6,8 @@
 
 #include "z_en_scopecrow.h"
 
+#include "GameInteractor/GameInteractor.h"
+
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED | ACTOR_FLAG_DRAW_CULLING_DISABLED)
 
 void EnScopecrow_Init(Actor* thisx, PlayState* play);
@@ -113,6 +115,10 @@ s32 func_80BCD09C(s16 arg0) {
 }
 
 s32 func_80BCD1AC(s16 arg0) {
+    if (GameInteractor_Should(VB_SCOPECROW_FORCE_DROP, false, arg0)) {
+        return true;
+    }
+
     switch (arg0) {
         case 0:
             if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_53_04)) {
