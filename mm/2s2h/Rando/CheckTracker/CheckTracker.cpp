@@ -140,7 +140,8 @@ std::vector<const char*> checkTypeIconList = {
     /*RCTYPE_SNOWBALL*/ gMagicArrowEquipEffectTex,
     /*RCTYPE_SONG*/ gItemIconSongNoteTex,
     /*RCTYPE_STRAY_FAIRY*/ gStrayFairyGreatBayIconTex,
-    /*RCTYPE_TINGLE_SHOP*/ gItemIconAdultsWalletTex,
+    /*RCTYPE_TINGLE_FULL*/ gItemIconAdultsWalletTex,
+    /*RCTYPE_TINGLE_SHARED*/ gItemIconAdultsWalletTex,
     /*RCTYPE_TREE*/ gItemIconDekuStickTex,
     /*RCTYPE_WONDER_ITEM*/ gPauseUnusedCursorTex,
 };
