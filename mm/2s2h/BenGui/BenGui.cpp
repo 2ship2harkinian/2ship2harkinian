@@ -7,6 +7,8 @@
 #include "UIWidgets.hpp"
 #include "HudEditor.h"
 #include "2s2h/Enhancements/Audio/AudioEditor.h"
+#include "2s2h/MicOcarina/MicOcarinaWindow.h"
+#include "2s2h/MicOcarina/MicOcarinaHUD.h"
 #include "2s2h/Enhancements/ModMenu/ModMenu.h"
 #include "CosmeticEditor.h"
 #include "Notification.h"
@@ -57,6 +59,8 @@ std::shared_ptr<EventLogWindow> mEventLogWindow;
 std::shared_ptr<DLViewerWindow> mDLViewerWindow;
 std::shared_ptr<MessageViewerWindow> mMessageViewerWindow;
 std::shared_ptr<AudioEditor> mAudioEditorWindow;
+std::shared_ptr<MicOcarinaWindow> mMicOcarinaWindow;
+std::shared_ptr<MicOcarinaHUD> mMicOcarinaHUD;
 std::shared_ptr<ModMenuWindow> mModMenuWindow;
 std::shared_ptr<BenMenu> mBenMenu;
 std::shared_ptr<Notification::Window> mNotificationWindow;
@@ -145,6 +149,13 @@ void SetupGuiElements() {
     mAudioEditorWindow = std::make_shared<AudioEditor>("gWindows.AudioEditor", "Audio Editor", ImVec2(520, 600));
     gui->AddGuiWindow(mAudioEditorWindow);
 
+    mMicOcarinaWindow =
+        std::make_shared<MicOcarinaWindow>("gWindows.MicOcarina", "Mic Ocarina Monitor", ImVec2(420, 560));
+    gui->AddGuiWindow(mMicOcarinaWindow);
+
+    mMicOcarinaHUD = std::make_shared<MicOcarinaHUD>("gWindows.MicOcarinaHUD", "Mic Ocarina HUD");
+    gui->AddGuiWindow(mMicOcarinaHUD);
+
     mModMenuWindow = std::make_shared<ModMenuWindow>("gWindows.ModMenu", "Mod Menu", ImVec2(820, 630));
     gui->AddGuiWindow(mModMenuWindow);
 
@@ -209,6 +220,8 @@ void Destroy() {
     mDLViewerWindow = nullptr;
     mMessageViewerWindow = nullptr;
     mAudioEditorWindow = nullptr;
+    mMicOcarinaWindow = nullptr;
+    mMicOcarinaHUD = nullptr;
     mModMenuWindow = nullptr;
     mItemTrackerWindow = nullptr;
     mItemTrackerSettingsWindow = nullptr;
