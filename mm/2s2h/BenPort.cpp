@@ -485,7 +485,15 @@ void OTRGlobals::RunExtract(int argc, char* argv[]) {
                     case PS_FILE_CHECK: {
                         if (!std::filesystem::exists(Ship::Context::LocateFileAcrossAppDirs("mm.o2r", appShortName))) {
                             BenGui::RegisterPopup(
-                                "No O2R Files", "No O2R files found. Generate one now?", "Yes", "No",
+                                "No O2R Files",
+#if defined(_WIN32) || defined(__APPLE__)
+                                "An O2R file must be generated.\nSelect your Majora's Mask ROM to generate one now?",
+                                "Yes", "No",
+#else
+                                "An O2R file must be generated. Please place your Majora's Mask ROM in\n"
+                                "2Ship2Harkinian's folder and click Continue.",
+                                "Continue", "Cancel",
+#endif
                                 [&]() { promptStep = PS_LOCAL; }, [&]() { exit(0); });
                         } else {
                             extractStep = ES_VERIFY;
