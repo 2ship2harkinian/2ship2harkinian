@@ -30,28 +30,28 @@ extern "C" {
 namespace {
 
 constexpr int kSampleRate = 48000;
-constexpr int kWindow = 4096;                // ~85 ms analysis window
-constexpr int kMinLag = kSampleRate / 2000;  // 24 -> 2000 Hz
-constexpr int kMaxLag = kSampleRate / 60;    // 800 -> 60 Hz
-constexpr int kRmsGate = 300;                // silence gate, in int16 units
-constexpr double kTonalGate = 0.55;          // autocorrelation peak acceptance
-constexpr double kRefHz = 293.66477;         // D4, the reference for semitone values
+constexpr int kWindow = 4096;               // ~85 ms analysis window
+constexpr int kMinLag = kSampleRate / 2000; // 24 -> 2000 Hz
+constexpr int kMaxLag = kSampleRate / 60;   // 800 -> 60 Hz
+constexpr int kRmsGate = 300;               // silence gate, in int16 units
+constexpr double kTonalGate = 0.55;         // autocorrelation peak acceptance
+constexpr double kRefHz = 293.66477;        // D4, the reference for semitone values
 
 // All frame counts are in HOOK TICKS, which run at ~20 Hz (50 ms each) — the
 // ocarina input scan is not per-render-frame. Calibrated to that rate.
-constexpr int kNoteMinFrames = 3;    // ~200 ms: the shortest note that counts
-constexpr int kNoteQuietFrames = 2;  // ~100 ms of quiet ends a note
-constexpr int kEventGapFrames = 30;  // ~1.5 s of silence forgets the sequence
+constexpr int kNoteMinFrames = 3;           // ~200 ms: the shortest note that counts
+constexpr int kNoteQuietFrames = 2;         // ~100 ms of quiet ends a note
+constexpr int kEventGapFrames = 30;         // ~1.5 s of silence forgets the sequence
 constexpr double kIntervalTolerance = 1.25; // semitones of error allowed per interval
-constexpr double kHoldTol = 1.0;   // semitones: still within the current note (vibrato swings back inside)
-constexpr double kGlideTol = 1.25; // clearly a different note than the one being held
-constexpr int kGlideFrames = 4;    // ~300 ms of sustained pitch departure before splitting — vibrato
-                                  // excursions return within ~150 ms and never reach this; a real note change does
+constexpr double kHoldTol = 1.0;            // semitones: still within the current note (vibrato swings back inside)
+constexpr double kGlideTol = 1.25;          // clearly a different note than the one being held
+constexpr int kGlideFrames = 4;             // ~300 ms of sustained pitch departure before splitting — vibrato
+                                // excursions return within ~150 ms and never reach this; a real note change does
 constexpr double kReattackRatio = 0.55; // rms dip below this fraction of the note's peak = a stop/re-tongue
-constexpr int kDipFrames = 2;     // ~100 ms dipped ends a note even at the same pitch
-                                  // (repeated notes: A-A, D-D, F-F can't be split by pitch change)
-constexpr double kMinSemis = -12.0; // pitches outside this range are noise (e.g. the headset's
-constexpr double kMaxSemis = 24.0;  // 1846 Hz beep at +31.8) — never commit them as notes
+constexpr int kDipFrames = 2;           // ~100 ms dipped ends a note even at the same pitch
+                                        // (repeated notes: A-A, D-D, F-F can't be split by pitch change)
+constexpr double kMinSemis = -12.0;     // pitches outside this range are noise (e.g. the headset's
+constexpr double kMaxSemis = 24.0;      // 1846 Hz beep at +31.8) — never commit them as notes
 
 // The buttons each game pitch plays (D4, F4, A4, B4, D5 -> A, C-down, C-right, C-left, C-up).
 constexpr uint32_t kPitchButtons[5] = { BTN_A, BTN_CDOWN, BTN_CRIGHT, BTN_CLEFT, BTN_CUP };
@@ -69,52 +69,82 @@ struct SongProfile {
 
 constexpr SongProfile kSongs[] = {
     // OCARINA_SONG_SONATA: D5 B4 D5 B4 D4 A4 D4
-    { OCARINA_SONG_SONATA, 7, { 4, 3, 4, 3, 0, 2, 0 }, { 19, 19, 19, 38, 39, 76, 77 }, QUEST_SONG_SONATA,
+    { OCARINA_SONG_SONATA,
+      7,
+      { 4, 3, 4, 3, 0, 2, 0 },
+      { 19, 19, 19, 38, 39, 76, 77 },
+      QUEST_SONG_SONATA,
       "Sonata of Awakening" },
     // OCARINA_SONG_GORON_LULLABY: D4 A4 B4 D4 A4 B4 A4 D4
-    { OCARINA_SONG_GORON_LULLABY, 8, { 0, 2, 3, 0, 2, 3, 2, 0 }, { 41, 40, 39, 42, 40, 39, 41, 80 },
-      QUEST_SONG_LULLABY, "Goron Lullaby" },
+    { OCARINA_SONG_GORON_LULLABY,
+      8,
+      { 0, 2, 3, 0, 2, 3, 2, 0 },
+      { 41, 40, 39, 42, 40, 39, 41, 80 },
+      QUEST_SONG_LULLABY,
+      "Goron Lullaby" },
     // OCARINA_SONG_NEW_WAVE: B4 D5 B4 A4 F4 B4 A4
-    { OCARINA_SONG_NEW_WAVE, 7, { 3, 4, 3, 2, 1, 3, 2 }, { 64, 13, 12, 78, 12, 13, 114 },
-      QUEST_SONG_BOSSA_NOVA, "New Wave Bossa Nova" },
+    { OCARINA_SONG_NEW_WAVE,
+      7,
+      { 3, 4, 3, 2, 1, 3, 2 },
+      { 64, 13, 12, 78, 12, 13, 114 },
+      QUEST_SONG_BOSSA_NOVA,
+      "New Wave Bossa Nova" },
     // OCARINA_SONG_ELEGY: A4 B4 A4 F4 A4 D5 B4
-    { OCARINA_SONG_ELEGY, 7, { 2, 3, 2, 1, 2, 4, 3 }, { 85, 43, 43, 21, 21, 43, 85 }, QUEST_SONG_ELEGY,
+    { OCARINA_SONG_ELEGY,
+      7,
+      { 2, 3, 2, 1, 2, 4, 3 },
+      { 85, 43, 43, 21, 21, 43, 85 },
+      QUEST_SONG_ELEGY,
       "Elegy of Emptiness" },
     // OCARINA_SONG_OATH: A4 F4 D4 F4 A4 D5
-    { OCARINA_SONG_OATH, 6, { 2, 1, 0, 1, 2, 4 }, { 97, 48, 49, 49, 48, 97 }, QUEST_SONG_OATH,
-      "Oath to Order" },
+    { OCARINA_SONG_OATH, 6, { 2, 1, 0, 1, 2, 4 }, { 97, 48, 49, 49, 48, 97 }, QUEST_SONG_OATH, "Oath to Order" },
     // OCARINA_SONG_SARIAS: F4 A4 B4 F4 A4 B4
-    { OCARINA_SONG_SARIAS, 6, { 1, 2, 3, 1, 2, 3 }, { 17, 17, 34, 17, 17, 136 }, QUEST_SONG_SARIA,
-      "Saria's Song" },
+    { OCARINA_SONG_SARIAS, 6, { 1, 2, 3, 1, 2, 3 }, { 17, 17, 34, 17, 17, 136 }, QUEST_SONG_SARIA, "Saria's Song" },
     // OCARINA_SONG_TIME: A4 D4 F4 A4 D4 F4
-    { OCARINA_SONG_TIME, 6, { 2, 0, 1, 2, 0, 1 }, { 32, 65, 33, 32, 65, 99 }, QUEST_SONG_TIME,
-      "Song of Time" },
+    { OCARINA_SONG_TIME, 6, { 2, 0, 1, 2, 0, 1 }, { 32, 65, 33, 32, 65, 99 }, QUEST_SONG_TIME, "Song of Time" },
     // OCARINA_SONG_HEALING: B4 A4 F4 B4 A4 F4
-    { OCARINA_SONG_HEALING, 6, { 3, 2, 1, 3, 2, 1 }, { 32, 33, 33, 32, 33, 121 }, QUEST_SONG_HEALING,
+    { OCARINA_SONG_HEALING,
+      6,
+      { 3, 2, 1, 3, 2, 1 },
+      { 32, 33, 33, 32, 33, 121 },
+      QUEST_SONG_HEALING,
       "Song of Healing" },
     // OCARINA_SONG_EPONAS: D5 B4 A4 D5 B4 A4
-    { OCARINA_SONG_EPONAS, 6, { 4, 3, 2, 4, 3, 2 }, { 18, 18, 72, 18, 18, 144 }, QUEST_SONG_EPONA,
-      "Epona's Song" },
+    { OCARINA_SONG_EPONAS, 6, { 4, 3, 2, 4, 3, 2 }, { 18, 18, 72, 18, 18, 144 }, QUEST_SONG_EPONA, "Epona's Song" },
     // OCARINA_SONG_SOARING: F4 B4 D5 F4 B4 D5
-    { OCARINA_SONG_SOARING, 6, { 1, 3, 4, 1, 3, 4 }, { 18, 18, 36, 18, 18, 108 }, QUEST_SONG_SOARING,
+    { OCARINA_SONG_SOARING,
+      6,
+      { 1, 3, 4, 1, 3, 4 },
+      { 18, 18, 36, 18, 18, 108 },
+      QUEST_SONG_SOARING,
       "Song of Soaring" },
     // OCARINA_SONG_STORMS: D4 F4 D5 D4 F4 D5
-    { OCARINA_SONG_STORMS, 6, { 0, 1, 4, 0, 1, 4 }, { 11, 11, 45, 11, 11, 90 }, QUEST_SONG_STORMS,
-      "Song of Storms" },
+    { OCARINA_SONG_STORMS, 6, { 0, 1, 4, 0, 1, 4 }, { 11, 11, 45, 11, 11, 90 }, QUEST_SONG_STORMS, "Song of Storms" },
     // OCARINA_SONG_SUNS: A4 F4 D5 A4 F4 D5
     { OCARINA_SONG_SUNS, 6, { 2, 1, 4, 2, 1, 4 }, { 12, 13, 29, 12, 13, 120 }, QUEST_SONG_SUN, "Sun's Song" },
     // OCARINA_SONG_INVERTED_TIME: F4 D4 A4 F4 D4 A4
-    { OCARINA_SONG_INVERTED_TIME, 6, { 1, 0, 2, 1, 0, 2 }, { 32, 65, 33, 32, 65, 99 }, QUEST_SONG_TIME,
+    { OCARINA_SONG_INVERTED_TIME,
+      6,
+      { 1, 0, 2, 1, 0, 2 },
+      { 32, 65, 33, 32, 65, 99 },
+      QUEST_SONG_TIME,
       "Inverted Song of Time" },
     // OCARINA_SONG_DOUBLE_TIME: A4 A4 D4 D4 F4 F4
-    { OCARINA_SONG_DOUBLE_TIME, 6, { 2, 2, 0, 0, 1, 1 }, { 29, 30, 29, 30, 29, 99 }, QUEST_SONG_TIME,
+    { OCARINA_SONG_DOUBLE_TIME,
+      6,
+      { 2, 2, 0, 0, 1, 1 },
+      { 29, 30, 29, 30, 29, 99 },
+      QUEST_SONG_TIME,
       "Song of Double Time" },
     // OCARINA_SONG_GORON_LULLABY_INTRO: D4 A4 B4 D4 A4 B4
-    { OCARINA_SONG_GORON_LULLABY_INTRO, 6, { 0, 2, 3, 0, 2, 3 }, { 32, 33, 33, 32, 33, 130 },
-      QUEST_SONG_LULLABY_INTRO, "Goron Lullaby Intro" },
+    { OCARINA_SONG_GORON_LULLABY_INTRO,
+      6,
+      { 0, 2, 3, 0, 2, 3 },
+      { 32, 33, 33, 32, 33, 130 },
+      QUEST_SONG_LULLABY_INTRO,
+      "Goron Lullaby Intro" },
     // OCARINA_SONG_ZELDAS_LULLABY: B4 D5 A4 B4 D5 A4 (no quest item; free play only)
-    { OCARINA_SONG_ZELDAS_LULLABY, 6, { 3, 4, 2, 3, 4, 2 }, { 15, 15, 45, 15, 15, 105 }, 0xFF,
-      "Zelda's Lullaby" },
+    { OCARINA_SONG_ZELDAS_LULLABY, 6, { 3, 4, 2, 3, 4, 2 }, { 15, 15, 45, 15, 15, 105 }, 0xFF, "Zelda's Lullaby" },
 };
 constexpr int kSongCount = sizeof(kSongs) / sizeof(kSongs[0]);
 constexpr int kMaxSongs = 20;
@@ -177,7 +207,9 @@ bool EnsureDevice() {
         return false;
     }
     SDL_PauseAudioDevice(gDevice, 0);
-    spdlog::info("[mic-ocarina] capture device '{}' opened ({} Hz, {} ch)", SDL_GetAudioDeviceName(gDevice, 1) ? SDL_GetAudioDeviceName(gDevice, 1) : "(default)", have.freq, have.channels);
+    spdlog::info("[mic-ocarina] capture device '{}' opened ({} Hz, {} ch)",
+                 SDL_GetAudioDeviceName(gDevice, 1) ? SDL_GetAudioDeviceName(gDevice, 1) : "(default)", have.freq,
+                 have.channels);
     return true;
 }
 
@@ -274,22 +306,22 @@ int sSilenceFrames = 0;
 bool sInNote = false;
 double sNoteMean = 0; // running mean semitones
 int sNoteFrames = 0;
-int sAwayFrames = 0;   // frames the pitch has been outside the held note's stable range
-double sAwayMean = 0;  // where that departure is heading (the next note gliding in)
-double sNotePeak = 0;  // loudest rms seen in the current note (slowly decaying)
-int sDipFrames = 0;    // consecutive frames well below the note's peak (a stop/re-tongue)
+int sAwayFrames = 0;  // frames the pitch has been outside the held note's stable range
+double sAwayMean = 0; // where that departure is heading (the next note gliding in)
+double sNotePeak = 0; // loudest rms seen in the current note (slowly decaying)
+int sDipFrames = 0;   // consecutive frames well below the note's peak (a stop/re-tongue)
 
 // ---- playback state (after a song matches) ----
 const SongProfile* sPlaying = nullptr;
 int sPlayNote = 0;
 int sPlayGap = 0;
-int sPendingFrames = 0; // green "recognized" beat before feeding the song
+int sPendingFrames = 0;  // green "recognized" beat before feeding the song
 int sCooldownFrames = 0; // after playback: ignore the mic while the game plays the song
 
 // ---- debug state for the monitor window ----
 MicOcarinaDebug gDebug{};
 std::chrono::steady_clock::time_point sLastCallTime{}; // last GetButtons call
-bool sHookStarted = false;                              // any GetButtons call seen yet
+bool sHookStarted = false;                             // any GetButtons call seen yet
 
 bool IsSongUnlocked(const SongProfile* song) {
     if (song->questSlot == 0xFF) {
@@ -499,8 +531,7 @@ void UpdateDebug(double f, double tonality, double rms, double semis) {
         gDebug.songPitchCount[i] = kSongs[i].pitchCount;
     }
     // waveform history for the HUD (ring buffer; size must match MicOcarina.h)
-    gDebug.waveform[gDebug.waveformFrames % (int)(sizeof(gDebug.waveform) / sizeof(gDebug.waveform[0]))] =
-        (float)rms;
+    gDebug.waveform[gDebug.waveformFrames % (int)(sizeof(gDebug.waveform) / sizeof(gDebug.waveform[0]))] = (float)rms;
     gDebug.waveformFrames++;
     gDebug.playingName = sPlaying != nullptr ? sPlaying->name : "";
 }
@@ -571,7 +602,7 @@ extern "C" uint32_t MicOcarina_GetButtons(Input* input) {
     const double f = DetectPitch(&tonality, &rms);
     const double semis = f > 0 ? 12.0 * std::log2(f / kRefHz) : 0.0;
 
-    if (sPlaying != nullptr) { // a matched song is playing back
+    if (sPlaying != nullptr) {    // a matched song is playing back
         if (sPendingFrames > 0) { // recognized: hold a green beat before feeding it
             sPendingFrames--;
             UpdateDebug(f, tonality, rms, semis);
@@ -684,7 +715,8 @@ extern "C" uint32_t MicOcarina_GetButtons(Input* input) {
                                          : MatchesSongMerged(&song);
             if (IsSongUnlocked(&song) && hit) {
                 spdlog::info("[mic-ocarina] recognized '{}' ({} notes){} - feeding buttons shortly", song.name,
-                             song.pitchCount, pass == 0 ? "" : (pass == 1 ? " (forgave a slip)" : " (held note = pair)"));
+                             song.pitchCount,
+                             pass == 0 ? "" : (pass == 1 ? " (forgave a slip)" : " (held note = pair)"));
                 sPlaying = &song;
                 sPlayNote = 0;
                 sPlayGap = 0;

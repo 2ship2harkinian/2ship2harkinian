@@ -9,8 +9,8 @@
 
 namespace {
 constexpr int kBars = (int)(sizeof(((MicOcarinaDebug*)0)->waveform) / sizeof(float)); // matches MicOcarina.h
-constexpr float kGate = 300.0f;  // silence gate — matches kRmsGate in MicOcarina.cpp
-constexpr float kFull = 3000.0f; // mic level that fills a waveform bar
+constexpr float kGate = 300.0f;         // silence gate — matches kRmsGate in MicOcarina.cpp
+constexpr float kFull = 3000.0f;        // mic level that fills a waveform bar
 constexpr float kActiveTimeout = 0.25f; // seconds without hook activity = ocarina put away
 
 // The game's five ocarina pitches in semitones above D4 — matches MicOcarina.cpp.
@@ -54,7 +54,8 @@ void MicOcarinaHUD::Draw() {
     const ImVec4 waitingColor(0.72f, 0.75f, 0.80f, 1.0f);
     const ImVec4 receivingColor(0.40f, 0.95f, 0.55f, 1.0f);
     const ImVec4 matchedColor(1.0f, 0.82f, 0.35f, 1.0f);
-    const ImVec4 accent = pending ? receivingColor : (matched ? matchedColor : (receiving ? receivingColor : waitingColor));
+    const ImVec4 accent =
+        pending ? receivingColor : (matched ? matchedColor : (receiving ? receivingColor : waitingColor));
 
     // anchor: 0 top-left, 1 top-right, 2 bottom-left, 3 bottom-right, 4 bottom-center, 5 top-center, 6 center
     const int corner = CVarGetInteger("gEnhancements.Playback.MicOcarinaHUDCorner", 5);
@@ -63,13 +64,32 @@ void MicOcarinaHUD::Draw() {
     ImVec2 anchor = ImVec2(margin, margin);
     ImVec2 pivot(0.0f, 0.0f);
     switch (corner) {
-        case 1: anchor = ImVec2(display.x - margin, margin); pivot = ImVec2(1.0f, 0.0f); break;
-        case 2: anchor = ImVec2(margin, display.y - margin); pivot = ImVec2(0.0f, 1.0f); break;
-        case 3: anchor = ImVec2(display.x - margin, display.y - margin); pivot = ImVec2(1.0f, 1.0f); break;
-        case 5: anchor = ImVec2(display.x * 0.5f, margin * 2.0f); pivot = ImVec2(0.5f, 0.0f); break;
-        case 6: anchor = ImVec2(display.x * 0.5f, display.y * 0.5f); pivot = ImVec2(0.5f, 0.5f); break;
-        case 0: break;
-        default: anchor = ImVec2(display.x * 0.5f, display.y - margin * 3.0f); pivot = ImVec2(0.5f, 1.0f); break;
+        case 1:
+            anchor = ImVec2(display.x - margin, margin);
+            pivot = ImVec2(1.0f, 0.0f);
+            break;
+        case 2:
+            anchor = ImVec2(margin, display.y - margin);
+            pivot = ImVec2(0.0f, 1.0f);
+            break;
+        case 3:
+            anchor = ImVec2(display.x - margin, display.y - margin);
+            pivot = ImVec2(1.0f, 1.0f);
+            break;
+        case 5:
+            anchor = ImVec2(display.x * 0.5f, margin * 2.0f);
+            pivot = ImVec2(0.5f, 0.0f);
+            break;
+        case 6:
+            anchor = ImVec2(display.x * 0.5f, display.y * 0.5f);
+            pivot = ImVec2(0.5f, 0.5f);
+            break;
+        case 0:
+            break;
+        default:
+            anchor = ImVec2(display.x * 0.5f, display.y - margin * 3.0f);
+            pivot = ImVec2(0.5f, 1.0f);
+            break;
     }
     ImGui::SetNextWindowPos(anchor, ImGuiCond_Always, pivot);
 
@@ -78,12 +98,11 @@ void MicOcarinaHUD::Draw() {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
     ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-    const ImGuiWindowFlags flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
-                                   ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize |
-                                   ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav |
-                                   ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove |
-                                   ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar |
-                                   ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground;
+    const ImGuiWindowFlags flags =
+        ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking |
+        ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav |
+        ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse |
+        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground;
     if (ImGui::Begin("###MicOcarinaHUD", nullptr, flags)) {
         ImDrawList* dl = ImGui::GetWindowDrawList();
         const ImU32 accentCol = ImGui::GetColorU32(accent);
@@ -99,7 +118,9 @@ void MicOcarinaHUD::Draw() {
         } else {
             snprintf(status, sizeof(status), "%s", receiving ? "Receiving input" : "Waiting for input");
         }
-        snprintf(sub, sizeof(sub), "%s", matched ? (pending ? "Get ready..." : "Sending to the game") : (receiving ? "Hearing you" : "Play or sing your ocarina"));
+        snprintf(sub, sizeof(sub), "%s",
+                 matched ? (pending ? "Get ready..." : "Sending to the game")
+                         : (receiving ? "Hearing you" : "Play or sing your ocarina"));
         const ImVec2 statusSz = ImGui::CalcTextSize(status);
         const ImVec2 subSz = ImGui::CalcTextSize(sub);
         const float textW = fmaxf(statusSz.x, subSz.x);
@@ -129,7 +150,6 @@ void MicOcarinaHUD::Draw() {
         dl->AddText(ImVec2(pMin.x + 16.0f, pMin.y + 6.0f), accentCol, status);
         dl->AddText(ImVec2(pMin.x + 16.0f, pMin.y + 6.0f + statusSz.y + 1.0f),
                     ImGui::GetColorU32(ImGuiCol_TextDisabled), sub);
-
     }
     ImGui::End();
     ImGui::PopStyleVar(3);
@@ -189,8 +209,8 @@ void MicOcarinaHUD::Draw() {
         const float edge = 1.0f - fabsf(y - rc.y) / (rh * 0.5f); // fade toward top/bottom
         const bool active = (float)n == curSemis;
         const float a = (active ? 0.30f : 0.07f) * edge * master;
-        bg->AddLine(ImVec2(rMin.x, y), ImVec2(rMax.x, y),
-                    ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, a)), active ? 2.0f : 1.0f);
+        bg->AddLine(ImVec2(rMin.x, y), ImVec2(rMax.x, y), ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, a)),
+                    active ? 2.0f : 1.0f);
     }
 
     // the note trail: thick translucent horizontal strokes with a glow

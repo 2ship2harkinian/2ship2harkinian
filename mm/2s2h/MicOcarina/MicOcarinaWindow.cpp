@@ -50,8 +50,8 @@ void MicOcarinaWindow::DrawElement() {
         ImGui::TextDisabled("  (nothing yet)");
     }
     for (int i = 0; i < d.eventCount; i++) {
-        ImGui::BulletText("%+.2f semis (%.0f Hz), %d frames", d.eventSemis[i], 293.66f * powf(2.0f, d.eventSemis[i] / 12.0f),
-                          d.eventFrames[i]);
+        ImGui::BulletText("%+.2f semis (%.0f Hz), %d frames", d.eventSemis[i],
+                          293.66f * powf(2.0f, d.eventSemis[i] / 12.0f), d.eventFrames[i]);
     }
     ImGui::Separator();
 

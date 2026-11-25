@@ -1557,67 +1557,64 @@ void BenMenu::AddEnhancements() {
             "is open, the spaces between your notes (the pitch intervals) are matched against the game's "
             "songs, so any instrument in any key works. When you play a song you know, it is accepted as if "
             "you had pressed its buttons yourself."));
-    AddWidget(path, "mic-input", WIDGET_CUSTOM)
-        .CustomFunction([](WidgetInfo& info) {
-            if (!CVarGetInteger("gEnhancements.Playback.MicOcarina", 0)) {
-                return; // only show when the enhancement is on
+    AddWidget(path, "mic-input", WIDGET_CUSTOM).CustomFunction([](WidgetInfo& info) {
+        if (!CVarGetInteger("gEnhancements.Playback.MicOcarina", 0)) {
+            return; // only show when the enhancement is on
+        }
+        char* current = CVarGetString("gEnhancements.Playback.MicOcarinaDevice", "");
+        const char* label = (current && current[0]) ? current : "Default Microphone";
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        if (ImGui::BeginCombo("Mic Input", label)) {
+            if (ImGui::Selectable("Default Microphone", !(current && current[0]))) {
+                CVarSetString("gEnhancements.Playback.MicOcarinaDevice", "");
+                CVarSave();
+                MicOcarina_ReloadDevice();
             }
-            char* current = CVarGetString("gEnhancements.Playback.MicOcarinaDevice", "");
-            const char* label = (current && current[0]) ? current : "Default Microphone";
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            if (ImGui::BeginCombo("Mic Input", label)) {
-                if (ImGui::Selectable("Default Microphone", !(current && current[0]))) {
-                    CVarSetString("gEnhancements.Playback.MicOcarinaDevice", "");
+            const int n = SDL_GetNumAudioDevices(1);
+            for (int i = 0; i < n; i++) {
+                const char* name = SDL_GetAudioDeviceName(i, 1);
+                if (name == nullptr) {
+                    continue;
+                }
+                const bool selected = current && strcmp(current, name) == 0;
+                if (ImGui::Selectable(name, selected)) {
+                    CVarSetString("gEnhancements.Playback.MicOcarinaDevice", name);
                     CVarSave();
                     MicOcarina_ReloadDevice();
                 }
-                const int n = SDL_GetNumAudioDevices(1);
-                for (int i = 0; i < n; i++) {
-                    const char* name = SDL_GetAudioDeviceName(i, 1);
-                    if (name == nullptr) {
-                        continue;
-                    }
-                    const bool selected = current && strcmp(current, name) == 0;
-                    if (ImGui::Selectable(name, selected)) {
-                        CVarSetString("gEnhancements.Playback.MicOcarinaDevice", name);
-                        CVarSave();
-                        MicOcarina_ReloadDevice();
-                    }
+            }
+            ImGui::EndCombo();
+        }
+        if (ImGui::IsItemHovered()) {
+            UIWidgets::Tooltip("The microphone used for ocarina input. Changing it takes effect "
+                               "immediately.");
+        }
+    });
+    AddWidget(path, "mic-hud-corner", WIDGET_CUSTOM).CustomFunction([](WidgetInfo& info) {
+        if (!CVarGetInteger("gEnhancements.Playback.MicOcarina", 0)) {
+            return; // only show when the enhancement is on
+        }
+        static const char* const kCorners[7] = { "Top Left",      "Top Right",  "Bottom Left", "Bottom Right",
+                                                 "Bottom Center", "Top Center", "Center" };
+        const int current = CVarGetInteger("gEnhancements.Playback.MicOcarinaHUDCorner", 4);
+        if (current < 0 || current > 6) {
+            return;
+        }
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        if (ImGui::BeginCombo("Mic HUD Position", kCorners[current])) {
+            for (int i = 0; i < 7; i++) {
+                if (ImGui::Selectable(kCorners[i], i == current)) {
+                    CVarSetInteger("gEnhancements.Playback.MicOcarinaHUDCorner", i);
+                    CVarSave();
                 }
-                ImGui::EndCombo();
             }
-            if (ImGui::IsItemHovered()) {
-                UIWidgets::Tooltip("The microphone used for ocarina input. Changing it takes effect "
-                                  "immediately.");
-            }
-        });
-    AddWidget(path, "mic-hud-corner", WIDGET_CUSTOM)
-        .CustomFunction([](WidgetInfo& info) {
-            if (!CVarGetInteger("gEnhancements.Playback.MicOcarina", 0)) {
-                return; // only show when the enhancement is on
-            }
-            static const char* const kCorners[7] = { "Top Left",      "Top Right",  "Bottom Left", "Bottom Right",
-                                                     "Bottom Center", "Top Center", "Center" };
-            const int current = CVarGetInteger("gEnhancements.Playback.MicOcarinaHUDCorner", 4);
-            if (current < 0 || current > 6) {
-                return;
-            }
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            if (ImGui::BeginCombo("Mic HUD Position", kCorners[current])) {
-                for (int i = 0; i < 7; i++) {
-                    if (ImGui::Selectable(kCorners[i], i == current)) {
-                        CVarSetInteger("gEnhancements.Playback.MicOcarinaHUDCorner", i);
-                        CVarSave();
-                    }
-                }
-                ImGui::EndCombo();
-            }
-            if (ImGui::IsItemHovered()) {
-                UIWidgets::Tooltip(
-                    "Screen corner for the mic ocarina status overlay (mic icon, waiting/receiving "
-                    "text and the input waveform) that shows while the ocarina is out.");
-            }
-        });
+            ImGui::EndCombo();
+        }
+        if (ImGui::IsItemHovered()) {
+            UIWidgets::Tooltip("Screen corner for the mic ocarina status overlay (mic icon, waiting/receiving "
+                               "text and the input waveform) that shows while the ocarina is out.");
+        }
+    });
     AddWidget(path, "Popout Mic Ocarina Monitor", WIDGET_WINDOW_BUTTON)
         .CVar("gWindows.MicOcarina")
         .WindowName("Mic Ocarina Monitor");
