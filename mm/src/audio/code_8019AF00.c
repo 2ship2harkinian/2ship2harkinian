@@ -3,6 +3,7 @@
 
 #include "GameInteractor/GameInteractor.h"
 #include "2s2h/Enhancements/Audio/AudioEditor.h"
+#include "2s2h/MicOcarina/MicOcarina.h"
 #include <libultraship/bridge/consolevariablebridge.h>
 #include <libultraship/bridge/audiobridge.h>
 
@@ -2095,6 +2096,10 @@ void AudioOcarina_ReadControllerInput(void) {
 
     // 2S2H [Enhancement] Apply custom ocarina controls via GameInteractor
     sOcarinaInputButtonCur |= GameInteractor_CustomOcarinaControls(input);
+
+    // 2S2H [Enhancement] Apply microphone ocarina input (pitch from the mic, like the
+    // Switch 2 OoT port's "play with your voice / an instrument")
+    sOcarinaInputButtonCur |= MicOcarina_GetButtons(input);
 }
 
 /**
