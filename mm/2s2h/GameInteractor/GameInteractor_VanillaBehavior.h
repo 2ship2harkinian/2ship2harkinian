@@ -1291,6 +1291,14 @@ typedef enum {
 
     // #### `result`
     // ```c
+    // true
+    // ```
+    // #### `args
+    // - `*EnIshi`
+    VB_ISHI_DRAW_BE_OVERRIDDEN,
+
+    // #### `result`
+    // ```c
     // !gPlayerFormItemRestrictions[GET_PLAYER_FORM][itemId]
     // ```
     // #### `args`
@@ -2117,6 +2125,19 @@ typedef enum {
     // #### `args`
     // - None
     VB_RESET_PUTAWAY_TIMER,
+
+    // #### `result`
+    // ##### In `EnIshi_DropCollectable`:
+    // ```c
+    // collectableItem00Id >= ITEM00_RUPEE_GREEN
+    // ```
+    // ##### In `EnIshi_DropItem`:
+    // ```c
+    // (ENISHI_GET_SIZE_FLAG(&this->actor) == ISHI_SIZE_SMALL_ROCK) && !ENISHI_GET_IGNORE_DROP_TABLE_FLAG(&this->actor)
+    // ```
+    // #### `args`
+    // - `*EnIshi`
+    VB_ROCK_DROP_COLLECTIBLE,
 
     // #### `result`
     // ```c
