@@ -1057,6 +1057,14 @@ typedef enum {
     // true
     // ```
     // #### `args`
+    // - `*u16 flag`
+    VB_GIVE_NOTEBOOK_ENTRY,
+
+    // #### `result`
+    // ```c
+    // true
+    // ```
+    // #### `args`
     // - None
     VB_GIVE_PENDANT_OF_MEMORIES_FROM_KAFEI,
 
@@ -1203,6 +1211,13 @@ typedef enum {
     // #### `args`
     // - None
     VB_HAVE_BLAST_MASK,
+
+    // #### `result`
+    // ```c
+    // INV_CONTENT(ITEM_MASK_BUNNY) == ITEM_MASK_BUNNY
+    // #### `args`
+    // - None
+    VB_HAVE_BUNNY_HOOD,
 
     // #### `result`
     // ```c

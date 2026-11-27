@@ -479,6 +479,62 @@ bool Rando::IsItemObtainable(RandoItemId randoItemId, RandoCheckId randoCheckId)
         // Quest Items
         case RI_BOMBERS_NOTEBOOK:
             return !CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK);
+        case RI_NOTEBOOK_BOMBERS:
+        case RI_NOTEBOOK_ANJU:
+        case RI_NOTEBOOK_KAFEI:
+        case RI_NOTEBOOK_CURIO_SHOP_MAN:
+        case RI_NOTEBOOK_BOMB_SHOP_LADY:
+        case RI_NOTEBOOK_ROMANI:
+        case RI_NOTEBOOK_CREMIA:
+        case RI_NOTEBOOK_MAYOR_DOTOUR:
+        case RI_NOTEBOOK_MADAME_AROMA:
+        case RI_NOTEBOOK_TOTO:
+        case RI_NOTEBOOK_GORMAN:
+        case RI_NOTEBOOK_POSTMAN:
+        case RI_NOTEBOOK_ROSA_SISTERS:
+        case RI_NOTEBOOK_TOILET_HAND:
+        case RI_NOTEBOOK_GRANDMA:
+        case RI_NOTEBOOK_KAMARO:
+        case RI_NOTEBOOK_GROG:
+        case RI_NOTEBOOK_GORMAN_BROS:
+        case RI_NOTEBOOK_SHIRO:
+        case RI_NOTEBOOK_GURU_GURU:
+        case RI_NOTEBOOK_ROOM_KEY:
+        case RI_NOTEBOOK_P_ANJU_MEETING:
+        case RI_NOTEBOOK_P_KAFEI_MEETING:
+        case RI_NOTEBOOK_R_LETTER_TO_KAFEI:
+        case RI_NOTEBOOK_D_LETTER_TO_KAFEI:
+        case RI_NOTEBOOK_R_PENDANT:
+        case RI_NOTEBOOK_D_PENDANT:
+        case RI_NOTEBOOK_ESCAPED_SAKONS:
+        case RI_NOTEBOOK_P_ALIENS:
+        case RI_NOTEBOOK_D_ALIENS:
+        case RI_NOTEBOOK_R_ALIENS_BOTTLE:
+        case RI_NOTEBOOK_ESCORTED_CREMIA:
+        case RI_NOTEBOOK_ROMANIS_MASK:
+        case RI_NOTEBOOK_KEATON_MASK:
+        case RI_NOTEBOOK_R_PRIORITY_MAIL:
+        case RI_NOTEBOOK_D_PRIORITY_MAIL:
+        case RI_NOTEBOOK_SECRET_CODE:
+        case RI_NOTEBOOK_BOMBERS_NOTEBOOK:
+        case RI_NOTEBOOK_MAYOR_HP:
+        case RI_NOTEBOOK_ROSA_SISTERS_HP:
+        case RI_NOTEBOOK_TOILET_HAND_HP:
+        case RI_NOTEBOOK_GRANDMA_SHORT:
+        case RI_NOTEBOOK_GRANDMA_LONG:
+        case RI_NOTEBOOK_POSTMAN_HP:
+        case RI_NOTEBOOK_KAFEIS_MASK:
+        case RI_NOTEBOOK_ALL_NIGHT_MASK:
+        case RI_NOTEBOOK_BUNNY_HOOD:
+        case RI_NOTEBOOK_GAROS_MASK:
+        case RI_NOTEBOOK_GORMAN_MASK:
+        case RI_NOTEBOOK_POSTMANS_HAT:
+        case RI_NOTEBOOK_COUPLES_MASK:
+        case RI_NOTEBOOK_BLAST_MASK:
+        case RI_NOTEBOOK_KAMAROS_MASK:
+        case RI_NOTEBOOK_STONE_MASK:
+        case RI_NOTEBOOK_BREMEN_MASK:
+            return !CHECK_WEEKEVENTREG(gBombersNotebookWeekEventFlags[randoItemId - RI_NOTEBOOK_BOMBERS]);
         case RI_REMAINS_ODOLWA:
             return !CHECK_QUEST_ITEM(QUEST_REMAINS_ODOLWA);
         case RI_REMAINS_GOHT:

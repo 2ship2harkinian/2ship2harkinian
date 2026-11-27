@@ -182,6 +182,7 @@ void ValidateRegionTimeOwnership(RandoRegionId regionId, RandoCheckId checkId, u
 #define IS_GORON (GET_PLAYER_FORM == PLAYER_FORM_GORON)
 #define IS_HUMAN (GET_PLAYER_FORM == PLAYER_FORM_HUMAN)
 #define HAS_ITEM(item) (INV_CONTENT(item) == item)
+#define HAS_NOTEBOOK (CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK))
 #define CAN_BE_DEKU (IS_DEKU || HAS_ITEM(ITEM_MASK_DEKU))
 #define CAN_BE_ZORA (IS_ZORA || HAS_ITEM(ITEM_MASK_ZORA))
 #define CAN_BE_DEITY (IS_DEITY || HAS_ITEM(ITEM_MASK_FIERCE_DEITY))
@@ -223,6 +224,9 @@ void ValidateRegionTimeOwnership(RandoRegionId regionId, RandoCheckId checkId, u
 #define CAN_GROW_BEAN_PLANT        \
     (HAS_ITEM(ITEM_MAGIC_BEANS) && \
      (CAN_PLAY_SONG(STORMS) || (HAS_BOTTLE && (CAN_ACCESS(SPRING_WATER) || CAN_ACCESS(HOT_SPRING_WATER)))))
+#define KNOWS_SECRET_CODE                                                                   \
+    (HAS_NOTEBOOK && CHECK_WEEKEVENTREG(WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_MET_BOMBERS) && \
+     CHECK_WEEKEVENTREG(WEEKEVENTREG_BOMBERS_NOTEBOOK_EVENT_LEARNED_SECRET_CODE))
 // Bean patches that auto-water on Day 2 (Doggy Racetrack, Deku Palace Upper)
 // Rain only occurs Day 2 from 7:00 AM to 5:30 PM (not Night 2)
 // Requires magic beans and (Day 2 OR manual watering)
