@@ -11,7 +11,7 @@
 
         <!-- Powder Keg Textures -->
         <Texture Name="gGiPowderKegGoronSkullTex" OutName="gi_powder_keg_goron_skull" Format="ia8" Width="16" Height="32" Offset="0x1130" />
-        <Texture Name="gGiPowderKegBarrelTex" OutName="gi_powder_keg_barrel" Format="ci8" Width="32" Height="32" Offset="0x1330" />
+        <Texture Name="gGiPowderKegBarrelTex" OutName="gi_powder_keg_barrel" Format="ci8" Width="32" Height="32" Offset="0x1330" TlutOffset="0xF30"/>
         <Texture Name="gGiPowderKegFuseTex" OutName="gi_powder_keg_fuse" Format="i8" Width="32" Height="16" Offset="0x1730" />
     </File>
 </Root>

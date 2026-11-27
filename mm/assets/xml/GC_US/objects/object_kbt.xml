@@ -29,19 +29,19 @@
         <DList Name="object_kbt_DL_008E98" Offset="0x8E98" />
         <Texture Name="object_kbt_TLUT_009078" OutName="tlut_009078" Format="rgba16" Width="16" Height="16" Offset="0x9078" />
         <Texture Name="object_kbt_Tex_009278" OutName="tex_009278" Format="i8" Width="16" Height="16" Offset="0x9278" />
-        <Texture Name="object_kbt_Tex_009378" OutName="tex_009378" Format="ci8" Width="16" Height="16" Offset="0x9378" />
+        <Texture Name="object_kbt_Tex_009378" OutName="tex_009378" Format="ci8" Width="16" Height="16" Offset="0x9378" TlutOffset="0x9078"/>
         <Texture Name="object_kbt_Tex_009478" OutName="tex_009478" Format="rgba16" Width="16" Height="16" Offset="0x9478" />
         <Texture Name="object_kbt_Tex_009678" OutName="tex_009678" Format="rgba16" Width="32" Height="32" Offset="0x9678" />
-        <Texture Name="object_kbt_Tex_009E78" OutName="tex_009E78" Format="ci8" Width="8" Height="8" Offset="0x9E78" />
-        <Texture Name="object_kbt_Tex_009EB8" OutName="tex_009EB8" Format="ci8" Width="8" Height="8" Offset="0x9EB8" />
+        <Texture Name="object_kbt_Tex_009E78" OutName="tex_009E78" Format="ci8" Width="8" Height="8" Offset="0x9E78" TlutOffset="0x9078"/>
+        <Texture Name="object_kbt_Tex_009EB8" OutName="tex_009EB8" Format="ci8" Width="8" Height="8" Offset="0x9EB8" TlutOffset="0x9078"/>
         <Texture Name="object_kbt_Tex_009EF8" OutName="tex_009EF8" Format="rgba16" Width="8" Height="8" Offset="0x9EF8" />
-        <Texture Name="object_kbt_Tex_009F78" OutName="tex_009F78" Format="ci8" Width="16" Height="16" Offset="0x9F78" />
+        <Texture Name="object_kbt_Tex_009F78" OutName="tex_009F78" Format="ci8" Width="16" Height="16" Offset="0x9F78" TlutOffset="0x9078"/>
         <Texture Name="object_kbt_Tex_00A078" OutName="tex_00A078" Format="rgba16" Width="8" Height="8" Offset="0xA078" />
-        <Texture Name="object_kbt_Tex_00A0F8" OutName="tex_00A0F8" Format="ci8" Width="16" Height="16" Offset="0xA0F8" />
-        <Texture Name="object_kbt_Tex_00A1F8" OutName="tex_00A1F8" Format="ci8" Width="16" Height="16" Offset="0xA1F8" />
-        <Texture Name="object_kbt_Tex_00A2F8" OutName="tex_00A2F8" Format="ci8" Width="8" Height="8" Offset="0xA2F8" />
+        <Texture Name="object_kbt_Tex_00A0F8" OutName="tex_00A0F8" Format="ci8" Width="16" Height="16" Offset="0xA0F8" TlutOffset="0x9078"/>
+        <Texture Name="object_kbt_Tex_00A1F8" OutName="tex_00A1F8" Format="ci8" Width="16" Height="16" Offset="0xA1F8" TlutOffset="0x9078"/>
+        <Texture Name="object_kbt_Tex_00A2F8" OutName="tex_00A2F8" Format="ci8" Width="8" Height="8" Offset="0xA2F8" TlutOffset="0x9078"/>
         <Texture Name="object_kbt_Tex_00A338" OutName="tex_00A338" Format="rgba16" Width="8" Height="8" Offset="0xA338" />
-        <Texture Name="object_kbt_Tex_00A3B8" OutName="tex_00A3B8" Format="ci8" Width="16" Height="32" Offset="0xA3B8" />
+        <Texture Name="object_kbt_Tex_00A3B8" OutName="tex_00A3B8" Format="ci8" Width="16" Height="32" Offset="0xA3B8" TlutOffset="0x9078"/>
         <Texture Name="object_kbt_Tex_00A5B8" OutName="tex_00A5B8" Format="rgba16" Width="32" Height="32" Offset="0xA5B8" />
         <Texture Name="object_kbt_Tex_00ADB8" OutName="tex_00ADB8" Format="rgba16" Width="32" Height="32" Offset="0xADB8" />
         <Texture Name="object_kbt_Tex_00B5B8" OutName="tex_00B5B8" Format="rgba16" Width="32" Height="32" Offset="0xB5B8" />

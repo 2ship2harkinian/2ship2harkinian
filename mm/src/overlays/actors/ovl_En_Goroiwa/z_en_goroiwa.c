@@ -500,18 +500,18 @@ s32 func_8093F6F8(EnGoroiwa* this, PlayState* play) {
 
     if (this->unk_1CA == 0) {
         WaterBox* waterBox;
-        f32 sp40;
+        f32 waterSurface;
 
-        if (WaterBox_GetSurface1_2(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z, &sp40,
-                                   &waterBox)) {
-            if ((this->actor.world.pos.y + this->unk_1DC) <= sp40) {
+        if (BgCheck_GetWaterSurfaceNoBgId(play, &play->colCtx, this->actor.world.pos.x, this->actor.world.pos.z,
+                                          &waterSurface, &waterBox)) {
+            if ((this->actor.world.pos.y + this->unk_1DC) <= waterSurface) {
                 this->unk_1E5 |= 0x20;
-                if (sp40 < (this->unk_1DC + sp78)) {
+                if (waterSurface < (this->unk_1DC + sp78)) {
                     if (this->actor.flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) {
                         Vec3f sp34;
 
                         sp34.x = this->actor.world.pos.x;
-                        sp34.y = sp40;
+                        sp34.y = waterSurface;
                         sp34.z = this->actor.world.pos.z;
                         func_8093F198(play, &sp34, this->actor.scale.x);
                     }

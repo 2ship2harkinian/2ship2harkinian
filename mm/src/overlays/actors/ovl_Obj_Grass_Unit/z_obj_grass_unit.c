@@ -94,7 +94,7 @@ s32 ObjGrassUnit_IsUnderwater(PlayState* play, Vec3f* pos) {
     f32 waterSurface;
     s32 bgId;
 
-    if (WaterBox_GetSurfaceImpl(play, &play->colCtx, pos->x, pos->z, &waterSurface, &waterBox, &bgId) &&
+    if (BgCheck_GetWaterSurface(play, &play->colCtx, pos->x, pos->z, &waterSurface, &waterBox, &bgId) &&
         (pos->y < waterSurface)) {
         return true;
     }

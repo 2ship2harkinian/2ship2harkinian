@@ -601,8 +601,8 @@ s32 func_808F4150(PlayState* play, EnIn* this, s32 arg2, MessageContext* msgCtx)
 
     if (msgCtx->choiceIndex == 0) {
         Audio_PlaySfx_MessageDecide();
-        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.unk1206C) {
-            Rupees_ChangeBy(-play->msgCtx.unk1206C);
+        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.firstChoicePrice) {
+            Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
             if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_57_01)) {
                 func_808F4108(this, play, 0x3474);
             } else if (this->unk4AC & 8) {
@@ -623,7 +623,7 @@ s32 func_808F4150(PlayState* play, EnIn* this, s32 arg2, MessageContext* msgCtx)
 
 s32 func_808F4270(PlayState* play, EnIn* this, s32 arg2, MessageContext* msgCtx, s32 arg4) {
     s32 pad;
-    s32 fee = (play->msgCtx.unk1206C != 0xFFFF) ? play->msgCtx.unk1206C : 10;
+    s32 fee = (play->msgCtx.firstChoicePrice != 0xFFFF) ? play->msgCtx.firstChoicePrice : 10;
 
     if (msgCtx->choiceIndex == 0) {
         Audio_PlaySfx_MessageDecide();
@@ -799,11 +799,11 @@ s32 func_808F4414(PlayState* play, EnIn* this, s32 arg2) {
                     }
                     if (msgCtx->choiceIndex == 0) {
                         Audio_PlaySfx_MessageDecide();
-                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.unk1206C) {
+                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.firstChoicePrice) {
                             if (Inventory_HasEmptyBottle()) {
                                 this->actionFunc = func_808F3C40;
                                 Actor_OfferGetItem(&this->actor, play, GI_MILK, 500.0f, 100.0f);
-                                Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                                Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                                 ret = true;
                             } else {
                                 Actor_ContinueText(play, &this->actor, 0x3469);
@@ -1105,11 +1105,11 @@ s32 func_808F4414(PlayState* play, EnIn* this, s32 arg2) {
                     }
                     if (msgCtx->choiceIndex == 0) {
                         Audio_PlaySfx_MessageDecide();
-                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.unk1206C) {
+                        if (gSaveContext.save.saveInfo.playerData.rupees >= play->msgCtx.firstChoicePrice) {
                             if (Inventory_HasEmptyBottle()) {
                                 this->actionFunc = func_808F3C40;
                                 Actor_OfferGetItem(&this->actor, play, GI_MILK, 500.0f, 100.0f);
-                                Rupees_ChangeBy(-play->msgCtx.unk1206C);
+                                Rupees_ChangeBy(-play->msgCtx.firstChoicePrice);
                                 ret = true;
                             } else {
                                 Actor_ContinueText(play, &this->actor, 0x3469);

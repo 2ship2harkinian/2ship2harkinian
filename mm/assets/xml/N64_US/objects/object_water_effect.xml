@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <File Name="object_water_effect" Segment="6">
         <DList Name="object_water_effect_DL_000180" Offset="0x180" /> <!-- Original name is "spl_hasira_model" -->
         <DList Name="object_water_effect_DL_000420" Offset="0x420" /> <!-- Original name is "spl_sibuki01_model" -->

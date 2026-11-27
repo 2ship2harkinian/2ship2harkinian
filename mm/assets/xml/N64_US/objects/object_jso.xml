@@ -33,8 +33,8 @@
         <Texture Name="gGaroMasterRobeTex" OutName="garo_master_robe" Format="rgba16" Width="8" Height="32" Offset="0x2658" />
         <Texture Name="gGaroMasterClothingTLUT" OutName="garo_master_clothing_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2858" />
         <Texture Name="gGaroMasterMaskTLUT" OutName="garo_master_mask_tlut" Format="rgba16" Width="16" Height="16" Offset="0x2A58" />
-        <Texture Name="gGaroMasterClothingTex" OutName="garo_master_clothing" Format="ci8" Width="16" Height="16" Offset="0x2C58" />
-        <Texture Name="gGaroMasterMaskTex" OutName="garo_master_mask" Format="ci8" Width="16" Height="16" Offset="0x2D58" />
+        <Texture Name="gGaroMasterClothingTex" OutName="garo_master_clothing" Format="ci8" Width="16" Height="16" Offset="0x2C58" TlutOffset="0x2858"/>
+        <Texture Name="gGaroMasterMaskTex" OutName="garo_master_mask" Format="ci8" Width="16" Height="16" Offset="0x2D58" TlutOffset="0x2A58"/>
 
         <!-- Garo Master Eyes Texture and DisplayList -->
         <DList Name="gGaroMasterEyesDL" Offset="0x2ED8" />

@@ -1179,7 +1179,7 @@ void EnSlime_Draw(Actor* thisx, PlayState* play) {
     Gfx_SetupDL25_Xlu(play->state.gfxCtx);
     func_800B8118(&this->actor, play, 0);
     if (this->iceBlockTimer != ICE_BLOCK_UNUSED) {
-        gSPSegment(POLY_XLU_DISP++, 10, D_801AEFA0);
+        gSPSegment(POLY_XLU_DISP++, 0x0A, gActorSetupOpaDL);
         gDPSetPrimColor(POLY_XLU_DISP++, 0, 170, 255, 255, 255, 255);
         gDPSetEnvColor(POLY_XLU_DISP++, 150, 255, 255, this->iceBlockTimer);
     } else {

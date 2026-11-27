@@ -1,4 +1,7 @@
 ﻿<Root>
+    <!-- Dependencies -->
+    <ExternalFile XmlPath="objects/gameplay_keep.xml" OutPath="assets/objects/gameplay_keep/"/>
+
     <!-- Assets for the Twinmold boss fight (Twinmold itself, the props in its arena, its title card, etc.)-->
     <File Name="object_boss02" Segment="6">
         <!-- DisplayLists and Textures for the dust that appears wherever Twinmold contacts the ground -->
@@ -14,11 +17,11 @@
         <Texture Name="gTwinmoldSpikeAndMandibleTLUT" OutName="twinmold_spike_and_mandible_tlut" Format="rgba16" Width="4" Height="4" Offset="0x380" />
         <Texture Name="gTwinmoldRedSkinTex" OutName="twinmold_red_skin" Format="ci4" Width="64" Height="64" Offset="0x3A0" TlutOffset="0x300" />
         <Texture Name="gTwinmoldEyeTex" OutName="twinmold_eye" Format="rgba16" Width="32" Height="32" Offset="0xBA0" />
-        <Texture Name="gTwinmoldSnoutTex" OutName="twinmold_snout" Format="ci4" Width="64" Height="64" Offset="0x13A0" />
-        <Texture Name="gTwinmoldVeinsTex" OutName="twinmold_veins" Format="ci4" Width="64" Height="64" Offset="0x1BA0" />
+        <Texture Name="gTwinmoldSnoutTex" OutName="twinmold_snout" Format="ci4" Width="64" Height="64" Offset="0x13A0" TlutOffset="0x320"/>
+        <Texture Name="gTwinmoldVeinsTex" OutName="twinmold_veins" Format="ci4" Width="64" Height="64" Offset="0x1BA0" TlutOffset="0x340"/>
         <Texture Name="gTwinmoldTeethTex" OutName="twinmold_teeth" Format="rgba16" Width="16" Height="32" Offset="0x23A0" />
-        <Texture Name="gTwinmoldUndersideTex" OutName="twinmold_underside" Format="ci4" Width="64" Height="64" Offset="0x27A0" />
-        <Texture Name="gTwinmoldSpikeAndMandibleTex" OutName="twinmold_spike_and_mandible" Format="ci4" Width="64" Height="64" Offset="0x2FA0" />
+        <Texture Name="gTwinmoldUndersideTex" OutName="twinmold_underside" Format="ci4" Width="64" Height="64" Offset="0x27A0" TlutOffset="0x360"/>
+        <Texture Name="gTwinmoldSpikeAndMandibleTex" OutName="twinmold_spike_and_mandible" Format="ci4" Width="64" Height="64" Offset="0x2FA0" TlutOffset="0x380"/>
         <Texture Name="gTwinmoldAntennaTex" OutName="twinmold_antenna" Format="rgba16" Width="16" Height="16" Offset="0x37A0" />
         <Texture Name="gTwinmoldTailGemTex" OutName="twinmold_tail_gem" Format="rgba16" Width="32" Height="32" Offset="0x39A0" />
         <Texture Name="gTwinmoldBlueSkinTex" OutName="twinmold_blue_skin" Format="ci4" Width="64" Height="64" Offset="0x41A0" TlutOffset="0x300"/>
@@ -41,11 +44,11 @@
         <!-- DisplayLists and Textures for the destructible props in Twinmold's arena -->
         <DList Name="gTwinmoldRuinPyramidDL" Offset="0x6FD0" />
         <Texture Name="gTwinmoldRuinPyramidTLUT" OutName="ruin_pyramid_tlut" Format="rgba16" Width="4" Height="4" Offset="0x7158" />
-        <Texture Name="gTwinmoldRuinPyramidTex" OutName="ruin_pyramid" Format="ci4" Width="64" Height="64" Offset="0x7178" />
+        <Texture Name="gTwinmoldRuinPyramidTex" OutName="ruin_pyramid" Format="ci4" Width="64" Height="64" Offset="0x7178" TlutOffset="0x7158"/>
         <DList Name="gRuinFragmentDL" Offset="0x7A88" />
         <DList Name="gTwinmoldRuinPillarDL" Offset="0x7D18" />
         <Texture Name="gTwinmoldRuinPillarTLUT" OutName="ruin_pillar_tlut" Format="rgba16" Width="4" Height="4" Offset="0x7E30" />
-        <Texture Name="gTwinmoldRuinPillarTex" OutName="ruin_pillar" Format="ci4" Width="64" Height="64" Offset="0x7E50" />
+        <Texture Name="gTwinmoldRuinPillarTex" OutName="ruin_pillar" Format="ci4" Width="64" Height="64" Offset="0x7E50" TlutOffset="0x7E30"/>
         
         <!-- Twinmold Title Card -->
         <Texture Name="gTwinmoldTitleCardTex" OutName="twinmold_title_card" Format="ia8" Width="128" Height="40" Offset="0x8650" />

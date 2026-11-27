@@ -14,7 +14,7 @@
         <!-- <Blob Name="object_last_obj_Blob_001720" Size="0x180" Offset="0x1720" /> -->
         <Texture Name="object_last_obj_Tex_0018A0" OutName="tex_0018A0" Format="rgba16" Width="32" Height="32" Offset="0x18A0" />
         <!-- <Blob Name="object_last_obj_Blob_0020A0" Size="0x1000" Offset="0x20A0" /> -->
-        <Texture Name="object_last_obj_Tex_0030A0" OutName="tex_0030A0" Format="ci4" Width="64" Height="64" Offset="0x30A0" />
+        <Texture Name="object_last_obj_Tex_0030A0" OutName="tex_0030A0" Format="ci4" Width="64" Height="64" Offset="0x30A0" TlutOffset="0x1700"/>
         <DList Name="object_last_obj_DL_0039C0" Offset="0x39C0" /> <!-- Original name is "i2_L_shutter1_model" -->
         <Texture Name="object_last_obj_Tex_003B20" OutName="tex_003B20" Format="rgba16" Width="32" Height="64" Offset="0x3B20" />
     </File>

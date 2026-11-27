@@ -27,7 +27,7 @@ void RegisterSkipKafeiReveal() {
 
         // Set flags that are normally set in the experience that this skips
         SET_WEEKEVENTREG(WEEKEVENTREG_RECEIVED_PENDANT_OF_MEMORIES);
-        SET_WEEKEVENTREG(WEEKEVENTREG_51_08);
+        SET_WEEKEVENTREG(WEEKEVENTREG_KAFEI_ENTRUSTED_LINK);
         Message_BombersNotebookQueueEvent(gPlayState, BOMBERS_NOTEBOOK_EVENT_MET_KAFEI);
         Message_BombersNotebookQueueEvent(gPlayState, BOMBERS_NOTEBOOK_EVENT_RECEIVED_PENDANT_OF_MEMORIES);
 

@@ -36,18 +36,18 @@
         <!-- Gorman Brothers' Horses' Textures -->
 
         <Texture Name="gHorseBanditTLUT" OutName="horse_bandit_tlut" Format="rgba16" Width="16" Height="16" Offset="0x6E58" />
-        <Texture Name="gHorseBanditMaskTex" OutName="horse_bandit_mask" Format="ci8" Width="16" Height="16" Offset="0x7058" />
-        <Texture Name="gHorseBanditSpottedDetailTex" OutName="horse_bandit_spotted_detail" Format="ci8" Width="16" Height="32" Offset="0x7158" />
+        <Texture Name="gHorseBanditMaskTex" OutName="horse_bandit_mask" Format="ci8" Width="16" Height="16" Offset="0x7058" TlutOffset="0x6E58"/>
+        <Texture Name="gHorseBanditSpottedDetailTex" OutName="horse_bandit_spotted_detail" Format="ci8" Width="16" Height="32" Offset="0x7158" TlutOffset="0x6E58"/>
         <Texture Name="gHorseBanditEyebrowTex" OutName="horse_bandit_eyebrow" Format="rgba16" Width="16" Height="16" Offset="0x7358" />
-        <Texture Name="gHorseBanditTeethTex" OutName="horse_bandit_teeth" Format="ci8" Width="16" Height="16" Offset="0x7558" />
-        <Texture Name="gHorseBanditTailAndFeetTex" OutName="horse_bandit_tail_and_feet" Format="ci8" Width="16" Height="16" Offset="0x7658" />
+        <Texture Name="gHorseBanditTeethTex" OutName="horse_bandit_teeth" Format="ci8" Width="16" Height="16" Offset="0x7558" TlutOffset="0x6E58"/>
+        <Texture Name="gHorseBanditTailAndFeetTex" OutName="horse_bandit_tail_and_feet" Format="ci8" Width="16" Height="16" Offset="0x7658" TlutOffset="0x6E58"/>
         <Texture Name="gHorseBanditEyeTex" OutName="horse_bandit_eye" Format="rgba16" Width="32" Height="32" Offset="0x7758" />
-        <Texture Name="gHorseBanditMouthTex" OutName="horse_bandit_mouth" Format="ci8" Width="32" Height="32" Offset="0x7F58" />
-        <Texture Name="gHorseBanditSpottedSkinTex" OutName="horse_bandit_spotted_skin" Format="ci8" Width="32" Height="32" Offset="0x8358" />
+        <Texture Name="gHorseBanditMouthTex" OutName="horse_bandit_mouth" Format="ci8" Width="32" Height="32" Offset="0x7F58" TlutOffset="0x6E58"/>
+        <Texture Name="gHorseBanditSpottedSkinTex" OutName="horse_bandit_spotted_skin" Format="ci8" Width="32" Height="32" Offset="0x8358" TlutOffset="0x6E58"/>
         <Texture Name="gHorseBanditTasselTex" OutName="horse_bandit_tassel" Format="rgba16" Width="8" Height="16" Offset="0x8758" />
-        <Texture Name="gHorseBanditSaddleSideTex" OutName="horse_bandit_saddle_side" Format="ci8" Width="16" Height="16" Offset="0x8858" />
-        <Texture Name="gHorseBanditSaddleTopTex" OutName="horse_bandit_saddle_top" Format="ci8" Width="16" Height="16" Offset="0x8958" />
-        <Texture Name="gHorseBanditSaddleBackTex" OutName="horse_bandit_saddle_back" Format="ci8" Width="8" Height="16" Offset="0x8A58" />
+        <Texture Name="gHorseBanditSaddleSideTex" OutName="horse_bandit_saddle_side" Format="ci8" Width="16" Height="16" Offset="0x8858" TlutOffset="0x6E58"/>
+        <Texture Name="gHorseBanditSaddleTopTex" OutName="horse_bandit_saddle_top" Format="ci8" Width="16" Height="16" Offset="0x8958" TlutOffset="0x6E58"/>
+        <Texture Name="gHorseBanditSaddleBackTex" OutName="horse_bandit_saddle_back" Format="ci8" Width="8" Height="16" Offset="0x8A58" TlutOffset="0x6E58"/>
 
         <!-- Gorman Brothers' Horses' Limbs and Skel -->
 
@@ -122,13 +122,13 @@
         <!-- Cremia's Donkey Textures -->
 
         <Texture Name="gDonkeyTLUT" OutName="donkey_tlut" Format="rgba16" Width="16" Height="16" Offset="0x12D48" />
-        <Texture Name="gDonkeyMouthTex" OutName="donkey_mouth" Format="ci8" Width="32" Height="32" Offset="0x12F48" />
-        <Texture Name="gDonkeyHeadTex" OutName="donkey_head" Format="ci8" Width="32" Height="32" Offset="0x13348" />
+        <Texture Name="gDonkeyMouthTex" OutName="donkey_mouth" Format="ci8" Width="32" Height="32" Offset="0x12F48" TlutOffset="0x12D48"/>
+        <Texture Name="gDonkeyHeadTex" OutName="donkey_head" Format="ci8" Width="32" Height="32" Offset="0x13348" TlutOffset="0x12D48"/>
         <Texture Name="gDonkeyEyeTex" OutName="donkey_eye" Format="rgba32" Width="32" Height="32" Offset="0x13748" />
-        <Texture Name="gDonkeyManeTex" OutName="donkey_mane" Format="ci8" Width="16" Height="32" Offset="0x14748" />
-        <Texture Name="gDonkeySkinTex" OutName="donkey_skin" Format="ci8" Width="32" Height="32" Offset="0x14948" />
-        <Texture Name="gDonkeyHarnessTex" OutName="donkey_harness" Format="ci8" Width="16" Height="16" Offset="0x14D48" />
-        <Texture Name="gDonkeyTailAndFeetTex" OutName="donkey_tail_and_feet" Format="ci8" Width="16" Height="16" Offset="0x14E48" />
+        <Texture Name="gDonkeyManeTex" OutName="donkey_mane" Format="ci8" Width="16" Height="32" Offset="0x14748" TlutOffset="0x12D48"/>
+        <Texture Name="gDonkeySkinTex" OutName="donkey_skin" Format="ci8" Width="32" Height="32" Offset="0x14948" TlutOffset="0x12D48"/>
+        <Texture Name="gDonkeyHarnessTex" OutName="donkey_harness" Format="ci8" Width="16" Height="16" Offset="0x14D48" TlutOffset="0x12D48"/>
+        <Texture Name="gDonkeyTailAndFeetTex" OutName="donkey_tail_and_feet" Format="ci8" Width="16" Height="16" Offset="0x14E48" TlutOffset="0x12D48"/>
     
         <!-- Cremia's Donkey Limbs and Skel-->
 

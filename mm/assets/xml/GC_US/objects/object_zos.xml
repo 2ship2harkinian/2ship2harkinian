@@ -34,7 +34,7 @@
         <!-- Evan Textures -->
         <Texture Name="gEvanFingersTLUT" OutName="evan_fingers_tlut" Format="rgba16" Width="16" Height="16" Offset="0xF018" />
         <Texture Name="gEvanSpottedSkinTex" OutName="evan_spotted_skin" Format="rgba16" Width="32" Height="32" Offset="0xF218" />
-        <Texture Name="gEvanFingersTex" OutName="evan_fingers" Format="ci8" Width="16" Height="16" Offset="0xFA18" />
+        <Texture Name="gEvanFingersTex" OutName="evan_fingers" Format="ci8" Width="16" Height="16" Offset="0xFA18" TlutOffset="0xF018"/>
         <Texture Name="gEvanMouthEdgeTex" OutName="evan_mouth_edge" Format="rgba16" Width="8" Height="8" Offset="0xFB18" />
         <Texture Name="gEvanMouthAndFinsTex" OutName="evan_mouth_and_fins" Format="rgba16" Width="8" Height="8" Offset="0xFB98" />
         <Texture Name="gEvanSkinTex" OutName="evan_skin" Format="rgba16" Width="8" Height="8" Offset="0xFC18" />

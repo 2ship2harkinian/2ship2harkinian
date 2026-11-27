@@ -17,17 +17,17 @@
         <DList Name="gHsEndDL" Offset="0x4CF0" />
         <DList Name="object_hs_DL_004CF8" Offset="0x4CF8" />
         <Texture Name="object_hs_TLUT_004E50" OutName="tlut_004E50" Format="rgba16" Width="16" Height="16" Offset="0x4E50" />
-        <Texture Name="gHsRibsTex" OutName="ribs" Format="ci8" Width="16" Height="32" Offset="0x5050" />
-        <Texture Name="gHsEarTex" OutName="ear" Format="ci8" Width="8" Height="8" Offset="0x5250" />
-        <Texture Name="gHsMouthTex" OutName="mouth" Format="ci8" Width="32" Height="16" Offset="0x5290" />
+        <Texture Name="gHsRibsTex" OutName="ribs" Format="ci8" Width="16" Height="32" Offset="0x5050" TlutOffset="0x4E50"/>
+        <Texture Name="gHsEarTex" OutName="ear" Format="ci8" Width="8" Height="8" Offset="0x5250" TlutOffset="0x4E50"/>
+        <Texture Name="gHsMouthTex" OutName="mouth" Format="ci8" Width="32" Height="16" Offset="0x5290" TlutOffset="0x4E50"/>
         <Texture Name="gHsEyeTex" OutName="eye" Format="rgba16" Width="32" Height="16" Offset="0x5490" />
-        <Texture Name="gHsPantsTex" OutName="pants" Format="ci8" Width="16" Height="16" Offset="0x5890" />
-        <Texture Name="gHsFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x5990" />
+        <Texture Name="gHsPantsTex" OutName="pants" Format="ci8" Width="16" Height="16" Offset="0x5890" TlutOffset="0x4E50"/>
+        <Texture Name="gHsFingersTex" OutName="fingers" Format="ci8" Width="16" Height="16" Offset="0x5990" TlutOffset="0x4E50"/>
         <Texture Name="gHsBraceletTex" OutName="bracelet" Format="rgba16" Width="4" Height="4" Offset="0x5A90" />
-        <Texture Name="gHsCuccoFeedBagTex" OutName="cucco_feed_bag" Format="ci8" Width="8" Height="8" Offset="0x5AB0" />
-        <Texture Name="gHsChairBoxTex" OutName="chair_box" Format="ci8" Width="32" Height="32" Offset="0x5AF0" />
-        <Texture Name="gHsAbsTex" OutName="abs" Format="ci8" Width="8" Height="16" Offset="0x5EF0" />
-        <Texture Name="gHsBackTex" OutName="back" Format="ci8" Width="16" Height="32" Offset="0x5F70" />
+        <Texture Name="gHsCuccoFeedBagTex" OutName="cucco_feed_bag" Format="ci8" Width="8" Height="8" Offset="0x5AB0" TlutOffset="0x4E50"/>
+        <Texture Name="gHsChairBoxTex" OutName="chair_box" Format="ci8" Width="32" Height="32" Offset="0x5AF0" TlutOffset="0x4E50"/>
+        <Texture Name="gHsAbsTex" OutName="abs" Format="ci8" Width="8" Height="16" Offset="0x5EF0" TlutOffset="0x4E50"/>
+        <Texture Name="gHsBackTex" OutName="back" Format="ci8" Width="16" Height="32" Offset="0x5F70" TlutOffset="0x4E50"/>
         <Limb Name="gHsRootLimb" Type="Standard" EnumName="HS_LIMB_ROOT" Offset="0x6170" />
         <Limb Name="gHsLeftUpperArmLimb" Type="Standard" EnumName="HS_LIMB_LEFT_UPPER_ARM" Offset="0x617C" />
         <Limb Name="gHsLeftForearmLimb" Type="Standard" EnumName="HS_LIMB_LEFT_FOREARM" Offset="0x6188" />

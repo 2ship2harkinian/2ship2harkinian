@@ -17,18 +17,18 @@
         <Texture Name="object_link_zora_TLUT_005000" OutName="tlut_005000" Format="rgba16" Width="16" Height="16" Offset="0x5000" />
         <Texture Name="gLinkZoraSkinTLUT" OutName="skin_tlut" Format="rgba16" Width="16" Height="16" Offset="0x5200" />
 
-        <Texture Name="object_link_zora_Tex_005400" OutName="tex_005400" Format="ci8" Width="32" Height="32" Offset="0x5400" />
-        <Texture Name="object_link_zora_Tex_005800" OutName="tex_005800" Format="ci8" Width="16" Height="16" Offset="0x5800" />
-        <Texture Name="object_link_zora_Tex_005900" OutName="tex_005900" Format="ci8" Width="16" Height="16" Offset="0x5900" />
-        <Texture Name="object_link_zora_Tex_005A00" OutName="tex_005A00" Format="ci8" Width="8" Height="16" Offset="0x5A00" />
-        <Texture Name="object_link_zora_Tex_005A80" OutName="tex_005A80" Format="ci8" Width="8" Height="16" Offset="0x5A80" />
-        <Texture Name="object_link_zora_Tex_005B00" OutName="tex_005B00" Format="ci8" Width="32" Height="16" Offset="0x5B00" />
-        <Texture Name="object_link_zora_Tex_005D00" OutName="tex_005D00" Format="ci8" Width="16" Height="32" Offset="0x5D00" />
-        <Texture Name="object_link_zora_Tex_005F00" OutName="tex_005F00" Format="ci8" Width="16" Height="16" Offset="0x5F00" />
-        <Texture Name="object_link_zora_Tex_006000" OutName="tex_006000" Format="ci8" Width="16" Height="16" Offset="0x6000" />
-        <Texture Name="object_link_zora_Tex_006100" OutName="tex_006100" Format="ci8" Width="8" Height="16" Offset="0x6100" />
-        <Texture Name="object_link_zora_Tex_006180" OutName="tex_006180" Format="ci8" Width="8" Height="8" Offset="0x6180" />
-        <Texture Name="object_link_zora_Tex_0061C0" OutName="tex_0061C0" Format="ci8" Width="16" Height="16" Offset="0x61C0" />
+        <Texture Name="object_link_zora_Tex_005400" OutName="tex_005400" Format="ci8" Width="32" Height="32" Offset="0x5400" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005800" OutName="tex_005800" Format="ci8" Width="16" Height="16" Offset="0x5800" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005900" OutName="tex_005900" Format="ci8" Width="16" Height="16" Offset="0x5900" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005A00" OutName="tex_005A00" Format="ci8" Width="8" Height="16" Offset="0x5A00" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005A80" OutName="tex_005A80" Format="ci8" Width="8" Height="16" Offset="0x5A80" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005B00" OutName="tex_005B00" Format="ci8" Width="32" Height="16" Offset="0x5B00" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005D00" OutName="tex_005D00" Format="ci8" Width="16" Height="32" Offset="0x5D00" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_005F00" OutName="tex_005F00" Format="ci8" Width="16" Height="16" Offset="0x5F00" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_006000" OutName="tex_006000" Format="ci8" Width="16" Height="16" Offset="0x6000" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_006100" OutName="tex_006100" Format="ci8" Width="8" Height="16" Offset="0x6100" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_006180" OutName="tex_006180" Format="ci8" Width="8" Height="8" Offset="0x6180" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_0061C0" OutName="tex_0061C0" Format="ci8" Width="16" Height="16" Offset="0x61C0" TlutOffset="0x5000"/>
 
         <DList Name="gLinkZoraRightThighDL" Offset="0x9E00" />
         <DList Name="gLinkZoraRightShinDL" Offset="0xA108" />
@@ -50,15 +50,15 @@
         <DList Name="gLinkZoraLeftHandClosedDL" Offset="0xC270" />
 
         <Texture Name="object_link_zora_TLUT_00C578" OutName="tlut_00C578" Format="rgba16" Width="16" Height="16" Offset="0xC578" />
-        <Texture Name="object_link_zora_Tex_00C778" OutName="tex_00C778" Format="ci8" Width="16" Height="32" Offset="0xC778" />
-        <Texture Name="object_link_zora_Tex_00C978" OutName="tex_00C978" Format="ci8" Width="16" Height="16" Offset="0xC978" />
+        <Texture Name="object_link_zora_Tex_00C778" OutName="tex_00C778" Format="ci8" Width="16" Height="32" Offset="0xC778" TlutOffset="0xC578"/>
+        <Texture Name="object_link_zora_Tex_00C978" OutName="tex_00C978" Format="ci8" Width="16" Height="16" Offset="0xC978" TlutOffset="0xC578"/>
         <DList Name="object_link_zora_DL_00CC38" Offset="0xCC38" />
         <DList Name="object_link_zora_DL_00CDA0" Offset="0xCDA0" />
         <DList Name="object_link_zora_DL_00E088" Offset="0xE088" />
         <DList Name="object_link_zora_DL_00E2A0" Offset="0xE2A0" />
-        <Texture Name="object_link_zora_Tex_00E678" OutName="tex_00E678" Format="ci8" Width="16" Height="16" Offset="0xE678" />
-        <Texture Name="object_link_zora_Tex_00E778" OutName="tex_00E778" Format="ci8" Width="16" Height="16" Offset="0xE778" />
-        <Texture Name="object_link_zora_Tex_00E878" OutName="tex_00E878" Format="ci8" Width="8" Height="16" Offset="0xE878" />
+        <Texture Name="object_link_zora_Tex_00E678" OutName="tex_00E678" Format="ci8" Width="16" Height="16" Offset="0xE678" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_00E778" OutName="tex_00E778" Format="ci8" Width="16" Height="16" Offset="0xE778" TlutOffset="0x5000"/>
+        <Texture Name="object_link_zora_Tex_00E878" OutName="tex_00E878" Format="ci8" Width="8" Height="16" Offset="0xE878" TlutOffset="0x5000"/>
         <Texture Name="object_link_zora_Tex_00E8F8" OutName="tex_00E8F8" Format="rgba16" Width="16" Height="16" Offset="0xE8F8" />
         <Texture Name="object_link_zora_Tex_00EAF8" OutName="tex_00EAF8" Format="rgba16" Width="16" Height="16" Offset="0xEAF8" />
         <Texture Name="object_link_zora_Tex_00ECF8" OutName="tex_00ECF8" Format="rgba16" Width="16" Height="16" Offset="0xECF8" />

@@ -1,5 +1,7 @@
 <Root>
+    <!-- Dependencies -->
     <ExternalFile XmlPath="misc/scene_texture_08.xml" OutPath="misc/scene_texture_08/"/>
+
     <File Name="Z2_00KEIKOKU" Segment="2" Game="MM">
         <Scene Name="Z2_00KEIKOKU" Offset="0x0"/>
         <Cutscene Name="gTerminaFieldClockTowerOpeningCs" Offset="0x9D8"/> <!-- Original name is "clock_t_change" -->

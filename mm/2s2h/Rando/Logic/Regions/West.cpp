@@ -249,7 +249,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_PINNACLE_ROCK_INNER] = RandoRegion{ .name = "Inner", .sceneId = SCENE_SINKAI,
         .checks = {
-            CHECK(RC_PINNACLE_ROCK_CHEST_01,          CAN_BE_ZORA),
+            CHECK(RC_PINNACLE_ROCK_CHEST_01,          CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_CHEST_02,          CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_POT_01,            CanKillEnemy(ACTOR_EN_DRAGON)),
             CHECK(RC_PINNACLE_ROCK_POT_02,            CanKillEnemy(ACTOR_EN_DRAGON)),
@@ -366,7 +366,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_HALL_EVANS_ROOM] = RandoRegion{ .name = "Evan's Room", .sceneId = SCENE_BANDROOM,
         .checks = {
-            CHECK(RC_ZORA_HALL_EVANS_PIECE_OF_HEART,           HAS_ITEM(ITEM_OCARINA_OF_TIME) && (canPlaySong(OCARINA_SONG_EVAN_PART1) && canPlaySong(OCARINA_SONG_EVAN_PART2))),
+            CHECK(RC_ZORA_HALL_EVANS_PIECE_OF_HEART,        (canPlaySong(OCARINA_SONG_EVAN_PART1) && canPlaySong(OCARINA_SONG_EVAN_PART2))),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(ZORA_HALL, 4),                    ENTRANCE(ZORA_HALL_ROOMS, 3), true),

@@ -16,10 +16,10 @@
         <Texture Name="gBeeHeadTLUT" OutName="bee_head_tlut" Format="rgba16" Width="4" Height="4" Offset="0xAA8" />
         <Texture Name="gBeeBodyTLUT" OutName="bee_body_tlut" Format="rgba16" Width="4" Height="4" Offset="0xAC8" />
         <Texture Name="gBeeAntennaeTLUT" OutName="bee_antennae_tlut" Format="rgba16" Width="4" Height="4" Offset="0xAE8" />
-        <Texture Name="gBeeWingTex" OutName="bee_wing" Format="ci4" Width="32" Height="32" Offset="0xB08" />
-        <Texture Name="gBeeHeadTex" OutName="bee_head" Format="ci4" Width="32" Height="32" Offset="0xD08" />
-        <Texture Name="gBeeBodyTex" OutName="bee_body" Format="ci4" Width="32" Height="32" Offset="0xF08" />
-        <Texture Name="gBeeAntennaeTex" OutName="bee_antennae" Format="ci4" Width="32" Height="32" Offset="0x1108" />
+        <Texture Name="gBeeWingTex" OutName="bee_wing" Format="ci4" Width="32" Height="32" Offset="0xB08" TlutOffset="0xA88"/>
+        <Texture Name="gBeeHeadTex" OutName="bee_head" Format="ci4" Width="32" Height="32" Offset="0xD08" TlutOffset="0xAA8"/>
+        <Texture Name="gBeeBodyTex" OutName="bee_body" Format="ci4" Width="32" Height="32" Offset="0xF08" TlutOffset="0xAC8"/>
+        <Texture Name="gBeeAntennaeTex" OutName="bee_antennae" Format="ci4" Width="32" Height="32" Offset="0x1108" TlutOffset="0xAE8"/>
 
         <!-- Bee Limbs -->
         <Limb Name="gBeeRootLimb" Type="Standard" EnumName="OBJECT_BEE_LIMB_ROOT" Offset="0x1308" />

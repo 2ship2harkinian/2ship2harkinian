@@ -170,8 +170,9 @@ void EnPamera_Init(Actor* thisx, PlayState* play) {
         func_80BD8588(this, play);
         func_80BD8658(this);
 
-        if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04) || CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_STONE_TOWER_TEMPLE) ||
-            CHECK_WEEKEVENTREG(WEEKEVENTREG_75_20) || (gSaveContext.save.entrance == ENTRANCE(IKANA_CANYON, 9))) {
+        if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED) ||
+            CHECK_WEEKEVENTREG(WEEKEVENTREG_CLEARED_STONE_TOWER_TEMPLE) || CHECK_WEEKEVENTREG(WEEKEVENTREG_75_20) ||
+            (gSaveContext.save.entrance == ENTRANCE(IKANA_CANYON, 9))) {
             Actor_Kill(&this->actor);
         }
 
@@ -593,7 +594,7 @@ void func_80BD9840(EnPamera* this, PlayState* play) {
         func_80BD9E60(this);
         func_80BD9904(this);
     }
-    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
         func_801A0204(NA_BGM_MUSIC_BOX_HOUSE);
     } else {
         func_801A0204(NA_BGM_INSIDE_A_HOUSE);
@@ -898,7 +899,7 @@ void func_80BDA344(Actor* thisx, PlayState* play) {
             Collider_UpdateCylinder(&this->actor, &this->collider);
             CollisionCheck_SetOC(play, &play->colChkCtx, &this->collider.base);
         }
-        if (CHECK_WEEKEVENTREG(WEEKEVENTREG_14_04)) {
+        if (CHECK_WEEKEVENTREG(WEEKEVENTREG_IKANA_SPRING_RESTORED)) {
             play->roomCtx.unk7A[0]++;
         }
     }

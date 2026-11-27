@@ -77,6 +77,15 @@ extern "C" void SavingEnhancements_PersistSaveEntranceInfo() {
             case SCENE_INISIE_BS:
                 gSaveContext.save.shipSaveInfo.pauseSaveEntrance = ENTRANCE(STONE_TOWER_TEMPLE_INVERTED, 0);
                 break;
+            // The Moon + The Moon Trials
+            case SCENE_LAST_BS:
+            case SCENE_LAST_DEKU:
+            case SCENE_LAST_GORON:
+            case SCENE_LAST_LINK:
+            case SCENE_LAST_ZORA:
+            case SCENE_SOUGEN:
+                gSaveContext.save.shipSaveInfo.pauseSaveEntrance = ENTRANCE(THE_MOON, 0);
+                break;
             default:
                 gSaveContext.save.shipSaveInfo.pauseSaveEntrance = ENTRANCE(SOUTH_CLOCK_TOWN, 0);
                 break;
@@ -116,15 +125,8 @@ extern "C" bool SavingEnhancements_CanSave() {
         return false;
     }
 
-    // Can't save once you've gone to the moon
-    if (gPlayState->sceneId == SCENE_SOUGEN || gPlayState->sceneId == SCENE_LAST_LINK ||
-        gPlayState->sceneId == SCENE_LAST_DEKU || gPlayState->sceneId == SCENE_LAST_GORON ||
-        gPlayState->sceneId == SCENE_LAST_ZORA || gPlayState->sceneId == SCENE_LAST_BS) {
-        return false;
-    }
-
     // Not in minigames that set temporary flags
-    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_08_01) || CHECK_WEEKEVENTREG(WEEKEVENTREG_82_08) ||
+    if (CHECK_WEEKEVENTREG(WEEKEVENTREG_08_01) || CHECK_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME) ||
         CHECK_WEEKEVENTREG(WEEKEVENTREG_90_20) || CHECK_WEEKEVENTREG(WEEKEVENTREG_KICKOUT_WAIT) ||
         CHECK_EVENTINF(EVENTINF_34) || CHECK_EVENTINF(EVENTINF_41)) {
         return false;

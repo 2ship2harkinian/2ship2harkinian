@@ -21,8 +21,8 @@
         <Texture Name="gClockTowerMinuteRingFace2Tex" OutName="clock_tower_minute_ring_face_2" Format="rgba16" Width="32" Height="16" Offset="0x4640" />
         <Texture Name="gClockTowerMinuteRingFace3Tex" OutName="clock_tower_minute_ring_face_3" Format="rgba16" Width="32" Height="16" Offset="0x4A40" />
         <Texture Name="gClockTowerMinuteRingSidesTex" OutName="clock_tower_minute_ring_sides" Format="rgba16" Width="32" Height="16" Offset="0x4E40" />
-        <Texture Name="gClockTowerClockFaceTopTex" OutName="clock_tower_clock_face_top" Format="ci4" Width="64" Height="64" Offset="0x5240" />
-        <Texture Name="gClockTowerClockFaceBottomTex" OutName="clock_tower_clock_face_bottom" Format="ci4" Width="64" Height="64" Offset="0x5A40" />
+        <Texture Name="gClockTowerClockFaceTopTex" OutName="clock_tower_clock_face_top" Format="ci4" Width="64" Height="64" Offset="0x5240" TlutOffset="0x0"/>
+        <Texture Name="gClockTowerClockFaceBottomTex" OutName="clock_tower_clock_face_bottom" Format="ci4" Width="64" Height="64" Offset="0x5A40" TlutOffset="0x20"/>
         <Texture Name="gClockTowerClockFacePanelBarTex" OutName="clock_tower_clock_face_panel_bar" Format="rgba16" Width="8" Height="8" Offset="0x6240" />
         <Texture Name="gClockTowerUnusedBrickTex" OutName="clock_tower_unused_bricks" Format="rgba16" Width="32" Height="32" Offset="0x62C0" />
         <Texture Name="gClockTowerUnusedMaskTex" OutName="clock_tower_unused_mask" Format="i4" Width="64" Height="64" Offset="0x6AC0" />

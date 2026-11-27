@@ -103,7 +103,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_MOON_ZORA_TRIAL] = RandoRegion{ .sceneId = SCENE_LAST_ZORA,
         .checks = {
-            CHECK(RC_MOON_TRIAL_ZORA_PIECE_OF_HEART, true),
+            CHECK(RC_MOON_TRIAL_ZORA_PIECE_OF_HEART, CAN_USE_ABILITY(SWIM)),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(THE_MOON, 0),                     ENTRANCE(MOON_ZORA_TRIAL, 0), true),

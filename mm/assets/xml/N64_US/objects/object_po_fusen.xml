@@ -18,7 +18,7 @@
         <Texture Name="gPoeBalloonTatteredChinTex" OutName="tattered_chin" Format="rgba16" Width="16" Height="16" Offset="0x12E0" />
         <Texture Name="gPoeBalloonLanternTopTex" OutName="lantern_top" Format="rgba16" Width="16" Height="16" Offset="0x14E0" />
         <Texture Name="gPoeBalloonLanternStandTex" OutName="lantern_stand" Format="rgba16" Width="16" Height="16" Offset="0x16E0" />
-        <Texture Name="gPoeBalloonLanternGlassTex" OutName="lantern_glass" Format="ci8" Width="16" Height="16" Offset="0x18E0" />
+        <Texture Name="gPoeBalloonLanternGlassTex" OutName="lantern_glass" Format="ci8" Width="16" Height="16" Offset="0x18E0" TlutOffset="0x10E0"/>
         <Texture Name="gPoeBalloonHandTex" OutName="the_hand" Format="i4" Width="16" Height="16" Offset="0x19E0" />
         <Texture Name="gPoeBalloonOrangeSkinTex" OutName="orange_skin" Format="rgba16" Width="16" Height="16" Offset="0x1A60" />
         <Texture Name="gPoeBalloonFaceTex" OutName="face" Format="rgba16" Width="32" Height="16" Offset="0x1C60" />

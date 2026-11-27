@@ -7,7 +7,7 @@
         <Texture Name="gLodmoonFarSideTLUT" OutName="lodmoon_far_side_tlut" Format="rgba16" Width="4" Height="4" Offset="0x15F8" />
         <Texture Name="gLodmoonEyesTex" OutName="lodmoon_eyes" Format="rgba16" Width="32" Height="32" Offset="0x1618" />
         <Texture Name="gLodmoonTeethTex" OutName="lodmoon_teeth" Format="rgba16" Width="64" Height="32" Offset="0x1E18" />
-        <Texture Name="gLodmoonFaceTex" OutName="lodmoon_face" Format="ci4" Width="64" Height="64" Offset="0x2E18" />
-        <Texture Name="gLodmoonFarSideTex" OutName="lodmoon_far_side" Format="ci4" Width="64" Height="64" Offset="0x3618" />
+        <Texture Name="gLodmoonFaceTex" OutName="lodmoon_face" Format="ci4" Width="64" Height="64" Offset="0x2E18" TlutOffset="0x15D8"/>
+        <Texture Name="gLodmoonFarSideTex" OutName="lodmoon_far_side" Format="ci4" Width="64" Height="64" Offset="0x3618" TlutOffset="0x15F8"/>
     </File>
 </Root>

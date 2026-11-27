@@ -1,5 +1,6 @@
 #include "2s2h/config/ConfigUpdaters.h"
 
+#include "2s2h/BenGui/Notification.h"
 #include "2s2h/Enhancements/Enhancements.h"
 #include "2s2h/Enhancements/Trackers/DisplayOverlay.h"
 
@@ -73,6 +74,17 @@ static void MigrateWarpPoints(Ship::Config* conf) {
     }
 }
 
+static void MigrateGreatFairySwordBButton(Ship::Config* conf) {
+    if (!conf->GetNestedJson().contains("CVars")) {
+        return;
+    }
+    if (CVarGetInteger("gEnhancements.Equipment.GreatFairySwordBButton", 0) != 0) {
+        CVarSetInteger("gEnhancements.Equipment.ActiveItemOnB", 1);
+    }
+
+    CVarClear("gEnhancements.Equipment.GreatFairySwordBButton");
+}
+
 ConfigVersion1Updater::ConfigVersion1Updater() : ConfigVersionUpdater(1) {
 }
 
@@ -80,6 +92,13 @@ void ConfigVersion1Updater::Update(Ship::Config* conf) {
     ApplyMigrationActions(version1Migrations);
     MigrateDisplayOverlayTimerMode(conf);
     MigrateWarpPoints(conf);
+}
+
+ConfigVersion2Updater::ConfigVersion2Updater() : ConfigVersionUpdater(2) {
+}
+
+void ConfigVersion2Updater::Update(Ship::Config* conf) {
+    MigrateGreatFairySwordBButton(conf);
 }
 
 } // namespace Ben

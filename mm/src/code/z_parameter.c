@@ -2959,7 +2959,7 @@ void Interface_UpdateButtonsPart2(PlayState* play) {
         // #endregion
 
         Interface_SetHudVisibility(HUD_VISIBILITY_B);
-    } else if (CHECK_WEEKEVENTREG(WEEKEVENTREG_82_08)) {
+    } else if (CHECK_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME)) {
         // Swordsman's log minigame
         for (i = EQUIP_SLOT_C_LEFT; i <= EQUIP_SLOT_C_RIGHT; i++) {
             if (gSaveContext.buttonStatus[i] == BTN_ENABLED) {
@@ -3779,7 +3779,7 @@ void Interface_UpdateButtonsPart1(PlayState* play) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_A_B_MINIMAP);
                     } else if ((gSaveContext.minigameStatus == MINIGAME_STATUS_ACTIVE) && CHECK_EVENTINF(EVENTINF_35)) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_B_MINIMAP);
-                    } else if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_82_08) &&
+                    } else if (!CHECK_WEEKEVENTREG(WEEKEVENTREG_PLAYING_SWORDSMAN_MINIGAME) &&
                                (gSaveContext.minigameStatus == MINIGAME_STATUS_ACTIVE)) {
                         Interface_SetHudVisibility(HUD_VISIBILITY_B);
                     } else if (play->bButtonAmmoPlusOne >= 2) {
@@ -8689,7 +8689,10 @@ void Interface_UpdateBottleTimers(PlayState* play) {
                     // Time has passed, and the time limit has been exceeded.
                     gSaveContext.bottleTimerCurTimes[i] = SECONDS_TO_TIMER(0);
 
-                    if (gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] == ITEM_HOT_SPRING_WATER) {
+                    if (GameInteractor_Should(VB_COOL_HOT_WATER,
+                                              gSaveContext.save.saveInfo.inventory.items[i + SLOT_BOTTLE_1] ==
+                                                  ITEM_HOT_SPRING_WATER,
+                                              i)) {
                         Inventory_UpdateItem(play, i + SLOT_BOTTLE_1, ITEM_SPRING_WATER);
                         Message_StartTextbox(play, 0xFA, NULL);
                     }
