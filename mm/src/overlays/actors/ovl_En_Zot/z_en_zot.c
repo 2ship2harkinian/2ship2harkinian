@@ -6,6 +6,7 @@
 
 #include "z_en_zot.h"
 #include "z64snap.h"
+#include "GameInteractor/GameInteractor.h"
 
 #define FLAGS (ACTOR_FLAG_ATTENTION_ENABLED | ACTOR_FLAG_FRIENDLY | ACTOR_FLAG_UPDATE_CULLING_DISABLED)
 
@@ -485,7 +486,9 @@ void func_80B973BC(EnZot* this, PlayState* play) {
                 break;
 
             case 0x126F:
-                Rupees_ChangeBy(90);
+                if (GameInteractor_Should(VB_GIVE_POT_GAME_REWARD, true)) {
+                    Rupees_ChangeBy(90);
+                }
                 Message_ContinueTextbox(play, 0x1270);
                 break;
 

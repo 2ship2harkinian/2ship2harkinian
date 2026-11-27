@@ -137,9 +137,25 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_GREAT_BAY_COAST_GRASS_05, true),
             CHECK(RC_GREAT_BAY_COAST_BUTTERFLY_01, HAS_ITEM(ITEM_DEKU_STICK)),
             CHECK(RC_GREAT_BAY_COAST_BUTTERFLY_02, HAS_ITEM(ITEM_DEKU_STICK)),
+            CHECK(RC_GREAT_BAY_COAST_SHORE_ROCK_1, true),
+            CHECK(RC_GREAT_BAY_COAST_SHORE_ROCK_2, true),
+            CHECK(RC_GREAT_BAY_COAST_SHORE_ROCK_3, true),
+            CHECK(RC_GREAT_BAY_COAST_SHORE_ROCK_4, true),
+            CHECK(RC_GREAT_BAY_COAST_SHORE_ROCK_5, true),
             CHECK(RC_GREAT_BAY_COAST_TREE_02, true),
             CHECK(RC_GREAT_BAY_COAST_TREE_03, true),
             CHECK(RC_GREAT_BAY_COAST_TREE_04, true),
+            CHECK(RC_GREAT_BAY_COAST_NEAR_TERMINA_SIGN, true),
+            CHECK(RC_GREAT_BAY_COAST_FISHERMANS_SIGN,   true),
+            CHECK(RC_GREAT_BAY_COAST_OCEAN_SIGN,        true),
+            CHECK(RC_GREAT_BAY_COAST_ZORA_CAPE_SIGN,    true),
+            CHECK(RC_GREAT_BAY_COAST_PIRATES_COVE_SIGN, true),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_SIGN,   CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_SHORE_ROCK_1, HAS_ITEM(ITEM_BOMBCHU) && CAN_USE_ABILITY(SWIM)),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_SHORE_ROCK_2, HAS_ITEM(ITEM_BOMBCHU) && CAN_USE_ABILITY(SWIM)),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_SHORE_ROCK_3, HAS_ITEM(ITEM_BOMBCHU) && CAN_USE_ABILITY(SWIM)),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_SHORE_ROCK_4, HAS_ITEM(ITEM_BOMBCHU) && CAN_USE_ABILITY(SWIM)),
+            CHECK(RC_GREAT_BAY_COAST_UNDERWATER_TIDE_POOL_ROCK, HAS_ITEM(ITEM_BOMBCHU) && CAN_USE_ABILITY(SWIM)),
             CHECK(RC_ENEMY_DROP_LEEVER, CanKillEnemy(ACTOR_EN_NEO_REEBA)),
             CHECK(RC_ENEMY_DROP_LIKE_LIKE, CanKillEnemy(ACTOR_EN_RR)),
         },
@@ -165,6 +181,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_GREAT_BAY_COAST_POT_10, true),
             CHECK(RC_GREAT_BAY_COAST_POT_11, true),
             CHECK(RC_GREAT_BAY_COAST_POT_12, true),
+            CHECK(RC_GREAT_BAY_COAST_LAB_SIGN, true),
             CHECK(RC_GREAT_BAY_COAST_TINGLE_MAP_01, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT)) && CAN_AFFORD(RC_GREAT_BAY_COAST_TINGLE_MAP_01)),
             CHECK(RC_GREAT_BAY_COAST_TINGLE_MAP_02, (HAS_ITEM(ITEM_BOW) || HAS_ITEM(ITEM_HOOKSHOT)) && CAN_AFFORD(RC_GREAT_BAY_COAST_TINGLE_MAP_02)),
         },
@@ -192,6 +209,7 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_GREAT_BAY_COAST_CLIFFSIDE] = RandoRegion{ .sceneId = SCENE_30GYOSON,
         .checks = {
+            CHECK(RC_GREAT_BAY_COAST_GOSSIP_FAIRY, CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_GREAT_BAY_COAST_PIECE_OF_HEART, CAN_HOOK_SCARECROW && CAN_GROW_BEAN_PLANT),
             CHECK(RC_GREAT_BAY_COAST_POT_05, true),
             CHECK(RC_GREAT_BAY_COAST_POT_06, true),
@@ -200,6 +218,9 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_GREAT_BAY_COAST_LEDGE_POT_01, HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_GREAT_BAY_COAST_LEDGE_POT_02, HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_GREAT_BAY_COAST_LEDGE_POT_03, HAS_ITEM(ITEM_HOOKSHOT)),
+            CHECK(RC_GREAT_BAY_COAST_LEDGE_SOFT_SOIL, HAS_BOTTLE && CAN_ACCESS(BUGS)),
+            CHECK(RC_GREAT_BAY_COAST_CLIFFSIDE_ROCK_1, true),
+            CHECK(RC_GREAT_BAY_COAST_CLIFFSIDE_ROCK_2, true),
         },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GROTTOS, 27),                     ENTRANCE(GREAT_BAY_COAST, 0), CAN_HOOK_SCARECROW && CAN_GROW_BEAN_PLANT),
@@ -240,6 +261,16 @@ static RegisterShipInitFunc initFunc([]() {
         },
     };
     Regions[RR_PINNACLE_ROCK_ENTRANCE] = RandoRegion{ .name = "Entrance", .sceneId = SCENE_SINKAI,
+        .checks = {
+            CHECK(RC_PINNACLE_ROCK_SIGN,          true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_01, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_02, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_03, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_04, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_05, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_06, true),
+            CHECK(RC_PINNACLE_ROCK_ARROW_SIGN_07, true),
+        },
         .exits = { //     TO                                         FROM
             EXIT(ENTRANCE(GREAT_BAY_COAST, 3),              ENTRANCE(PINNACLE_ROCK, 0), true),
         },
@@ -289,6 +320,7 @@ static RegisterShipInitFunc initFunc([]() {
             CHECK(RC_ZORA_CAPE_NEAR_OWL_STATUE_POT_02, true),
             CHECK(RC_ZORA_CAPE_NEAR_OWL_STATUE_POT_03, true),
             CHECK(RC_ZORA_CAPE_NEAR_OWL_STATUE_POT_04, true),
+            CHECK(RC_ZORA_CAPE_GREAT_BAY_TEMPLE_SIGN,  true),
             CHECK(RC_ZORA_CAPE_OWL_STATUE,            CAN_USE_SWORD),
         },
         .exits = { //     TO                                         FROM
@@ -297,6 +329,9 @@ static RegisterShipInitFunc initFunc([]() {
         },
         .connections = {
             CONNECTION(RR_ZORA_CAPE, CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
+        },
+        .events = {
+            EVENT(RE_ACCESS_PICTOGRAPH_LULU, HAS_ITEM(ITEM_PICTOGRAPH_BOX)),
         },
         .oneWayEntrances = {
             ENTRANCE(ZORA_CAPE, 6), // From Song of Soaring
@@ -328,6 +363,11 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_CAPE_OUTSIDE_FAIRY_FOUNTAIN] = RandoRegion{ .sceneId = SCENE_31MISAKI,
         .checks = {
+            CHECK(RC_ZORA_CAPE_TREE_ISLAND_ROCK_1, true),
+            CHECK(RC_ZORA_CAPE_TREE_ISLAND_ROCK_2, true),
+            CHECK(RC_ZORA_CAPE_TREE_ISLAND_ROCK_3, true),
+            CHECK(RC_ZORA_CAPE_TREE_ISLAND_ROCK_4, true),
+            CHECK(RC_ZORA_CAPE_TREE_ISLAND_ROCK_5, true),
             CHECK(RC_ENEMY_DROP_GUAY, CanKillEnemy(ACTOR_EN_CROW)),
         },
         .exits = { //     TO                                         FROM
@@ -339,17 +379,32 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_CAPE] = RandoRegion{ .sceneId = SCENE_31MISAKI,
         .checks = {
+            CHECK(RC_ZORA_CAPE_GOSSIP_FAIRY,               CAN_PLAY_SONG(HEALING) || CAN_PLAY_SONG(EPONA) || CAN_PLAY_SONG(STORMS)),
             CHECK(RC_ZORA_CAPE_LEDGE_CHEST_01,             HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_LEDGE_CHEST_02,             HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_UNDERWATER_CHEST,           CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
             CHECK(RC_ZORA_CAPE_WATERFALL_PIECE_OF_HEART,   CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
             CHECK(RC_ZORA_CAPE_NEAR_BEAVERS_POT_01,        true),
             CHECK(RC_ZORA_CAPE_NEAR_BEAVERS_POT_02,        true),
+            CHECK(RC_ZORA_CAPE_POT_GAME_REWARD,            CAN_BE_ZORA),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_01,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_02,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_03,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_04,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_05,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_06,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_07,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_08,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_09,              true),
+            CHECK(RC_ZORA_CAPE_SHORE_ROCK_10,              true),
             CHECK(RC_ZORA_CAPE_TREE_01,                    true),
             CHECK(RC_ZORA_CAPE_TREE_02,                    true),
             CHECK(RC_ZORA_CAPE_TREE_03,                    HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_TREE_04,                    HAS_ITEM(ITEM_HOOKSHOT)),
             CHECK(RC_ZORA_CAPE_TREE_05,                    HAS_ITEM(ITEM_HOOKSHOT)),
+            CHECK(RC_ZORA_CAPE_GAME_SIGN,                  true),
+            CHECK(RC_ZORA_CAPE_WATERFALL_SIGN,             true),
+            CHECK(RC_ZORA_CAPE_UNDERWATER_SIGN,            CAN_BE_ZORA && CAN_USE_ABILITY(SWIM)),
             CHECK(RC_ENEMY_DROP_LEEVER,                    CanKillEnemy(ACTOR_EN_NEO_REEBA)),
             CHECK(RC_ENEMY_DROP_LIKE_LIKE,                 CanKillEnemy(ACTOR_EN_RR)),
         },
@@ -407,6 +462,8 @@ static RegisterShipInitFunc initFunc([]() {
     };
     Regions[RR_ZORA_HALL] = RandoRegion{ .sceneId = SCENE_33ZORACITY,
         .checks = {
+            CHECK(RC_ZORA_HALL_LULU_PHOTO_BAD, CAN_BE_ZORA && CAN_ACCESS(PICTOGRAPH_LULU)),
+            CHECK(RC_ZORA_HALL_LULU_PHOTO_GOOD, CAN_BE_ZORA && CAN_ACCESS(PICTOGRAPH_LULU)),
             CHECK(RC_ZORA_HALL_SCENE_LIGHTS, CAN_USE_MAGIC_ARROW(FIRE)),
         },
         .exits = { //     TO                                         FROM

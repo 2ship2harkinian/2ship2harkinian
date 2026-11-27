@@ -242,6 +242,7 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_POT, "Pots" },
     { RCTYPE_REMAINS, "Boss Remains" },
     { RCTYPE_SHOP, "Shop Items" },
+    { RCTYPE_SIGNPOST, "Signposts" },
     { RCTYPE_SKULL_TOKEN, "Skulltula Tokens" },
     { RCTYPE_SNOWBALL, "Snowballs" },
     { RCTYPE_SONG, "Songs" },
@@ -249,6 +250,7 @@ static std::map<RandoCheckType, const char*> checkTypeNames = {
     { RCTYPE_TINGLE_SHOP, "Tingle Maps" },
     { RCTYPE_TREE, "Trees" },
     { RCTYPE_WONDER_ITEM, "Wonder Items" },
+    { RCTYPE_NOTEBOOK_ENTRY, "Notebook Entries" },
 };
 
 struct CheckFilterGroup {
@@ -464,12 +466,17 @@ static RegisterShipInitFunc refreshMetricsInit(RefreshMetrics, {
                                                                    "gRando.Options.RO_SHUFFLE_GOLD_SKULLTULAS",
                                                                    "gRando.Options.RO_SHUFFLE_GRASS_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_HIVE_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_MISC_FAIRIES",
+                                                                   "gRando.Options.RO_SHUFFLE_NOTEBOOK_ENTRIES",
                                                                    "gRando.Options.RO_SHUFFLE_OCARINA_BUTTONS",
                                                                    "gRando.Options.RO_SHUFFLE_OWL_STATUES",
                                                                    "gRando.Options.RO_SHUFFLE_POT_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_ROCK_DROPS",
                                                                    "gRando.Options.RO_SHUFFLE_SHOPS",
+                                                                   "gRando.Options.RO_SHUFFLE_SIGNPOSTS",
                                                                    "gRando.Options.RO_SHUFFLE_SKELETON_KEY",
                                                                    "gRando.Options.RO_SHUFFLE_SNOWBALL_DROPS",
+                                                                   "gRando.Options.RO_SHUFFLE_SOFT_SOIL",
                                                                    "gRando.Options.RO_SHUFFLE_SONGS",
                                                                    "gRando.Options.RO_SHUFFLE_SONG_DOUBLE_TIME",
                                                                    "gRando.Options.RO_SHUFFLE_SONG_INVERTED_TIME",
@@ -667,9 +674,15 @@ static void DrawGeneralTab() {
     ImGui::SeparatorText("Live Options");
     ImGui::TextWrapped("These options can be changed on the fly, and are not tied to the seed generation.");
     UIWidgets::CVarCheckbox(
-        "Container Style Matches Contents", "gRando.CSMC",
-        UIWidgets::CheckboxOptions().Tooltip("This will make the contents of a container match the container itself. "
-                                             "Eg chests, pots, crates, grass, etc."));
+        "Use Rando Container Models", "gRando.RandoContainers",
+        UIWidgets::CheckboxOptions().Tooltip("This will make containers (grass, pots, chests, etc.) use custom models "
+                                             "made for rando."));
+    if (CVarGetInteger("gRando.RandoContainers", 0)) {
+        UIWidgets::CVarCheckbox("Container Style Matches Contents", "gRando.CSMC",
+                                UIWidgets::CheckboxOptions().Tooltip(
+                                    "This will make the contents of a container match the container itself. "
+                                    "Eg chests, pots, crates, grass, etc."));
+    }
 
     UIWidgets::CVarCombobox(
         "Junk Items", "gRando.JunkItems", &junkItemsOptions,
@@ -748,9 +761,13 @@ static const SceneryDropGroup SCENERY_DROP_GROUPS[] = {
     { "Barrel Drops", RO_SHUFFLE_BARREL_DROPS, RCTYPE_BARREL, "Breaking each barrel is a check." },
     { "Snowball Drops", RO_SHUFFLE_SNOWBALL_DROPS, RCTYPE_SNOWBALL, "Breaking each large snowball is a check." },
     { "Grass Drops", RO_SHUFFLE_GRASS_DROPS, RCTYPE_GRASS, "Cutting each clump of grass is a check." },
+    { "Rock Drops", RO_SHUFFLE_ROCK_DROPS, RCTYPE_ROCK, "Breaking each small rock is a check." },
     { "Tree Drops", RO_SHUFFLE_TREE_DROPS, RCTYPE_TREE,
       "Bonking into each tree that shakes is a check. Trees that don't shake have no drops." },
     { "Beehive Drops", RO_SHUFFLE_HIVE_DROPS, RCTYPE_BEEHIVE, "Knocking down each beehive is a check." },
+    { "Misc Fairies", RO_SHUFFLE_MISC_FAIRIES, RCTYPE_FAIRY, "Each gossip stone and fountain fairy is a check." },
+    { "Signposts", RO_SHUFFLE_SIGNPOSTS, RCTYPE_SIGNPOST, "Reading each signpost is a check." },
+    { "Soft Soil Drops", RO_SHUFFLE_SOFT_SOIL, RCTYPE_SOIL, "Each drop from using bugs on soil patches is a check." },
 };
 
 static void SetSceneryDropOptions(int32_t value) {
@@ -814,6 +831,8 @@ static void DrawCheckPoolTab() {
     CheckPoolCheckbox("Tingle Maps", RO_SHUFFLE_TINGLE_SHOPS, RCTYPE_TINGLE_SHOP,
                       "Maps sold by Tingle are checks, with randomized prices.");
     CheckPoolCheckbox("Cows", RO_SHUFFLE_COWS, RCTYPE_COW, "Playing Epona's Song to a cow is a check.");
+    CheckPoolCheckbox("Notebook Entries", RO_SHUFFLE_NOTEBOOK_ENTRIES, RCTYPE_NOTEBOOK_ENTRY,
+                      "Bombers' Notebook entries from NPC events are checks.");
     UIWidgets::EndCard();
 
     UIWidgets::BeginCard("checkPoolCreatures");

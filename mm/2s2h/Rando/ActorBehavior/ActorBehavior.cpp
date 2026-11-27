@@ -66,6 +66,7 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnCowBehavior();
     Rando::ActorBehavior::InitEnDaiBehavior();
     Rando::ActorBehavior::InitEnDnhBehavior();
+    Rando::ActorBehavior::InitEnElfBehavior();
     Rando::ActorBehavior::InitEnElfgrpBehavior();
     Rando::ActorBehavior::InitEnElforgBehavior();
     Rando::ActorBehavior::InitEnemyDropBehavior();
@@ -82,8 +83,10 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnGoBehavior();
     Rando::ActorBehavior::InitEnGsBehavior();
     Rando::ActorBehavior::InitEnHgBehavior();
+    Rando::ActorBehavior::InitEnHsBehavior();
     Rando::ActorBehavior::InitEnInBehavior();
     Rando::ActorBehavior::InitEnInvadepohBehavior();
+    Rando::ActorBehavior::InitEnIshiBehavior();
     Rando::ActorBehavior::InitEnItem00Behavior();
     Rando::ActorBehavior::InitEnJgameTsnBehavior();
     Rando::ActorBehavior::InitEnJgBehavior();
@@ -110,12 +113,14 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnSiBehavior();
     Rando::ActorBehavior::InitEnSob1Behavior();
     Rando::ActorBehavior::InitEnSshBehavior();
+    Rando::ActorBehavior::InitEnSthBehavior();
     Rando::ActorBehavior::InitEnStoneheishiBehavior();
     Rando::ActorBehavior::InitEnSyatekiManBehavior();
     Rando::ActorBehavior::InitEnTabBehavior();
     Rando::ActorBehavior::InitEnTakarayaBehavior();
     Rando::ActorBehavior::InitEnTalkBehavior();
     Rando::ActorBehavior::InitEnTimeTagBehavior();
+    Rando::ActorBehavior::InitEnTkBehavior();
     Rando::ActorBehavior::InitEnTotoBehavior();
     Rando::ActorBehavior::InitEnTrtBehavior();
     Rando::ActorBehavior::InitEnYbBehavior();
@@ -124,11 +129,13 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitEnZowBehavior();
     Rando::ActorBehavior::InitItemBHeartBehavior();
     Rando::ActorBehavior::InitItemGetBehavior();
+    Rando::ActorBehavior::InitNotebookEntriesBehavior();
     Rando::ActorBehavior::InitObjCombBehavior();
     Rando::ActorBehavior::InitObjKibakoBehavior();
     Rando::ActorBehavior::InitObjGrassBehavior();
     Rando::ActorBehavior::InitObjMoonStoneBehavior();
     Rando::ActorBehavior::InitObjSnowballBehavior();
+    Rando::ActorBehavior::InitObjSwprizeBehavior();
     Rando::ActorBehavior::InitObjTaruBehavior();
     Rando::ActorBehavior::InitObjTreeBehavior();
     Rando::ActorBehavior::InitObjTsuboBehavior();
@@ -137,6 +144,7 @@ void Rando::ActorBehavior::OnFileLoad() {
     Rando::ActorBehavior::InitSoulsBehavior();
     Rando::ActorBehavior::InitTrapsBehavior();
     Rando::ActorBehavior::InitWonderItemsBehavior();
+    Rando::ActorBehavior::InitSignpostBehavior();
 
     COND_HOOK(ShouldVanillaBehavior, IS_RANDO, MiscVanillaBehaviorHandler);
 }

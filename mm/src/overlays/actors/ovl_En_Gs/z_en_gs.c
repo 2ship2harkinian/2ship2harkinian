@@ -293,9 +293,11 @@ void func_8099807C(EnGs* this, PlayState* play) {
                 case OCARINA_SONG_HEALING:
                 case OCARINA_SONG_EPONAS:
                     if (!Flags_GetSwitch(play, this->switchFlag)) {
-                        Actor_Spawn(&play->actorCtx, play, ACTOR_EN_ELF, this->actor.world.pos.x,
-                                    this->actor.world.pos.y + 40.0f, this->actor.world.pos.z, 0, 0, 0,
-                                    FAIRY_PARAMS(FAIRY_TYPE_2, false, 0));
+                        if (GameInteractor_Should(VB_SPAWN_GOSSIP_ELF, true, this)) {
+                            Actor_Spawn(&play->actorCtx, play, ACTOR_EN_ELF, this->actor.world.pos.x,
+                                        this->actor.world.pos.y + 40.0f, this->actor.world.pos.z, 0, 0, 0,
+                                        FAIRY_PARAMS(FAIRY_TYPE_2, false, 0));
+                        }
                         Actor_PlaySfx(&this->actor, NA_SE_EV_BUTTERFRY_TO_FAIRY);
                         Flags_SetSwitch(play, this->switchFlag);
                     }
@@ -303,9 +305,11 @@ void func_8099807C(EnGs* this, PlayState* play) {
 
                 case OCARINA_SONG_STORMS:
                     if (!Flags_GetSwitch(play, this->switchFlag)) {
-                        Actor_Spawn(&play->actorCtx, play, ACTOR_EN_ELF, this->actor.world.pos.x,
-                                    this->actor.world.pos.y + 40.0f, this->actor.world.pos.z, 0, 0, 0,
-                                    FAIRY_PARAMS(FAIRY_TYPE_7, false, 0));
+                        if (GameInteractor_Should(VB_SPAWN_GOSSIP_ELF, true, this)) {
+                            Actor_Spawn(&play->actorCtx, play, ACTOR_EN_ELF, this->actor.world.pos.x,
+                                        this->actor.world.pos.y + 40.0f, this->actor.world.pos.z, 0, 0, 0,
+                                        FAIRY_PARAMS(FAIRY_TYPE_7, false, 0));
+                        }
                         Actor_PlaySfx(&this->actor, NA_SE_EV_BUTTERFRY_TO_FAIRY);
                         Flags_SetSwitch(play, this->switchFlag);
                     }
