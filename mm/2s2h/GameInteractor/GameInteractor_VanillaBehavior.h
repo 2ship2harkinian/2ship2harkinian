@@ -1062,7 +1062,7 @@ typedef enum {
     // true
     // ```
     // #### `args`
-    // - `uint16_t flag`
+    // - `*u16 flag`
     VB_GIVE_NOTEBOOK_ENTRY,
 
     // #### `result`

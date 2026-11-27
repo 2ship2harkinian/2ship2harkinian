@@ -68,12 +68,12 @@ void Rando::ActorBehavior::InitNotebookEntriesBehavior() {
     bool shouldRegister = IS_RANDO && RANDO_SAVE_OPTIONS[RO_SHUFFLE_NOTEBOOK_ENTRIES];
 
     COND_VB_SHOULD(VB_GIVE_NOTEBOOK_ENTRY, shouldRegister, {
+        u16* flag = va_arg(args, u16*);
         *should = false;
         if (!CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
             return;
         }
-        u16 flag = va_arg(args, u16);
-        auto entry = notebookEntryMap.find(flag);
+        auto entry = notebookEntryMap.find(*flag);
         if (entry != notebookEntryMap.end() && !RANDO_SAVE_CHECKS[entry->second].cycleObtained) {
             RANDO_SAVE_CHECKS[entry->second].eligible = true;
         }
