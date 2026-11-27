@@ -3645,7 +3645,7 @@ void Message_DisplaySceneTitleCard(PlayState* play, u16 textId) {
 }
 
 void Message_BombersNotebookQueueEvent(PlayState* play, u8 event) {
-    if (GameInteractor_Should(VB_GIVE_NOTEBOOK_ENTRY, true, gBombersNotebookWeekEventFlags[event])) {
+    if (GameInteractor_Should(VB_GIVE_NOTEBOOK_ENTRY, true, &gBombersNotebookWeekEventFlags[event])) {
         MessageContext* msgCtx = &play->msgCtx;
 
         if (CHECK_QUEST_ITEM(QUEST_BOMBERS_NOTEBOOK)) {
